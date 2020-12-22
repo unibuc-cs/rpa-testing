@@ -1,4 +1,4 @@
 # rpa-testing
-Test generation for RPA bots
+Test generation for UiPath RPA robots
 
-Corresponding Jira project is https://rpa-testing.atlassian.net/jira/software/projects/RT
+Developed by [@unibuc-cs/rpa-testing](https://github.com/orgs/unibuc-cs/teams/rpa-testing)
