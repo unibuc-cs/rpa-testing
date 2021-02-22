@@ -1,0 +1,67 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="CreateEmplyeesDataTable" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="out_employeesDT" Type="OutArgument(sd:DataTable)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1607.33333333333,826</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>CreateEmplyeesDataTable_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="CreateEmplyeesDataTable" sap:VirtualizedContainerService.HintSize="376,150.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:BuildDataTable DataTable="[out_employeesDT]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xD;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xD;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xD;&#xA;      &lt;xs:complexType&gt;&#xD;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xD;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xD;&#xA;            &lt;xs:complexType&gt;&#xD;&#xA;              &lt;xs:sequence&gt;&#xD;&#xA;                &lt;xs:element name=&quot;employee_name&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;                &lt;xs:element name=&quot;master_degree&quot; msdata:Caption=&quot;&quot; type=&quot;xs:boolean&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;salary&quot; msdata:Caption=&quot;&quot; type=&quot;xs:double&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;register_date&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;project_name&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;contract_type&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;leave_request&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;notice_period&quot; msdata:Caption=&quot;&quot; type=&quot;xs:int&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;              &lt;/xs:sequence&gt;&#xD;&#xA;            &lt;/xs:complexType&gt;&#xD;&#xA;          &lt;/xs:element&gt;&#xD;&#xA;        &lt;/xs:choice&gt;&#xD;&#xA;      &lt;/xs:complexType&gt;&#xD;&#xA;    &lt;/xs:element&gt;&#xD;&#xA;  &lt;/xs:schema&gt;&#xD;&#xA;  &lt;TableName&gt;&#xD;&#xA;    &lt;employee_name&gt;Adelina Staicu&lt;/employee_name&gt;&#xD;&#xA;    &lt;master_degree&gt;true&lt;/master_degree&gt;&#xD;&#xA;    &lt;salary&gt;25000&lt;/salary&gt;&#xD;&#xA;    &lt;register_date&gt;30.05.2019&lt;/register_date&gt;&#xD;&#xA;    &lt;project_name&gt;RPA&lt;/project_name&gt;&#xD;&#xA;    &lt;contract_type&gt;long-term&lt;/contract_type&gt;&#xD;&#xA;    &lt;leave_request&gt;paid-leave&lt;/leave_request&gt;&#xD;&#xA;    &lt;notice_period&gt;5&lt;/notice_period&gt;&#xD;&#xA;  &lt;/TableName&gt;&#xD;&#xA;  &lt;TableName&gt;&#xD;&#xA;    &lt;employee_name&gt;Marina Cernat&lt;/employee_name&gt;&#xD;&#xA;    &lt;master_degree&gt;true&lt;/master_degree&gt;&#xD;&#xA;    &lt;salary&gt;25000&lt;/salary&gt;&#xD;&#xA;    &lt;register_date&gt;20.04.2019&lt;/register_date&gt;&#xD;&#xA;    &lt;project_name&gt;RPA&lt;/project_name&gt;&#xD;&#xA;    &lt;contract_type&gt;long-term&lt;/contract_type&gt;&#xD;&#xA;    &lt;leave_request&gt;paid-leave&lt;/leave_request&gt;&#xD;&#xA;    &lt;notice_period&gt;5&lt;/notice_period&gt;&#xD;&#xA;  &lt;/TableName&gt;&#xD;&#xA;  &lt;TableName&gt;&#xD;&#xA;    &lt;employee_name&gt;Alin Stefanescu&lt;/employee_name&gt;&#xD;&#xA;    &lt;master_degree&gt;true&lt;/master_degree&gt;&#xD;&#xA;    &lt;salary&gt;80000&lt;/salary&gt;&#xD;&#xA;    &lt;register_date&gt;25.12.2020&lt;/register_date&gt;&#xD;&#xA;    &lt;project_name&gt;River&lt;/project_name&gt;&#xD;&#xA;    &lt;contract_type&gt;long-term&lt;/contract_type&gt;&#xD;&#xA;    &lt;leave_request&gt;paid-leave&lt;/leave_request&gt;&#xD;&#xA;    &lt;notice_period&gt;10&lt;/notice_period&gt;&#xD;&#xA;  &lt;/TableName&gt;&#xD;&#xA;  &lt;TableName&gt;&#xD;&#xA;    &lt;employee_name&gt;Ciprian Paduraru&lt;/employee_name&gt;&#xD;&#xA;    &lt;master_degree&gt;true&lt;/master_degree&gt;&#xD;&#xA;    &lt;salary&gt;80000&lt;/salary&gt;&#xD;&#xA;    &lt;register_date&gt;04.01.2021&lt;/register_date&gt;&#xD;&#xA;    &lt;project_name&gt;River&lt;/project_name&gt;&#xD;&#xA;    &lt;contract_type&gt;long-term&lt;/contract_type&gt;&#xD;&#xA;    &lt;leave_request&gt;paid-leave&lt;/leave_request&gt;&#xD;&#xA;    &lt;notice_period&gt;10&lt;/notice_period&gt;&#xD;&#xA;  &lt;/TableName&gt;&#xD;&#xA;  &lt;TableName&gt;&#xD;&#xA;    &lt;employee_name&gt;Ion Popescu&lt;/employee_name&gt;&#xD;&#xA;    &lt;salary&gt;10000&lt;/salary&gt;&#xD;&#xA;    &lt;register_date&gt;07.01.2021&lt;/register_date&gt;&#xD;&#xA;    &lt;project_name&gt;RPA&lt;/project_name&gt;&#xD;&#xA;    &lt;contract_type&gt;short-term&lt;/contract_type&gt;&#xD;&#xA;    &lt;leave_request&gt;paid-leave&lt;/leave_request&gt;&#xD;&#xA;    &lt;notice_period&gt;3&lt;/notice_period&gt;&#xD;&#xA;  &lt;/TableName&gt;&#xD;&#xA;  &lt;TableName&gt;&#xD;&#xA;    &lt;employee_name&gt;Stan Bran&lt;/employee_name&gt;&#xD;&#xA;    &lt;salary&gt;10000&lt;/salary&gt;&#xD;&#xA;    &lt;register_date&gt;07.01.2021&lt;/register_date&gt;&#xD;&#xA;    &lt;project_name&gt;Apollo&lt;/project_name&gt;&#xD;&#xA;    &lt;contract_type&gt;short-term&lt;/contract_type&gt;&#xD;&#xA;    &lt;leave_request&gt;unpaid-leave&lt;/leave_request&gt;&#xD;&#xA;    &lt;notice_period&gt;5&lt;/notice_period&gt;&#xD;&#xA;  &lt;/TableName&gt;&#xD;&#xA;&lt;/NewDataSet&gt;" />
+  </Sequence>
+</Activity>
