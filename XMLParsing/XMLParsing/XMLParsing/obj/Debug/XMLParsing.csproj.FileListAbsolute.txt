@@ -11,3 +11,10 @@ C:\Users\Marina Cernat\Desktop\XMLParsing\XMLParsing\XMLParsing\obj\Debug\XMLPar
 C:\Users\Marina Cernat\Desktop\XMLParsing\XMLParsing\XMLParsing\obj\Debug\XMLParsing.exe
 C:\Users\Marina Cernat\Desktop\XMLParsing\XMLParsing\XMLParsing\obj\Debug\XMLParsing.pdb
 C:\Users\Marina Cernat\Desktop\XMLParsing\XMLParsing\XMLParsing\obj\Debug\XMLParsing.csprojAssemblyReference.cache
+C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\XMLParsing\XMLParsing\XMLParsing\bin\Debug\XMLParsing.exe.config
+C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\XMLParsing\XMLParsing\XMLParsing\bin\Debug\XMLParsing.exe
+C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\XMLParsing\XMLParsing\XMLParsing\bin\Debug\XMLParsing.pdb
+C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\XMLParsing\XMLParsing\XMLParsing\obj\Debug\XMLParsing.csprojAssemblyReference.cache
+C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\XMLParsing\XMLParsing\XMLParsing\obj\Debug\XMLParsing.csproj.CoreCompileInputs.cache
+C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\XMLParsing\XMLParsing\XMLParsing\obj\Debug\XMLParsing.exe
+C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\XMLParsing\XMLParsing\XMLParsing\obj\Debug\XMLParsing.pdb

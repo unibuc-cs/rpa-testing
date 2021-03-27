@@ -9,7 +9,7 @@ namespace XMLParsing
     {
         static void Main(string[] args)
         {
-            var xml = System.Xml.Linq.XDocument.Load(@"C:\Users\Marina Cernat\Desktop\RobotModelRPATesting\RobotModelRPATesting\Main.xaml");
+            var xml = System.Xml.Linq.XDocument.Load(@"C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\UiPathModels\PoC_PraxisTest\PraxisTest\VarianteA.xaml");
 
             IEnumerable<XElement> firstNode = xml.Descendants();
 
@@ -86,7 +86,7 @@ namespace XMLParsing
 
             }
 
-            Console.WriteLine("Conditiile modelului:");
+            Console.WriteLine("Model conditions:");
             Console.WriteLine("");
 
             foreach (String condition in conditions)
@@ -116,7 +116,7 @@ namespace XMLParsing
 
 
             Console.WriteLine("\n\n");
-            Console.WriteLine("Variabilele care se afla in conditii:");
+            Console.WriteLine("Variables present in conditions:");
             Console.WriteLine("");
 
             List<string> varInCond = new List<string>();
@@ -140,13 +140,16 @@ namespace XMLParsing
             }
 
             Console.WriteLine("\n\n");
-            Console.WriteLine("Expresia din switch si ramurile:");
+            Console.WriteLine("Switch expression and branches:");
             Console.WriteLine("");
+
+            bool haveSwitch = false;
 
             foreach (XElement innerNode in firstNode)
             {
                 if (innerNode.Name.LocalName.Equals("FlowSwitch"))
                 {
+                    haveSwitch = true;
 
                     IEnumerable<XAttribute> att = innerNode.Attributes();
 
@@ -159,6 +162,9 @@ namespace XMLParsing
                         }
                        Console.WriteLine("Switch expression: " + a);
                     }
+
+                    Console.WriteLine("default");
+                    Console.WriteLine("");
                 }
 
                 if (innerNode.Name.LocalName.Equals("FlowStep") && innerNode.FirstAttribute.Name.ToString().Contains("Key"))
@@ -168,8 +174,11 @@ namespace XMLParsing
                     Console.WriteLine(name);
                 }
             }
-            Console.WriteLine("default");
-            Console.WriteLine("");
+            
+            if (haveSwitch == false)
+            {
+                Console.WriteLine("Not applicable");
+            }
 
             Console.ReadLine();
         }
