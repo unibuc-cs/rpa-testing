@@ -1,0 +1,199 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="VarianteB_2" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1012.8,2631.2" sap2010:WorkflowViewState.IdRef="VarianteB_2_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ucas="clr-namespace:UiPath.Core.Activities.SAP;assembly=UiPath.UiAutomation.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="66">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Core.Activities.SAP</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.CSV</x:String>
+      <x:String>UiPath.CSV.Activities</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="31">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="VarianteB_2" sap:VirtualizedContainerService.HintSize="475.2,2466.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Application: SAP Easy Access" sap:VirtualizedContainerService.HintSize="433.6,2373.6" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" Version="V1">
+      <uix:NApplicationCard.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="375.2,2082.4" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="jobStatus" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:MaximizeWindow Window="{x:Null}" DisplayName="Maximize Window" sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="MaximizeWindow_1" />
+            <ucas:CallTransaction DisplayName="Call Transaction 'saplogon.exe SAP'" sap:VirtualizedContainerService.HintSize="333.6,160.8" sap2010:WorkflowViewState.IdRef="CallTransaction_1" Transaction="SM37">
+              <ucas:CallTransaction.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="83b095d5-3cb5-4f89-b925-3b267f0011ed" InformativeScreenshot="d358941c936ecc2b16377ad81c3e3a5e">
+                  <ui:Target.TimeoutMS>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:Target.TimeoutMS>
+                  <ui:Target.WaitForReady>
+                    <InArgument x:TypeArguments="ui:WaitForReady" />
+                  </ui:Target.WaitForReady>
+                </ui:Target>
+              </ucas:CallTransaction.Target>
+            </ucas:CallTransaction>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="333.6,219.2" sap2010:WorkflowViewState.IdRef="NTypeInto_1" Text="Test1" />
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into '*'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="333.6,228" sap2010:WorkflowViewState.IdRef="NTypeInto_2" Text="*">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable DesignTimeRectangle="287, 234, 155, 33" ElementType="InputBox" FriendlyName="'*'" FullSelectorArgument="&lt;sap id='usr/txtBTCH2170-USERNAME' /&gt;" FuzzySelectorArgument="&lt;sap id='usr/txtBTCH2170-USERNAME' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAJ8AAAAlCAYAAABcSjvzAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAFLSURBVHhe7dsxbgMhEEZhDpWKMjdxwynSu52DuOYyHCJNmlQTliyxNwEJHC3TvE/6ZWzJ3dPuurB7uVy1t/ePT8b+tVZXdSW+1pcYO3OH+F7fbowtWTM+4GzEBzPEBzPEBzOH+LYD8WGVGt824sNSp8TnnNtPQB/xwczT8cXg1HnRtL9/RHwYQXwwMxVfFK9BYgku5bMLcTvlz4P6/HlFfBgxEV9S8flql8NyLmgsBUYN5f3xKkh8GDF15atSSnto+TWffyM+jHgivv0KGESl89xHfBgxHV/5oeG8Srntivrtllue/e6IDyOm40tRNDzEFkNQKQ+Ad8SHEdPxjSA+jCA+mCE+mCE+mCE+mCE+mCE+mCE+mDklPmAE8cEM8cHMIT7+t4uVanz8aRzLER/MEB/MdONjbMX+xMfYyv3E11vrS4zNrNXV9676BX9WHKLhR9cmAAAAAElFTkSuQmCC" InformativeScreenshot="7daf354b34cdf3c824207eb2393f1a40.png" ScopeSelectorArgument="&lt;wnd app='saplogon.exe' cls='SAP_FRONTEND_SESSION' title='Simple Job Selection' /&gt;" SearchSteps="Selector" Text="*" TextMethod="AttributeText" TextSelector="&lt;sap /&gt;" />
+              </uix:NTypeInto.Target>
+            </uix:NTypeInto>
+            <uix:NClick ClickType="Single" DisplayName="Click 'Execute'" sap:VirtualizedContainerService.HintSize="333.6,167.2" sap2010:WorkflowViewState.IdRef="NClick_1" KeyModifiers="None" MouseButton="Left">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable DesignTimeRectangle="2470, 1347, 80, 35" ElementType="Button" FriendlyName="'Execute'" FullSelectorArgument="&lt;sap id='tbar[1]/btn[8]' /&gt;" FuzzySelectorArgument="&lt;sap id='tbar[1]/btn[8]' check:text='Execute' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAFQAAAAnCAYAAACR3W+uAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAKJSURBVGhD7Zq9auNAEIDzRteEVEkfSJMiD3KF2mvuDUzg+nTu3AZzT2BQ6VLujEuVLudm9s/7K62kQSTHLHzErEbS7KfZlQJ79+PxGQQ+RCgzN6FPL3D/8wMefn0KEyBn5C4RSgcef/+F1/cDvP1phQrIFTlTUmOhZFtkToeckbus0NwJwjgilBkRyowIZUaEMiNCmRGhzMwW2rRXGGz9BZrMef87i4Weux4OOdrTlxeqx9DDJnNsLguFXmG3zR//Dmw6KonvJnTfU9Zwbo9Bv63ww96L3Z7g0Ot+1foedvvwvPG4I+zolsmS4/eb30HzxNbmkWGVCk0qYXuBM3V1p1uc7VPJn2Czv7hBhdJt3FUtKzpOhZm4GqGYP95DS8UxqPsddXxtHgUWC9WDSmkC0fjEKSMjMJ1qJQkm1vXbyoqnKfbjuq376oS6a8/Ko8xCoeWWPE0z9emFpf5mqi5eFhTqPDMThuIcC4TW5hEf81hcoVNeSnoA2PypTthpNtDUA1hJ6FAbm/YrCjUDohYP1orqLtnlg1BLyEpCR/Ow8RlWE+ricZFPpNjKiCs3pjIuv95NqNCxPAZYR2hUWem5tnr9F4SmwbXrNs1KcUeUg29lc71EFGHW8EGh1XmUWSiUpof331EAThs1wLQy3Fvf77PVgaLtl8Ou0/egikni7GdT28PZuHJV7+SZTx+KweuquEQorot4HfedWZtHgcVCy01XoI1Lnq4ZdDj1ow9qNSjveBBnQqhlPrwbJdE0Oo65JEsBynPXCfor88gwW6iQR4QyI0KZEaHMiFBmRCgzIpQZEcqMCGWmKFR2302nuPtO9odOh1wV94fKDuZ5KJm5HcwCDyKUlWf4B7va3N1muJlsAAAAAElFTkSuQmCC" InformativeScreenshot="3c4a3f6479fab740cbebe7c4e5472c13.png" ScopeSelectorArgument="&lt;wnd app='saplogon.exe' cls='SAP_FRONTEND_SESSION' title='Simple Job Selection' /&gt;" SearchSteps="Selector" Text="Execute" TextMethod="AttributeText" TextSelector="&lt;sap /&gt;" />
+              </uix:NClick.Target>
+            </uix:NClick>
+            <ui:InterruptibleDoWhile DisplayName="Do While" sap:VirtualizedContainerService.HintSize="333.6,52.8" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
+              <ui:InterruptibleDoWhile.Body>
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="375.2,467.2" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <uix:NClick ClickType="Single" DisplayName="Click 'Refresh'" sap:VirtualizedContainerService.HintSize="333.6,167.2" sap2010:WorkflowViewState.IdRef="NClick_2" KeyModifiers="None" MouseButton="Left">
+                    <uix:NClick.Target>
+                      <uix:TargetAnchorable DesignTimeRectangle="276, 123, 104, 33" ElementType="Button" FriendlyName="'Refresh'" FullSelectorArgument="&lt;sap id='tbar[1]/btn[8]' /&gt;" FuzzySelectorArgument="&lt;sap id='tbar[1]/btn[8]' check:text='Refresh' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAGwAAAAlCAYAAACnMQxpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAMvSURBVGhD7Zm9bqQwEIDvoe5dts5jIKW/J0BCyjtkO/pteAG05dYpr7kmlW9+PGBYe3fs5DiNNMUnhQUGmG88NuTH7z+fwbGDCzOGCzOGCzOGCzOGCzOGCzOGCzOGCzNGu7DbNQzv53B6fQs/X36twPapv4Tx9pE/z/kSDcI+wtCzpKwY2B5RJMk7w/5kn/NlKoVdQ/eKIlBUbn8KikOxb6GbeHuA0TfQ33pmipGM4AUZyfnznrMWHsYa/nlh4fPDtSB3c3a/jgph8YL9teqC83SOCQHZkByWp0eEnfpz6FKWVgyjOHPeM5a479cwTnXP1MbBwsa+/WKUHJzbmoUVRgAVAya9fr7kuG2y2zhS2O0CyW5oGzCqsHrH6cKt9LuFYYvGUQajfvM7juZ0MQRz6TCJ1Jg42Udg/KSDQCHQHJzGfRhTjlmfk4/B6WB3XRRGsdbjThVdSyWMkrZPigI8D1eR9PD0APUV/VAYFRLE3SQ2/kYJlWLhREuxzPA7z18Ql47BhKUicX6EtisjVxFzKZ7lGL4GyuD9Ioxz0lErXgVru0TlouN4isKgSiXBa9KSKk6PBfYtneOmBbQK23YBZcwotdxBSvELXaKAEWH8oPdgpSaVGZOWrdZl8cPbZWG7LqCNKaMQVq5ztn2XxJcLIocZYekqkdtT5gElaQ+Q6i4K28etihnvjeC2t8ayKKzh6wcndtsSReJd+5HRgO9ncR7ZI9VfK0wTU+LMydy0ztvWhNGDZ+aiJ+SELQ9ZaF+a+aB6hDUsuuS1gwvrQGHj8kUAKo1WObrgKZSg1vNyorOJLIgEcKmejki1MG1MuJ9uLzXeI89/BwqjVUzsydwGalsbr4TaX3DzI5NWaRB30xpFZHK/yycoSKgkRS8MUMTkeFjQ6dKfz+F7P1yYPuie++ToeSRsfffZ3df+JZcSvS2WKmGIJmY6dyEob7nvg4V1UDWUnMpezt8SMwsEpwmVMPrKjpUin1SgGvRf61FWfSt08qiEbQER8bOO5v9h+VbmtNIgLCJiNn0dJRVEOt9CuzDnv+DCjOHCjOHCjOHCjOHCjOHCjOHCjOHCTPEZ/gJKku49ODkfAQAAAABJRU5ErkJggg==" InformativeScreenshot="068986ed864a0f87452f3a8c1d911912.png" ScopeSelectorArgument="&lt;wnd app='saplogon.exe' cls='SAP_FRONTEND_SESSION' title='Job Overview' /&gt;" SearchSteps="Selector" Text="Refresh" TextMethod="AttributeText" TextSelector="&lt;sap /&gt;" />
+                    </uix:NClick.Target>
+                  </uix:NClick>
+                  <uix:NGetText DisplayName="Get Text 'Released'" sap:VirtualizedContainerService.HintSize="333.6,167.2" sap2010:WorkflowViewState.IdRef="NGetText_1">
+                    <uix:NGetText.Target>
+                      <uix:TargetAnchorable DesignTimeRectangle="728, 602, 165, 31" ElementType="Text" FriendlyName="'Released'" FullSelectorArgument="&lt;sap id='usr/lbl[64,13]' /&gt;" FuzzySelectorArgument="&lt;sap id='usr/lbl[64,13]' /&gt;" ImageBase64="" InformativeScreenshot="6750ab69d3306690227bad88d9aefdba.png" ScopeSelectorArgument="&lt;wnd app='saplogon.exe' cls='SAP_FRONTEND_SESSION' title='Job Overview' /&gt;" SearchSteps="Selector" Text="Released" TextMethod="AttributeText" TextSelector="&lt;sap /&gt;" />
+                    </uix:NGetText.Target>
+                    <uix:NGetText.Text>
+                      <OutArgument x:TypeArguments="x:String">[jobStatus]</OutArgument>
+                    </uix:NGetText.Text>
+                  </uix:NGetText>
+                </Sequence>
+              </ui:InterruptibleDoWhile.Body>
+              <ui:InterruptibleDoWhile.Condition>
+                <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="jobStatus.ToLower &lt;&gt; &quot;canceled&quot;" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_1" />
+              </ui:InterruptibleDoWhile.Condition>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:InterruptibleDoWhile>
+            <uix:NCheck Action="Check" DisplayName="Check/Uncheck 'Checkbox'" sap:VirtualizedContainerService.HintSize="333.6,167.2" sap2010:WorkflowViewState.IdRef="NCheck_1">
+              <uix:NCheck.Target>
+                <uix:TargetAnchorable DesignTimeRectangle="32, 606, 18, 23" ElementType="CheckBox" FriendlyName="'Checkbox'" FullSelectorArgument="&lt;sap id='usr/chk[1,13]' /&gt;" FuzzySelectorArgument="&lt;sap id='usr/chk[1,13]' /&gt;" ImageBase64="" InformativeScreenshot="869cd1ad7c97cdf20cb779205b1d6cec.png" ScopeSelectorArgument="&lt;wnd app='saplogon.exe' cls='SAP_FRONTEND_SESSION' title='Job Overview' /&gt;" SearchSteps="Selector" />
+              </uix:NCheck.Target>
+            </uix:NCheck>
+            <uix:NClick ClickType="Single" DisplayName="Click 'Job log'" sap:VirtualizedContainerService.HintSize="333.6,167.2" sap2010:WorkflowViewState.IdRef="NClick_3" KeyModifiers="None" MouseButton="Left">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable DesignTimeRectangle="741, 123, 101, 33" ElementType="Button" FriendlyName="'Job log'" FullSelectorArgument="&lt;sap id='tbar[1]/btn[47]' /&gt;" FuzzySelectorArgument="&lt;sap id='tbar[1]/btn[47]' check:text='Job log' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAGkAAAAlCAYAAABBGMctAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAALlSURBVGhD7ZgxkuowDED3UP8uqTkGM/R7gswwwx2gS0/DBRhKasptfkPlb8kycWwlkeMsu/6j4hVMlJXQk5WwH19/n0b53aikClBJFaCSKkAlVYBKqgCVVAEqqQJUUgUsknQ9HsyfzecsTXtj71fyyJYUCtpe+BgA43Znc2WuKXlkSYpP0M9Iupkt5F9wSrvW3reopofZ75beW45YErfiVNJ7EEnq2lSQSirl4foq+JsiSVjg5mCaXcjZdEys5+2S7mezxTqJ3cnsL49BzEvSIPZgtsdhXMqEJEFe4Ho5mcbHQE4a/KZdUdLUqQHcabPJwzhbmCtkzbc8RpJvADboZrpL37iwHifJDhg1J4xrJkWNSBLmDftwvdMJms3Zs44kO01wsnBCg8Td0RZvi9rbxuzv0T2LiSVRAzen6GRTXNBYlJQ0Z+z+EE6SNC9378g2GGEVSTAZkxJh4lY7TdEXhAFJGu9wLzv9gDhJqYw4LoVptDgvJ4QTN84KkmwRs8mgqKlJzaFQElcrraPx71giie7lJAkHt1iSK8gmhIKTh6AthvZvumaWUpuk4DO9UPieTW6fgEJJcIrsCfHFRGvNrUH6EneKpWvLKZT09nUHsVRzQM76L5MEUqIi/cMZiQqB4qXTg6DYqHk09X1eamDGi8OwBkZAAheTmRc/P/DtbjwPzzdIoqbCpBVLctMKU9m0J/xt4T5HjfFxyavwUHA/QLaOI8TdqNH8iQhx97r7Xr+DMvPC48DFuVdxf32OMklQZLTu+gbCpMXrLjoVEmwO/9sDv2iQbyoOGxfFvSbaNrN5xULjBQ0L/354ogR5sU/++gDZ0Ba/OAyLjxqIYvpr2YL+C9z66/tHKw+2EPYlXKE85ZKUaXC7cBtE8ix0qKTvxq86K6Ozqx9Pkd0w/qfJ3LMQEEny/2uSokKH4Grza98TPq9nEElSfhaVVAEqqQJUUgWopApQSRWgkipAJVWASvr1PM0/DoI9kI/hBsAAAAAASUVORK5CYII=" InformativeScreenshot="2ec1dcab89889c286a6baa6dc1540150.png" ScopeSelectorArgument="&lt;wnd app='saplogon.exe' cls='SAP_FRONTEND_SESSION' title='Job Overview' /&gt;" SearchSteps="Selector" Text="Job log" TextMethod="AttributeText" TextSelector="&lt;sap /&gt;" />
+              </uix:NClick.Target>
+            </uix:NClick>
+            <Sequence DisplayName="Table Extraction" sap:VirtualizedContainerService.HintSize="333.6,68.8" sap2010:WorkflowViewState.IdRef="Sequence_4">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="sd:DataTable" Name="LogData" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <uix:NExtractData ContinueOnError="True" DataTable="[LogData]" DisplayName="Extract Table Data" ExtractMetadata="&lt;extract-table get_columns_name='1' get_empty_columns='1' columns_name_source='Longest' /&gt;" sap:VirtualizedContainerService.HintSize="333.6,167.2" sap2010:WorkflowViewState.IdRef="NExtractData_1" MaximumResults="100">
+                <uix:NExtractData.Target>
+                  <uix:TargetAnchorable DesignTimeRectangle="18, 170, 2542, 1163" ElementType="Container" FriendlyName="'UserArea  usr'" FullSelectorArgument="&lt;sap id='usr' /&gt;" InformativeScreenshot="1c8feaa503ab47e81a1cf73c800a5597.png" ScopeSelectorArgument="&lt;wnd app='saplogon.exe' cls='SAP_FRONTEND_SESSION' title='Job Log Entries for TEST1 / 13214700' /&gt;" SearchSteps="Selector" />
+                </uix:NExtractData.Target>
+              </uix:NExtractData>
+              <ui:WriteCsvFile Encoding="{x:Null}" AddHeaders="True" DataTable="[LogData]" Delimitator="Comma" DisplayName="Write CSV" FilePath="LogData.csv" sap:VirtualizedContainerService.HintSize="333.6,155.2" sap2010:WorkflowViewState.IdRef="WriteCsvFile_1" />
+            </Sequence>
+            <uix:NClick ClickType="Single" DisplayName="Click 'Back'" sap:VirtualizedContainerService.HintSize="333.6,167.2" sap2010:WorkflowViewState.IdRef="NClick_4" KeyModifiers="None" MouseButton="Left">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable DesignTimeRectangle="48, 57, 44, 43" ElementType="Button" FriendlyName="'Back'" FullSelectorArgument="&lt;sap id='tbar[0]/btn[3]' /&gt;" FuzzySelectorArgument="&lt;sap id='tbar[0]/btn[3]' check:text='Back' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAADAAAAAvCAYAAAClgknJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAADoSURBVGhD7dcxDoJAEIVhD+QtPAGlB6Al1JTSU25Pp7WlvR1X4Cqjo9kC3RCD8/Zlkym+ii3eH0LI7i73WUrmAWwewOYBbB7A5gFsHsDmAb86db3sq1YOwy35fKssAXH8S32WkDizFTxgMb7qpbmmz20FDUCPV7CAMODHK0hArvHKPCDneGUakHu8MgtgjFdGAZM0dRz/1Nn+rNbYvYExlPwG3or+BqLPiOOYPmfFPEDljIAEqGVEC4uABajviCl57h/QAIWOgAeoRURp94EoRhR5I0PyADYPYPMANg9g8wA2D2ArPGCWBwHZtFAKwy6lAAAAAElFTkSuQmCC" InformativeScreenshot="fdebe5a288a40c1119b44c52edc6229e.png" ScopeSelectorArgument="&lt;wnd app='saplogon.exe' cls='SAP_FRONTEND_SESSION' title='Job Log Entries for TEST1 / 13214700' /&gt;" SearchSteps="Selector" Text="Back" TextMethod="AttributeText" TextSelector="&lt;sap /&gt;" />
+              </uix:NClick.Target>
+            </uix:NClick>
+            <uix:NClick ClickType="Single" DisplayName="Click 'Spool'" sap:VirtualizedContainerService.HintSize="333.6,167.2" sap2010:WorkflowViewState.IdRef="NClick_5" KeyModifiers="None" MouseButton="Left">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable DesignTimeRectangle="632, 123, 89, 33" ElementType="Button" FriendlyName="'Spool'" FullSelectorArgument="&lt;sap id='tbar[1]/btn[44]' /&gt;" FuzzySelectorArgument="&lt;sap id='tbar[1]/btn[44]' check:text='Spool' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAF0AAAAlCAYAAAAgAOVvAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAKrSURBVGhD7Zg7ksIwDIb3UHuX1BwjM+n3BJlhhjtAl56GC2RSpk65zTZUXsuP2A4KyE7AbFbFPwNYseVPsuTw8f1zFazXiqFnEEPPIIaeQQw9gxh6BjH0DGLoGUSCvq++xOduucoLPv9/Ewl6U0to1Vm0yBhNgwpccRyQsf8nWnm5nGSmnkSDjRG1PHDbEQ16fxbF7iD2PTLmSwanqPDgtMdDeuD6TpQVPO9KlVrnkT8vkT7FMQlFbKRy07DRu+VB2ygomAPUwE2lnoN5D6Ksz6K5dGJfH8xv79AnngbdlIe6Q8e0HkA347GQ1LposORm63fI9hdBd/XZb5A06LHNVEOnlCVv8/J0lPBZ+SNPCLZmYAPPncT+kmL3NOg+XGycIFMmYjNd9wLK2mbzCo4sP6oUOWDB89B7RoBdYBf4R7J7GvS0LA2koCfUdFh7CrPH/HDQw8Da3+1pmX63Mid1hBdptzr0SZa68jKxu6dF185BNEe4GQEEKwhA5/kwB8meFhNwsxcsgZLsngZdAUvJUiflaGygUA2i9Y65a+53Nq/8N0nzV6DrRWhZ2s4Exm/EaylssluE7k06V15GZ2R3b+TnYrQxjq0MHd38VsoLNUtb2+2tpCP6Hp3eiGGD+HNTyPb7TCOdJsBNcN6skapJPegu0/WCFgoGXTuiHQ1h0KRLCMzlv5G6dcrxzmwhgeBuDlc8aWt+C9Y2WXx7FbTZG2enfdRronf9iZLKy5zssSvHzcos8Y9gYnnRjRPmhjm14L+XuZcUgONuOhEvRz7wGDvfhsCJBD3m9uIaqbxlePY6G27r7XqKP+a5RIO+oDyMighcmjYHnd5M55XeTGnaIHR7110sCQWdf7G2CJ21mhh6BjH0DGLoGcTQM4ihZxBDzyCGnkEM/eW6il+3QLAK/eqKnwAAAABJRU5ErkJggg==" InformativeScreenshot="1cde3ded800f02243de8e977d3848062.png" ScopeSelectorArgument="&lt;wnd app='saplogon.exe' cls='SAP_FRONTEND_SESSION' title='Job Overview' /&gt;" SearchSteps="Selector" Text="Spool" TextMethod="AttributeText" TextSelector="&lt;sap /&gt;" />
+              </uix:NClick.Target>
+            </uix:NClick>
+          </Sequence>
+        </ActivityAction>
+      </uix:NApplicationCard.Body>
+      <uix:NApplicationCard.TargetApp>
+        <uix:TargetApp FilePath="C:\Program Files (x86)\SAP\FrontEnd\SapGui\saplogon.exe" IconBase64="iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAKGSURBVFhH7ZXfa1JRHMCP3hVB1FAKaqS7NI1gex1U/rhXljPoh1BtowbRqpcRRG1LvdfqPRfVqxRNW2NOh8OtoL0YVKN/wP0BgwW1mo4p6tVx6nvxFOgcbXov+XA/8HkS7vl4zvneixQUFBQUFKRDTe1SU7v3UGBTg0iRNISovc2ovdfdZfNGONDbAHIsH2ZIHkL7O0yo837QBz8IIP7PChAXPWrrp0leQwWKcSHdSecxklaiQQKLrDcc05suGlRUk4qkldjXfgp1jgR8Nj4sgFhaq8ZUusFwoXib/bqeJJXoOm03goZzA3cM/U9iL66OvhNALKV9j99i+8PpUmz1OPFY542OW+VxIqlM/kMynYuvrufii0s/lz4lljc+JpaxlD6d/oId3inMclUD8xA3STNXdCSpnFRG+JVM57EcroJzC4vY+SCILSPj1QLzcOfGdSecbQiVX7m/yBkY+5zA3cN+bL43hhluqvKICywfierNl1pVamqLOkDywPU8XlnL4tmFBD7rfonNQ2PVdq5o9YTmDfaBFpKxNVIHrqQgDnbu8qPX2CTunCdUGSfeuZjRcePfcSIQmIMHZ2FIcvDPi9+SGVyP4rH+iWO5TXFZho8EaGvv9uJEvq/lur/+SNtn38fP3PUFooPPZwqDz2ZwrZ7ng9g0FCA7V3a04s69goGgkUpNVt8GGq0WaTRa1HyYVnX0eketrgnB6nqDa9Y9gVkeXinlA1GEAYm0WnpaYCDIyjtExk9dgfFMzhkcNw+SpWpDpsAs7GSo7jgRGQIzEOenLT2HyBL1IXFgFgbEDwNxpOY7twl40PELtxl4+DDoqkf4QlyjrX0HdjStCgoKCgoKMoDQb0L04V6A4GiHAAAAAElFTkSuQmCC" InformativeScreenshot="a333cbe7ff4b98856d68252706bbeb1b.png" Selector="&lt;wnd app='saplogon.exe' cls='SAP_FRONTEND_SESSION' title='SAP Easy Access'/&gt;" />
+      </uix:NApplicationCard.TargetApp>
+    </uix:NApplicationCard>
+  </Sequence>
+</Activity>
