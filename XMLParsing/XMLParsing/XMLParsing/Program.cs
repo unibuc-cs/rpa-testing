@@ -9,7 +9,7 @@ namespace XMLParsing
     {
         static void Main(string[] args)
         {
-            var xml = System.Xml.Linq.XDocument.Load(@"C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\UiPathModels\PoC_PraxisTest\PraxisTest\VarianteA.xaml");
+            var xml = System.Xml.Linq.XDocument.Load(@"C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\UiPathModels\PoC_PraxisTest\PraxisTest\VarianteB_2.xaml");
 
             IEnumerable<XElement> firstNode = xml.Descendants();
 
@@ -95,7 +95,67 @@ namespace XMLParsing
                 Console.WriteLine("");
             }
 
-            Console.WriteLine("\n\n");
+           /* Console.WriteLine("\n\n");
+            Console.WriteLine("Conditions from While or DoWhile: ");
+            Console.WriteLine(""); */
+
+            foreach (XElement innerNode in firstNode)
+            {
+
+                if (innerNode.Name.LocalName.Equals("InterruptibleDoWhile.Condition"))
+                {
+
+                    IEnumerable<XElement> descendants = innerNode.Descendants();
+
+                    IEnumerable<XAttribute> atLst = from at in descendants.Attributes()
+                                                    where at.ToString().Contains("ExpressionText")
+                                                    select at;
+
+                    foreach (XAttribute at in atLst)
+                    {
+
+                        string condition;
+
+                        condition = at.ToString();
+
+                        if (condition.Contains("ExpressionText="))
+                        {
+                            condition = condition.Replace("ExpressionText=", "");
+                        }
+
+                        if (condition.Contains("\"["))
+                        {
+                            condition = condition.Replace("\"[", "");
+                        }
+
+                        if (condition.Contains("]\""))
+                        {
+                            condition = condition.Replace("]\"", "");
+                        }
+
+                        if (condition.Contains("&quot;"))
+                        {
+                            condition = condition.Replace("&quot;", '"'.ToString());
+                        }
+
+                        if (condition.Contains("&lt;"))
+                        {
+                            condition = condition.Replace("&lt;", "<");
+                        }
+
+                        if (condition.Contains("&gt;"))
+                        {
+                            condition = condition.Replace("&gt;", ">");
+                        }
+
+                        conditions.Add(condition);
+
+                        Console.WriteLine(condition);
+                    }
+                }
+            }
+
+            Console.WriteLine("\n");
             Console.WriteLine("Model variables:");
             Console.WriteLine("");
 
@@ -105,7 +165,7 @@ namespace XMLParsing
             }
 
 
-            Console.WriteLine("\n\n");
+            Console.WriteLine("\n");
             Console.WriteLine("Variables' data types:");
             Console.WriteLine("");
 
@@ -115,7 +175,7 @@ namespace XMLParsing
             }
 
 
-            Console.WriteLine("\n\n");
+            Console.WriteLine("\n");
             Console.WriteLine("Variables present in conditions:");
             Console.WriteLine("");
 
@@ -139,7 +199,7 @@ namespace XMLParsing
                 Console.WriteLine(variable);
             }
 
-            Console.WriteLine("\n\n");
+            Console.WriteLine("\n");
             Console.WriteLine("Switch expression and branches:");
             Console.WriteLine("");
 
@@ -174,7 +234,7 @@ namespace XMLParsing
                     Console.WriteLine(name);
                 }
             }
-            
+
             if (haveSwitch == false)
             {
                 Console.WriteLine("Not applicable");
