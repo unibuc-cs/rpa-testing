@@ -9,9 +9,9 @@ namespace XMLParsing
     {
         //Returns a dictionary with the name of the argument as key and the type of the argument as value.
 
-        public static Dictionary<String, String> getArguments(IEnumerable<XElement> xamlElements, String element, String attribute)
+        public static Dictionary<String, String> getNodes(IEnumerable<XElement> xamlElements, String element, String attribute, String type)
         {
-            var arguments = new Dictionary<String, String>();
+            var nodes = new Dictionary<String, String>();
             
             foreach (XElement elem in xamlElements)
             {
@@ -24,11 +24,11 @@ namespace XMLParsing
                     IEnumerable<XAttribute> attributesType = elem.Attributes();
                     foreach (XAttribute attributeType in attributesType)
                     {
-                        if (attributeType.Name.ToString().Contains("Type"))
+                        if (attributeType.Name.ToString().Contains(type))
                         {
                             String attType = attributeType.Value.ToString().Substring(attributeType.Value.ToString().IndexOf(':') + 1).Trim(')');
 
-                            arguments.Add(name, attType);
+                            nodes.Add(name, attType);
 
 
                         }
@@ -39,39 +39,20 @@ namespace XMLParsing
 
             }
            
-            return arguments;
+            return nodes;
         }
 
-
-        static void Main(string[] args)
+        //Returns model conditions.
+        public static List<String> getConditions(IEnumerable<XElement> xamlElements)
         {
-            var xml = System.Xml.Linq.XDocument.Load(@"C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\GenerateTestingData\Create Loan Process.xaml");
-
-            IEnumerable<XElement> firstNode = xml.Descendants();
-
-            IEnumerable<XElement> xamlElements = xml.Descendants();
-
-            Dictionary<String, String> arguments = getArguments(xamlElements, "Property", "Name");
-
-            Console.WriteLine("Arguments: ");
-
-            foreach (KeyValuePair<String, String> arg in arguments)
-            {
-                Console.WriteLine("Key = {0}, Value = {1}", arg.Key, arg.Value);
-            }
-
-            Console.WriteLine();
-
-            IEnumerable<XAttribute> attList = from at in firstNode.Attributes()
-                                              where at.ToString().Contains("Condition")
-                                              select at;
+            IEnumerable<XAttribute> conditionsList = from attribute in xamlElements.Attributes()
+                                              where attribute.ToString().Contains("Condition")
+                                              select attribute;
 
             List<string> conditions = new List<string>();
-            List<string> variables = new List<string>();
-            List<string> types = new List<string>();
-            
 
-            foreach (var attr in attList)
+
+            foreach (var attr in conditionsList)
             {
                 string condition;
 
@@ -110,30 +91,47 @@ namespace XMLParsing
                 conditions.Add(condition);
             }
 
-            foreach (XElement innerNode in firstNode)
+            return conditions;
+        }
+
+        static void Main(string[] args)
+        {
+            var xml = System.Xml.Linq.XDocument.Load(@"C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\GenerateTestingData\Create Loan Process.xaml");
+
+            //--
+            IEnumerable<XElement> firstNode = xml.Descendants();
+            //--
+
+            IEnumerable<XElement> xamlElements = xml.Descendants();
+
+            Dictionary<String, String> arguments = getNodes(xamlElements, "Property", "Name", "Type");
+            Dictionary<String, String> variables = getNodes(xamlElements, "Variable", "Name", "TypeArguments");
+            List<String> conditions = getConditions(xamlElements);
+
+
+            //------------------------------------------------------------
+            Console.WriteLine("Arguments: ");
+
+            foreach (KeyValuePair<String, String> arg in arguments)
             {
-
-                if (innerNode.Name.LocalName.Equals("Variable"))
-                {
-                    String name = innerNode.Attribute("Name").Value.ToString();
-
-                    variables.Add(name);
-
-                    IEnumerable<XAttribute> attributesType = innerNode.Attributes();
-                    foreach (XAttribute attributeType in attributesType)
-                    {
-                        if (attributeType.Name.ToString().Contains("TypeArguments"))
-                        {
-                            String attType = attributeType.Value.ToString().Substring(attributeType.Value.ToString().IndexOf(':') + 1);
-                            types.Add(attType);
-
-                        }
-
-                    }
-
-                }
-
+                Console.WriteLine("ArgumentName = {0}, ArgumentType = {1}", arg.Key, arg.Value);
             }
+
+            Console.WriteLine();
+
+
+            //------------------------------------------------------------
+            Console.WriteLine("Variables: ");
+
+            foreach (KeyValuePair<String, String> var in variables)
+            {
+                Console.WriteLine("VariableName = {0}, VariableType = {1}", var.Key, var.Value);
+            }
+
+            Console.WriteLine();
+
+
+            //------------------------------------------------------------
 
             Console.WriteLine("Model conditions:");
             Console.WriteLine("");
@@ -144,9 +142,68 @@ namespace XMLParsing
                 Console.WriteLine("");
             }
 
-           /* Console.WriteLine("\n\n");
-            Console.WriteLine("Conditions from While or DoWhile: ");
-            Console.WriteLine(""); */
+            //------------------------------------------------------------
+
+
+            Console.WriteLine("\n");
+            Console.WriteLine("Variables present in conditions:");
+            Console.WriteLine("");
+
+            List<String> varInCond = new List<String>();
+
+               foreach (String cond in conditions)
+               {
+                   foreach (KeyValuePair<String, String> var in variables)
+                   {
+                       if (cond.Contains(var.Key))
+                       {
+                           varInCond.Add(var.Key);
+                       }
+                   }
+               }  
+
+            varInCond = varInCond.Distinct().ToList();
+
+            foreach (String variable in varInCond)
+            {
+                Console.WriteLine(variable);
+            }
+
+
+            //------------------------------------------------------------
+
+
+            Console.WriteLine("\n");
+            Console.WriteLine("Arguments present in conditions:");
+            Console.WriteLine("");
+
+            List<String> argInCond = new List<String>();
+
+            foreach (String cond in conditions)
+            {
+                foreach (KeyValuePair<String, String> arg in arguments)
+                {
+                    if (cond.Contains(arg.Key))
+                    {
+                        argInCond.Add(arg.Key);
+                    }
+                }
+            }
+
+            argInCond = argInCond.Distinct().ToList();
+
+            foreach (String argument in argInCond)
+            {
+                Console.WriteLine(argument);
+            }
+
+
+
+            
+
+            /* Console.WriteLine("\n\n");
+             Console.WriteLine("Conditions from While or DoWhile: ");
+             Console.WriteLine(""); */
 
             foreach (XElement innerNode in firstNode)
             {
@@ -204,76 +261,7 @@ namespace XMLParsing
                 }
             }
 
-            Console.WriteLine("\n");
-            Console.WriteLine("Model variables:");
-            Console.WriteLine("");
-
-            foreach (String variable in variables)
-            {
-                Console.WriteLine(variable);
-            }
-
-
-            Console.WriteLine("\n");
-            Console.WriteLine("Variables' data types:");
-            Console.WriteLine("");
-
-            foreach (String type in types)
-            {
-                Console.WriteLine(type);
-            }
-
-
-            Console.WriteLine("\n");
-            Console.WriteLine("Variables present in conditions:");
-            Console.WriteLine("");
-
-            List<string> varInCond = new List<string>();
-
-            foreach (String cond in conditions)
-            {
-                foreach (String var in variables)
-                {
-                    if (cond.Contains(var))
-                    {
-                        varInCond.Add(var);
-                    }
-                }
-            }
-
-            varInCond = varInCond.Distinct().ToList();
-
-            foreach (String variable in varInCond)
-            {
-                Console.WriteLine(variable);
-            }
-
-
-
-            Console.WriteLine("\n");
-            Console.WriteLine("Arguments present in conditions:");
-            Console.WriteLine("");
-
-          /*  List<string> argInCond = new List<string>();
-
-            foreach (String cond in conditions)
-            {
-                foreach (String arg in arguments)
-                {
-                    if (cond.Contains(arg))
-                    {
-                        argInCond.Add(arg);
-                    }
-                }
-            }
-
-            argInCond = argInCond.Distinct().ToList();
-
-            foreach (String argument in argInCond)
-            {
-                Console.WriteLine(argument);
-            }  */
-
+       
             Console.WriteLine("\n");
             Console.WriteLine("Switch expression and branches:");
             Console.WriteLine("");
