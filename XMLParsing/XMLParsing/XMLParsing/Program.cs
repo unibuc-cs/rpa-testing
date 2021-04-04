@@ -9,10 +9,52 @@ namespace XMLParsing
     {
         static void Main(string[] args)
         {
-            var xml = System.Xml.Linq.XDocument.Load(@"C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\UiPathModels\PoC_PraxisTest\PraxisTest\VarianteB_2.xaml");
+            var xml = System.Xml.Linq.XDocument.Load(@"C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\GenerateTestingData\Create Loan Process.xaml");
 
             IEnumerable<XElement> firstNode = xml.Descendants();
+            
+            Console.WriteLine("Arguments: ");
 
+            List<string> arguments = new List<string>();
+            List<string> argumentsTypes = new List<string>();
+
+            foreach (XElement innerNode in firstNode)
+            {
+
+                if (innerNode.Name.LocalName.Equals("Property"))
+                {
+                    String name = innerNode.Attribute("Name").Value.ToString();
+
+                    Console.WriteLine(name);
+
+                    arguments.Add(name);
+
+                    IEnumerable<XAttribute> attributesType = innerNode.Attributes();
+                    foreach (XAttribute attributeType in attributesType)
+                    {
+                        if (attributeType.Name.ToString().Contains("Type"))
+                        {
+                            String attType = attributeType.Value.ToString().Substring(attributeType.Value.ToString().IndexOf(':') + 1).Trim(')');
+                            argumentsTypes.Add(attType);
+                            
+                        }
+
+                    }
+
+                }
+
+            }
+
+            Console.WriteLine();
+
+            Console.WriteLine("Types of Arguments: ");
+
+            foreach (string type in argumentsTypes)
+            {
+                Console.WriteLine(type);
+            }
+
+            Console.WriteLine();
 
             IEnumerable<XAttribute> attList = from at in firstNode.Attributes()
                                               where at.ToString().Contains("Condition")
@@ -21,6 +63,7 @@ namespace XMLParsing
             List<string> conditions = new List<string>();
             List<string> variables = new List<string>();
             List<string> types = new List<string>();
+            
 
             foreach (var attr in attList)
             {
@@ -197,6 +240,32 @@ namespace XMLParsing
             foreach (String variable in varInCond)
             {
                 Console.WriteLine(variable);
+            }
+
+
+
+            Console.WriteLine("\n");
+            Console.WriteLine("Arguments present in conditions:");
+            Console.WriteLine("");
+
+            List<string> argInCond = new List<string>();
+
+            foreach (String cond in conditions)
+            {
+                foreach (String arg in arguments)
+                {
+                    if (cond.Contains(arg))
+                    {
+                        argInCond.Add(arg);
+                    }
+                }
+            }
+
+            argInCond = argInCond.Distinct().ToList();
+
+            foreach (String argument in argInCond)
+            {
+                Console.WriteLine(argument);
             }
 
             Console.WriteLine("\n");

@@ -5423,9 +5423,9 @@
     "restore": {
       "projectUniqueName": "GenerateTestingData",
       "projectName": "GenerateTestingData",
-      "projectPath": "C:\\Users\\Marina Cernat\\Desktop\\All\\GenerateTestingData\\.local",
+      "projectPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\GenerateTestingData\\.local",
       "packagesPath": "C:\\Users\\Marina Cernat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Marina Cernat\\Desktop\\All\\GenerateTestingData\\.local"
+      "outputPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\GenerateTestingData\\.local"
     },
     "frameworks": {
       "net461": {
