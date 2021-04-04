@@ -7,36 +7,30 @@ namespace XMLParsing
 {
     class Program
     {
-        static void Main(string[] args)
+        //Returns a dictionary with the name of the argument as key and the type of the argument as value.
+
+        public static Dictionary<String, String> getArguments(IEnumerable<XElement> xamlElements, String element, String attribute)
         {
-            var xml = System.Xml.Linq.XDocument.Load(@"C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\GenerateTestingData\Create Loan Process.xaml");
-
-            IEnumerable<XElement> firstNode = xml.Descendants();
+            var arguments = new Dictionary<String, String>();
             
-            Console.WriteLine("Arguments: ");
-
-            List<string> arguments = new List<string>();
-            List<string> argumentsTypes = new List<string>();
-
-            foreach (XElement innerNode in firstNode)
+            foreach (XElement elem in xamlElements)
             {
 
-                if (innerNode.Name.LocalName.Equals("Property"))
+                if (elem.Name.LocalName.Equals(element))
                 {
-                    String name = innerNode.Attribute("Name").Value.ToString();
+                    String name = elem.Attribute(attribute).Value.ToString();
+                    
 
-                    Console.WriteLine(name);
-
-                    arguments.Add(name);
-
-                    IEnumerable<XAttribute> attributesType = innerNode.Attributes();
+                    IEnumerable<XAttribute> attributesType = elem.Attributes();
                     foreach (XAttribute attributeType in attributesType)
                     {
                         if (attributeType.Name.ToString().Contains("Type"))
                         {
                             String attType = attributeType.Value.ToString().Substring(attributeType.Value.ToString().IndexOf(':') + 1).Trim(')');
-                            argumentsTypes.Add(attType);
-                            
+
+                            arguments.Add(name, attType);
+
+
                         }
 
                     }
@@ -44,14 +38,26 @@ namespace XMLParsing
                 }
 
             }
+           
+            return arguments;
+        }
 
-            Console.WriteLine();
 
-            Console.WriteLine("Types of Arguments: ");
+        static void Main(string[] args)
+        {
+            var xml = System.Xml.Linq.XDocument.Load(@"C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\GenerateTestingData\Create Loan Process.xaml");
 
-            foreach (string type in argumentsTypes)
+            IEnumerable<XElement> firstNode = xml.Descendants();
+
+            IEnumerable<XElement> xamlElements = xml.Descendants();
+
+            Dictionary<String, String> arguments = getArguments(xamlElements, "Property", "Name");
+
+            Console.WriteLine("Arguments: ");
+
+            foreach (KeyValuePair<String, String> arg in arguments)
             {
-                Console.WriteLine(type);
+                Console.WriteLine("Key = {0}, Value = {1}", arg.Key, arg.Value);
             }
 
             Console.WriteLine();
@@ -248,7 +254,7 @@ namespace XMLParsing
             Console.WriteLine("Arguments present in conditions:");
             Console.WriteLine("");
 
-            List<string> argInCond = new List<string>();
+          /*  List<string> argInCond = new List<string>();
 
             foreach (String cond in conditions)
             {
@@ -266,7 +272,7 @@ namespace XMLParsing
             foreach (String argument in argInCond)
             {
                 Console.WriteLine(argument);
-            }
+            }  */
 
             Console.WriteLine("\n");
             Console.WriteLine("Switch expression and branches:");
