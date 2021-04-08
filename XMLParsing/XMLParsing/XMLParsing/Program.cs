@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using System.Activities;
+using System.Activities.XamlIntegration;
+using System.IO;
+using System.Xaml;
 
 namespace XMLParsing
 {
@@ -94,9 +98,26 @@ namespace XMLParsing
             return conditions;
         }
 
+        static void haveFun()
+        {
+            string path = @"C:\UiPath\rpa-testing\GenerateTestingData\Create Loan Process.xaml";
+            string readText = File.ReadAllText(path);
+
+            DynamicActivity ac = ActivityXamlServices.Load(new StringReader(readText)) as DynamicActivity;
+
+
+            ActivityBuilder ab2 = XamlServices.Load(
+                ActivityXamlServices.CreateBuilderReader(
+                new XamlXmlReader(new StringReader(readText)))) as ActivityBuilder;
+
+            int x = 1;
+        }
+
         static void Main(string[] args)
         {
-            var xml = System.Xml.Linq.XDocument.Load(@"C:\Users\Marina Cernat\Documents\GitHub\rpa-testing\GenerateTestingData\Create Loan Process.xaml");
+            haveFun();
+
+            var xml = System.Xml.Linq.XDocument.Load(@"C:\UiPath\rpa-testing\GenerateTestingData\Create Loan Process.xaml");
 
             //--
             IEnumerable<XElement> firstNode = xml.Descendants();
