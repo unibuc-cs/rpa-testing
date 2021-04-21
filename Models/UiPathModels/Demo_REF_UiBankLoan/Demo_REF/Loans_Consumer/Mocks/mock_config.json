@@ -1,0 +1,16 @@
+{
+  "mockedWorkflows": [
+    {
+      "mockFilePath": "Mocks\\Main_mock.xaml",
+      "sourceWorkflowPath": "Main.xaml"
+    },
+    {
+      "mockFilePath": "Mocks\\Main_mock_1.xaml",
+      "sourceWorkflowPath": "Main.xaml"
+    },
+    {
+      "mockFilePath": "Mocks\\Framework\\GetTransactionData_mock.xaml",
+      "sourceWorkflowPath": "Framework\\GetTransactionData.xaml"
+    }
+  ]
+}
