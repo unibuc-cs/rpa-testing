@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Activities;
 using System.Activities.Statements;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Microsoft.VisualBasic.Activities;
 using XMLParsing.Common;
+using XMLParsing.Utils;
 
 namespace XMLParsing.Services
 {
@@ -28,11 +30,11 @@ namespace XMLParsing.Services
             }
 
 
-            Dictionary<FlowNode, Node> nodes = ParseNodeStructure(flowchart);
+            Dictionary<FlowNode, Node> nodes = ParseNodeStructure(flowchart, workflow);
             workflow.Nodes = nodes.Values.ToList();
         }
 
-        Dictionary<FlowNode, Node> ParseNodeStructure(Flowchart flowchart)
+        Dictionary<FlowNode, Node> ParseNodeStructure(Flowchart flowchart, Workflow workflow)
         {
             Dictionary<FlowNode, Node> nodes = new Dictionary<FlowNode, Node>();
 
@@ -46,13 +48,13 @@ namespace XMLParsing.Services
 
             foreach (var flowNode in flowchart.Nodes)
             {
-                ParseFlowNode(flowNode, nodes);
+                ParseFlowNode(flowNode, nodes, workflow);
             }
 
             return nodes;
         }
 
-        public void ParseFlowNode(FlowNode flowNode, Dictionary<FlowNode, Node> node)
+        public void ParseFlowNode(FlowNode flowNode, Dictionary<FlowNode, Node> node, Workflow workflow)
         {
             if (flowNode == null)
             {
@@ -61,9 +63,8 @@ namespace XMLParsing.Services
 
             var flowNodeParserDict = new Dictionary<Type, Action>
             {
-                { typeof(FlowDecision), () => ParseFlowDecision(flowNode as FlowDecision, node) },
-                { typeof(FlowStep), () => ParseFlowStep(flowNode as FlowStep, node) },
-                { typeof(FlowSwitch<object>), () => ParseFlowSwitch(flowNode as FlowSwitch<object> , node) }
+                { typeof(FlowDecision), () => ParseFlowDecision(flowNode as FlowDecision, node, workflow) },
+                { typeof(FlowStep), () => ParseFlowStep(flowNode as FlowStep, node, workflow) },
             };
 
             if (flowNodeParserDict.ContainsKey(flowNode.GetType()))
@@ -72,17 +73,16 @@ namespace XMLParsing.Services
             }
             else
             {
-                // matching type of generic types is hard, so flow switches will be treated this way for now
-                // ParseFlowSwitch(flowNode, node);
+                // Leaving as default and try to use reflection on it
+                ParseFlowSwitch(flowNode, node, workflow);
             }
         }
 
-        public void ParseFlowDecision(FlowDecision flowDecision, Dictionary<FlowNode, Node> nodes)
+        public void ParseFlowDecision(FlowDecision flowDecision, Dictionary<FlowNode, Node> nodes, Workflow workflow)
         {
             nodes[flowDecision].DisplayName = flowDecision.DisplayName;
-            
-            // Parse true branch
-            if(flowDecision.True != null)
+
+            Func<Common.Transition> buildPartialTransition = () => 
             {
                 Common.Transition t = new Common.Transition();
                 t.source = nodes[flowDecision];
@@ -96,39 +96,29 @@ namespace XMLParsing.Services
                     t.expression = expressionTextInfo.GetValue(flowDecision.Condition) as String;
                 }
 
-                // We are on the true branch
+                return t;
+            };
+
+            // Parse true branch
+            if(flowDecision.True != null)
+            {
+                Common.Transition t = buildPartialTransition();
                 t.expressionValue = "True";
-
                 t.destination = nodes[flowDecision.True];
-
-                nodes[flowDecision].TransitionList.Add(t);
+                workflow.Transitions.Add(t);
             }
 
             // Parse false branch
             if (flowDecision.False != null)
             {
-                Common.Transition t = new Common.Transition();
-                t.source = nodes[flowDecision];
-
-                // flowNode.Condition is an VisualBasicValue<Boolean> : Activity<bool>
-                t.expression = "";
-
-                PropertyInfo expressionTextInfo = flowDecision.Condition.GetType().GetProperty("ExpressionText");
-                if (expressionTextInfo != null)
-                {
-                    t.expression = expressionTextInfo.GetValue(flowDecision.Condition) as String;
-                }
-
-                // We are on the true branch
+                Common.Transition t = buildPartialTransition();
                 t.expressionValue = "False";
-
                 t.destination = nodes[flowDecision.False];
-
-                nodes[flowDecision].TransitionList.Add(t);
+                workflow.Transitions.Add(t);
             }
         }
 
-        public void ParseFlowStep(FlowStep flowStep, Dictionary<FlowNode, Node> nodes)
+        public void ParseFlowStep(FlowStep flowStep, Dictionary<FlowNode, Node> nodes, Workflow workflow)
         {
             if(flowStep.Action != null)
             {
@@ -146,53 +136,64 @@ namespace XMLParsing.Services
 
                     t.destination = nodes[flowStep.Next];
 
-                    nodes[flowStep].TransitionList.Add(t);
+                    workflow.Transitions.Add(t);
                 }
             }
         }
 
-        public void ParseFlowSwitch<T>(FlowSwitch<T> flowSwitch, Dictionary<FlowNode, Node> nodes)
+        public void ParseFlowSwitch(FlowNode flowSwitch, Dictionary<FlowNode, Node> nodes, Workflow workflow)
         {
-            nodes[flowSwitch].DisplayName = flowSwitch.DisplayName;
+            if (flowSwitch == null)
+            {
+                return;
+            }
 
-            var expression = flowSwitch.Expression.DisplayName;
+            nodes[flowSwitch].DisplayName = ReflectionHelpers.CallMethod(flowSwitch, "get_DisplayName") as string;
+
+            var expression = ReflectionHelpers.CallMethod(flowSwitch, "get_Expression");
+            var expressionText = ReflectionHelpers.CallMethod(expression, "get_ExpressionText") as string;
+
+            var cases = ReflectionHelpers.CallMethod(flowSwitch, "get_Cases") as IEnumerable;
+            var defaultCase = ReflectionHelpers.CallMethod(flowSwitch, "get_Default") as FlowNode;
+
 
             List<string> treatedValues = new List<string>();
-            foreach (var flowCase in flowSwitch.Cases)
+            foreach(var flowCase in cases)
             {
                 Common.Transition t = new Common.Transition();
                 t.source = nodes[flowSwitch];
+                t.expression = expressionText;
 
-                t.expression = expression;
-
-                t.expressionValue = flowCase.Key.ToString();
+                var key = ReflectionHelpers.CallMethod(flowCase, "get_Key");
+                t.expressionValue = key.ToString();
 
                 treatedValues.Add(t.expressionValue);
 
-                t.destination = nodes[flowCase.Value];
+                var value = ReflectionHelpers.CallMethod(flowCase, "get_Value") as FlowNode;
+                t.destination = nodes[value];
 
-                nodes[flowSwitch].TransitionList.Add(t);
+                workflow.Transitions.Add(t);
             }
 
             // Tread the default
-            if (flowSwitch.Default != null)
+            if (defaultCase != null)
             {
                 Common.Transition t = new Common.Transition();
                 t.source = nodes[flowSwitch];
 
                 // flowStep proceeds anyway
-                t.expression = "False ";
+                t.expression = "False";
 
                 t.expressionValue = "False";
 
                 foreach (var treatedValue in treatedValues)
                 {
-                    t.expression = t.expression + " OR " + expression + ".Equals(" + treatedValue + ")";
+                    t.expression = t.expression + " OR " + expressionText + ".Equals(" + treatedValue + ")";
                 }
 
-                t.destination = nodes[flowSwitch.Default];
+                t.destination = nodes[defaultCase];
 
-                nodes[flowSwitch].TransitionList.Add(t);
+                workflow.Transitions.Add(t);
             }
 
         }
