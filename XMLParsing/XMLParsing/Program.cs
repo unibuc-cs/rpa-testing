@@ -10,7 +10,7 @@ namespace XMLParsing
         static void Main(string[] args)
         {
 
-            string path = @"..\..\..\..\Models\GenerateTestingData\Create Loan Process.xaml";
+            string path = @"..\..\..\..\Models\SimpleBankLoan\Create Loan Process.xaml";
             try
             {
 
