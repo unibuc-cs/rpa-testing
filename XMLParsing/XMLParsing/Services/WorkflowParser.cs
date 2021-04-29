@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Activities;
 using System.Activities.XamlIntegration;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Xaml;
-using System.Xml;
 using UiPath.Core.Activities;
 using XMLParsing.Common;
 
@@ -16,6 +18,10 @@ namespace XMLParsing.Services
 
         private WorkflowParser()
         {
+            // Load needed assemblies. It would be nice if at some point, this would be done dinamically
+            // UiPath.System.Activities
+            LogMessage lm = new LogMessage();
+            Assembly.LoadFrom(lm.GetType().Assembly.Location);
         }
 
         public static WorkflowParser Instance
@@ -26,36 +32,38 @@ namespace XMLParsing.Services
             }
         }
 
+        public Assembly LatestOrDefault(string name, IEnumerable<Assembly> assemblies = null)
+        {
+            if (assemblies == null)
+            {
+                assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            }
+            var shortName = new AssemblyName(name).Name;
+            var assembly =
+                (from a in assemblies
+                 let assemblyIdentity = a.GetName()
+                 where assemblyIdentity.Name.Equals(shortName, StringComparison.OrdinalIgnoreCase)
+                 orderby assemblyIdentity.Version descending
+                 select a).FirstOrDefault();
+            if (assembly != null)
+            {
+                Console.WriteLine($"Redirected {name} to {assembly}.");
+            }
+            return assembly;
+        }
+
         public Workflow ParseWorkflow(string path)
         {
             string readText = File.ReadAllText(path);
-
-
-            // here
-            //xmlns.AddNamespace("ui", "http://schemas.uipath.com/workflow/activities");
-
-            // XamlXmlNamespaceManager
-
-            // var context = new XmlParserContext(null, xmlns, "", XmlSpace.Default);
-            // XamlSchemaContext xamlSchemaContext = new XamlSchemaContext();
-            // xamlSchemaContext.
-            // var xamlXmlReader = new XamlXmlReader(new StringReader(readText), xamlSchemaContext);
-            // xamlXmlReader.SchemaContext.GetAllXamlNamespaces()
-
-            
-            XamlXmlReaderSettings xamlXmlReaderSettings = new XamlXmlReaderSettings();
-            LogMessage l = new LogMessage();
-            xamlXmlReaderSettings.LocalAssembly = l.GetType().Assembly;
-
             var stringReader = new StringReader(readText);
-            var xamlXmlReader = new XamlXmlReader(stringReader, xamlXmlReaderSettings);
+            var xamlXmlReader = new XamlXmlReader(stringReader);
             var xamlReader = ActivityXamlServices.CreateBuilderReader(xamlXmlReader);
 
-            // UiPath.Core.Activities.
-
+            AppDomain.CurrentDomain.AssemblyResolve += (_, args) => LatestOrDefault(args.Name);
             ActivityBuilder activityBuilder = XamlServices.Load(xamlReader) as ActivityBuilder;
 
-            if(activityBuilder == null)
+
+            if (activityBuilder == null)
             {
                 return null;
             }

@@ -16,11 +16,14 @@ namespace XMLParsing.Common
 
         public List<Node> Nodes { get; set; }
 
+        public List<Transition> Transitions { get; set; }
+
         public Workflow()
         {
             Arguments = new List<DynamicActivityProperty>();
             Variables = new List<Variable>();
             Nodes = new List<Node>();
+            Transitions = new List<Transition>();
         }
 
         public override string ToString()
@@ -84,7 +87,7 @@ namespace XMLParsing.Common
             {
                 output += String.Format("Node '{0}', DisplayName: '{1}'", node.Id, node.DisplayName) + "\n";
                 output += "\tTransitions: \n";
-                foreach (var transition in node.TransitionList)
+                foreach (var transition in (Transitions.FindAll((t) => t.source.Equals(node))))
                 {
                     output += String.Format("\t\tDestination: Id '{0}', Expression '{1}', Value needed '{2}'\n", transition.destination.Id, transition.expression, transition.expressionValue);
                 }
