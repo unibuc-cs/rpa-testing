@@ -87,7 +87,8 @@ namespace XMLParsing.Services
                 {
                     Console.Write(parameters[i] + " ");
                 }
-                Console.Write(" " + _descriptions[parserCommand] + "\n");
+                Console.Write("\n");
+                Console.Write("\t" + _descriptions[parserCommand] + "\n");
             }
         }
 
