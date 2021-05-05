@@ -81,6 +81,7 @@ namespace XMLParsing.Services
         public void ParseFlowDecision(FlowDecision flowDecision, Dictionary<FlowNode, Node> nodes, Workflow workflow)
         {
             nodes[flowDecision].DisplayName = flowDecision.DisplayName;
+            nodes[flowDecision].IsConditional = true;
 
             Func<Common.Transition> buildPartialTransition = () => 
             {
@@ -123,7 +124,8 @@ namespace XMLParsing.Services
             if(flowStep.Action != null)
             {
                 nodes[flowStep].DisplayName = flowStep.Action.DisplayName;
-                if(flowStep.Next != null)
+                nodes[flowStep].IsConditional = false;
+                if (flowStep.Next != null)
                 {
                     Common.Transition t = new Common.Transition();
                     t.source = nodes[flowStep];
@@ -141,6 +143,9 @@ namespace XMLParsing.Services
             }
         }
 
+        /*
+         * When splitToConditionals is true, the switch should be decomposed to multiple if clauses
+         */
         public void ParseFlowSwitch(FlowNode flowSwitch, Dictionary<FlowNode, Node> nodes, Workflow workflow)
         {
             if (flowSwitch == null)
@@ -149,6 +154,7 @@ namespace XMLParsing.Services
             }
 
             nodes[flowSwitch].DisplayName = ReflectionHelpers.CallMethod(flowSwitch, "get_DisplayName") as string;
+            nodes[flowSwitch].IsConditional = true;
 
             var expression = ReflectionHelpers.CallMethod(flowSwitch, "get_Expression");
             var expressionText = ReflectionHelpers.CallMethod(expression, "get_ExpressionText") as string;
@@ -157,17 +163,18 @@ namespace XMLParsing.Services
             var defaultCase = ReflectionHelpers.CallMethod(flowSwitch, "get_Default") as FlowNode;
 
 
-            List<string> treatedValues = new List<string>();
+            List<string> treatedClauses = new List<string>();
             foreach(var flowCase in cases)
             {
                 Common.Transition t = new Common.Transition();
                 t.source = nodes[flowSwitch];
-                t.expression = expressionText;
 
                 var key = ReflectionHelpers.CallMethod(flowCase, "get_Key");
-                t.expressionValue = key.ToString();
 
-                treatedValues.Add(t.expressionValue);
+                t.expression = expressionText + " == " + key.ToString();
+                t.expressionValue = "True";
+
+                treatedClauses.Add(t.expression);
 
                 var value = ReflectionHelpers.CallMethod(flowCase, "get_Value") as FlowNode;
                 t.destination = nodes[value];
@@ -175,20 +182,29 @@ namespace XMLParsing.Services
                 workflow.Transitions.Add(t);
             }
 
-            // Tread the default
+            // Treat the default
             if (defaultCase != null)
             {
                 Common.Transition t = new Common.Transition();
                 t.source = nodes[flowSwitch];
 
                 // flowStep proceeds anyway
-                t.expression = "False";
+                t.expression = "";
 
-                t.expressionValue = "False";
+                t.expressionValue = "True";
 
-                foreach (var treatedValue in treatedValues)
+                foreach (var treatedClause in treatedClauses)
                 {
-                    t.expression = t.expression + " OR " + expressionText + ".Equals(" + treatedValue + ")";
+                    t.expression = t.expression + "!(" + treatedClause + ") and ";
+                }
+
+                if(t.expression == "")
+                {
+                    t.expression = "True";
+                }
+                else
+                {
+                    t.expression = t.expression.Substring(0, t.expression.Length - 5);
                 }
 
                 t.destination = nodes[defaultCase];
