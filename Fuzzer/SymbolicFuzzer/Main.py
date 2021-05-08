@@ -8,6 +8,7 @@
 # pip install networkx
 # pip install pygraphviz
 
+
 from py_expression_eval import Parser # Not used at the moment but might be good !
 parser = Parser()
 import copy
@@ -18,34 +19,9 @@ import pygraphviz as pgv
 from typing import Dict, List, Set, Tuple
 from z3 import *
 import matplotlib as plt
+from enum import Enum
 
-# A generic branch node definition
-class BranchNode():  # Just an example of a base class
-    def __init__(self, id : str, condition : str):
-        self.expression = condition
-        self.valuesAndNext : Dict[str, str] = {} # A dictionary from expression value to next branch
-        self.id = id
-
-    def getVariables(self):
-        return None # self.expression.variables() # TODO
-
-    def __str__(self):
-        return self.id + " " + str(self.expression)
-
-    # Functions and examples to inspect the graph at a higher level
-    #-------------------------------------------------
-    # A function to collect all variables by nodes
-    def getAllVariables(self) -> set:
-        setOfVariables = set()
-        for node in self.graph.nodes:
-            node = fixNodeInstance(graph, node)
-            variablesInNode = node.getVariables()
-            setOfVariables.update(variablesInNode)
-        return setOfVariables
-
-# An interaction point node definition
-class InteractionNode(): # TODO, work in progress
-    pass
+from GraphDef import *
 
 
 # A symbolic workflow testing assistant starting from a given workflow graph in JSon format and the variables names and their types
@@ -176,10 +152,16 @@ class SymbolicWorflowTester():
 
         nodeIdToInstance: Dict[str, BranchNode] = {}
 
+        # Factory of nodes...too simple to put it now in a different class
         for nodeId, nodeSpec in dictSpec.items():
-            assert isinstance(nodeSpec, tuple) and len(nodeSpec) > 0, f"invalid specificiation for node {nodeId}"
+            assert isinstance(nodeSpec, tuple) and len(nodeSpec) > 0, f"invalid specification for node {nodeId}"
             nodeCond = nodeSpec[0]
-            nodeInst = BranchNode(id=nodeId, condition=nodeCond)
+
+            if nodeCond is None:
+                nodeInst = FlowNode(id=nodeId)
+            else:
+                nodeInst = BranchNode(id=nodeId, condition=nodeCond)
+
             nodeIdToInstance[nodeId] = nodeInst
             graph.add_node(nodeInst)
 
@@ -187,18 +169,32 @@ class SymbolicWorflowTester():
 
         # Step 2: Create the links inside the nodes and graph
         for nodeId, nodeSpec in dictSpec.items():
-            nodeSuccessorsSpec = nodeSpec[1]
-            assert isinstance(nodeSuccessorsSpec, list), f"Expecting a list here for node successors desc!"
-
             parentNodeInst = nodeIdToInstance[nodeId]
-            for nodeSucc in nodeSuccessorsSpec:
-                nextNodeVal = nodeSucc[0]
-                nextNodeId = nodeSucc[1]
 
-                succNodeInst = nodeIdToInstance[nextNodeId]
-                parentNodeInst.valuesAndNext[nextNodeVal] = nextNodeId
+            if parentNodeInst.nodeType == NodeTypes.BRANCH_NODE:
 
-                graph.add_edge(parentNodeInst, succNodeInst)
+                # Solve successors for each condition
+                nodeSuccessorsSpec = nodeSpec[1]
+                assert isinstance(nodeSuccessorsSpec, list), f"Expecting a list here for node successors desc!"
+                for nodeSucc in nodeSuccessorsSpec:
+                    nextNodeVal = nodeSucc[0]
+                    nextNodeId = nodeSucc[1]
+
+                    succNodeInst = nodeIdToInstance[nextNodeId]
+                    parentNodeInst.valuesAndNext[nextNodeVal] = nextNodeId
+
+                    graph.add_edge(parentNodeInst, succNodeInst)
+            elif parentNodeInst.nodeType == NodeTypes.FLOW_NODE:
+                assert nodeSpec[0] == None
+
+                # Solve successor
+                successor = nodeSpec[1]
+                assert successor is None or isinstance(successor, str)
+                parentNodeInst.nextNodeId = successor
+
+                if successor != None:
+                    succNodeInst = nodeIdToInstance[successor]
+                    graph.add_edge(parentNodeInst, succNodeInst)
 
         return graph
 
@@ -272,7 +268,12 @@ class SymbolicWorflowTester():
         pathLen = len(path)
         outCOnditions = []
         for nodeIndex in range(pathLen):
-            currNode: BranchNode = path[nodeIndex]
+
+
+            currNode = path[nodeIndex]
+            if currNode.nodeType != NodeTypes.BRANCH_NODE:
+                continue
+
             nextNode = path[nodeIndex + 1] if (nodeIndex + 1 < pathLen) and len(currNode.valuesAndNext) > 0 else None
 
             # Fix the condition to solve
@@ -382,11 +383,17 @@ class SymbolicWorflowTester():
 
 def demo_bankLoanExample():
     variables = {'loan' : 'Real', 'term' : 'Int', 'context_userId' : ('Const', 2, 'Int')}
-    bankLoanGraph = {'node_loanTest0' : ('V["loan"] < 1000', [('True', 'term_test0'), ('False', 'node_loanTest1')]),
-                    'node_loanTest1' : ('And(V["loan"] >= 1000, V["loan"] < 10000)', [('True', 'term_test0'), ('False', 'sinkF')]),
-                    'term_test0' : ('V["term"] < 5', [('True', 'sinkT'), ('False', 'sinkF')]),
-                    'sinkT' :  ('True', []),
-                    'sinkF': ('True', [])
+
+    bankLoanGraph = {'node_loanTest0' : ('V["loan"] < 1000', [('True', 'lowVolumeLoan'), ('False', 'node_loanTest1')]),
+                     'lowVolumeLoan' : (None, 'term_test0'),
+                    'node_loanTest1' : ('And(V["loan"] >= 1000, V["loan"] < 100000)', [('True', 'midVolumeLoan'), ('False', 'highVolumeLoan')]),
+                    'lowVolumeLoan' : (None, 'term_test0'),
+                     'midVolumeLoan' : (None, 'term_test0'),
+                    'highVolumeLoan' : (None, 'term_test0'),
+                    'term_test0' : ('V["term"] < 5', [('True', 'shortTermLoan'), ('False', 'longTermLoan')]),
+                    'shortTermLoan' :  (None, 'outputRate'),
+                    'longTermLoan': (None, 'outputRate'),
+                     'outputRate' : (None, None)
                     }
 
     bankLoanWorkTester = SymbolicWorflowTester(name="bankLoanWorkflow", graphDict=bankLoanGraph, graphVariables=variables)
