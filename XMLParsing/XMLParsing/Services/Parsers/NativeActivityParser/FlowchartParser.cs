@@ -46,15 +46,18 @@ namespace XMLParsing.Services
                 nodes[flowNode] = node;
             }
 
+            int it = 0;
             foreach (var flowNode in flowchart.Nodes)
             {
+                nodes[flowNode].RealNodeID = it;
                 ParseFlowNode(flowNode, nodes, workflow);
+                it = it + 1;
             }
 
             return nodes;
         }
 
-        public void ParseFlowNode(FlowNode flowNode, Dictionary<FlowNode, Node> node, Workflow workflow)
+        public void ParseFlowNode(FlowNode flowNode, Dictionary<FlowNode, Node> nodes, Workflow workflow)
         {
             if (flowNode == null)
             {
@@ -63,8 +66,8 @@ namespace XMLParsing.Services
 
             var flowNodeParserDict = new Dictionary<Type, Action>
             {
-                { typeof(FlowDecision), () => ParseFlowDecision(flowNode as FlowDecision, node, workflow) },
-                { typeof(FlowStep), () => ParseFlowStep(flowNode as FlowStep, node, workflow) },
+                { typeof(FlowDecision), () => ParseFlowDecision(flowNode as FlowDecision, nodes, workflow) },
+                { typeof(FlowStep), () => ParseFlowStep(flowNode as FlowStep, nodes, workflow) },
             };
 
             if (flowNodeParserDict.ContainsKey(flowNode.GetType()))
@@ -74,7 +77,7 @@ namespace XMLParsing.Services
             else
             {
                 // Leaving as default and try to use reflection on it
-                ParseFlowSwitch(flowNode, node, workflow);
+                ParseFlowSwitch(flowNode, nodes, workflow);
             }
         }
 

@@ -35,6 +35,9 @@ namespace XMLParsing
                     case ParserCommand.Z3ConditionalGraph:
                         HandleZ3ConditionalGraph(parameterList);
                         break;
+                    case ParserCommand.Z3FullGraph:
+                        HandleZ3FullGraph(parameterList);
+                        break;
                 }
             }
             catch (XamlParserException ex)
@@ -74,6 +77,25 @@ namespace XMLParsing
             var jsonFilePath = parameters[0].Replace(".xaml", "") + "_" + timeStamp + ".json";
 
             var serializer = new Z3ConditionalGraphSerializer();
+            var textWriter = File.AppendText(jsonFilePath);
+            serializer.SerializeWorkflow(wf, textWriter);
+
+            Console.WriteLine("Successfully parsed workflow: " + parameters[0] + ".");
+            Console.WriteLine("Output file is: " + jsonFilePath + ".");
+
+            textWriter.Close();
+        }
+
+        private static void HandleZ3FullGraph(List<string> parameters)
+        {
+            Console.WriteLine("Parsing to z3 full graph form");
+
+            var wf = WorkflowParser.Instance.ParseWorkflow(parameters[0]);
+
+            var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+            var jsonFilePath = parameters[0].Replace(".xaml", "") + "_" + timeStamp + ".json";
+
+            var serializer = new Z3FullGraphSerializer();
             var textWriter = File.AppendText(jsonFilePath);
             serializer.SerializeWorkflow(wf, textWriter);
 
