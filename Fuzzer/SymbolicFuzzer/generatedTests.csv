@@ -1,7 +1,5 @@
-context_userId,loan,term
-2,999.0,4
-2,999.0,5
-2,1000.0,4
-2,1000.0,5
-2,100000.0,4
-2,100000.0,5
+Pin:local_pinCorrect,Pin:local_numberRetries,Main:context_userId,Main:loan,Main:term
+False,0,2,999.0,4
+False,0,2,999.0,5
+False,0,2,1000.0,4
+False,0,2,1000.0,5
