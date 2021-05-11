@@ -277,6 +277,7 @@
     <Compile Include="Services\Parsers\NativeActivityParser\INativeActivityParser.cs" />
     <Compile Include="Services\Parsers\NativeActivityParser\NativeActivityParserFactory.cs" />
     <Compile Include="Services\Parsers\WorkflowParser.cs" />
+    <Compile Include="Services\Serializers\Z3FullGraphSerializer.cs" />
     <Compile Include="Services\Serializers\Z3ConditionalGraphSerializer.cs" />
     <Compile Include="Services\Serializers\FullGraphSerializer.cs" />
     <Compile Include="Services\Serializers\IWorkflowSerializer.cs" />
