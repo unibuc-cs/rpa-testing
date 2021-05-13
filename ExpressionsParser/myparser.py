@@ -20,6 +20,7 @@ class TokenType(enum.Enum):
     T_EQ = 14
     T_NEQ = 15
     T_VAR = 16
+    T_NOT = 17
 
 
 class Node:
@@ -45,10 +46,28 @@ def lexical_analysis(s):
         '>=': TokenType.T_GTE,
         '<': TokenType.T_LT,
         '<=': TokenType.T_LTE,
+        '=': TokenType.T_EQ,
         '==': TokenType.T_EQ,
-        '!=': TokenType.T_NEQ
+        '!=': TokenType.T_NEQ,
+        '!': TokenType.T_NOT
         }
-
+    operations ={
+        TokenType.T_PLUS: '+',
+        TokenType.T_MINUS:'-',
+        TokenType.T_MULT:'*',
+        TokenType.T_DIV:'/',
+        TokenType.T_LPAR:'(',
+        TokenType.T_RPAR:')',
+        TokenType.T_AND: 'And',
+        TokenType.T_OR: 'Or',
+        TokenType.T_GT: '>',
+        TokenType.T_GTE:'>=',
+        TokenType.T_LT:'<',
+        TokenType.T_LTE: '<=',
+        TokenType.T_EQ : '==',
+        TokenType.T_NEQ: '!=',
+        TokenType.T_NOT: 'Not'
+        }
     tokens = []
     #split_tokens = s.split(' ')
     #print(split_tokens)
@@ -71,7 +90,7 @@ def lexical_analysis(s):
         append=True
         if c in mappings:
             token_type = mappings[c]
-            token = Node(token_type, value=c)
+            token = Node(token_type, value=operations[token_type])
         elif re.match(r'^[-+]?[0-9]+$', c):
             token = Node(TokenType.T_NUM, value=int(c))
         elif re.match(r'\s',c):

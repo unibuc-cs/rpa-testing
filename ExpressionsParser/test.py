@@ -9,14 +9,14 @@ DataTypes = {
     }
 
  
-def parseGraph(path):
+def parseGraph(path, rname):
     with open(path) as json_file:
         data = json.load(json_file)
         variables = data['variables']
         z3Vars = {}
         z3Graph = {}
         for v in variables:
-            z3Vars['V['+v+']'] = DataTypes[variables[v]]
+            z3Vars['V['+rname+':'+v+']'] = DataTypes[variables[v]]
             #z3Vars['Main:'+v] = DataTypes[variables[v]]
         graph = data['graph']
         for k in graph:
@@ -24,7 +24,7 @@ def parseGraph(path):
             #print(graph[k])
             # k is the node name 
             # graph[k] contains all info from a node
-            name = k
+            name = rname+':'+ k
             #the guard will contain the expression parsed using myparser
             if graph[k]['expression'] == '':
                 guard = 'None'
@@ -34,7 +34,7 @@ def parseGraph(path):
             # transitions contain a list of transitions 
             transitions=[]
             for trans in graph[k]['transitions']:
-                transition = (trans['value'],trans['destination'])
+                transition = (trans['value'],rname+':'+trans['destination'])
                 transitions.append(transition)
             
             z3Graph[name]=(guard,transitions)
@@ -46,12 +46,23 @@ def ast_to_string(localast):
     # AST to string - using preorder 
     # to change for ternary operations
     localstr = localast.value
-   
+    st = ''
+    dr = ''
     if len(localast.children) > 0 :
-        localstr = localstr + '(' +  "(" + str(ast_to_string(localast.children[0]))+")"
+        st =   "(" + str(ast_to_string(localast.children[0]))+")"
         if len(localast.children) ==2:
-              localstr = localstr +','+ "(" + str(ast_to_string(localast.children[1]))+")"
-        localstr = localstr +')'
+              dr =  "(" + str(ast_to_string(localast.children[1]))+")"
+    
+    if st == '' and dr == '':
+        localstr = localstr 
+    elif st == '' and dr != '':
+        localstr = localstr + ' ' + dr 
+    elif st != '' and dr == '':
+        localstr = localstr + ' ' + st
+    elif localast.value in ["And",'Or']:
+        localstr = localstr + '(' + st + ',' + dr + ')'
+    else:
+        localstr = st + ' ' + localstr + ' ' + dr
     return localstr
 
 def test_parser(inputstring):
@@ -64,7 +75,7 @@ def test_parser(inputstring):
 
 if __name__ == '__main__':
     path = 'D:\parser-master\inputfile.json'
-    print(parseGraph(path))
+    print(parseGraph(path, "Main"))
 
 
 #test_parser('(1+7)*(9+2)')
