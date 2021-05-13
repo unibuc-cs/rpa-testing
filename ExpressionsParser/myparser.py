@@ -21,6 +21,8 @@ class TokenType(enum.Enum):
     T_NEQ = 15
     T_VAR = 16
     T_NOT = 17
+    T_BOOL = 18,
+    T_STRING = 19
 
 
 class Node:
@@ -80,6 +82,16 @@ def lexical_analysis(s):
         if s[0] == '(' or s[0] == ')':
             c = s[0]
             s = s[1:]
+        elif s[0] == '\"':
+            s = s[1:]
+            c = '\"'+s[0:(s.rfind('\"')+1)]
+            s= s[(s.rfind('\"')+1):]
+        elif s.startswith('True'): 
+            c = 'True'
+            s = s[4:]
+        elif s.startswith('False'):
+            c = 'False'
+            s = s[5:]
         else: 
           while len(s) > 0 and (s[0] != ' ' and s[0] != '(' and s[0] != ')'):
             c = c + s[0]
@@ -91,6 +103,10 @@ def lexical_analysis(s):
         if c in mappings:
             token_type = mappings[c]
             token = Node(token_type, value=operations[token_type])
+        elif c == 'True' or c == 'False':
+            token = Node(TokenType.T_BOOL,value=c)
+        elif c[0]=='\"':
+             token = Node(TokenType.T_STRING, value=c)
         elif re.match(r'^[-+]?[0-9]+$', c):
             token = Node(TokenType.T_NUM, value=int(c))
         elif re.match(r'\s',c):
@@ -171,7 +187,10 @@ def parse_e3(tokens):
         return tokens.pop(0)
     if tokens[0].token_type == TokenType.T_VAR:
         return tokens.pop(0)
-
+    if tokens[0].token_type == TokenType.T_STRING:
+        return tokens.pop(0)
+    if tokens[0].token_type == TokenType.T_BOOL:
+        return tokens.pop(0)
     match(tokens, TokenType.T_LPAR)
     expression = parse_e(tokens)
     match(tokens, TokenType.T_RPAR)
