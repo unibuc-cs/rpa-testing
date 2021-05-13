@@ -5,7 +5,9 @@ import json
 import sys
 
 DataTypes = {
-    'Int32':'Int'
+    'Int32':'Int',
+    'String': 'String',
+    'Bool': 'Bool'
     }
 
  
@@ -16,7 +18,7 @@ def parseGraph(path, rname):
         z3Vars = {}
         z3Graph = {}
         for v in variables:
-            z3Vars['V['+rname+':'+v+']'] = DataTypes[variables[v]]
+            z3Vars[rname+':'+v] = DataTypes[variables[v]]
             #z3Vars['Main:'+v] = DataTypes[variables[v]]
         graph = data['graph']
         for k in graph:
@@ -46,7 +48,7 @@ def ast_to_string(localast,rname):
     # AST to string - using preorder 
     # to change for ternary operations
     if localast.token_type == myparser.TokenType.T_VAR:
-         localstr = rname+':'+ localast.value
+         localstr = 'V['+rname+':'+ localast.value+']'
     else:
         localstr = localast.value
     st = ''
@@ -80,7 +82,16 @@ if __name__ == '__main__':
     path = 'D:\parser-master\inputfile.json'
     print(parseGraph(path, "Main"))
 
+'''
+variables 
+{'Main:loan': 'Int', 'Main:term': 'Int'}
 
+
+graph
+
+{'Main:loan_<_1000': ('(V[Main:loan]) < (1000)', [('False', 'Main:loan_in_[1000,100000]'), ('True', 'Main:Low_-_Volume_loan')]), 'Main:Low_-_Volume_loan': ('None', [('True', 'Main:term_in_years_<_5')]), 'Main:loan_in_[1000,100000]': ('And(((V[Main:loan]) >= (1000)),((V[Main:loan]) < (100000)))', [('False', 'Main:High_-_Volume_loan'), ('True', 'Main:Mid_-_Volume_loan')]), 'Main:Mid_-_Volume_loan': ('None', [('True', 'Main:term_in_years_<_5')]), 'Main:High_-_Volume_loan': ('None', [('True', 'Main:term_in_years_<_5')]), 'Main:term_in_years_<_5': ('(V[Main:term]) < (5)', [('False', 'Main:Long_term'), ('True', 'Main:Short_-_Term')]), 'Main:Short_-_Term': ('None', [('True', 'Main:Output_rate_')]), 'Main:Long_term': ('None', [('True', 'Main:Output_rate_')]), 'Main:sinkT': ('V[Main:True]', []), 'Main:sinkF': ('V[Main:True]', [])}
+
+'''
 #test_parser('(1+7)*(9+2)')
 #test_parser('(6 < a)' )
 
