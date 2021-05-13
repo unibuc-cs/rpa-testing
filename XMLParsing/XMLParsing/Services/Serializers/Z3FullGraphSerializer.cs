@@ -33,28 +33,24 @@ namespace XMLParsing.Services.Serializers
             foreach (var dynamicActivityProperty in workflow.Arguments)
             {
                 var name = dynamicActivityProperty.Name;
-
-                var direction = "None";
-                if (dynamicActivityProperty.Type.FullName.Contains(IN_ARGUMENT_TYPE_NAME))
-                {
-                    direction = "In";
-                }
-                else if (dynamicActivityProperty.Type.FullName.Contains(OUT_ARGUMENT_TYPE_NAME))
-                {
-                    direction = "Out";
-                }
-
                 var type = typeof(object).Name;
                 if (dynamicActivityProperty.Type.GetGenericArguments().Length > 0)
                 {
                     type = dynamicActivityProperty.Type.GetGenericArguments()[0].Name;
                 }
 
-                if(direction.Equals("In"))
-                {
-                    variables.Add(name, type);
-                }
+                variables.Add(name, type);
+                
             }
+
+            foreach (var variable in workflow.Variables)
+            {
+                variables.Add(variable.Name, variable.Type.Name);
+            }
+
+            var startNodeLabel = workflow.StartNode.DisplayName.Replace(" ", "_");
+            dictionary.Add("startNode", startNodeLabel);
+
             dictionary.Add("variables", variables);
         }
 
@@ -69,31 +65,15 @@ namespace XMLParsing.Services.Serializers
                 }
             }
 
-            AddSinkNodes(graph);
-
             dictionary.Add("graph", graph);
         }
 
-        protected void AddSinkNodes(IDictionary<string, object> graph)
-        {
-            IDictionary<string, object> trueNodeInformation = new Dictionary<string, object>();
-            trueNodeInformation.Add("expression", "True");
-            trueNodeInformation.Add("transitions", new object[] { });
-            graph.Add("sinkT", trueNodeInformation);
-
-            IDictionary<string, object> falseNodeInformation = new Dictionary<string, object>();
-            falseNodeInformation.Add("expression", "True");
-            falseNodeInformation.Add("transitions", new object[] { });
-            graph.Add("sinkF", falseNodeInformation);
-        }
 
         protected void AddGraphNode(Workflow workflow, IDictionary<string, object> graph, Node node)
         {
             var nodeTransitions = workflow.Transitions.FindAll(x => x.source.Equals(node)).GroupBy(x => x.expression);
             var nodeLabel = node.DisplayName.Replace(" ", "_");
             var count = 0;
-            var sinkF = "sinkF";
-            var sinkT = "sinkT";
 
             foreach (var result in nodeTransitions)
             {
@@ -122,14 +102,6 @@ namespace XMLParsing.Services.Serializers
                 var trueDestinationLabel = "";
                 var falseDestinationLabel = "";
 
-                if(trueDestination == null)
-                {
-                    trueDestinationLabel = sinkT;
-                }
-                else
-                {
-                    trueDestinationLabel = trueDestination.DisplayName.Replace(" ", "_");
-                }
 
                 if (count < nodeTransitions.Count())
                 {
@@ -140,7 +112,7 @@ namespace XMLParsing.Services.Serializers
                 {
                     if (falseDestination == null)
                     {
-                        falseDestinationLabel = sinkF;
+                        falseDestinationLabel = "";
                     }
                     else
                     {
@@ -156,10 +128,14 @@ namespace XMLParsing.Services.Serializers
                 {
                     nodeInformation.Add("expression", expression);
 
-                    IDictionary<string, object> falseTransitionData = new Dictionary<string, object>();
-                    falseTransitionData.Add("value", "False");
-                    falseTransitionData.Add("destination", falseDestinationLabel);
-                    transitionDataList.Add(falseTransitionData);
+                    if(falseDestinationLabel != "")
+                    {
+
+                        IDictionary<string, object> falseTransitionData = new Dictionary<string, object>();
+                        falseTransitionData.Add("value", "False");
+                        falseTransitionData.Add("destination", falseDestinationLabel);
+                        transitionDataList.Add(falseTransitionData);
+                    }
                     
                 }
                 else
@@ -167,10 +143,14 @@ namespace XMLParsing.Services.Serializers
                     nodeInformation.Add("expression", "");
                 }
 
-                IDictionary<string, object> trueTransitionData = new Dictionary<string, object>();
-                trueTransitionData.Add("value", "True");
-                trueTransitionData.Add("destination", trueDestinationLabel);
-                transitionDataList.Add(trueTransitionData);
+                if (trueDestination != null)
+                {
+                    IDictionary<string, object> trueTransitionData = new Dictionary<string, object>();
+                    trueDestinationLabel = trueDestination.DisplayName.Replace(" ", "_");
+                    trueTransitionData.Add("value", "True");
+                    trueTransitionData.Add("destination", trueDestinationLabel);
+                    transitionDataList.Add(trueTransitionData);
+                }
 
                 nodeInformation.Add("transitions", transitionDataList.ToArray());
                 graph.Add(currentNodeLabel, nodeInformation);

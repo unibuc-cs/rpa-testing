@@ -29,7 +29,6 @@ namespace XMLParsing.Services
                 workflow.Variables.Add(variable);
             }
 
-
             Dictionary<FlowNode, Node> nodes = ParseNodeStructure(flowchart, workflow);
             workflow.Nodes = nodes.Values.ToList();
         }
@@ -45,6 +44,8 @@ namespace XMLParsing.Services
                 node.Id = idGenerator++;
                 nodes[flowNode] = node;
             }
+
+            workflow.StartNode = nodes[flowchart.StartNode];
 
             int it = 0;
             foreach (var flowNode in flowchart.Nodes)
@@ -98,6 +99,7 @@ namespace XMLParsing.Services
                 if (expressionTextInfo != null)
                 {
                     t.expression = expressionTextInfo.GetValue(flowDecision.Condition) as String;
+                    t.expression = t.expression.Replace("=", "==");
                 }
 
                 return t;
