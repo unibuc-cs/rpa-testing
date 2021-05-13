@@ -30,7 +30,7 @@ def parseGraph(path, rname):
                 guard = 'None'
             else:
                 ast = myparser.parse(graph[k]['expression'])
-                guard = ast_to_string(ast)
+                guard = ast_to_string(ast,rname)
             # transitions contain a list of transitions 
             transitions=[]
             for trans in graph[k]['transitions']:
@@ -38,20 +38,23 @@ def parseGraph(path, rname):
                 transitions.append(transition)
             
             z3Graph[name]=(guard,transitions)
-       
+        print(z3Vars)
         return z3Graph
 
 
-def ast_to_string(localast):
+def ast_to_string(localast,rname):
     # AST to string - using preorder 
     # to change for ternary operations
-    localstr = localast.value
+    if localast.token_type == myparser.TokenType.T_VAR:
+         localstr = rname+':'+ localast.value
+    else:
+        localstr = localast.value
     st = ''
     dr = ''
     if len(localast.children) > 0 :
-        st =   "(" + str(ast_to_string(localast.children[0]))+")"
+        st =   "(" + str(ast_to_string(localast.children[0],rname))+")"
         if len(localast.children) ==2:
-              dr =  "(" + str(ast_to_string(localast.children[1]))+")"
+              dr =  "(" + str(ast_to_string(localast.children[1],rname))+")"
     
     if st == '' and dr == '':
         localstr = localstr 
