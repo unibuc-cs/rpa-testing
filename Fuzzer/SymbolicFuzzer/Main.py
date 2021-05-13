@@ -59,7 +59,8 @@ def demo_bankLoanExample():
 
     # Workflow 1: the bank loan main (embedding a PIN test grpah inside)
     # Check the rules for embedding as written below in comments
-    variables_bankLoanMainGraph = {'Main:loan' : 'Real', 'Main:term' : 'Int', 'Main:context_userId' : ('Context', 2, 'Int')}
+    variables_bankLoanMainGraph = {'Main:loan' : 'Real', 'Main:term' : 'Int', 'Main:context_userId' : ('Context', 2, 'Int'),
+                                   'Main:pinCorrectValue' : 'Int', 'Main:pinCorrectTest' : 'Bool'}
 
     bankLoanMainGraph = {'Main:node_loanTest0' : ('V["Main:loan"] < 1000', [('True', 'Main:lowVolumeLoan'), ('False', 'Main:node_loanTest1')]),
                      'Main:lowVolumeLoan' : (None, 'Main:term_test0'),
@@ -68,8 +69,8 @@ def demo_bankLoanExample():
                      'Main:midVolumeLoan' : (None, 'Main:term_test0'),
                     'Main:highVolumeLoan' : (None, 'Pin:checkPin'),
 
-                    'Pin:FailedCheck' : (None, 'Main:fail'), # These 2 nodes will not be created inside this graph ! Only the links will be created
-                    'Pin:SucceedCheck' : (None, 'Main:term_test0'),
+                    'Pin:FinishedCheck' : (None, 'Main:checkedPin'),  # Note that only the Main node knows about this, the Pin is completely indepnedent and can run without this edge !
+                    'Main:checkedPin' :('V["Main:pinCorrectTest"] == True', [('True', 'Main:term_test0'), ('False', 'Main:fail')]),
 
                     'Main:term_test0' : ('V["Main:term"] < 5', [('True', 'Main:shortTermLoan'), ('False', 'Main:longTermLoan')]),
                     'Main:shortTermLoan' :  (None, 'Main:outputRate'),
@@ -82,15 +83,16 @@ def demo_bankLoanExample():
 
 
     # The second workflow definition
-    variables_bankPinTest = {'Pin:local_pinCorrect' : ('Context', False, 'Bool'), 'Pin:local_numberRetries' : ('Context', 0, 'Int')}
+    variables_bankPinTest = {'Pin:pinCorrectTest_local' : 'Int',  'Pin:local_numberRetries' : ('Context', 0, 'Int')}
     # Notes:    - checkPin node should write local_piCorrect to either true or false and increase the local_nu
     #           - retryFailed should increment the local_numberRetries
     bankPinTest = { 'Pin:checkPin' : (None, 'Pin:pinTest0'),
-                    'Pin:pinTest0' : ('V["Pin:local_pinCorrect"] == True', [('True', 'Pin:SucceedCheck'), ('False', 'Pin:retryFailed')]),
+                    'Pin:pinTest0' : ('V["Pin:pinCorrectTest_local"] == True', [('True', 'Pin:SucceedCheck'), ('False', 'Pin:retryFailed')]),
                      'Pin:retryFailed' : (None, 'Pin:checkRetryTest'),
                     'Pin:checkRetryTest' : ('V["Pin:local_numberRetries"] < 3', [('True', 'Pin:checkPin'), ('False', 'Pin:FailedCheck')]),
-                     'Pin:SucceedCheck' : (None, None),
-                     'Pin:FailedCheck' : (None, None),
+                     'Pin:SucceedCheck' : (None, 'Pin:FinishedCheck'),
+                     'Pin:FailedCheck' : (None, 'Pin:FinishedCheck'),
+                     'Pin:FinishedCheck' : (None, None)
                      }
 
     bankPinWorkflow = WorkflowDef(variables=variables_bankPinTest, graph=bankPinTest, name = "Pin", color='blue')

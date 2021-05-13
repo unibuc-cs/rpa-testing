@@ -250,7 +250,8 @@ class SymbolicWorflowsTester():
                     succNodeInst = nodeIdToInstance[nextNodeId]
                     parentNodeInst.valuesAndNext[nextNodeVal] = nextNodeId
 
-                    graph.add_edge(parentNodeInst, succNodeInst)
+                    edgeLabel : str = 'T' if nextNodeVal == 'True' else 'F'
+                    graph.add_edge(parentNodeInst, succNodeInst, label=edgeLabel, labelfontsize=20)
             elif parentNodeInst.nodeType == NodeTypes.FLOW_NODE:
                 assert nodeSpec[0] == None
 
