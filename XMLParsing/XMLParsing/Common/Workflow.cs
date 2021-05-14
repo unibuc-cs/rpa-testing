@@ -14,6 +14,8 @@ namespace XMLParsing.Common
 
         public List<Node> Nodes { get; set; }
 
+        public Node StartNode { get; set; }
+
         public List<Transition> Transitions { get; set; }
 
         public Workflow()
