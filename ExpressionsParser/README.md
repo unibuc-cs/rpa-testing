@@ -1,4 +1,17 @@
-#New Changes for our problem:
+
+# How to run 
+
+From command line: .\main_parse.py "path to model.json" "robot name"
+
+Example .\main_parse.py "SimpleBankLoan\Pin Check_202105121449166565.json" "Main"
+
+Output: printed at console & json file containing  parsed variables and graph. 
+
+example: {"variables": {"Main:pin": "String"}, "graph": {"Main:pinTest": ["(V[Main:pin]) == (\"1234\")", [["False", "Main:retryCheck"], ["True", "Main:succeedCheck"]]], "Main:checkPin": ["None", [["True", "Main:pinTest"]]], "Main:retryCheck": ["None", [["True", "Main:canRetry"]]], "Main:canRetry": ["(V[Main:tryNumber]) < (3)", [["False", "Main:faledCheck"], ["True", "Main:checkPin"]]], "Main:sinkT": ["True", "None"], "Main:sinkF": ["True", "None"]}}
+
+
+
+# New Changes for our problem:
 
 We added 
 - several operators (logical ops, comparation ops).

@@ -85,9 +85,11 @@ def test_parser(inputstring):
  
 
 if __name__ == '__main__':
-    path = '..\Models\SimpleBankLoan\Pin Check_202105121449166565.json'
+    path = '..\\Models\\' +  sys.argv[1] # "SimpleBankLoan\Pin Check_202105121449166565.json"
+    rname = sys.argv[2] # Main
     out_path = path[:-5] + '_parsed.json'
-    parseGraph(path, "Main",out_path)
+    print(sys.argv)
+    parseGraph(path, rname,out_path)
 
 '''
 variables 
