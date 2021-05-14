@@ -25,6 +25,7 @@ E.g.: Xaml file is `C:\this-is-a-complex-wf.xaml`, then the following json file 
 - The parser can only look inside a .xaml file that it receives from input.
 - All the Flow Nodes in the .xaml file will be considered Flow Nodes in the output graph.
 - All the transitions in the .xaml file will be considered transitions in the output graph.
+- Variables and Arguments from the .xaml file will be considered variables in the output graph.
 - Switch statements are being split into multiple ifs like this.
 - There is no id that can be extracted such that we can make a 1-1 connection with the real workflow, yet. We shouls try many other techniques.
 
