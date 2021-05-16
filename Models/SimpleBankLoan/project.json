@@ -43,6 +43,11 @@
         "testCaseId": "76aa0026-9dc4-4410-86bf-a37ad3c6a0f4",
         "dataVariationFilePath": ".variations\\data_Sheet1.json",
         "fileName": "TestLoanAndTerm.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "a796080c-d1ea-417a-8ec4-419a0d7ca8ee",
+        "fileName": "TestLoanAndTerm-WithDataInGivenSequence.xaml"
       }
     ],
     "modernBehavior": false

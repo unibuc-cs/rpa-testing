@@ -5423,9 +5423,9 @@
     "restore": {
       "projectUniqueName": "GenerateTestingData",
       "projectName": "GenerateTestingData",
-      "projectPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\GenerateTestingData\\.local",
+      "projectPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\Models\\SimpleBankLoan\\.local",
       "packagesPath": "C:\\Users\\Marina Cernat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\GenerateTestingData\\.local"
+      "outputPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\Models\\SimpleBankLoan\\.local"
     },
     "frameworks": {
       "net461": {
@@ -5456,7 +5456,7 @@
             "version": "[20.10.6, 20.10.6]"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\Marina Cernat\\AppData\\Local\\UiPath\\app-21.4.0\\runtime.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\Marina Cernat\\AppData\\Local\\UiPath\\app-21.4.3\\runtime.json"
       }
     }
   }
