@@ -17,7 +17,7 @@ namespace XMLParsing.Services.Serializers
 
         protected override Node ProcessDestination(Workflow workflow, Transition transition)
         {
-            return SinkToConditional(workflow, transition.destination);
+            return SinkToConditional(workflow, transition.Destination);
         }
 
         protected Node SinkToConditional(Workflow workflow, Node node)
@@ -25,12 +25,12 @@ namespace XMLParsing.Services.Serializers
             Node result = node;
             while (!result.IsConditional)
             {
-                var transition = workflow.Transitions.Find(x => x.source.Equals(result));
+                var transition = workflow.Transitions.Find(x => x.Source.Equals(result));
                 if (transition == null)
                 {
                     return null;
                 }
-                result = transition.destination;
+                result = transition.Destination;
             }
 
             return result;

@@ -70,9 +70,9 @@ namespace XMLParsing.Services.Serializers
             {
                 output += String.Format("Node '{0}', DisplayName: '{1}'", node.Id, node.DisplayName) + "\n";
                 output += "\tTransitions: \n";
-                foreach (var transition in (workflow.Transitions.FindAll((t) => t.source.Equals(node))))
+                foreach (var transition in (workflow.Transitions.FindAll((t) => t.Source.Equals(node))))
                 {
-                    output += String.Format("\t\tDestination: Id '{0}', Expression '{1}', Value needed '{2}'\n", transition.destination.Id, transition.expression, transition.expressionValue);
+                    output += String.Format("\t\tDestination: Id '{0}', Expression '{1}', Value needed '{2}'\n", transition.Destination.Id, transition.Expression, transition.ExpressionValue);
                 }
             }
 

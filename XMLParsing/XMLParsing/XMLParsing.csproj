@@ -300,14 +300,17 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IOHandler.cs" />
-    <Compile Include="Services\Parsers\NativeActivityParser\FlowchartParser.cs" />
-    <Compile Include="Services\Parsers\NativeActivityParser\INativeActivityParser.cs" />
-    <Compile Include="Services\Parsers\NativeActivityParser\NativeActivityParserFactory.cs" />
+    <Compile Include="Services\Parsers\ActivityParser\DefaultActivityParser.cs" />
+    <Compile Include="Services\Parsers\ActivityParser\FlowchartParser.cs" />
+    <Compile Include="Services\Parsers\ActivityParser\IActivityParser.cs" />
+    <Compile Include="Services\Parsers\ActivityParser\ActivityParserFactory.cs" />
+    <Compile Include="Services\Parsers\ActivityParser\SequenceParser.cs" />
     <Compile Include="Services\Parsers\WorkflowParser.cs" />
     <Compile Include="Services\Serializers\Z3FullGraphSerializer.cs" />
     <Compile Include="Services\Serializers\Z3ConditionalGraphSerializer.cs" />
     <Compile Include="Services\Serializers\FullGraphSerializer.cs" />
     <Compile Include="Services\Serializers\IWorkflowSerializer.cs" />
+    <Compile Include="Utils\ActivityUtils.cs" />
     <Compile Include="Utils\ReflectionHelpers.cs" />
     <Compile Include="Utils\XamlParserException.cs" />
   </ItemGroup>
