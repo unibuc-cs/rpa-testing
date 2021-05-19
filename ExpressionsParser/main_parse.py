@@ -40,16 +40,26 @@ def parseGraph(path, rname,out_path):
                 transition = (trans['value'],rname+':'+trans['destination'])
                 transitions.append(transition)
             if len(transitions) == 0:
-                 z3Graph[name]=str((guard,'None'))
+                 z3Graph[name]="(\""+ str(guard) + "\"," + 'None' +")"
             elif len(transitions) == 1:
-                 z3Graph[name]=str((guard,transitions[0]))
+                 z3Graph[name]="(\"" + str(guard) + "\","+ str(transitions[0]) +")"
+                  
             elif len(transitions) == 2:
-                 z3Graph[name]=str((guard,(transitions[0],transitions[1])))
+                 z3Graph[name]= "(\"" + str(guard) + "\"," + "[" + str(transitions[0]) + "," +str(transitions[1]) +"]" +")"
+                 
         print(z3Vars)
         print(z3Graph)
-        data = {'variables': z3Vars, 'graph': (z3Graph) }
+        z3GraphStr = ""
+        for (k,v) in z3Graph.items():
+            z3GraphStr = z3GraphStr + "\"" +k +"\"" + ": " + v +"\n" 
+        data = "{" + "\"variables\"" + ": " +  str(z3Vars) +",\n" + 'graph'+": { \n"+ z3GraphStr + "}\n }"
+        text_file = open(out_path, "w")
+        text_file.write(data)
+        text_file.close()
+        '''
         with open(out_path, 'w') as outfile:
              json.dump(data, outfile,indent=4)
+        '''
         '''
         with open(out_path) as json_file:
             data = json.load(json_file)
