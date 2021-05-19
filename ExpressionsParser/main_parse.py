@@ -40,16 +40,16 @@ def parseGraph(path, rname,out_path):
                 transition = (trans['value'],rname+':'+trans['destination'])
                 transitions.append(transition)
             if len(transitions) == 0:
-                 z3Graph[name]=(guard,'None')
+                 z3Graph[name]=str((guard,'None'))
             elif len(transitions) == 1:
-                 z3Graph[name]=(guard,transitions[0])
+                 z3Graph[name]=str((guard,transitions[0]))
             elif len(transitions) == 2:
-                 z3Graph[name]=(guard,(transitions[0],transitions[1]))
+                 z3Graph[name]=str((guard,(transitions[0],transitions[1])))
         print(z3Vars)
         print(z3Graph)
-        data = {'variables': z3Vars, 'graph': str(z3Graph) }
+        data = {'variables': z3Vars, 'graph': (z3Graph) }
         with open(out_path, 'w') as outfile:
-             json.dump(data, outfile)
+             json.dump(data, outfile,indent=4)
         '''
         with open(out_path) as json_file:
             data = json.load(json_file)
