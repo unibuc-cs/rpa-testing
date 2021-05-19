@@ -46,6 +46,7 @@ def lexical_analysis(s):
         'or': TokenType.T_OR,
         '>': TokenType.T_GT,
         '>=': TokenType.T_GTE,
+        '>==': TokenType.T_GTE,
         '<': TokenType.T_LT,
         '<=': TokenType.T_LTE,
         '=': TokenType.T_EQ,

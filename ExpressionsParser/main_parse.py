@@ -7,7 +7,8 @@ import sys
 DataTypes = {
     'Int32':'Int',
     'String': 'String',
-    'Boolean': 'Bool'
+    'Boolean': 'Bool',
+    "Double":'Real'
     }
 
  
@@ -40,13 +41,20 @@ def parseGraph(path, rname,out_path):
                 transitions.append(transition)
             if len(transitions) == 0:
                  z3Graph[name]=(guard,'None')
-            else: 
-                 z3Graph[name]=(guard,transitions)
+            elif len(transitions) == 1:
+                 z3Graph[name]=(guard,transitions[0])
+            elif len(transitions) == 2:
+                 z3Graph[name]=(guard,(transitions[0],transitions[1]))
         print(z3Vars)
         print(z3Graph)
-        data = {'variables': z3Vars, 'graph': z3Graph }
+        data = {'variables': z3Vars, 'graph': str(z3Graph) }
         with open(out_path, 'w') as outfile:
              json.dump(data, outfile)
+        '''
+        with open(out_path) as json_file:
+            data = json.load(json_file)
+            print(data)
+        '''
         # return z3Graph
 
 
@@ -60,8 +68,15 @@ def ast_to_string(localast,rname):
     st = ''
     dr = ''
     if len(localast.children) > 0 :
-        st =   "(" + str(ast_to_string(localast.children[0],rname))+")"
+        
+        if len(localast.children[0].children) == 0:
+           st = str(ast_to_string(localast.children[0],rname))
+        else:
+           st =   "(" + str(ast_to_string(localast.children[0],rname))+")"
         if len(localast.children) ==2:
+            if len(localast.children[1].children) == 0:
+              dr = str(ast_to_string(localast.children[1],rname))
+            else:
               dr =  "(" + str(ast_to_string(localast.children[1],rname))+")"
     
     if st == '' and dr == '':
