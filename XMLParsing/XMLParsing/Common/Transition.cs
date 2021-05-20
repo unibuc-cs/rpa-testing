@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace XMLParsing.Common
+﻿namespace XMLParsing.Common
 {
     class Transition
     {
-        public Node source { get; set; }
-        public Node destination { get; set; }
-        public String expression { get; set; }
-        public String expressionValue { get; set; }
+        public static string TRUE_TRANSITION_VALUE = "True";
+        public static string FALSE_TRANSITION_VALUE = "False";
+
+        public Node Source { get; set; }
+        public Node Destination { get; set; }
+        public string Expression { get; set; }
+        public string ExpressionValue { get; set; }
     }
 }

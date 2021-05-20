@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using XMLParsing.Common;
+using XMLParsing.Utils;
 
 namespace XMLParsing.Services.Serializers
 {
@@ -16,7 +17,6 @@ namespace XMLParsing.Services.Serializers
         {
             IDictionary<string, object> dictionary = new Dictionary<string, object>();
 
-
             AddVariables(workflow, dictionary);
             AddGraph(workflow, dictionary);
 
@@ -24,9 +24,6 @@ namespace XMLParsing.Services.Serializers
             textWriter.WriteLine(serialized);
         }
 
-        /*
-         * Variables are actually IN arguments
-         */
         protected void AddVariables(Workflow workflow, IDictionary<string, object> dictionary)
         {
             IDictionary<string, object> variables = new Dictionary<string, object>();
@@ -48,9 +45,6 @@ namespace XMLParsing.Services.Serializers
                 variables.Add(variable.Name, variable.Type.Name);
             }
 
-            var startNodeLabel = workflow.StartNode.DisplayName.Replace(" ", "_");
-            dictionary.Add("startNode", startNodeLabel);
-
             dictionary.Add("variables", variables);
         }
 
@@ -65,99 +59,36 @@ namespace XMLParsing.Services.Serializers
                 }
             }
 
+            dictionary.Add("startNode", workflow.StartNode.DisplayName);
             dictionary.Add("graph", graph);
         }
 
 
         protected void AddGraphNode(Workflow workflow, IDictionary<string, object> graph, Node node)
         {
-            var nodeTransitions = workflow.Transitions.FindAll(x => x.source.Equals(node)).GroupBy(x => x.expression);
-            var nodeLabel = node.DisplayName.Replace(" ", "_");
-            var count = 0;
+            var nodeTransitions = workflow.Transitions.FindAll(x => x.Source.Equals(node));
+            var nodeLabel = node.DisplayName + "_" + node.Id;
 
-            foreach (var result in nodeTransitions)
+            IDictionary<string, object> nodeInformation = new Dictionary<string, object>();
+            nodeInformation.Add("expression", node.Expression);
+
+            List<IDictionary<string, object>> transitionDataList = new List<IDictionary<string, object>>();
+
+            foreach (var transition in nodeTransitions)
             {
-                var expression = result.Key;
-                Node falseDestination = null;
-                Node trueDestination = null;
-                foreach (var transition in result)
-                {
-                    if(transition.expressionValue.Equals("True"))
-                    {
-                        trueDestination = ProcessDestination(workflow, transition);
-                    }
-                    if(transition.expressionValue.Equals("False"))
-                    {
-                        falseDestination = ProcessDestination(workflow, transition);
-                    }
-                }
-
-                var currentNodeLabel = nodeLabel;
-                if (count > 0)
-                {
-                    currentNodeLabel = nodeLabel + "_" + count;
-                }
-                count++;
-
-                var trueDestinationLabel = "";
-                var falseDestinationLabel = "";
-
-
-                if (count < nodeTransitions.Count())
-                {
-                    
-                    falseDestinationLabel = nodeLabel + "_" + count;
-                }
-                else
-                {
-                    if (falseDestination == null)
-                    {
-                        falseDestinationLabel = "";
-                    }
-                    else
-                    {
-                        falseDestinationLabel = falseDestination.DisplayName.Replace(" ", "_");
-                    }
-                }
-
-                IDictionary<string, object> nodeInformation = new Dictionary<string, object> ();
-                List<IDictionary<string, object>> transitionDataList = new List<IDictionary<string, object>>();
-                nodeInformation.Add("realNodeID", node.RealNodeID);
-
-                if (node.IsConditional)
-                {
-                    nodeInformation.Add("expression", expression);
-
-                    if(falseDestinationLabel != "")
-                    {
-
-                        IDictionary<string, object> falseTransitionData = new Dictionary<string, object>();
-                        falseTransitionData.Add("value", "False");
-                        falseTransitionData.Add("destination", falseDestinationLabel);
-                        transitionDataList.Add(falseTransitionData);
-                    }
-                    
-                }
-                else
-                {
-                    nodeInformation.Add("expression", "");
-                }
-
-                if (trueDestination != null)
-                {
-                    IDictionary<string, object> trueTransitionData = new Dictionary<string, object>();
-                    trueDestinationLabel = trueDestination.DisplayName.Replace(" ", "_");
-                    trueTransitionData.Add("value", "True");
-                    trueTransitionData.Add("destination", trueDestinationLabel);
-                    transitionDataList.Add(trueTransitionData);
-                }
-
-                nodeInformation.Add("transitions", transitionDataList.ToArray());
-                graph.Add(currentNodeLabel, nodeInformation);
+                IDictionary<string, object> transitionData = new Dictionary<string, object>();
+                transitionData.Add("value", transition.ExpressionValue);
+                string destinationLabel = transition.Destination.DisplayName + "_" + transition.Destination.Id;
+                transitionData.Add("destination", destinationLabel);
+                transitionDataList.Add(transitionData);
             }
+
+            nodeInformation.Add("transitions", transitionDataList.ToArray());
+            graph.Add(nodeLabel, nodeInformation);
+
         }
 
-        
+
 
         protected virtual bool ShouldProcessNode(Node node)
         {
@@ -166,7 +97,7 @@ namespace XMLParsing.Services.Serializers
 
         protected virtual Node ProcessDestination(Workflow workflow, Transition transition)
         {
-            return transition.destination;
+            return transition.Destination;
         }
 
 
