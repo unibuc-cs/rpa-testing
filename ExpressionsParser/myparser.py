@@ -1,5 +1,6 @@
 import enum
 import re
+import functions
 
 
 class TokenType(enum.Enum):
@@ -31,6 +32,8 @@ class Node:
         self.value = value
         self.children = []
 
+def convert_object_with_function(t,c):
+    return functions.my_function(t,c)
 
 def lexical_analysis(s):
     mappings = {
@@ -105,15 +108,19 @@ def lexical_analysis(s):
             token_type = mappings[c]
             token = Node(token_type, value=operations[token_type])
         elif c == 'True' or c == 'False':
-            token = Node(TokenType.T_BOOL,value=c)
+            (t,c1)=convert_object_with_function(TokenType.T_BOOL,c)
+            token = Node(t,value=c1)
         elif c[0]=='\"':
-             token = Node(TokenType.T_STRING, value=c)
+             (t,c1) = convert_object_with_function(TokenType.T_STRING,c)
+             token = Node(t, value=c1)
         elif re.match(r'^[-+]?[0-9]+$', c):
-            token = Node(TokenType.T_NUM, value=int(c))
+            (t,c1) = convert_object_with_function(TokenType.T_NUM,int(c))
+            token = Node(t, value=c1)
         elif re.match(r'\s',c):
             append = False
         elif re.match(r'^\w+$', c):
-            token = Node(TokenType.T_VAR, value=c)
+            (t,c1) = convert_object_with_function(TokenType.T_VAR,c)
+            token = Node(t, value=c1)
 
         else:
             raise Exception('Invalid token: {}'.format(c))
