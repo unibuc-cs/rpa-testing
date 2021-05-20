@@ -8,7 +8,8 @@ DataTypes = {
     'Int32':'Int',
     'String': 'String',
     'Boolean': 'Bool',
-    "Double":'Real'
+    "Double":'Real',
+    "Decimal":'Decimal'
     }
 
  
@@ -19,7 +20,8 @@ def parseGraph(path, rname,out_path):
         z3Vars = {}
         z3Graph = {}
         for v in variables:
-            z3Vars[rname+':'+v] = DataTypes[variables[v]]
+            z3Vars[v] = DataTypes[variables[v]]
+            # z3Vars[rname+':'+v] = DataTypes[variables[v]]
             #z3Vars['Main:'+v] = DataTypes[variables[v]]
         graph = data['graph']
         for k in graph:
@@ -27,7 +29,8 @@ def parseGraph(path, rname,out_path):
             #print(graph[k])
             # k is the node name 
             # graph[k] contains all info from a node
-            name = rname+':'+ k
+            # name = rname+':'+ k
+            name = k
             #the guard will contain the expression parsed using myparser
             if graph[k]['expression'] == '':
                 guard = 'None'
@@ -37,7 +40,8 @@ def parseGraph(path, rname,out_path):
             # transitions contain a list of transitions 
             transitions=[]
             for trans in graph[k]['transitions']:
-                transition = (trans['value'],rname+':'+trans['destination'])
+                transition = (trans['value'],trans['destination'])
+                #transition = (trans['value'],rname+':'+trans['destination'])
                 transitions.append(transition)
             if len(transitions) == 0:
                  z3Graph[name]="(\""+ str(guard) + "\"," + 'None' +")"
@@ -72,7 +76,8 @@ def ast_to_string(localast,rname):
     # AST to string - using preorder 
     # to change for ternary operations
     if localast.token_type == myparser.TokenType.T_VAR:
-         localstr = 'V['+rname+':'+ localast.value+']'
+        localstr = 'V['+ localast.value+']'
+         #localstr = 'V['+rname+':'+ localast.value+']'
     else:
         localstr = localast.value
     st = ''
