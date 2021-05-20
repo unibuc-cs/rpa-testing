@@ -78,15 +78,10 @@ namespace XMLParsing.Services
                 workflow.Arguments.Add(dynamicActivityProperty);
             }
 
-           // Structure
-           NativeActivity nativeActivity = activityBuilder.Implementation as NativeActivity;
-
-            if(nativeActivity == null)
-            {
-                return null;
-            }
-            INativeActivityParser parser = NativeActivityParserFactory.Instance.GetParser(nativeActivity);
-            parser.ParseNativeActivity(nativeActivity, workflow);
+            Activity activity = activityBuilder.Implementation;
+            IActivityParser parser = ActivityParserFactory.Instance.GetParser(activity);
+            var ( startNode, _ ) = parser.ParseActivity(activity, workflow);
+            workflow.StartNode = startNode;
 
             return workflow;
         }
