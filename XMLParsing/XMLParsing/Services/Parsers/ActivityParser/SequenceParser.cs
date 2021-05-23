@@ -25,7 +25,7 @@ namespace XMLParsing.Services.Parsers.NativeActivityParser
                 workflow.Variables.Add(variable);
             }
 
-            Node startNode = ActivityUtils.CreateSimpleNodeFromActivity(activity);
+            Node startNode = ActivityUtils.CreateSimpleNodeFromActivity(activity, workflow.DisplayName, workflow.FullPath);
             workflow.Nodes.Add(startNode);
 
             if(sequence.Activities == null)

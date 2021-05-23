@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Xaml;
 using UiPath.Core.Activities;
 using XMLParsing.Common;
+using XMLParsing.Utils;
 
 namespace XMLParsing.Services
 {
@@ -18,7 +19,7 @@ namespace XMLParsing.Services
 
         private WorkflowParser()
         {
-            // Load needed assemblies. It would be nice if at some point, this would be done dinamically
+            // Load needed assemblies. It would be nice if at some point, this would be done dynamically
             // UiPath.System.Activities
             LogMessage lm = new LogMessage();
             Assembly.LoadFrom(lm.GetType().Assembly.Location);
@@ -69,8 +70,16 @@ namespace XMLParsing.Services
             }
 
             Workflow workflow = new Workflow();
+            workflow.DisplayName = ActivityUtils.SanitizeString(activityBuilder.Name);
 
-            workflow.DisplayName = activityBuilder.Implementation.DisplayName;
+            if (ActivityUtils.IsFullPath(path))
+            {
+                workflow.FullPath = path;
+            }
+            else
+            {
+                workflow.FullPath = Path.GetFullPath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\" + path);
+            }
 
             // Arguments
             foreach (var dynamicActivityProperty in activityBuilder.Properties)
@@ -80,8 +89,9 @@ namespace XMLParsing.Services
 
             Activity activity = activityBuilder.Implementation;
             IActivityParser parser = ActivityParserFactory.Instance.GetParser(activity);
-            var ( startNode, _ ) = parser.ParseActivity(activity, workflow);
+            var ( startNode, endNode ) = parser.ParseActivity(activity, workflow);
             workflow.StartNode = startNode;
+            workflow.EndNode = endNode;
 
             return workflow;
         }

@@ -2,6 +2,7 @@
 using System.Activities;
 using System.Activities.Statements;
 using System.Collections.Generic;
+using UiPath.Core.Activities;
 using XMLParsing.Services.Parsers.ActivityParser;
 using XMLParsing.Services.Parsers.NativeActivityParser;
 
@@ -33,7 +34,8 @@ namespace XMLParsing.Services
             var activityParserDict = new Dictionary<Type, Func<IActivityParser>>
             {
                 { typeof(Flowchart), () => new FlowchartParser() },
-                { typeof(Sequence), () => new SequenceParser() }
+                { typeof(Sequence), () => new SequenceParser() },
+                { typeof(InvokeWorkflowFile), () => new InvokeWfActivityParser() }
             };
 
             if (activityParserDict.ContainsKey(activity.GetType()))

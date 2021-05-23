@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using XMLParsing.Common;
+using XMLParsing.Common.NodeExtensions;
 using XMLParsing.Utils;
 
 namespace XMLParsing.Services.Serializers
@@ -58,8 +59,8 @@ namespace XMLParsing.Services.Serializers
                     AddGraphNode(workflow, graph, node);
                 }
             }
-
-            dictionary.Add("startNode", workflow.StartNode.DisplayName);
+            dictionary.Add("displayName", workflow.DisplayName);
+            dictionary.Add("startNode", workflow.StartNode.DisplayName + "_" + workflow.StartNode.Id);
             dictionary.Add("graph", graph);
         }
 
@@ -83,9 +84,32 @@ namespace XMLParsing.Services.Serializers
                 transitionDataList.Add(transitionData);
             }
 
+            AddAdditionalNodeInformation(nodeInformation, node);
+
             nodeInformation.Add("transitions", transitionDataList.ToArray());
             graph.Add(nodeLabel, nodeInformation);
 
+        }
+
+        protected void AddAdditionalNodeInformation(IDictionary<string, object> nodeInformation, Node node)
+        {
+            InvokeWfNode invokeNode = node as InvokeWfNode;
+            if(invokeNode != null)
+            {
+                nodeInformation.Add("invokedWorkflow", invokeNode.InvokedWorkflow);
+                List<IDictionary<string, object>> variableMappingList = new List<IDictionary<string, object>>();
+
+                foreach (var item in invokeNode.VariableMapping)
+                {
+                    IDictionary<string, object> variableData = new Dictionary<string, object>();
+                    variableData.Add("destinationWfArg", item.Item1);
+                    variableData.Add("argumentType", item.Item2);
+                    variableData.Add("sourceWfValue", item.Item3);
+
+                    variableMappingList.Add(variableData);
+                }
+                nodeInformation.Add("variableMappings", variableMappingList.ToArray());
+            }
         }
 
 

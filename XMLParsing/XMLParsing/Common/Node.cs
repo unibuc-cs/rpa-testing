@@ -1,4 +1,6 @@
-﻿namespace XMLParsing.Common
+﻿using System.Collections.Generic;
+
+namespace XMLParsing.Common
 {
     class Node
     {

@@ -20,7 +20,7 @@ namespace XMLParsing
          */
         static void Main(string[] args)
         {
-            string path = @"..\..\..\..\Models\SimpleBankLoan\Create Loan Process.xaml";
+            // string path = @"..\..\..\..\Models\SimpleBankLoan\Create Loan Process.xaml";
             try
             {
                 var ( parserCommand, parameterList ) = IOHandler.Instance.ParseInput(args);
