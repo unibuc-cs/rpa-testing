@@ -47,26 +47,28 @@ namespace XMLParsing.Services
                 }
                 else
                 {
-                    Node node = ActivityUtils.CreateEmptyNode();
+                    Node node = ActivityUtils.CreateEmptyNode(workflow.FullPath);
                     nodes[flowNode] = Tuple.Create(node, node);
                     workflow.Nodes.Add(node);
                 }
             }
 
 
-            // End node will be populated only if we encounter a case when a Flowchart can be nested inside another structure
             Node startNode = nodes[flowchart.StartNode].Item1;
-            Node endNode = ActivityUtils.CreateEmptyNode();
+            Node endNode = ActivityUtils.CreateEmptyNode(workflow.FullPath);
 
             foreach (var flowNode in flowchart.Nodes)
             {
-                ParseFlowNode(flowNode, nodes, workflow);
+                ParseFlowNode(flowNode, nodes, workflow, endNode);
             }
+
+            endNode.DisplayName = workflow.DisplayName + ":" + "Virtual_Flowchart_End";
+            workflow.Nodes.Add(endNode);
 
             return Tuple.Create(startNode, endNode);
         }
 
-        public void ParseFlowNode(FlowNode flowNode, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Workflow workflow)
+        public void ParseFlowNode(FlowNode flowNode, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Workflow workflow, Node endNode)
         {
             if (flowNode == null)
             {
@@ -75,8 +77,8 @@ namespace XMLParsing.Services
 
             var flowNodeParserDict = new Dictionary<Type, Action>
             {
-                { typeof(FlowDecision), () => ParseFlowDecision(flowNode as FlowDecision, nodes, workflow) },
-                { typeof(FlowStep), () => ParseFlowStep(flowNode as FlowStep, nodes, workflow) },
+                { typeof(FlowDecision), () => ParseFlowDecision(flowNode as FlowDecision, nodes, workflow, endNode) },
+                { typeof(FlowStep), () => ParseFlowStep(flowNode as FlowStep, nodes, workflow, endNode) },
             };
 
             if (flowNodeParserDict.ContainsKey(flowNode.GetType()))
@@ -90,9 +92,9 @@ namespace XMLParsing.Services
             }
         }
 
-        public void ParseFlowDecision(FlowDecision flowDecision, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Workflow workflow)
+        public void ParseFlowDecision(FlowDecision flowDecision, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Workflow workflow, Node endNode)
         {
-            nodes[flowDecision].Item1.DisplayName = ActivityUtils.SanitizeString(flowDecision.DisplayName);
+            nodes[flowDecision].Item1.DisplayName = workflow.DisplayName + ":" + ActivityUtils.SanitizeString(flowDecision.DisplayName);
             nodes[flowDecision].Item1.IsConditional = true;
 
             Func<Common.Transition> buildPartialTransition = () => 
@@ -124,6 +126,13 @@ namespace XMLParsing.Services
                 t.ExpressionValue = Common.Transition.TRUE_TRANSITION_VALUE;
                 t.Destination = nodes[flowDecision.True].Item1;
                 workflow.Transitions.Add(t);
+            } 
+            else
+            {
+                Common.Transition t = buildPartialTransition();
+                t.ExpressionValue = Common.Transition.TRUE_TRANSITION_VALUE;
+                t.Destination = endNode;
+                workflow.Transitions.Add(t);
             }
 
             // Parse false branch
@@ -134,21 +143,33 @@ namespace XMLParsing.Services
                 t.Destination = nodes[flowDecision.False].Item1;
                 workflow.Transitions.Add(t);
             }
-        }
-
-        public void ParseFlowStep(FlowStep flowStep, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Workflow workflow)
-        {
-            // This one should treat only transitions, and not additional node information
-
-            if(flowStep.Next != null)
+            else
             {
-                Common.Transition t = new Common.Transition();
-                t.Source = nodes[flowStep].Item2;
-                t.Expression = "";
-                t.ExpressionValue = Common.Transition.TRUE_TRANSITION_VALUE;
-                t.Destination = nodes[flowStep.Next].Item1;
+                Common.Transition t = buildPartialTransition();
+                t.ExpressionValue = Common.Transition.FALSE_TRANSITION_VALUE;
+                t.Destination = endNode;
                 workflow.Transitions.Add(t);
             }
+        }
+
+        public void ParseFlowStep(FlowStep flowStep, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Workflow workflow, Node endNode)
+        {
+            // This one should treat only transitions, and not additional node information
+            Common.Transition t = new Common.Transition();
+            t.Source = nodes[flowStep].Item2;
+            t.Expression = "";
+            t.ExpressionValue = Common.Transition.TRUE_TRANSITION_VALUE;
+
+            if (flowStep.Next != null)
+            {
+                t.Destination = nodes[flowStep.Next].Item1;
+            }
+            else
+            {
+                t.Destination = endNode;
+            }
+
+            workflow.Transitions.Add(t);
         }
 
         /*

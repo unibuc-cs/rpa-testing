@@ -9,7 +9,7 @@ namespace XMLParsing.Services.Parsers.ActivityParser
     {
         public Tuple<Node, Node> ParseActivity(Activity activity, Workflow workflow)
         {
-            Node node = ActivityUtils.CreateSimpleNodeFromActivity(activity);
+            Node node = ActivityUtils.CreateSimpleNodeFromActivity(activity, workflow.DisplayName, workflow.FullPath);
             workflow.Nodes.Add(node);
             return Tuple.Create(node, node);
         }

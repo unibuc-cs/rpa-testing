@@ -1,35 +1,52 @@
 ﻿using System;
 using System.Activities;
-using System.Activities.Statements;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using XMLParsing.Common;
 
 namespace XMLParsing.Utils
 {
     class ActivityUtils
     {
-        static int ID_GENERATOR = 0;
+        static IDictionary<string, int> ID_GENERATORS_MAP;
 
-        static public Node CreateSimpleNodeFromActivity(Activity activity)
+        static ActivityUtils()
+        {
+            ID_GENERATORS_MAP = new Dictionary<string, int>();
+        }
+
+        static public int GetNextId(string workflowFullPath)
+        {
+            if(ID_GENERATORS_MAP.ContainsKey(workflowFullPath))
+            {
+                ID_GENERATORS_MAP[workflowFullPath] = ID_GENERATORS_MAP[workflowFullPath] + 1;
+            }
+            else
+            {
+                ID_GENERATORS_MAP.Add(workflowFullPath, 0);
+            }
+
+            return ID_GENERATORS_MAP[workflowFullPath];
+        }
+
+        static public Node CreateSimpleNodeFromActivity(Activity activity, string name_space, string workflowFullPath)
         {
             if (activity == null)
             {
                 return null;
             }
 
-            Node node = CreateEmptyNode();
-            node.DisplayName = GetDisplayNameSanitized(activity);
+            Node node = CreateEmptyNode(workflowFullPath);
+            node.DisplayName = name_space + ":" + GetDisplayNameSanitized(activity);
             return node;
         }
 
-        static public Node CreateEmptyNode()
+        static public Node CreateEmptyNode(string workflowFullPath)
         {
             Node node = new Node();
             node.DisplayName = "";
-            node.Id = ID_GENERATOR++;
+            node.Id = GetNextId(workflowFullPath);
             node.IsConditional = false;
             node.Expression = "";
             return node;
@@ -48,6 +65,14 @@ namespace XMLParsing.Utils
         static public string SanitizeString(string s)
         {
             return s.Replace(" ", "_");
+        }
+
+        public static bool IsFullPath(string path)
+        {
+            return !String.IsNullOrWhiteSpace(path)
+                && path.IndexOfAny(System.IO.Path.GetInvalidPathChars().ToArray()) == -1
+                && Path.IsPathRooted(path)
+                && !Path.GetPathRoot(path).Equals(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal);
         }
 
     }

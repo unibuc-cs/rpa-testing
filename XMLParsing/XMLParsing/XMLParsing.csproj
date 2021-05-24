@@ -295,11 +295,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Node.cs" />
+    <Compile Include="Common\NodeExtensions\InvokeWfNode.cs" />
     <Compile Include="Common\Transition.cs" />
     <Compile Include="Common\Workflow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IOHandler.cs" />
+    <Compile Include="Services\Parsers\ActivityParser\InvokeWfActivityParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\DefaultActivityParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\FlowchartParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\IActivityParser.cs" />
