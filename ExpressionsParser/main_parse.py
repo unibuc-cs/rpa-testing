@@ -13,15 +13,16 @@ DataTypes = {
     }
 
  
-def parseGraph(path, rname,out_path):
+def parseGraph(path, out_path):
     with open(path) as json_file:
         data = json.load(json_file)
         variables = data['variables']
+        rname = data['displayName']
         z3Vars = {}
         z3Graph = {}
         for v in variables:
-            z3Vars[v] = DataTypes[variables[v]]
-            # z3Vars[rname+':'+v] = DataTypes[variables[v]]
+            #z3Vars[v] = DataTypes[variables[v]]
+            z3Vars[rname+':'+v] = DataTypes[variables[v]]
             #z3Vars['Main:'+v] = DataTypes[variables[v]]
         graph = data['graph']
         for k in graph:
@@ -76,8 +77,8 @@ def ast_to_string(localast,rname):
     # AST to string - using preorder 
     # to change for ternary operations
     if localast.token_type == myparser.TokenType.T_VAR:
-        localstr = 'V['+ localast.value+']'
-         #localstr = 'V['+rname+':'+ localast.value+']'
+        # localstr = 'V['+ localast.value+']'
+        localstr = 'V['+rname+':'+ localast.value+']'
     else:
         localstr = localast.value
     st = ''
@@ -115,11 +116,11 @@ def test_parser(inputstring):
  
 
 if __name__ == '__main__':
-    path = '..\\Models\\' +  sys.argv[1] # "SimpleBankLoan\Pin Check_202105121449166565.json"
-    rname = sys.argv[2] # Main
+    path = '..\\Models\\' + sys.argv[1] # "SimpleBankLoan\Pin Check_202105121449166565.json"
+    # rname = sys.argv[2] # Main
     out_path = path[:-5] + '_parsed.json'
     print(sys.argv)
-    parseGraph(path, rname,out_path)
+    parseGraph(path, out_path)
 
 '''
 variables 
