@@ -1,3 +1,23 @@
+# ---------------------------------------------------------------------------------
+# How to run this script ?
+"""
+For a description of parameters run: python Main.py - h
+
+For a demo run use: python Main.py -testConfigFilePath "dummy_TestSpec.txt" -outputGraphFile "debugGraph.png" -outputResultsFile "generatedests.csv" -loggingEnabled 1
+    What these mean ?
+    the testConfigFilePath is the configuration file for the list of workflows under test.
+    If you take a look at it, inside it contains the specification of the entry node, the main node name, the list of workflows files path that are involved in the process
+    Each workflow description file contains the variables and graph, plus a debugging color (that is shown in the output debugGraph.png if used) and a name, which must correspond to the namespace of that workflow !
+
+Note: In a production environment, probably you could put -loggingEnabled 0 and -outputGraphFile None
+"""
+
+
+
+
+
+
+# ---------------------------------------------------------------------------------
 # TODO tasks:
 # See the interaction graph to extend for dynamic symbolic programming and concolic
 # logging support rather than printf
@@ -7,7 +27,8 @@
 # pip install py_expression_eval
 # pip install networkx
 # pip install pygraphviz
-
+import ast
+import argparse
 
 from py_expression_eval import Parser # Not used at the moment but might be good !
 parser = Parser()
@@ -20,7 +41,7 @@ from typing import Dict, List, Set, Tuple
 from z3 import *
 import matplotlib as plt
 from enum import Enum
-
+import json
 from GraphDef import *
 
 
@@ -55,60 +76,66 @@ from GraphDef import *
 # 3. solveOnlineDynamicSymbolic - concolic, with interaction nodes that requires feedback from robot
 # ----------
 
-def demo_bankLoanExample():
+class TestFactory:
+    def __init__(self):
+        pass
 
-    # Workflow 1: the bank loan main (embedding a PIN test grpah inside)
-    # Check the rules for embedding as written below in comments
-    variables_bankLoanMainGraph = {'Main:loan' : 'Real', 'Main:term' : 'Int', 'Main:context_userId' : ('Context', 2, 'Int'),
-                                   'Main:pinCorrectValue' : 'Int', 'Main:pinCorrectTest' : 'Bool'}
+    def loadTestSpecFromFile(self, testSpecFile):
+        with open(testSpecFile) as f:
+            data = f.read()
+            data = ast.literal_eval(data)
+            entryTestNodeId = data["entryTestNodeId"]
+            self.mainWorkflowName = data["mainWorkflowName"] # 'Main'
 
-    bankLoanMainGraph = {'Main:node_loanTest0' : ('V["Main:loan"] < 1000', [('True', 'Main:lowVolumeLoan'), ('False', 'Main:node_loanTest1')]),
-                     'Main:lowVolumeLoan' : (None, 'Main:term_test0'),
-                    'Main:node_loanTest1' : ('And(V["Main:loan"] >= 1000, V["Main:loan"] < 100000)', [('True', 'Main:midVolumeLoan'), ('False', 'Main:highVolumeLoan')]),
-                    'Main:lowVolumeLoan' : (None, 'Main:term_test0'),
-                     'Main:midVolumeLoan' : (None, 'Main:term_test0'),
-                    'Main:highVolumeLoan' : (None, 'Pin:checkPin'),
-
-                    'Pin:FinishedCheck' : (None, 'Main:checkedPin'),  # Note that only the Main node knows about this, the Pin is completely indepnedent and can run without this edge !
-                    'Main:checkedPin' :('V["Main:pinCorrectTest"] == True', [('True', 'Main:term_test0'), ('False', 'Main:fail')]),
-
-                    'Main:term_test0' : ('V["Main:term"] < 5', [('True', 'Main:shortTermLoan'), ('False', 'Main:longTermLoan')]),
-                    'Main:shortTermLoan' :  (None, 'Main:outputRate'),
-                    'Main:longTermLoan': (None, 'Main:outputRate'),
-                     'Main:outputRate' : (None, None),
-                    'Main:fail' : (None, 'Main:node_loanTest0')
-                    }
-
-    bankLoanWorkflow = WorkflowDef(variables=variables_bankLoanMainGraph, graph=bankLoanMainGraph, name="Main", color='red')
+            listOfWorkflowsPaths = data["listOfWorkflows"]
+            allWorkflowsInstances : List[WorkflowDef] = []
+            for workflowPath in listOfWorkflowsPaths:
+                workflowInstance = self.createWorkflowSingleFromFile(workflowPath)
+                allWorkflowsInstances.append(workflowInstance)
 
 
-    # The second workflow definition
-    variables_bankPinTest = {'Pin:pinCorrectTest_local' : 'Int',  'Pin:local_numberRetries' : ('Context', 0, 'Int')}
-    # Notes:    - checkPin node should write local_piCorrect to either true or false and increase the local_nu
-    #           - retryFailed should increment the local_numberRetries
-    bankPinTest = { 'Pin:checkPin' : (None, 'Pin:pinTest0'),
-                    'Pin:pinTest0' : ('V["Pin:pinCorrectTest_local"] == True', [('True', 'Pin:SucceedCheck'), ('False', 'Pin:retryFailed')]),
-                     'Pin:retryFailed' : (None, 'Pin:checkRetryTest'),
-                    'Pin:checkRetryTest' : ('V["Pin:local_numberRetries"] < 3', [('True', 'Pin:checkPin'), ('False', 'Pin:FailedCheck')]),
-                     'Pin:SucceedCheck' : (None, 'Pin:FinishedCheck'),
-                     'Pin:FailedCheck' : (None, 'Pin:FinishedCheck'),
-                     'Pin:FinishedCheck' : (None, None)
-                     }
+            self.testFuzzerInstance = SymbolicWorflowsTester(workflows=allWorkflowsInstances,
+                                                             mainWorflowName=self.mainWorkflowName,
+                                                             entryTestNodeId=entryTestNodeId)
 
-    bankPinWorkflow = WorkflowDef(variables=variables_bankPinTest, graph=bankPinTest, name = "Pin", color='blue')
 
-    allWorkflows : List[WorkflowDef] = [bankPinWorkflow, bankLoanWorkflow]
-    testFuzzer = SymbolicWorflowsTester(workflows=allWorkflows, mainWorflowName=bankLoanWorkflow.name, entryTestNodeId='Main:node_loanTest0')
-    testFuzzer.debugGraph(outputGraphFile="debugGraph.png")
-    testFuzzer.solveOfflineStaticGraph(outputCsvFile="generatedTests.csv", debugLogging=False)
+    def debugFullGraph(self, outputGraphFile): #= "debugGraph.png"): # Could be none
+        self.testFuzzerInstance.debugGraph(outputGraphFile=outputGraphFile)
+
+    def solveOfflineStaticGraph(self, outputResultsFile, loggingEnabled):
+        self.testFuzzerInstance.solveOfflineStaticGraph(outputCsvFile=outputResultsFile, debugLogging=loggingEnabled)
+
+
+    def createWorkflowSingleFromFile(self, inputFilePath):
+        with open(inputFilePath) as f:
+            data = f.read()
+            data = ast.literal_eval(data)
+            variables = data["variables"]
+            graph = data["graph"]
+            name = data["name"]
+            color = data["debugColor"]
+
+            worfklowInst = WorkflowDef(variables=variables, graph=graph, name=name, color=color)
+            return worfklowInst
+        return None
+
+
+def runTest(args):
+    workflowsFactory = TestFactory()
+    workflowsFactory.loadTestSpecFromFile(args.testConfigFilePath) # To do: maybe we should put these files on parameters in the end :)
+
+    if args.loggingEnabled:
+        workflowsFactory.debugFullGraph(outputGraphFile=args.outputGraphFile)
+
+    workflowsFactory.solveOfflineStaticGraph(outputResultsFile="generatedTests.csv", loggingEnabled=args.loggingEnabled)
 
 
 if __name__ == "__main__":
-    # Creating the graph now from a given dictionary
-    demo_bankLoanExample()
-
-    # TODO and usecases:
-    #   -   demo with foreach
-    #   -   interaction node usage
-    #   -   others
-
+    parser = argparse.ArgumentParser(description='Fuzzer process')
+    parser.add_argument('-testConfigFilePath', type=str, help='Path to the config file', required=True)
+    parser.add_argument('-outputGraphFile', type=str, default="debugGraph.png", help='Path to the output debug graph file', required=True)
+    parser.add_argument('-loggingEnabled', type=int, default=1, help='Verbose everything ?', required=True)
+    parser.add_argument('-outputResultsFile', type=str, default="generatedests.csv", help='Path to write the output CSV file', required=True)
+    args = parser.parse_args()
+    args.loggingEnabled = False if args.loggingEnabled == 0 else True
+    runTest(args)

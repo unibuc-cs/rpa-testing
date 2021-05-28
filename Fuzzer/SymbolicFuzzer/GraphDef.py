@@ -93,13 +93,28 @@ class SymbolicWorflowsTester():
         self.V = {} # Variables dict
         self.V_constants = {} # Context variables that are given as fixed for the model
 
+        # Custom Updates from the source in dest graph, but only if i
+        def updateWorkflowGraphConnections(source, dest):
+            # Update links from source to destination, but only those which have connections
+            for node_start, connect_end in source.items():
+                # Skip empty connection updates if we have already something there from node_start. Otherwise we lose connections...
+                isEndConnectionASink = connect_end is None or connect_end == "None" or (isinstance(connect_end, tuple) and connect_end[1] is None)
+                isAConnectionAlreadyInDest = node_start in dest
+
+                if isAConnectionAlreadyInDest and isEndConnectionASink:
+                    continue
+
+                # This will overwrite existing connection so pay attention to this. IF you need a certain order, put the workflows in the stream list in inverse order of their importance
+                dest[node_start] = connect_end
+
         # Merge everything into a single graph and variables def
         graphVariables = {}
         graphDict = {}
         self.graphColors = {}
         for W in workflows:
             graphVariables.update(W.variables)
-            graphDict.update(W.graph)
+            updateWorkflowGraphConnections(source=W.graph, dest=graphDict)
+            #graphDict.update(W.graph)
             self.graphColors[W.name] = W.color
 
         # Create the variables dictionary inside self.V
