@@ -18,6 +18,7 @@ def parseGraph(path, out_path):
         data = json.load(json_file)
         variables = data['variables']
         rname = data['displayName']
+        out_path = out_path + rname + ".json"
         z3Vars = {}
         z3Graph = {}
         for v in variables:
@@ -118,7 +119,10 @@ def test_parser(inputstring):
 if __name__ == '__main__':
     path = '..\\Models\\' + sys.argv[1] # "SimpleBankLoan\Pin Check_202105121449166565.json"
     # rname = sys.argv[2] # Main
-    out_path = path[:-5] + '_parsed.json'
+    # out_path = path[:-5] + '_parsed.json'
+    x = path.rfind("\\")
+    y = path[:(x - len(path) + 1)]
+    out_path = y
     print(sys.argv)
     parseGraph(path, out_path)
 
