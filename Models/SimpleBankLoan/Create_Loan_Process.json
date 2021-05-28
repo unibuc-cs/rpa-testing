@@ -24,7 +24,7 @@ graph: {
 "Create_Loan_Process:Fail_21": ("None",('True', 'Create_Loan_Process:Write_Line_22'))
 "Create_Loan_Process:Write_Line_22": ("None",('True', 'Create_Loan_Process:__Node_loanTest0____0'))
 "Create_Loan_Process:CheckedPin_23": ("V[Create_Loan_Process:Main_pinCorrectTest] == True",[('True', 'Create_Loan_Process:_Term_test0__11'),('False', 'Create_Loan_Process:Fail_21')])
-"Create_Loan_Process:Invoke_PinCheckWorkflow_v1_workflow_24": ("None",('True', 'PinCheckWorkflow_v1:Pin:checkPin_10'))
+"Create_Loan_Process:Invoke_PinCheckWorkflow_v1_workflow_24": ("None",('True', 'PinCheckWorkflow_v1:CheckPin_10'))
 "PinCheckWorkflow_v1:Virtual_Flowchart_End_17": ("None",('True', 'Create_Loan_Process:CheckedPin_23'))
 "Create_Loan_Process:Virtual_Flowchart_End_25": ("None",None)
 }
