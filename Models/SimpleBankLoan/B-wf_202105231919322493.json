@@ -1,1 +1,0 @@
-{"variables":{"inputData":"String","isPalindrome":"Boolean"},"displayName":"B_wf","startNode":"B_wf:B_wf_0","graph":{"B_wf:B_wf_0":{"expression":"","transitions":[{"value":"True","destination":"B_wf:Invoke_code_1"}]},"B_wf:Invoke_code_1":{"expression":"","transitions":[]}}}
