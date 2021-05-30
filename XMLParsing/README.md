@@ -30,5 +30,4 @@ E.g.: Xaml file is `C:\this-is-a-complex-wf.xaml`, then the following json file 
 - There is no id that can be extracted such that we can make a 1-1 connection with the real workflow, yet. We shouls try many other techniques.
 
 ## Releases
-Releases can be found inside Releases folder. (https://github.com/unibuc-cs/rpa-testing/tree/master/XMLParsing/Releases)
-To use the app, one has to use the XMLParsing.exe with the correct arguments.
+Releases can be found under Releases:https://github.com/unibuc-cs/rpa-testing/releases
