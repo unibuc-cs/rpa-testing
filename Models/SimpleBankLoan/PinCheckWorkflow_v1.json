@@ -1,5 +1,5 @@
 {"variables": {'PinCheckWorkflow_v1:Main_pinCorrectTest': 'Bool', 'PinCheckWorkflow_v1:Pin_local_numberRetries': 'Int', 'PinCheckWorkflow_v1:Pin_pinCorrectTest_local': 'Bool', 'PinCheckWorkflow_v1:Pin_local_res': 'Bool', 'PinCheckWorkflow_v1:Pin_randNum': 'Decimal'},
-graph: { 
+"graph": { 
 "PinCheckWorkflow_v1:FailedCheck_0": ("None",('True', 'PinCheckWorkflow_v1:Write_Line_1'))
 "PinCheckWorkflow_v1:Write_Line_1": ("None",('True', 'PinCheckWorkflow_v1:Assign_2'))
 "PinCheckWorkflow_v1:Assign_2": ("None",('True', 'PinCheckWorkflow_v1:FinishedCheck_15'))
@@ -18,5 +18,6 @@ graph: {
 "PinCheckWorkflow_v1:FinishedCheck_15": ("None",('True', 'PinCheckWorkflow_v1:Assign_16'))
 "PinCheckWorkflow_v1:Assign_16": ("None",('True', 'PinCheckWorkflow_v1:Virtual_Flowchart_End_17'))
 "PinCheckWorkflow_v1:Virtual_Flowchart_End_17": ("None",None)
-}
- }
+},
+ "debugColor": "green",
+ "name": "PinCheckWorkflow_v1 " }
