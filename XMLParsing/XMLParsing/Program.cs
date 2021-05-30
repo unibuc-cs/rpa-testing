@@ -101,8 +101,18 @@ namespace XMLParsing
 
             Console.WriteLine("Successfully parsed workflow: " + parameters[0] + ".");
             Console.WriteLine("Output file is: " + jsonFilePath + ".");
-
             textWriter.Close();
+
+            string destinationFileName = "outputXamlParser.json";
+            CopyFileContent(jsonFilePath, destinationFileName);
+            Console.WriteLine("Copied the content to " + destinationFileName);
+
+        }
+
+        private static void CopyFileContent(string sourceFile, string destinationFile)
+        {
+            destinationFile = new FileInfo(sourceFile).Directory.FullName + "\\" + destinationFile;
+            File.Copy(sourceFile, destinationFile, true);
         }
     }
 }
