@@ -88,7 +88,7 @@ namespace XMLParsing.Services
             else
             {
                 // Leaving as default and try to use reflection on it
-                ParseFlowSwitch(flowNode, nodes, workflow);
+                ParseFlowSwitch(flowNode, nodes, workflow, endNode);
             }
         }
 
@@ -172,18 +172,15 @@ namespace XMLParsing.Services
             workflow.Transitions.Add(t);
         }
 
-        /*
-         * When splitToConditionals is true, the switch should be decomposed to multiple if clauses
-         */
-        public void ParseFlowSwitch(FlowNode flowSwitch, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Workflow workflow)
+
+        public void ParseFlowSwitch(FlowNode flowSwitch, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Workflow workflow, Node endNode)
         {
-            // TODO: split switches into ifs
             if (flowSwitch == null)
             {
                 return;
             }
 
-            string displayName = ActivityUtils.SanitizeString(ReflectionHelpers.CallMethod(flowSwitch, "get_DisplayName") as string);
+            string displayName = workflow.DisplayName + ":" + ActivityUtils.SanitizeString(ReflectionHelpers.CallMethod(flowSwitch, "get_DisplayName") as string);
             nodes[flowSwitch].Item1.DisplayName = displayName;
             nodes[flowSwitch].Item1.IsConditional = true;
 
@@ -194,52 +191,93 @@ namespace XMLParsing.Services
             var defaultCase = ReflectionHelpers.CallMethod(flowSwitch, "get_Default") as FlowNode;
 
 
+
+            Node firstVirtualNode = null;
+            Node lastVirtualNode = null;
             List<string> treatedClauses = new List<string>();
             foreach(var flowCase in cases)
             {
-                Common.Transition t = new Common.Transition();
-                t.Source = nodes[flowSwitch].Item1;
-
                 var key = ReflectionHelpers.CallMethod(flowCase, "get_Key");
-
-                t.Expression = expressionText + " == " + key.ToString();
-                t.ExpressionValue = "True";
-
-                treatedClauses.Add(t.Expression);
-
                 var value = ReflectionHelpers.CallMethod(flowCase, "get_Value") as FlowNode;
+
+                // Create a virtual Node
+                Node currentVirtualNode = ActivityUtils.CreateEmptyNode(workflow.FullPath);
+                currentVirtualNode.DisplayName = displayName + "_Case_" + key.ToString();
+                currentVirtualNode.IsConditional = true;
+                currentVirtualNode.Expression = expressionText + " == " + key.ToString();
+                workflow.Nodes.Add(currentVirtualNode);
+
+
+                // Add transition to it's true case
+                Common.Transition t = new Common.Transition();
+                t.Source = currentVirtualNode;
+                t.Expression = currentVirtualNode.Expression;
+                t.ExpressionValue = Common.Transition.TRUE_TRANSITION_VALUE;
                 t.Destination = nodes[value].Item1;
 
+                treatedClauses.Add(t.Expression);
                 workflow.Transitions.Add(t);
-            }
 
-            // Treat the default
-            if (defaultCase != null)
-            {
-                Common.Transition t = new Common.Transition();
-                t.Source = nodes[flowSwitch].Item1;
 
-                // flowStep proceeds anyway
-                t.Expression = "";
-
-                t.ExpressionValue = "True";
-
-                foreach (var treatedClause in treatedClauses)
+                if (firstVirtualNode == null)
                 {
-                    t.Expression = t.Expression + "!(" + treatedClause + ") and ";
+                    firstVirtualNode = currentVirtualNode;
                 }
 
-                if(t.Expression == "")
+                if(lastVirtualNode != null)
                 {
-                    t.Expression = "True";
+                    Common.Transition tLast = new Common.Transition();
+                    tLast.Source = lastVirtualNode;
+                    tLast.Expression = lastVirtualNode.Expression;
+                    tLast.ExpressionValue = Common.Transition.FALSE_TRANSITION_VALUE;
+                    tLast.Destination = currentVirtualNode;
+                    workflow.Transitions.Add(tLast);
+                }
+
+                lastVirtualNode = currentVirtualNode;
+            }
+
+            if(lastVirtualNode != null)
+            {
+                // bind real flow node to the first virtual and the last virtual to the default, if one exists
+                Common.Transition t = new Common.Transition();
+                t.Source = nodes[flowSwitch].Item1;
+                t.Expression = "";
+                t.ExpressionValue = Common.Transition.TRUE_TRANSITION_VALUE;
+                t.Destination = firstVirtualNode;
+                workflow.Transitions.Add(t);
+
+                Common.Transition tEnd = new Common.Transition();
+                tEnd.Source = lastVirtualNode;
+                tEnd.ExpressionValue = Common.Transition.FALSE_TRANSITION_VALUE;
+                tEnd.Expression = lastVirtualNode.Expression;
+
+                if (defaultCase != null)
+                {
+                    tEnd.Destination = nodes[defaultCase].Item1;
                 }
                 else
                 {
-                    t.Expression = t.Expression.Substring(0, t.Expression.Length - 5);
+                    tEnd.Destination = endNode;
                 }
 
-                t.Destination = nodes[defaultCase].Item1;
+                workflow.Transitions.Add(tEnd);
+            }
+            else
+            {
+                Common.Transition t = new Common.Transition();
+                t.Source = nodes[flowSwitch].Item1;
+                t.Expression = "";
+                t.ExpressionValue = Common.Transition.TRUE_TRANSITION_VALUE;
 
+                if (defaultCase != null)
+                {
+                    t.Destination = nodes[defaultCase].Item1;
+                }
+                else
+                {
+                    t.Destination = endNode;
+                }
                 workflow.Transitions.Add(t);
             }
 
