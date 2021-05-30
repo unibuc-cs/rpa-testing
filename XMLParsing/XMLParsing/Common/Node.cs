@@ -14,5 +14,10 @@ namespace XMLParsing.Common
         public Node() 
         {
         }
+
+        public virtual void AddAdditionalNodeInformation(IDictionary<string, object> nodeInformation)
+        {
+        }
+
     }
 }

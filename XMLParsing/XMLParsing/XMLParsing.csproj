@@ -295,12 +295,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Node.cs" />
+    <Compile Include="Common\NodeExtensions\AssignWfNode.cs" />
     <Compile Include="Common\NodeExtensions\InvokeWfNode.cs" />
     <Compile Include="Common\Transition.cs" />
     <Compile Include="Common\Workflow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IOHandler.cs" />
+    <Compile Include="Services\Parsers\ActivityParser\AssignActivityParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\InvokeWfActivityParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\DefaultActivityParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\FlowchartParser.cs" />
@@ -313,6 +315,7 @@
     <Compile Include="Services\Serializers\FullGraphSerializer.cs" />
     <Compile Include="Services\Serializers\IWorkflowSerializer.cs" />
     <Compile Include="Utils\ActivityUtils.cs" />
+    <Compile Include="Utils\ExpressionUtils.cs" />
     <Compile Include="Utils\ReflectionHelpers.cs" />
     <Compile Include="Utils\XamlParserException.cs" />
   </ItemGroup>

@@ -27,5 +27,22 @@ namespace XMLParsing.Common.NodeExtensions
             VariableMapping = new List<Tuple<string, string, string>>();
         }
 
+        public override void AddAdditionalNodeInformation(IDictionary<string, object> nodeInformation)
+        {
+            nodeInformation.Add("invokedWorkflow", InvokedWorkflow);
+            List<IDictionary<string, object>> variableMappingList = new List<IDictionary<string, object>>();
+
+            foreach (var item in VariableMapping)
+            {
+                IDictionary<string, object> variableData = new Dictionary<string, object>();
+                variableData.Add("destinationWfArg", item.Item1);
+                variableData.Add("argumentType", item.Item2);
+                variableData.Add("sourceWfValue", item.Item3);
+
+                variableMappingList.Add(variableData);
+            }
+            nodeInformation.Add("variableMappings", variableMappingList.ToArray());
+        }
+
     }
 }
