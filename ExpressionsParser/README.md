@@ -1,9 +1,9 @@
 
 # How to run 
 
-From command line: .\main_parse.py "path to model.json"
+From command line: python main_parse.py "path to model.json"
 
-Example .\main_parse.py "SimpleBankLoan\Pin Check_202105121449166565.json"
+Example python main_parse.py "SimpleBankLoan\Pin Check_202105121449166565.json"
 
 Output: printed at console & json file containing  parsed variables and graph. 
 

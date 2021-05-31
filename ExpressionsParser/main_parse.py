@@ -50,7 +50,7 @@ def parseGraph(path, out_path):
             if len(transitions) == 0:
                 z3Graph[name] = "(\"" + str(guard) + "\"," + 'None' + ")"
             elif len(transitions) == 1:
-                z3Graph[name] = "(\"" + str(guard) + "\"," + str(transitions[0]) + ")"
+                z3Graph[name] = "(\"" + str(guard) + "\", \"" + str(transitions[0][1]) + "\")"
 
             elif len(transitions) == 2:
                 z3Graph[name] = "(\"" + str(guard) + "\"," + "[" + str(transitions[0]) + "," + str(
