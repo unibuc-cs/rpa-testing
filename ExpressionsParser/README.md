@@ -1,9 +1,9 @@
 
 # How to run 
 
-From command line: .\main_parse.py "path to model.json" "robot name"
+From command line: .\main_parse.py "path to model.json"
 
-Example .\main_parse.py "SimpleBankLoan\Pin Check_202105121449166565.json" "Main"
+Example .\main_parse.py "SimpleBankLoan\Pin Check_202105121449166565.json"
 
 Output: printed at console & json file containing  parsed variables and graph. 
 
