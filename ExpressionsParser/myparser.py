@@ -33,7 +33,10 @@ class Node:
         self.children = []
 
 def convert_object_with_function(t,c):
-    return functions.my_function(t,c)
+    return functions.convert_object_with_function(t,c)
+
+def convert_not_implemented_object(c):
+    return functions.convert_not_implemented_object(c)
 
 def lexical_analysis(s):
     mappings = {
@@ -78,7 +81,7 @@ def lexical_analysis(s):
     #split_tokens = s.split(' ')
     #print(split_tokens)
     #for c in split_tokens:
-    
+    s = s.strip()
     while len(s) > 0: 
         c= ''
         while s[0] == ' ':
@@ -98,6 +101,7 @@ def lexical_analysis(s):
             s = s[5:]
         else: 
           while len(s) > 0 and (s[0] != ' ' and s[0] != '(' and s[0] != ')'):
+              # TODO change this to acccept function calls
             c = c + s[0]
             s = s[1:]
     
@@ -123,11 +127,14 @@ def lexical_analysis(s):
             token = Node(t, value=c1)
 
         else:
-            raise Exception('Invalid token: {}'.format(c))
+            c1 = convert_not_implemented_object(c)
+
+
        # print(append)
         if append: 
           #print(token.token_type)
           tokens.append(token)
+        s = s.strip()
     tokens.append(Node(TokenType.T_END))
   
     return tokens

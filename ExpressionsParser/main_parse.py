@@ -41,20 +41,47 @@ def parseGraph(path, out_path):
             else:
                 ast = myparser.parse(graph[k]['expression'])
                 guard = ast_to_string(ast, rname)
-            # transitions contain a list of transitions 
+
+            # assigments
+            assign_list = graph[k].get("variableAssignments")
+            assignments = []
+            if assign_list:
+               assignment_var =  assign_list['to']
+               assignment_exp = assign_list['value']
+               ast_v = myparser.parse(assignment_var)
+               ast_e = myparser.parse(assignment_exp)
+               assignments = [(ast_to_string(ast_v, rname), ast_to_string(ast_e, rname) )]
+
+            #invoked wf args
+            invokedWorkflow = graph[k].get("invokedWorkflow")
+            if invokedWorkflow:
+                variableMappings = graph[k]["variableMappings"]
+                invokedWorkflowDisplayName = graph[k]["invokedWorkflowDisplayName"]
+                for var in variableMappings:
+                    type = var['argumentType']
+                    v1_ast = myparser.parse(var['destinationWfArg'])
+                    v2_ast = myparser.parse(var['sourceWfValue'])
+                    if type=="Out":
+                        asgn = (ast_to_string(v2_ast,rname),ast_to_string(v1_ast,invokedWorkflowDisplayName))
+                    else:
+                        asgn = (ast_to_string(v1_ast, invokedWorkflowDisplayName), ast_to_string(v2_ast, rname))
+                    assignments.append(asgn)
+            # transitions contain a list of transitions
             transitions = []
             for trans in graph[k]['transitions']:
                 transition = (trans['value'], trans['destination'])
                 # transition = (trans['value'],rname+':'+trans['destination'])
                 transitions.append(transition)
             if len(transitions) == 0:
-                z3Graph[name] = "(\"" + str(guard) + "\"," + 'None' + ")"
+                z3Graph[name] = "(\"" + str(guard) + "\"," + 'None' + ", "+str(assignments)+")"
             elif len(transitions) == 1:
-                z3Graph[name] = "(\"" + str(guard) + "\", \"" + str(transitions[0][1]) + "\")"
+                z3Graph[name] = "(\"" + str(guard) + "\", \"" + str(transitions[0][1]) + "\", "+str(assignments)+")"
 
             elif len(transitions) == 2:
                 z3Graph[name] = "(\"" + str(guard) + "\"," + "[" + str(transitions[0]) + "," + str(
-                    transitions[1]) + "]" + ")"
+                    transitions[1]) + "], " +str(assignments)+")"
+
+
 
         print(z3Vars)
         print(z3Graph)
