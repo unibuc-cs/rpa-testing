@@ -40,7 +40,17 @@ namespace XMLParsing.Utils
             try
             {
                 var expression = ReflectionHelpers.CallMethod(operand, "get_Expression");
-                return ReflectionHelpers.CallMethod(expression, "get_Value").ToString();
+                var res = ReflectionHelpers.CallMethod(expression, "get_Value").ToString();
+
+                // Test string expression
+                var expressionAct = expression as System.Activities.Activity<string>;
+                if(expressionAct != null)
+                {
+                    // This means the expression is a string
+                    res = "\"" + res + "\"";
+                }
+
+                return res;
             }
             catch (Exception e)
             {
