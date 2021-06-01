@@ -40,7 +40,7 @@ def parseGraph(path, out_path):
                 guard = 'None'
             else:
                 ast = myparser.parse(graph[k]['expression'])
-                guard = ast_to_string(ast, rname)
+                guard = "\"" + ast_to_string(ast, rname) +  "\""
 
             # assigments
             assign_list = graph[k].get("variableAssignments")
@@ -76,12 +76,12 @@ def parseGraph(path, out_path):
                 # transition = (trans['value'],rname+':'+trans['destination'])
                 transitions.append(transition)
             if len(transitions) == 0:
-                z3Graph[name] = "(\"" + str(guard) + "\"," + 'None' + ", "+str(assignments)+")"
+                z3Graph[name] = "(" + guard + "," + 'None' + ", "+str(assignments)+")"
             elif len(transitions) == 1:
-                z3Graph[name] = "(\"" + str(guard) + "\", \"" + str(transitions[0][1]) + "\", "+str(assignments)+")"
+                z3Graph[name] = "(" + guard + ", \"" + str(transitions[0][1]) + "\", "+str(assignments)+")"
 
             elif len(transitions) == 2:
-                z3Graph[name] = "(\"" + str(guard) + "\"," + "[" + str(transitions[0]) + "," + str(
+                z3Graph[name] = "(" + guard + "," + "[" + str(transitions[0]) + "," + str(
                     transitions[1]) + "], " +str(assignments)+")"
 
 
