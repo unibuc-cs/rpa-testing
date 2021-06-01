@@ -56,7 +56,10 @@ def parseGraph(path, out_path):
             invokedWorkflow = graph[k].get("invokedWorkflow")
             if invokedWorkflow:
                 variableMappings = graph[k]["variableMappings"]
-                invokedWorkflowDisplayName = graph[k]["invokedWorkflowDisplayName"]
+                invokedWorkflowDisplayName = graph[k].get("invokedWorkflowDisplayName")
+                print(invokedWorkflowDisplayName)
+                if invokedWorkflowDisplayName == None:
+                    invokedWorkflowDisplayName="Wf2"
                 for var in variableMappings:
                     type = var['argumentType']
                     v1_ast = myparser.parse(var['destinationWfArg'])

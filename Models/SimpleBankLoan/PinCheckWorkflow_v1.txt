@@ -18,5 +18,5 @@
 "PinCheckWorkflow_v1:FinishedCheck_15": ("None", "PinCheckWorkflow_v1:Assign_16", []),
 "PinCheckWorkflow_v1:Assign_16": ("None", "PinCheckWorkflow_v1:Virtual_Flowchart_End_17", [('V[PinCheckWorkflow_v1:Main_pinCorrectTest]', 'V[PinCheckWorkflow_v1:Pin_local_res]')]),
 "PinCheckWorkflow_v1:Virtual_Flowchart_End_17": ("None",None, [])},
- "debugColor": "green",
+ "debugColor": "red",
  "name": "PinCheckWorkflow_v1" }
