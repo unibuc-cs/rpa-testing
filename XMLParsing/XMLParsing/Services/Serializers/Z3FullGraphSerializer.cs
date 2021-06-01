@@ -19,10 +19,16 @@ namespace XMLParsing.Services.Serializers
             IDictionary<string, object> dictionary = new Dictionary<string, object>();
 
             AddVariables(workflow, dictionary);
+            AddInvokedWorkflows(workflow, dictionary);
             AddGraph(workflow, dictionary);
 
             var serialized = JsonConvert.SerializeObject(dictionary);
             textWriter.WriteLine(serialized);
+        }
+
+        protected void AddInvokedWorkflows(Workflow workflow, IDictionary<string, object> dictionary)
+        {
+            dictionary.Add("invokedWorkflows", workflow.InvokedWorkflows.ToArray());
         }
 
         protected void AddVariables(Workflow workflow, IDictionary<string, object> dictionary)
