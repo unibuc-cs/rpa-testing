@@ -11,6 +11,8 @@ namespace XMLParsing.Common.NodeExtensions
 
         public string InvokedWorkflow { get; set; }
 
+        public string InvokedWorkflowDisplayName { get; set; }
+
         public IList<Tuple<string, string, string>> VariableMapping { get; set; }
 
         public InvokeWfNode()
@@ -30,6 +32,7 @@ namespace XMLParsing.Common.NodeExtensions
         public override void AddAdditionalNodeInformation(IDictionary<string, object> nodeInformation)
         {
             nodeInformation.Add("invokedWorkflow", InvokedWorkflow);
+            nodeInformation.Add("invokedWorkflowDisplayName", InvokedWorkflowDisplayName);
             List<IDictionary<string, object>> variableMappingList = new List<IDictionary<string, object>>();
 
             foreach (var item in VariableMapping)

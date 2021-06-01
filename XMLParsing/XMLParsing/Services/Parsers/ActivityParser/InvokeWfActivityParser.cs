@@ -23,20 +23,18 @@ namespace XMLParsing.Services.Parsers.ActivityParser
             try
             {
                 invokeNode.InvokedWorkflow = invokeAct.WorkflowFileName.Expression.ToString();
+                workflow.InvokedWorkflows.Add(invokeNode.InvokedWorkflow);
                 foreach (var item in invokeAct.Arguments)
                 {
                     var direction = item.Value.Direction.ToString();
-                    var value = "";
-                    PropertyInfo expressionTextInfo = item.Value.Expression.GetType().GetProperty("ExpressionText");
-                    if (expressionTextInfo != null)
-                    {
-                        value = expressionTextInfo.GetValue(item.Value.Expression) as string;
-                    }
+                    var value = ExpressionUtils.TryParseExpression(item.Value);
+
                     invokeNode.VariableMapping.Add(Tuple.Create(item.Key, direction, value));
                 }
 
 
-                var (startNode, endNode) = ParseWfBlackBox(invokeNode.InvokedWorkflow, workflow.FullPath);
+                var (invokedWorkflowDisplayName, (startNode, endNode)) = ParseWfBlackBox(invokeNode.InvokedWorkflow, workflow.FullPath);
+                invokeNode.InvokedWorkflowDisplayName = invokedWorkflowDisplayName;
                 nextNode = endNode;
 
                 // We need to add: a transition from node to startNode of the wf Node of the invoked wf into this one, and return is as end.
@@ -58,7 +56,7 @@ namespace XMLParsing.Services.Parsers.ActivityParser
             return Tuple.Create(invokeNode as Node, nextNode as Node);
         }
 
-        protected Tuple<Node, Node> ParseWfBlackBox(string wfToInvokePath, string currentWfFullPath)
+        protected Tuple<string, Tuple<Node, Node>> ParseWfBlackBox(string wfToInvokePath, string currentWfFullPath)
         {
             string path;
             if (ActivityUtils.IsFullPath(wfToInvokePath))
@@ -75,7 +73,7 @@ namespace XMLParsing.Services.Parsers.ActivityParser
             var startNode = invokedWorkflow.StartNode;
             var endNode = invokedWorkflow.EndNode;
 
-            return Tuple.Create(startNode, endNode);
+            return Tuple.Create(invokedWorkflow.DisplayName, Tuple.Create(startNode, endNode));
         }
     }
 }
