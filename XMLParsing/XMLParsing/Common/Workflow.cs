@@ -9,6 +9,7 @@ namespace XMLParsing.Common
 
         public List<DynamicActivityProperty> Arguments { get; set; }
         public List<Variable> Variables { get; set; }
+        public ISet<string> InvokedWorkflows { get; set; }
 
         public string DisplayName { get; set; }
 
@@ -28,6 +29,7 @@ namespace XMLParsing.Common
             Variables = new List<Variable>();
             Nodes = new List<Node>();
             Transitions = new List<Transition>();
+            InvokedWorkflows = new HashSet<String>();
         }
     }
 }
