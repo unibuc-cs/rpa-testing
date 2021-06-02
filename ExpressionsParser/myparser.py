@@ -114,6 +114,12 @@ def lexical_analysis(s):
         elif c == 'True' or c == 'False':
             (t,c1)=convert_object_with_function(TokenType.T_BOOL,c)
             token = Node(t,value=c1)
+        elif c == 'true':
+            (t, c1) = convert_object_with_function(TokenType.T_BOOL, 'True')
+            token = Node(t, value=c1)
+        elif c == 'false':
+            (t, c1) = convert_object_with_function(TokenType.T_BOOL, 'False')
+            token = Node(t, value=c1)
         elif c[0]=='\"':
              (t,c1) = convert_object_with_function(TokenType.T_STRING,c)
              token = Node(t, value=c1)
@@ -122,7 +128,8 @@ def lexical_analysis(s):
             token = Node(t, value=c1)
         elif re.match(r'\s',c):
             append = False
-        elif re.match(r'^\w+$', c):
+        elif re.match(r'^\w+$', c) :
+            # TO DO check if var appears in the list of vars
             (t,c1) = convert_object_with_function(TokenType.T_VAR,c)
             token = Node(t, value=c1)
 

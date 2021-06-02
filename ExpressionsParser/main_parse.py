@@ -40,17 +40,21 @@ def parseGraph(path, out_path):
                 guard = 'None'
             else:
                 ast = myparser.parse(graph[k]['expression'])
-                guard = "\"" + ast_to_string(ast, rname) +  "\""
+                guard = "\"" + ast_to_string(ast, rname) + "\""
 
             # assigments
             assign_list = graph[k].get("variableAssignments")
             assignments = []
             if assign_list:
-               assignment_var =  assign_list['to']
+               assignment_var = assign_list['to']
                assignment_exp = assign_list['value']
                ast_v = myparser.parse(assignment_var)
                ast_e = myparser.parse(assignment_exp)
-               assignments = [(ast_to_string(ast_v, rname), ast_to_string(ast_e, rname) )]
+               if ast_e.token_type == myparser.TokenType.T_VAR:
+                    ast_e_str = ast_to_string(ast_e, rname)
+               else:
+                   ast_e_str =  ast_to_string(ast_e, rname)
+               assignments.append((ast_to_string(ast_v, rname), ast_e_str))
 
             #invoked wf args
             invokedWorkflow = graph[k].get("invokedWorkflow")
@@ -108,7 +112,7 @@ def ast_to_string(localast, rname):
     # to change for ternary operations
     if localast.token_type == myparser.TokenType.T_VAR:
         # localstr = 'V['+ localast.value+']'
-        localstr = 'V[' + rname + ':' + localast.value + ']'
+        localstr = 'V[\'' + rname + ':' + localast.value + '\']'
     else:
         localstr = localast.value
     st = ''
