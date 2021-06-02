@@ -1,1 +1,11 @@
 Create_Loan_Process:Main_loan,Create_Loan_Process:Main_term,Create_Loan_Process:Main_pinCorrectValue,Create_Loan_Process:Main_pinCorrectTest,Create_Loan_Process:Main_loan_type,Create_Loan_Process:Main_term_type,Create_Loan_Process:Main_obtained_result,Create_Loan_Process:Pin_local_numberRetries,Create_Loan_Process:Pin_pinCorrectTest_local,Create_Loan_Process:Pin_local_res,PinCheckWorkflow_v1:Main_pinCorrectTest,PinCheckWorkflow_v1:Pin_local_numberRetries,PinCheckWorkflow_v1:Pin_pinCorrectTest_local,PinCheckWorkflow_v1:Pin_local_res,PinCheckWorkflow_v1:Pin_randNum
+999,4,,,,,,,,,,,,,
+999,5,,,,,,,,,,,,,
+98712,4,,,,,,,,,,,,,
+99056,5,,,,,,,,,,,,,
+100000,4,,True,,,,,,,,,True,,
+100000,5,,True,,,,,,,,,True,,
+100000,,,False,,,,,,,,,True,,
+100000,4,,True,,,,,,,,3,False,,
+100000,5,,True,,,,,,,,3,False,,
+100000,,,False,,,,,,,,3,False,,
