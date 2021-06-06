@@ -3,6 +3,7 @@ import graphviz
 import json
 import sys
 import pickle
+import os
 
 DataTypes = {
     'Int32': 'Int',
@@ -37,7 +38,7 @@ def parseGraph(path, out_path):
                 a += 1
 
             # print(graph[k])
-            # k is the node name 
+            # k is the node name
             # graph[k] contains all info from a node
             # name = rname+':'+ k
             name = k
@@ -114,7 +115,7 @@ def parseGraph(path, out_path):
 
 
 def ast_to_string(localast, rname):
-    # AST to string - using preorder 
+    # AST to string - using preorder
     # to change for ternary operations
     if localast.token_type == myparser.TokenType.T_VAR:
         # localstr = 'V['+ localast.value+']'
@@ -155,11 +156,14 @@ def test_parser(inputstring):
 
 
 if __name__ == '__main__':
-    path = '..\\Models\\' + sys.argv[1]  # "SimpleBankLoan\Pin Check_202105121449166565.json"
+    path = os.path.join('../Models', sys.argv[1])  # "SimpleBankLoan\Pin Check_202105121449166565.json"
+    assert os.path.exists(path), "File not found !"
     # rname = sys.argv[2] # Main
     # out_path = path[:-5] + '_parsed.json'
-    x = path.rfind("\\")
+    x = path.rfind("/")
     y = path[:(x - len(path) + 1)]
+    assert y != None and len(y) >= 0, "output path not defined"
     out_path = y
-    print(sys.argv)
+    assert os.path.exists(out_path), "output path was not found"
+    #print(sys.argv)
     parseGraph(path, out_path)
