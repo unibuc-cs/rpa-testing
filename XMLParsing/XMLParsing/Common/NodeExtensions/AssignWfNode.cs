@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace XMLParsing.Common.NodeExtensions
 {
-    class AssignWfNode : Node
+    class AssignWfNode : Node, IRelevantNode
     {
         public string To;
         public string Value;

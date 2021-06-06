@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using XMLParsing.Common;
 using XMLParsing.Services;
+using XMLParsing.Services.Reducers;
 using XMLParsing.Services.Serializers;
 using XMLParsing.Utils;
 using static XMLParsing.Services.IOHandler;
@@ -37,6 +38,9 @@ namespace XMLParsing
                         break;
                     case ParserCommand.Z3FullGraph:
                         HandleZ3FullGraph(parameterList);
+                        break;
+                    case ParserCommand.Z3ReducedGraph:
+                        HandleZ3ReducedGraph(parameterList);
                         break;
                 }
             }
@@ -94,19 +98,39 @@ namespace XMLParsing
 
             var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssffff");
             var jsonFilePath = parameters[0].Replace(".xaml", "") + "_" + timeStamp + ".json";
+            var workflowFilePath = parameters[0];
+            SerializeZ3Graph(jsonFilePath, workflowFilePath, wf);
 
+        }
+
+        private static void HandleZ3ReducedGraph(List<string> parameters)
+        {
+            Console.WriteLine("Parsing to z3 reduced graph form");
+
+            var wf = WorkflowParser.Instance.ParseWorkflow(parameters[0]);
+
+            var wokflowReducer = new Z3RelevantWorkflowReducer();
+            wokflowReducer.ReduceWorkflow(wf);
+
+            var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+            var jsonFilePath = parameters[0].Replace(".xaml", "") + "_" + timeStamp + ".json";
+            var workflowFilePath = parameters[0];
+            SerializeZ3Graph(jsonFilePath, workflowFilePath, wf);
+        }
+
+        private static void SerializeZ3Graph(string jsonFilePath, string workflowFilePath, Workflow wf)
+        {
             var serializer = new Z3FullGraphSerializer();
             var textWriter = File.AppendText(jsonFilePath);
             serializer.SerializeWorkflow(wf, textWriter);
 
-            Console.WriteLine("Successfully parsed workflow: " + parameters[0] + ".");
+            Console.WriteLine("Successfully parsed workflow: " + workflowFilePath + ".");
             Console.WriteLine("Output file is: " + jsonFilePath + ".");
             textWriter.Close();
 
             string destinationFileName = "outputXamlParser.json";
             CopyFileContent(jsonFilePath, destinationFileName);
             Console.WriteLine("Copied the content to " + destinationFileName);
-
         }
 
         private static void CopyFileContent(string sourceFile, string destinationFile)

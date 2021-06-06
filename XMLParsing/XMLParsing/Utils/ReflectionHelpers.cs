@@ -26,7 +26,7 @@ namespace XMLParsing.Utils
                 MethodInfo methodInfo = source.GetType().GetMethod(name);
                 return methodInfo.Invoke(source, parameters);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // Console.WriteLine(e.Message);
             }
