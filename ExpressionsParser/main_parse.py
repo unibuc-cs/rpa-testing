@@ -28,7 +28,13 @@ def parseGraph(path, out_path):
             z3Vars[rname + ':' + v] = DataTypes[variables[v]]
             # z3Vars['Main:'+v] = DataTypes[variables[v]]
         graph = data['graph']
+
         for k in graph:
+
+            # DEBUG
+            if "Assign_20" in k:
+                a = 3
+                a += 1
 
             # print(graph[k])
             # k is the node name 
