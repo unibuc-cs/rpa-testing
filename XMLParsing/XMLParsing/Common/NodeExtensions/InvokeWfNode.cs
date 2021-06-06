@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace XMLParsing.Common.NodeExtensions
 {
-    class InvokeWfNode : Node
+    class InvokeWfNode : Node, IRelevantNode
     {
 
         public string InvokedWorkflow { get; set; }

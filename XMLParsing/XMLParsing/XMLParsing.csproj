@@ -297,6 +297,7 @@
     <Compile Include="Common\Node.cs" />
     <Compile Include="Common\NodeExtensions\AssignWfNode.cs" />
     <Compile Include="Common\NodeExtensions\InvokeWfNode.cs" />
+    <Compile Include="Common\NodeExtensions\IRelevantNode.cs" />
     <Compile Include="Common\Transition.cs" />
     <Compile Include="Common\Workflow.cs" />
     <Compile Include="Program.cs" />
@@ -310,10 +311,12 @@
     <Compile Include="Services\Parsers\ActivityParser\ActivityParserFactory.cs" />
     <Compile Include="Services\Parsers\ActivityParser\SequenceParser.cs" />
     <Compile Include="Services\Parsers\WorkflowParser.cs" />
+    <Compile Include="Services\Reducers\Z3RelevantWorkflowReducer.cs" />
     <Compile Include="Services\Serializers\Z3FullGraphSerializer.cs" />
     <Compile Include="Services\Serializers\Z3ConditionalGraphSerializer.cs" />
     <Compile Include="Services\Serializers\FullGraphSerializer.cs" />
     <Compile Include="Services\Serializers\IWorkflowSerializer.cs" />
+    <Compile Include="Services\Reducers\IWorkflowReducer.cs" />
     <Compile Include="Utils\ActivityUtils.cs" />
     <Compile Include="Utils\ExpressionUtils.cs" />
     <Compile Include="Utils\ReflectionHelpers.cs" />

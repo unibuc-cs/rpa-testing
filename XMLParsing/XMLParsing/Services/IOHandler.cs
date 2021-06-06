@@ -14,7 +14,8 @@ namespace XMLParsing.Services
             Help,
             FullGraph,
             Z3ConditionalGraph,
-            Z3FullGraph
+            Z3FullGraph,
+            Z3ReducedGraph
         }
 
         private static IDictionary<string, ParserCommand> _stringToParserCommand = new Dictionary<string, ParserCommand>() {
@@ -22,6 +23,7 @@ namespace XMLParsing.Services
             { "/fullGraph", ParserCommand.FullGraph  },
             { "/z3ConditionalGraph", ParserCommand.Z3ConditionalGraph  },
             { "/z3FullGraph", ParserCommand.Z3FullGraph },
+            { "/z3ReducedGraph", ParserCommand.Z3ReducedGraph },
         };
 
         private static IDictionary<ParserCommand, string> _descriptions = new Dictionary<ParserCommand, string>() {
@@ -31,6 +33,8 @@ namespace XMLParsing.Services
                                                 "Z3 friendly format. Reduces the graph to conditionals." },
             { ParserCommand.Z3FullGraph, "Parses the workflow file given by argument and outputs the structure in a " +
                                                 "Z3 friendly format. Outputs the whole graph." },
+            { ParserCommand.Z3ReducedGraph, "Parses the workflow file given by argument and outputs the structure in a " +
+                                                "Z3 friendly format. Outputs only relevant nodes of the graph." },
         };
 
         // TODO: Handle context variables for Z3ConditionalGraph 
@@ -39,6 +43,7 @@ namespace XMLParsing.Services
             { ParserCommand.FullGraph, new string[] { "<worflow-file-path>" } },
             { ParserCommand.Z3ConditionalGraph, new string[] { "<workflow-file-path>" } },
             { ParserCommand.Z3FullGraph, new string[] { "<workflow-file-path>" } },
+            { ParserCommand.Z3ReducedGraph, new string[] { "<workflow-file-path>" } },
         };
 
         private IOHandler()
