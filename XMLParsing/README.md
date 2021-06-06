@@ -20,7 +20,7 @@ Available commands are:
 The commands that imply outputing in a z3 friendly format are outputing the data in a .json file, in the same place where the .xaml file is.
 E.g.: Xaml file is `C:\this-is-a-complex-wf.xaml`, then the following json file will be generated: `C:\this-is-a-complex-wf-<timestamp>.json`.
 
-## What are the limitations of the last release (0.6.3)?
+## What are the limitations of the last release (0.7.0)?
 
 - Deprecated z3ConditionalGraph option
 - State Machines are not yet parsed
