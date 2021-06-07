@@ -1,8 +1,0 @@
-Main:context_userId,Pin:local_numberRetries,Main:loan,Main:term,Main:pinCorrectValue,Main:pinCorrectTest,Pin:pinCorrectTest_local
-2,0,999.0,4,,,
-2,0,999.0,5,,,
-2,0,1000.0,4,,,
-2,0,1000.0,5,,,
-2,0,100000.0,4,,True,1
-2,0,100000.0,5,,True,1
-2,0,100000.0,,,False,1

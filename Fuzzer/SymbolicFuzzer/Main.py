@@ -78,16 +78,22 @@ from GraphDef import *
 
 class TestFactory:
     def __init__(self):
-        pass
+        self.baseFolderModel = None
+        self.testFuzzerInstance = None
+        self.mainWorkflowName = None
 
     def loadTestSpecFromFile(self, testSpecFile):
         with open(testSpecFile) as f:
             data = f.read()
             data = ast.literal_eval(data)
+
+            self.baseFolderModel = os.path.dirname(testSpecFile)
             entryTestNodeId = data["entryTestNodeId"]
             self.mainWorkflowName = data["mainWorkflowName"] # 'Main'
 
             listOfWorkflowsPaths = data["listOfWorkflows"]
+            # Put the base folder for each path as prefix
+            listOfWorkflowsPaths = [os.path.join(self.baseFolderModel, workflowPath) for workflowPath in listOfWorkflowsPaths]
             allWorkflowsInstances : List[WorkflowDef] = []
             for workflowPath in listOfWorkflowsPaths:
                 workflowInstance = self.createWorkflowSingleFromFile(workflowPath)
@@ -98,6 +104,11 @@ class TestFactory:
                                                              mainWorflowName=self.mainWorkflowName,
                                                              entryTestNodeId=entryTestNodeId)
 
+    def getSolutionsOutputFilePath(self, fileName):
+        return os.path.join(self.baseFolderModel, "generatedTests.csv")
+
+    def getDebugGraphFilePath(self, fileName):
+        return None if fileName is None else os.path.join(self.baseFolderModel, fileName)
 
     def debugFullGraph(self, outputGraphFile): #= "debugGraph.png"): # Could be none
         self.testFuzzerInstance.debugGraph(outputGraphFile=outputGraphFile)
@@ -125,9 +136,10 @@ def runTest(args):
     workflowsFactory.loadTestSpecFromFile(args.testConfigFilePath) # To do: maybe we should put these files on parameters in the end :)
 
     if args.loggingEnabled:
-        workflowsFactory.debugFullGraph(outputGraphFile=args.outputGraphFile)
+        workflowsFactory.debugFullGraph(outputGraphFile=workflowsFactory.getDebugGraphFilePath(args.outputGraphFile))
 
-    workflowsFactory.solveOfflineStaticGraph(outputResultsFile="generatedTests.csv", loggingEnabled=args.loggingEnabled)
+    workflowsFactory.solveOfflineStaticGraph(outputResultsFile=workflowsFactory.getSolutionsOutputFilePath(args.outputResultsFile),
+                                             loggingEnabled=args.loggingEnabled)
 
 
 if __name__ == "__main__":

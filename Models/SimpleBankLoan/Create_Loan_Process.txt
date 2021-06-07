@@ -13,5 +13,5 @@
 "Create_Loan_Process:Invoke_PinCheckWorkflow_v1_workflow_24": (None, "PinCheckWorkflow_v1:CheckPin_10", [("V['Create_Loan_Process:Main_pinCorrectTest']", "V['PinCheckWorkflow_v1:Main_pinCorrectTest']")]),
 "PinCheckWorkflow_v1:Virtual_Flowchart_End_17": (None, "Create_Loan_Process:CheckedPin_23", []),
 "Create_Loan_Process:Virtual_Flowchart_End_25": (None,None, [])},
- "debugColor": "red",
+ "debugColor": "yellow",
  "name": "Create_Loan_Process" }
