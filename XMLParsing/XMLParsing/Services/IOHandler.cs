@@ -12,7 +12,6 @@ namespace XMLParsing.Services
         public enum ParserCommand
         {
             Help,
-            FullGraph,
             Z3ConditionalGraph,
             Z3FullGraph,
             Z3ReducedGraph
@@ -20,7 +19,6 @@ namespace XMLParsing.Services
 
         private static IDictionary<string, ParserCommand> _stringToParserCommand = new Dictionary<string, ParserCommand>() {
             { "/help", ParserCommand.Help },
-            { "/fullGraph", ParserCommand.FullGraph  },
             { "/z3ConditionalGraph", ParserCommand.Z3ConditionalGraph  },
             { "/z3FullGraph", ParserCommand.Z3FullGraph },
             { "/z3ReducedGraph", ParserCommand.Z3ReducedGraph },
@@ -28,7 +26,6 @@ namespace XMLParsing.Services
 
         private static IDictionary<ParserCommand, string> _descriptions = new Dictionary<ParserCommand, string>() {
             { ParserCommand.Help, "Gives a description of the available parser commands." },
-            { ParserCommand.FullGraph, "Parses the workflow file given by argument and outputs the structure in the console." },
             { ParserCommand.Z3ConditionalGraph, "Parses the workflow file given by argument and outputs the structure in a " +
                                                 "Z3 friendly format. Reduces the graph to conditionals." },
             { ParserCommand.Z3FullGraph, "Parses the workflow file given by argument and outputs the structure in a " +
@@ -40,7 +37,6 @@ namespace XMLParsing.Services
         // TODO: Handle context variables for Z3ConditionalGraph 
         private static IDictionary<ParserCommand, string[]> _additionalParameters = new Dictionary<ParserCommand, string[]>() {
             { ParserCommand.Help, new string[] {} },
-            { ParserCommand.FullGraph, new string[] { "<worflow-file-path>" } },
             { ParserCommand.Z3ConditionalGraph, new string[] { "<workflow-file-path>" } },
             { ParserCommand.Z3FullGraph, new string[] { "<workflow-file-path>" } },
             { ParserCommand.Z3ReducedGraph, new string[] { "<workflow-file-path>" } },

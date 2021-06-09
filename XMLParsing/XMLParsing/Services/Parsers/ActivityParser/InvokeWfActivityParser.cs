@@ -11,11 +11,11 @@ namespace XMLParsing.Services.Parsers.ActivityParser
 {
     class InvokeWfActivityParser : IActivityParser
     {
-        public Tuple<Node, Node> ParseActivity(Activity activity, Workflow workflow)
+        public Tuple<Node, Node> ParseActivity(Activity activity, Graph graph, WorkflowData workflowData)
         {
-            Node node = ActivityUtils.CreateSimpleNodeFromActivity(activity, workflow.DisplayName, workflow.FullPath);
+            Node node = ActivityUtils.CreateSimpleNodeFromActivity(activity, workflowData.DisplayName);
             InvokeWfNode invokeNode = new InvokeWfNode(node);
-            workflow.Nodes.Add(invokeNode);
+            graph.Nodes.Add(invokeNode);
             Node nextNode = node;
 
             InvokeWorkflowFile invokeAct = activity as InvokeWorkflowFile;
@@ -23,7 +23,6 @@ namespace XMLParsing.Services.Parsers.ActivityParser
             try
             {
                 invokeNode.InvokedWorkflow = invokeAct.WorkflowFileName.Expression.ToString();
-                workflow.InvokedWorkflows.Add(invokeNode.InvokedWorkflow);
                 foreach (var item in invokeAct.Arguments)
                 {
                     var direction = item.Value.Direction.ToString();
@@ -33,7 +32,7 @@ namespace XMLParsing.Services.Parsers.ActivityParser
                 }
 
 
-                var (invokedWorkflowDisplayName, (startNode, endNode)) = ParseWfBlackBox(invokeNode.InvokedWorkflow, workflow.FullPath);
+                var (invokedWorkflowDisplayName, (startNode, endNode)) = ParseWfBlackBox(invokeNode.InvokedWorkflow, workflowData.FullPath, workflowData.DisplayName, graph);
                 invokeNode.InvokedWorkflowDisplayName = invokedWorkflowDisplayName;
                 nextNode = endNode;
 
@@ -43,9 +42,7 @@ namespace XMLParsing.Services.Parsers.ActivityParser
                 transition.Destination = startNode;
                 transition.Expression = "";
                 transition.ExpressionValue = Common.Transition.TRUE_TRANSITION_VALUE;
-                workflow.Transitions.Add(transition);
-
-                workflow.Nodes.Add(endNode);
+                graph.Transitions.Add(transition);
 
             }
             catch (Exception e) 
@@ -56,7 +53,7 @@ namespace XMLParsing.Services.Parsers.ActivityParser
             return Tuple.Create(invokeNode as Node, nextNode as Node);
         }
 
-        protected Tuple<string, Tuple<Node, Node>> ParseWfBlackBox(string wfToInvokePath, string currentWfFullPath)
+        protected Tuple<string, Tuple<Node, Node>> ParseWfBlackBox(string wfToInvokePath, string currentWfFullPath, string currentWfDisplayName, Graph graph)
         {
             string path;
             if (ActivityUtils.IsFullPath(wfToInvokePath))
@@ -69,11 +66,12 @@ namespace XMLParsing.Services.Parsers.ActivityParser
                 path = Path.GetFullPath(currentWfDirName + "\\" + wfToInvokePath);
             }
 
-            Workflow invokedWorkflow = WorkflowParser.Instance.ParseWorkflow(path);
-            var startNode = invokedWorkflow.StartNode;
-            var endNode = invokedWorkflow.EndNode;
+            WorkflowData invokedWorkflowData = WorkflowParser.Instance.ParseWorkflow(graph, path);
+            invokedWorkflowData.InvokedBy = currentWfDisplayName;
+            var startNode = invokedWorkflowData.StartNode;
+            var endNode = invokedWorkflowData.EndNode;
 
-            return Tuple.Create(invokedWorkflow.DisplayName, Tuple.Create(startNode, endNode));
+            return Tuple.Create(invokedWorkflowData.DisplayName, Tuple.Create(startNode, endNode));
         }
     }
 }

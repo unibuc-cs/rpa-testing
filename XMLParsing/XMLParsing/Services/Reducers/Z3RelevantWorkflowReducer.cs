@@ -6,27 +6,30 @@ namespace XMLParsing.Services.Reducers
 {
     class Z3RelevantWorkflowReducer : IWorkflowReducer
     {
-        public void ReduceWorkflow(Workflow workflow)
+        public void ReduceWorkflow(Graph graph)
         {
-            List<Node> toReduce = new List<Node>();
-            workflow.Nodes.ForEach(node =>
+            List<Node> startEndNodes = new List<Node>();
+            graph.WorkflowsData.ForEach(wfData =>
             {
-                if (TryReduceNode(workflow, node))
+                startEndNodes.Add(wfData.StartNode);
+                startEndNodes.Add(wfData.EndNode);
+            });
+
+
+            List<Node> toReduce = new List<Node>();
+            graph.Nodes.ForEach(node =>
+            {
+                if (!startEndNodes.Contains(node) && TryReduceNode(graph, node))
                 {
                     toReduce.Add(node);
                 }
             });
 
-            toReduce.ForEach(node => workflow.Nodes.Remove(node));
+            toReduce.ForEach(node => graph.Nodes.Remove(node));
         }
 
-        private bool TryReduceNode(Workflow workflow, Node node)
+        private bool TryReduceNode(Graph graph, Node node)
         {
-            if(node.Equals(workflow.StartNode) || node.Equals(workflow.EndNode))
-            {
-                // Don't reduce if global start or end
-                return false;
-            }
 
             IRelevantNode relevantNode = node as IRelevantNode;
             if(relevantNode != null)
@@ -41,23 +44,17 @@ namespace XMLParsing.Services.Reducers
                 return false;
             }
 
-            if (!node.DisplayName.StartsWith(workflow.DisplayName))
-            {
-                // Node makes connections across workflows, do not remove
-                return false;
-            }
-
             // We should only be left with nodes that may have multiple entries but have maximum one output transition
-            Transition outTransition = workflow.Transitions.Find(p => p.Source.Equals(node));
+            Transition outTransition = graph.Transitions.Find(p => p.Source.Equals(node));
 
-            List<Transition> inputTransitions = workflow.Transitions.FindAll(p => p.Destination.Equals(node));
+            List<Transition> inputTransitions = graph.Transitions.FindAll(p => p.Destination.Equals(node));
             if(outTransition == null)
             {
-                workflow.Transitions.RemoveAll(p => p.Destination.Equals(node));
+                graph.Transitions.RemoveAll(p => p.Destination.Equals(node));
             }
             else
             {
-                workflow.Transitions.FindAll(p => p.Destination.Equals(node)).ForEach(p => p.Destination = outTransition.Destination);
+                graph.Transitions.FindAll(p => p.Destination.Equals(node)).ForEach(p => p.Destination = outTransition.Destination);
             }
 
             return true;

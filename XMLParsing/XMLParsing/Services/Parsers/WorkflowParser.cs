@@ -53,47 +53,55 @@ namespace XMLParsing.Services
             return assembly;
         }
 
-        public Workflow ParseWorkflow(string path)
+        public Graph ParseGraph(string path)
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += (_, args) => LatestOrDefault(args.Name);
+            Graph graph = new Graph();
+            WorkflowData mainWorkflowData = ParseWorkflow(graph, path);
+            graph.StartNode = mainWorkflowData.StartNode;
+            graph.EndNode = mainWorkflowData.EndNode;
+            return graph;
+        }
+
+        public WorkflowData ParseWorkflow(Graph graph, string path)
         {
             string readText = File.ReadAllText(path);
             var stringReader = new StringReader(readText);
             var xamlXmlReader = new XamlXmlReader(stringReader);
             var xamlReader = ActivityXamlServices.CreateBuilderReader(xamlXmlReader);
 
-            AppDomain.CurrentDomain.AssemblyResolve += (_, args) => LatestOrDefault(args.Name);
             ActivityBuilder activityBuilder = XamlServices.Load(xamlReader) as ActivityBuilder;
-
-
             if (activityBuilder == null)
             {
                 return null;
             }
 
-            Workflow workflow = new Workflow();
-            workflow.DisplayName = ActivityUtils.SanitizeString(activityBuilder.Name);
+            var workflowData = new WorkflowData(ActivityUtils.SanitizeString(activityBuilder.Name));
 
             if (ActivityUtils.IsFullPath(path))
             {
-                workflow.FullPath = path;
+                workflowData.FullPath = path;
             }
             else
             {
-                workflow.FullPath = Path.GetFullPath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\" + path);
+                workflowData.FullPath = Path.GetFullPath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\" + path);
             }
 
             // Arguments
             foreach (var dynamicActivityProperty in activityBuilder.Properties)
             {
-                workflow.Arguments.Add(dynamicActivityProperty);
+                workflowData.Arguments.Add(dynamicActivityProperty);
             }
 
             Activity activity = activityBuilder.Implementation;
             IActivityParser parser = ActivityParserFactory.Instance.GetParser(activity);
-            var ( startNode, endNode ) = parser.ParseActivity(activity, workflow);
-            workflow.StartNode = startNode;
-            workflow.EndNode = endNode;
+            var ( startNode, endNode ) = parser.ParseActivity(activity, graph, workflowData);
+            workflowData.StartNode = startNode;
+            workflowData.EndNode = endNode;
 
-            return workflow;
+            graph.WorkflowsData.Add(workflowData);
+
+            return workflowData;
         }
 
     }

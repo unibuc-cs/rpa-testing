@@ -24,29 +24,29 @@ namespace XMLParsing.Utils
             }
             else
             {
-                ID_GENERATORS_MAP.Add(workflowFullPath, 0);
+                ID_GENERATORS_MAP.Add(workflowFullPath, 1);
             }
 
             return ID_GENERATORS_MAP[workflowFullPath];
         }
 
-        static public Node CreateSimpleNodeFromActivity(Activity activity, string name_space, string workflowFullPath)
+        static public Node CreateSimpleNodeFromActivity(Activity activity, string workflowDisplayName)
         {
             if (activity == null)
             {
                 return null;
             }
 
-            Node node = CreateEmptyNode(workflowFullPath);
-            node.DisplayName = name_space + ":" + GetDisplayNameSanitized(activity);
+            Node node = CreateEmptyNode(workflowDisplayName);
+            node.DisplayName = workflowDisplayName + ":" + GetDisplayNameSanitized(activity);
             return node;
         }
 
-        static public Node CreateEmptyNode(string workflowFullPath)
+        static public Node CreateEmptyNode(string workflowDisplayName)
         {
             Node node = new Node();
             node.DisplayName = "";
-            node.Id = GetNextId(workflowFullPath);
+            node.Id = GetNextId(workflowDisplayName);
             node.IsConditional = false;
             node.Expression = "";
             return node;

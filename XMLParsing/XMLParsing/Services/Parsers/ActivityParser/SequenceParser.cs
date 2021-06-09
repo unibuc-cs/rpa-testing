@@ -9,10 +9,10 @@ namespace XMLParsing.Services.Parsers.NativeActivityParser
 {
     class SequenceParser : IActivityParser
     {
-        public Tuple<Node, Node> ParseActivity(Activity activity, Workflow workflow)
+        public Tuple<Node, Node> ParseActivity(Activity activity, Graph graph, WorkflowData workflowData)
         {
             NativeActivity nativeActivity = activity as NativeActivity;
-            if (nativeActivity == null || workflow == null || !nativeActivity.GetType().Equals(typeof(Sequence)))
+            if (nativeActivity == null || !nativeActivity.GetType().Equals(typeof(Sequence)))
             {
                 throw new XamlParserException("Unexpected type of activity");
             }
@@ -22,11 +22,11 @@ namespace XMLParsing.Services.Parsers.NativeActivityParser
             // Parse variables
             foreach (var variable in sequence.Variables)
             {
-                workflow.Variables.Add(variable);
+                workflowData.Variables.Add(variable);
             }
 
-            Node startNode = ActivityUtils.CreateSimpleNodeFromActivity(activity, workflow.DisplayName, workflow.FullPath);
-            workflow.Nodes.Add(startNode);
+            Node startNode = ActivityUtils.CreateSimpleNodeFromActivity(activity, workflowData.DisplayName);
+            graph.Nodes.Add(startNode);
 
             if(sequence.Activities == null || sequence.Activities.Count == 0)
             {
@@ -37,7 +37,7 @@ namespace XMLParsing.Services.Parsers.NativeActivityParser
             for (int i = 0; i < sequence.Activities.Count; i++)
             {
                 IActivityParser parser = ActivityParserFactory.Instance.GetParser(sequence.Activities[i]);
-                innerActivitiesEnds.Add(parser.ParseActivity(sequence.Activities[i], workflow));
+                innerActivitiesEnds.Add(parser.ParseActivity(sequence.Activities[i], graph, workflowData));
             }
 
             // At this point, we have at least one activity, therefore at least one item inside innerActivitiesEnds
@@ -46,7 +46,7 @@ namespace XMLParsing.Services.Parsers.NativeActivityParser
             startTransition.Destination = innerActivitiesEnds[0].Item1;
             startTransition.Expression = "";
             startTransition.ExpressionValue = Common.Transition.TRUE_TRANSITION_VALUE;
-            workflow.Transitions.Add(startTransition);
+            graph.Transitions.Add(startTransition);
 
             for (int i = 1; i < innerActivitiesEnds.Count; i++)
             {
@@ -55,7 +55,7 @@ namespace XMLParsing.Services.Parsers.NativeActivityParser
                 transition.Destination = innerActivitiesEnds[i].Item1;
                 transition.Expression = "";
                 transition.ExpressionValue = Common.Transition.TRUE_TRANSITION_VALUE;
-                workflow.Transitions.Add(transition);
+                graph.Transitions.Add(transition);
             }
 
             return Tuple.Create(startNode, innerActivitiesEnds[innerActivitiesEnds.Count - 1].Item2);

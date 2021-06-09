@@ -15,12 +15,12 @@ namespace XMLParsing.Services.Serializers
             return node.IsConditional;
         }
 
-        protected override Node ProcessDestination(Workflow workflow, Transition transition)
+        protected override Node ProcessDestination(Graph workflow, Transition transition)
         {
             return SinkToConditional(workflow, transition.Destination);
         }
 
-        protected Node SinkToConditional(Workflow workflow, Node node)
+        protected Node SinkToConditional(Graph workflow, Node node)
         {
             Node result = node;
             while (!result.IsConditional)

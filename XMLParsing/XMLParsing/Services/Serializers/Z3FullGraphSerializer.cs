@@ -14,27 +14,22 @@ namespace XMLParsing.Services.Serializers
         protected static readonly string IN_ARGUMENT_TYPE_NAME = "InArgument";
         protected static readonly string OUT_ARGUMENT_TYPE_NAME = "OutArgument";
 
-        public void SerializeWorkflow(Workflow workflow, TextWriter textWriter)
+        public void SerializeWorkflow(Graph graph, TextWriter textWriter)
         {
             IDictionary<string, object> dictionary = new Dictionary<string, object>();
 
-            AddVariables(workflow, dictionary);
-            AddInvokedWorkflows(workflow, dictionary);
-            AddGraph(workflow, dictionary);
+            AddWorkflowsData(graph, dictionary);
+            AddGraph(graph, dictionary);
+            dictionary.Add("startNode", graph.StartNode.DisplayName + "_" + graph.StartNode.Id);
 
             var serialized = JsonConvert.SerializeObject(dictionary);
             textWriter.WriteLine(serialized);
         }
 
-        protected void AddInvokedWorkflows(Workflow workflow, IDictionary<string, object> dictionary)
-        {
-            dictionary.Add("invokedWorkflows", workflow.InvokedWorkflows.ToArray());
-        }
-
-        protected void AddVariables(Workflow workflow, IDictionary<string, object> dictionary)
+        private IDictionary<string, object> GetWorkflowDataVariables(WorkflowData workflowData)
         {
             IDictionary<string, object> variables = new Dictionary<string, object>();
-            foreach (var dynamicActivityProperty in workflow.Arguments)
+            foreach (var dynamicActivityProperty in workflowData.Arguments)
             {
                 var name = dynamicActivityProperty.Name;
                 var type = typeof(object).Name;
@@ -44,18 +39,42 @@ namespace XMLParsing.Services.Serializers
                 }
 
                 variables.Add(name, type);
-                
+
             }
 
-            foreach (var variable in workflow.Variables)
+            foreach (var variable in workflowData.Variables)
             {
                 variables.Add(variable.Name, variable.Type.Name);
             }
 
-            dictionary.Add("variables", variables);
+            return variables;
         }
 
-        protected void AddGraph(Workflow workflow, IDictionary<string, object> dictionary)
+        private IDictionary<string, object> GetWorkflowData(WorkflowData workflowData)
+        {
+            IDictionary<string, object> workflowDataMap = new Dictionary<string, object>();
+
+            workflowDataMap.Add("variables", GetWorkflowDataVariables(workflowData));
+            workflowDataMap.Add("displayName", workflowData.DisplayName);
+            workflowDataMap.Add("fullPath", workflowData.FullPath);
+            workflowDataMap.Add("invokedBy", workflowData.InvokedBy != null ? workflowData.InvokedBy : "");
+            workflowDataMap.Add("startNode", workflowData.StartNode.DisplayName + "_" + workflowData.StartNode.Id);
+            // workflowDataMap.Add("endNode", workflowData.EndNode.DisplayName + "_" + workflowData.EndNode.Id);
+
+            return workflowDataMap;
+        }
+
+        protected void AddWorkflowsData(Graph graph, IDictionary<string, object> dictionary)
+        {
+            List<IDictionary<string, object>> workflowsDataList = new List<IDictionary<string, object>>();
+            graph.WorkflowsData.ForEach(workflowData =>
+            {
+                workflowsDataList.Add(GetWorkflowData(workflowData));
+            });
+            dictionary.Add("workflows", workflowsDataList.ToArray());
+        }
+
+        protected void AddGraph(Graph workflow, IDictionary<string, object> dictionary)
         {
             IDictionary<string, object> graph = new Dictionary<string, object>();
             foreach(var node in workflow.Nodes)
@@ -65,15 +84,13 @@ namespace XMLParsing.Services.Serializers
                     AddGraphNode(workflow, graph, node);
                 }
             }
-            dictionary.Add("displayName", workflow.DisplayName);
-            dictionary.Add("startNode", workflow.StartNode.DisplayName + "_" + workflow.StartNode.Id);
             dictionary.Add("graph", graph);
         }
 
 
-        protected void AddGraphNode(Workflow workflow, IDictionary<string, object> graph, Node node)
+        protected void AddGraphNode(Graph graph, IDictionary<string, object> dictionary, Node node)
         {
-            var nodeTransitions = workflow.Transitions.FindAll(x => x.Source.Equals(node));
+            var nodeTransitions = graph.Transitions.FindAll(x => x.Source.Equals(node));
             var nodeLabel = node.DisplayName + "_" + node.Id;
 
             IDictionary<string, object> nodeInformation = new Dictionary<string, object>();
@@ -93,7 +110,7 @@ namespace XMLParsing.Services.Serializers
             node.AddAdditionalNodeInformation(nodeInformation);
 
             nodeInformation.Add("transitions", transitionDataList.ToArray());
-            graph.Add(nodeLabel, nodeInformation);
+            dictionary.Add(nodeLabel, nodeInformation);
 
         }
 
@@ -102,7 +119,7 @@ namespace XMLParsing.Services.Serializers
             return true;
         }
 
-        protected virtual Node ProcessDestination(Workflow workflow, Transition transition)
+        protected virtual Node ProcessDestination(Graph workflow, Transition transition)
         {
             return transition.Destination;
         }
