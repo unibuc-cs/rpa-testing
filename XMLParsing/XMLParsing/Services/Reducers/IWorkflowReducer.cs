@@ -4,6 +4,6 @@ namespace XMLParsing.Services
 {
     interface IWorkflowReducer
     {
-        void ReduceWorkflow(Workflow workflow);
+        void ReduceWorkflow(Graph graph);
     }
 }

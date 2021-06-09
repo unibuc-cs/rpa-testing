@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1080,654</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1121,654</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>A_wf_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -55,23 +55,34 @@
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>System.ServiceModel</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="B_wf" sap:VirtualizedContainerService.HintSize="376,256" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="B_wf" sap:VirtualizedContainerService.HintSize="376,408" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:InvokeCode ContinueOnError="{x:Null}" Code="if (inputData != &quot;&quot;) {&#xD;&#xA;&#x9;isPalindrome = true;&#xD;&#xA;} else {&#xD;&#xA;&#x9;isPalindrome = false;&#xD;&#xA;}" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="if (inputData != &quot;&quot;) {&#xA;&#x9;isPalindrome = true;&#xA;} else {&#xA;&#x9;isPalindrome = false;&#xA;}" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
       <ui:InvokeCode.Arguments>
-        <InArgument x:TypeArguments="x:String" x:Key="inputData">
-          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="inputData" />
-        </InArgument>
-        <OutArgument x:TypeArguments="x:Boolean" x:Key="isPalindrome">
-          <mva:VisualBasicReference x:TypeArguments="x:Boolean" ExpressionText="isPalindrome" />
-        </OutArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="inputData">[inputData]</InArgument>
+        <OutArgument x:TypeArguments="x:Boolean" x:Key="isPalindrome">[isPalindrome]</OutArgument>
       </ui:InvokeCode.Arguments>
     </ui:InvokeCode>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File C" sap:VirtualizedContainerService.HintSize="334,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="C-wf.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="data">
+          <Literal x:TypeArguments="x:String">def from b</Literal>
+        </InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
   </Sequence>
 </Activity>

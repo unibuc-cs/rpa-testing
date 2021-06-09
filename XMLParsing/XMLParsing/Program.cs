@@ -30,9 +30,6 @@ namespace XMLParsing
                     case ParserCommand.Help:
                         HandleHelpCommand();
                         break;
-                    case ParserCommand.FullGraph:
-                        HandleFullGraphCommand(parameterList);
-                        break;
                     case ParserCommand.Z3ConditionalGraph:
                         HandleZ3ConditionalGraph(parameterList);
                         break;
@@ -64,25 +61,18 @@ namespace XMLParsing
             IOHandler.Instance.WriteHelpInformation();
         }
 
-        private static void HandleFullGraphCommand(List<string> parameters)
-        {
-            var wf = WorkflowParser.Instance.ParseWorkflow(parameters[0]);
-            var serializer = new FullGraphSerializer();
-            serializer.SerializeWorkflow(wf, Console.Out);
-        }
-
         private static void HandleZ3ConditionalGraph(List<string> parameters)
         {
             Console.WriteLine("Parsing to z3 conditional graph form");
 
-            var wf = WorkflowParser.Instance.ParseWorkflow(parameters[0]);
+            var graph = WorkflowParser.Instance.ParseGraph(parameters[0]);
 
             var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssffff");
             var jsonFilePath = parameters[0].Replace(".xaml", "") + "_" + timeStamp + ".json";
 
             var serializer = new Z3ConditionalGraphSerializer();
             var textWriter = File.AppendText(jsonFilePath);
-            serializer.SerializeWorkflow(wf, textWriter);
+            serializer.SerializeWorkflow(graph, textWriter);
 
             Console.WriteLine("Successfully parsed workflow: " + parameters[0] + ".");
             Console.WriteLine("Output file is: " + jsonFilePath + ".");
@@ -94,12 +84,12 @@ namespace XMLParsing
         {
             Console.WriteLine("Parsing to z3 full graph form");
 
-            var wf = WorkflowParser.Instance.ParseWorkflow(parameters[0]);
+            var graph = WorkflowParser.Instance.ParseGraph(parameters[0]);
 
             var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssffff");
             var jsonFilePath = parameters[0].Replace(".xaml", "") + "_" + timeStamp + ".json";
             var workflowFilePath = parameters[0];
-            SerializeZ3Graph(jsonFilePath, workflowFilePath, wf);
+            SerializeZ3Graph(jsonFilePath, workflowFilePath, graph);
 
         }
 
@@ -107,18 +97,18 @@ namespace XMLParsing
         {
             Console.WriteLine("Parsing to z3 reduced graph form");
 
-            var wf = WorkflowParser.Instance.ParseWorkflow(parameters[0]);
+            var graph = WorkflowParser.Instance.ParseGraph(parameters[0]);
 
             var wokflowReducer = new Z3RelevantWorkflowReducer();
-            wokflowReducer.ReduceWorkflow(wf);
+            wokflowReducer.ReduceWorkflow(graph);
 
             var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssffff");
             var jsonFilePath = parameters[0].Replace(".xaml", "") + "_" + timeStamp + ".json";
             var workflowFilePath = parameters[0];
-            SerializeZ3Graph(jsonFilePath, workflowFilePath, wf);
+            SerializeZ3Graph(jsonFilePath, workflowFilePath, graph);
         }
 
-        private static void SerializeZ3Graph(string jsonFilePath, string workflowFilePath, Workflow wf)
+        private static void SerializeZ3Graph(string jsonFilePath, string workflowFilePath, Graph wf)
         {
             var serializer = new Z3FullGraphSerializer();
             var textWriter = File.AppendText(jsonFilePath);

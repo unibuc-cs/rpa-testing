@@ -13,10 +13,10 @@ namespace XMLParsing.Services
 {
     class FlowchartParser : IActivityParser
     {
-        public Tuple<Node, Node> ParseActivity(Activity activity, Workflow workflow)
+        public Tuple<Node, Node> ParseActivity(Activity activity, Graph graph, WorkflowData workflowData)
         {
             NativeActivity nativeActivity = activity as NativeActivity;
-            if(nativeActivity == null || workflow == null || ! nativeActivity.GetType().Equals(typeof(Flowchart)))
+            if(nativeActivity == null || ! nativeActivity.GetType().Equals(typeof(Flowchart)))
             {
                 throw new XamlParserException("Unexpected type of activity");
             }
@@ -26,13 +26,13 @@ namespace XMLParsing.Services
             // Parse variables
             foreach (var variable in flowchart.Variables)
             {
-                workflow.Variables.Add(variable);
+                workflowData.Variables.Add(variable);
             }
 
-            return ParseNodeStructure(flowchart, workflow);
+            return ParseNodeStructure(flowchart, graph, workflowData);
         }
 
-        private Tuple<Node, Node> ParseNodeStructure(Flowchart flowchart, Workflow workflow)
+        private Tuple<Node, Node> ParseNodeStructure(Flowchart flowchart, Graph graph, WorkflowData workflowData)
         {
             Dictionary<FlowNode, Tuple<Node, Node>> nodes = new Dictionary<FlowNode, Tuple<Node, Node>>();
 
@@ -42,33 +42,33 @@ namespace XMLParsing.Services
                 {
                     Activity activity = (flowNode as FlowStep).Action;
                     IActivityParser activityParser = ActivityParserFactory.Instance.GetParser(activity);
-                    var activityEnds = activityParser.ParseActivity(activity, workflow);
+                    var activityEnds = activityParser.ParseActivity(activity, graph, workflowData);
                     nodes[flowNode] = activityEnds;
                 }
                 else
                 {
-                    Node node = ActivityUtils.CreateEmptyNode(workflow.FullPath);
+                    Node node = ActivityUtils.CreateEmptyNode(workflowData.DisplayName);
                     nodes[flowNode] = Tuple.Create(node, node);
-                    workflow.Nodes.Add(node);
+                    graph.Nodes.Add(node);
                 }
             }
 
 
             Node startNode = nodes[flowchart.StartNode].Item1;
-            Node endNode = ActivityUtils.CreateEmptyNode(workflow.FullPath);
+            Node endNode = ActivityUtils.CreateEmptyNode(workflowData.DisplayName);
 
             foreach (var flowNode in flowchart.Nodes)
             {
-                ParseFlowNode(flowNode, nodes, workflow, endNode);
+                ParseFlowNode(flowNode, nodes, endNode, graph, workflowData);
             }
 
-            endNode.DisplayName = workflow.DisplayName + ":" + "Virtual_Flowchart_End";
-            workflow.Nodes.Add(endNode);
+            endNode.DisplayName = workflowData.DisplayName + ":" + "Virtual_Flowchart_End";
+            graph.Nodes.Add(endNode);
 
             return Tuple.Create(startNode, endNode);
         }
 
-        public void ParseFlowNode(FlowNode flowNode, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Workflow workflow, Node endNode)
+        public void ParseFlowNode(FlowNode flowNode, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Node endNode, Graph graph, WorkflowData workflowData)
         {
             if (flowNode == null)
             {
@@ -77,8 +77,8 @@ namespace XMLParsing.Services
 
             var flowNodeParserDict = new Dictionary<Type, Action>
             {
-                { typeof(FlowDecision), () => ParseFlowDecision(flowNode as FlowDecision, nodes, workflow, endNode) },
-                { typeof(FlowStep), () => ParseFlowStep(flowNode as FlowStep, nodes, workflow, endNode) },
+                { typeof(FlowDecision), () => ParseFlowDecision(flowNode as FlowDecision, nodes, endNode, graph, workflowData) },
+                { typeof(FlowStep), () => ParseFlowStep(flowNode as FlowStep, nodes, endNode, graph, workflowData) },
             };
 
             if (flowNodeParserDict.ContainsKey(flowNode.GetType()))
@@ -88,13 +88,13 @@ namespace XMLParsing.Services
             else
             {
                 // Leaving as default and try to use reflection on it
-                ParseFlowSwitch(flowNode, nodes, workflow, endNode);
+                ParseFlowSwitch(flowNode, nodes, endNode, graph, workflowData);
             }
         }
 
-        public void ParseFlowDecision(FlowDecision flowDecision, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Workflow workflow, Node endNode)
+        public void ParseFlowDecision(FlowDecision flowDecision, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Node endNode, Graph graph, WorkflowData workflowData)
         {
-            nodes[flowDecision].Item1.DisplayName = workflow.DisplayName + ":" + ActivityUtils.SanitizeString(flowDecision.DisplayName);
+            nodes[flowDecision].Item1.DisplayName = workflowData.DisplayName + ":" + ActivityUtils.SanitizeString(flowDecision.DisplayName);
             nodes[flowDecision].Item1.IsConditional = true;
 
             Func<Common.Transition> buildPartialTransition = () => 
@@ -125,14 +125,14 @@ namespace XMLParsing.Services
                 Common.Transition t = buildPartialTransition();
                 t.ExpressionValue = Common.Transition.TRUE_TRANSITION_VALUE;
                 t.Destination = nodes[flowDecision.True].Item1;
-                workflow.Transitions.Add(t);
+                graph.Transitions.Add(t);
             } 
             else
             {
                 Common.Transition t = buildPartialTransition();
                 t.ExpressionValue = Common.Transition.TRUE_TRANSITION_VALUE;
                 t.Destination = endNode;
-                workflow.Transitions.Add(t);
+                graph.Transitions.Add(t);
             }
 
             // Parse false branch
@@ -141,18 +141,18 @@ namespace XMLParsing.Services
                 Common.Transition t = buildPartialTransition();
                 t.ExpressionValue = Common.Transition.FALSE_TRANSITION_VALUE;
                 t.Destination = nodes[flowDecision.False].Item1;
-                workflow.Transitions.Add(t);
+                graph.Transitions.Add(t);
             }
             else
             {
                 Common.Transition t = buildPartialTransition();
                 t.ExpressionValue = Common.Transition.FALSE_TRANSITION_VALUE;
                 t.Destination = endNode;
-                workflow.Transitions.Add(t);
+                graph.Transitions.Add(t);
             }
         }
 
-        public void ParseFlowStep(FlowStep flowStep, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Workflow workflow, Node endNode)
+        public void ParseFlowStep(FlowStep flowStep, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Node endNode, Graph graph, WorkflowData workflowData)
         {
             // This one should treat only transitions, and not additional node information
             Common.Transition t = new Common.Transition();
@@ -169,18 +169,18 @@ namespace XMLParsing.Services
                 t.Destination = endNode;
             }
 
-            workflow.Transitions.Add(t);
+            graph.Transitions.Add(t);
         }
 
 
-        public void ParseFlowSwitch(FlowNode flowSwitch, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Workflow workflow, Node endNode)
+        public void ParseFlowSwitch(FlowNode flowSwitch, Dictionary<FlowNode, Tuple<Node, Node>> nodes, Node endNode, Graph graph, WorkflowData workflowData)
         {
             if (flowSwitch == null)
             {
                 return;
             }
 
-            string displayName = workflow.DisplayName + ":" + ActivityUtils.SanitizeString(ReflectionHelpers.CallMethod(flowSwitch, "get_DisplayName") as string);
+            string displayName = workflowData.DisplayName + ":" + ActivityUtils.SanitizeString(ReflectionHelpers.CallMethod(flowSwitch, "get_DisplayName") as string);
             nodes[flowSwitch].Item1.DisplayName = displayName;
             nodes[flowSwitch].Item1.IsConditional = true;
 
@@ -201,11 +201,11 @@ namespace XMLParsing.Services
                 var value = ReflectionHelpers.CallMethod(flowCase, "get_Value") as FlowNode;
 
                 // Create a virtual Node
-                Node currentVirtualNode = ActivityUtils.CreateEmptyNode(workflow.FullPath);
+                Node currentVirtualNode = ActivityUtils.CreateEmptyNode(workflowData.DisplayName);
                 currentVirtualNode.DisplayName = displayName + "_Case_" + key.ToString();
                 currentVirtualNode.IsConditional = true;
                 currentVirtualNode.Expression = expressionText + " == " + key.ToString();
-                workflow.Nodes.Add(currentVirtualNode);
+                graph.Nodes.Add(currentVirtualNode);
 
 
                 // Add transition to it's true case
@@ -216,7 +216,7 @@ namespace XMLParsing.Services
                 t.Destination = nodes[value].Item1;
 
                 treatedClauses.Add(t.Expression);
-                workflow.Transitions.Add(t);
+                graph.Transitions.Add(t);
 
 
                 if (firstVirtualNode == null)
@@ -231,7 +231,7 @@ namespace XMLParsing.Services
                     tLast.Expression = lastVirtualNode.Expression;
                     tLast.ExpressionValue = Common.Transition.FALSE_TRANSITION_VALUE;
                     tLast.Destination = currentVirtualNode;
-                    workflow.Transitions.Add(tLast);
+                    graph.Transitions.Add(tLast);
                 }
 
                 lastVirtualNode = currentVirtualNode;
@@ -245,7 +245,7 @@ namespace XMLParsing.Services
                 t.Expression = "";
                 t.ExpressionValue = Common.Transition.TRUE_TRANSITION_VALUE;
                 t.Destination = firstVirtualNode;
-                workflow.Transitions.Add(t);
+                graph.Transitions.Add(t);
 
                 Common.Transition tEnd = new Common.Transition();
                 tEnd.Source = lastVirtualNode;
@@ -261,7 +261,7 @@ namespace XMLParsing.Services
                     tEnd.Destination = endNode;
                 }
 
-                workflow.Transitions.Add(tEnd);
+                graph.Transitions.Add(tEnd);
             }
             else
             {
@@ -278,7 +278,7 @@ namespace XMLParsing.Services
                 {
                     t.Destination = endNode;
                 }
-                workflow.Transitions.Add(t);
+                graph.Transitions.Add(t);
             }
 
         }

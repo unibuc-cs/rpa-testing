@@ -36,7 +36,8 @@ namespace XMLParsing.Services
                 { typeof(Flowchart), () => new FlowchartParser() },
                 { typeof(Sequence), () => new SequenceParser() },
                 { typeof(InvokeWorkflowFile), () => new InvokeWfActivityParser() },
-                { typeof(Assign), () => new AssignActivityParser() }
+                { typeof(Assign), () => new AssignActivityParser() },
+                { typeof(If), () => new IfActivityParser() }
             };
 
             if (activityParserDict.ContainsKey(activity.GetType()))

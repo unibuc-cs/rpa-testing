@@ -9,11 +9,11 @@ namespace XMLParsing.Services.Parsers.ActivityParser
 {
     class AssignActivityParser : IActivityParser
     {
-        public Tuple<Node, Node> ParseActivity(Activity activity, Workflow workflow)
+        public Tuple<Node, Node> ParseActivity(Activity activity, Graph graph, WorkflowData workflowData)
         {
-            Node node = ActivityUtils.CreateSimpleNodeFromActivity(activity, workflow.DisplayName, workflow.FullPath);
+            Node node = ActivityUtils.CreateSimpleNodeFromActivity(activity, workflowData.DisplayName);
             AssignWfNode assignNode = new AssignWfNode(node);
-            workflow.Nodes.Add(assignNode);
+            graph.Nodes.Add(assignNode);
 
             Assign assignActivity = activity as Assign;
             assignNode.To = ExpressionUtils.TryParseExpression(assignActivity.To);

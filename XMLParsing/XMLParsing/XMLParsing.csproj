@@ -299,11 +299,13 @@
     <Compile Include="Common\NodeExtensions\InvokeWfNode.cs" />
     <Compile Include="Common\NodeExtensions\IRelevantNode.cs" />
     <Compile Include="Common\Transition.cs" />
-    <Compile Include="Common\Workflow.cs" />
+    <Compile Include="Common\Graph.cs" />
+    <Compile Include="Common\WorkflowData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IOHandler.cs" />
     <Compile Include="Services\Parsers\ActivityParser\AssignActivityParser.cs" />
+    <Compile Include="Services\Parsers\ActivityParser\IfActivityParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\InvokeWfActivityParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\DefaultActivityParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\FlowchartParser.cs" />
@@ -314,7 +316,6 @@
     <Compile Include="Services\Reducers\Z3RelevantWorkflowReducer.cs" />
     <Compile Include="Services\Serializers\Z3FullGraphSerializer.cs" />
     <Compile Include="Services\Serializers\Z3ConditionalGraphSerializer.cs" />
-    <Compile Include="Services\Serializers\FullGraphSerializer.cs" />
     <Compile Include="Services\Serializers\IWorkflowSerializer.cs" />
     <Compile Include="Services\Reducers\IWorkflowReducer.cs" />
     <Compile Include="Utils\ActivityUtils.cs" />
