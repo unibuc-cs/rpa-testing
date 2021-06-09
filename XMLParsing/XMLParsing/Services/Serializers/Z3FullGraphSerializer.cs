@@ -57,6 +57,7 @@ namespace XMLParsing.Services.Serializers
             workflowDataMap.Add("variables", GetWorkflowDataVariables(workflowData));
             workflowDataMap.Add("displayName", workflowData.DisplayName);
             workflowDataMap.Add("fullPath", workflowData.FullPath);
+            workflowDataMap.Add("invokedBy", workflowData.InvokedBy != null ? workflowData.InvokedBy : "");
             workflowDataMap.Add("startNode", workflowData.StartNode.DisplayName + "_" + workflowData.StartNode.Id);
             // workflowDataMap.Add("endNode", workflowData.EndNode.DisplayName + "_" + workflowData.EndNode.Id);
 

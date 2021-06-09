@@ -10,6 +10,7 @@ namespace XMLParsing.Common
         public string DisplayName { get; set; }
 
         public string FullPath { get; set; }
+        public string InvokedBy { get; set; }
 
         public Node StartNode { get; set; }
 

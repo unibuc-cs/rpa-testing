@@ -32,7 +32,7 @@ namespace XMLParsing.Services.Parsers.ActivityParser
                 }
 
 
-                var (invokedWorkflowDisplayName, (startNode, endNode)) = ParseWfBlackBox(invokeNode.InvokedWorkflow, workflowData.FullPath, graph);
+                var (invokedWorkflowDisplayName, (startNode, endNode)) = ParseWfBlackBox(invokeNode.InvokedWorkflow, workflowData.FullPath, workflowData.DisplayName, graph);
                 invokeNode.InvokedWorkflowDisplayName = invokedWorkflowDisplayName;
                 nextNode = endNode;
 
@@ -53,7 +53,7 @@ namespace XMLParsing.Services.Parsers.ActivityParser
             return Tuple.Create(invokeNode as Node, nextNode as Node);
         }
 
-        protected Tuple<string, Tuple<Node, Node>> ParseWfBlackBox(string wfToInvokePath, string currentWfFullPath, Graph graph)
+        protected Tuple<string, Tuple<Node, Node>> ParseWfBlackBox(string wfToInvokePath, string currentWfFullPath, string currentWfDisplayName, Graph graph)
         {
             string path;
             if (ActivityUtils.IsFullPath(wfToInvokePath))
@@ -67,6 +67,7 @@ namespace XMLParsing.Services.Parsers.ActivityParser
             }
 
             WorkflowData invokedWorkflowData = WorkflowParser.Instance.ParseWorkflow(graph, path);
+            invokedWorkflowData.InvokedBy = currentWfDisplayName;
             var startNode = invokedWorkflowData.StartNode;
             var endNode = invokedWorkflowData.EndNode;
 
