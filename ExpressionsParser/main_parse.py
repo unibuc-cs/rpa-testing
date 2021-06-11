@@ -5,6 +5,8 @@ import sys
 import pickle
 import os
 
+OUTPUT_FILE_NAME = "_tempExpressionParser.txt" # The name output obtained after running the script on the given input
+
 DataTypes = {
     'Int32': 'Int',
     'String': 'String',
@@ -13,44 +15,65 @@ DataTypes = {
     "Decimal": 'Real'
 }
 
-Colors = ["red", "blue", "yellow", "green", "violet", "orange"]
+AllDebugColors = ["red", "blue", "yellow", "green", "violet", "orange"]
+NumDebugColors = len(AllDebugColors)
+def getDebugColorByName(name : str) -> str:
+    return AllDebugColors[(hash(name) % NumDebugColors)]
 
 
-def parseGraph(path, out_path):
+def parseGraph(path, basePath):
     with open(path) as json_file:
-        data = json.load(json_file)
-        variables = data['variables']
-        rname = data['displayName']
-        out_path = out_path + rname + ".txt"
+        dataAll = json.load(json_file)
+
+        workflowsDataSpec = dataAll['workflows']
+        graph = dataAll['graph']
+        startNode = dataAll['startNode']
+        startGraph = startNode.split(":")
+        assert len(startGraph) > 0
+        mainWorkflowName = startGraph[0]
+
         z3Vars = {}
         z3Graph = {}
-        for v in variables:
-            # z3Vars[v] = DataTypes[variables[v]]
-            z3Vars[rname + ':' + v] = DataTypes[variables[v]]
-            # z3Vars['Main:'+v] = DataTypes[variables[v]]
-        graph = data['graph']
+        debugColors = {}
 
-        for k in graph:
+        # Create debug colors and append to the variables dictionary each individual workflow used
+        for workflowData in workflowsDataSpec:
+            variables = workflowData['variables']
+            graphName = workflowData['displayName']
+            debugColors[graphName] = getDebugColorByName(graphName)
 
+            for v in variables:
+                # z3Vars[v] = DataTypes[variables[v]]
+                z3Vars[graphName + ':' + v] = DataTypes[variables[v]]
+                # z3Vars['Main:'+v] = DataTypes[variables[v]]
+
+        # Where to write the output
+        out_path = os.path.join(basePath, OUTPUT_FILE_NAME) #mainWorkflowName)
+
+        # Parse the entire graph and save it in a file
+        for nodeFullName, nodeData in graph.items():
             # DEBUG
+            """
             if "Assign_20" in k:
                 a = 3
                 a += 1
+            """
 
-            # print(graph[k])
-            # k is the node name
-            # graph[k] contains all info from a node
-            # name = rname+':'+ k
-            name = k
+            nodeFullNameSplit = nodeFullName.split(":")
+            assert len(nodeFullNameSplit) ==2, f"Node content is {nodeFullNameSplit}. Expecting format namespace:nodeName"
+            parentGraphName = nodeFullNameSplit[0]
+            nodeName = nodeFullNameSplit[1]
+
+
             # the guard will contain the expression parsed using myparser
-            if graph[k]['expression'] == '':
+            if nodeData['expression'] == '':
                 guard = 'None'
             else:
-                ast = myparser.parse(graph[k]['expression'])
-                guard = "\"" + ast_to_string(ast, rname) + "\""
+                ast = myparser.parse(nodeData['expression'])
+                guard = "\"" + ast_to_string(ast, parentGraphName) + "\""
 
             # assigments
-            assign_list = graph[k].get("variableAssignments")
+            assign_list = nodeData.get("variableAssignments")
             assignments = []
             if assign_list:
                assignment_var = assign_list['to']
@@ -58,16 +81,16 @@ def parseGraph(path, out_path):
                ast_v = myparser.parse(assignment_var)
                ast_e = myparser.parse(assignment_exp)
                if ast_e.token_type == myparser.TokenType.T_VAR:
-                    ast_e_str = ast_to_string(ast_e, rname)
+                    ast_e_str = ast_to_string(ast_e, parentGraphName)
                else:
-                   ast_e_str =  ast_to_string(ast_e, rname)
-               assignments.append((ast_to_string(ast_v, rname), ast_e_str))
+                   ast_e_str =  ast_to_string(ast_e, parentGraphName)
+               assignments.append((ast_to_string(ast_v, parentGraphName), ast_e_str))
 
             #invoked wf args
-            invokedWorkflow = graph[k].get("invokedWorkflow")
+            invokedWorkflow = nodeData.get("invokedWorkflow")
             if invokedWorkflow:
-                variableMappings = graph[k]["variableMappings"]
-                invokedWorkflowDisplayName = graph[k].get("invokedWorkflowDisplayName")
+                variableMappings = nodeData["variableMappings"]
+                invokedWorkflowDisplayName = nodeData.get("invokedWorkflowDisplayName")
                 print(invokedWorkflowDisplayName)
                 if invokedWorkflowDisplayName == None:
                     invokedWorkflowDisplayName="Wf2"
@@ -76,25 +99,24 @@ def parseGraph(path, out_path):
                     v1_ast = myparser.parse(var['destinationWfArg'])
                     v2_ast = myparser.parse(var['sourceWfValue'])
                     if type=="Out":
-                        asgn = (ast_to_string(v2_ast,rname),ast_to_string(v1_ast,invokedWorkflowDisplayName))
+                        asgn = (ast_to_string(v2_ast,parentGraphName),ast_to_string(v1_ast,invokedWorkflowDisplayName))
                     else:
-                        asgn = (ast_to_string(v1_ast, invokedWorkflowDisplayName), ast_to_string(v2_ast, rname))
+                        asgn = (ast_to_string(v1_ast, invokedWorkflowDisplayName), ast_to_string(v2_ast, parentGraphName))
                     assignments.append(asgn)
             # transitions contain a list of transitions
             transitions = []
-            for trans in graph[k]['transitions']:
+            for trans in nodeData['transitions']:
                 transition = (trans['value'], trans['destination'])
                 # transition = (trans['value'],rname+':'+trans['destination'])
                 transitions.append(transition)
             if len(transitions) == 0:
-                z3Graph[name] = "(" + guard + "," + 'None' + ", "+str(assignments)+")"
+                z3Graph[nodeFullName] = "(" + guard + "," + 'None' + ", "+str(assignments)+")"
             elif len(transitions) == 1:
-                z3Graph[name] = "(" + guard + ", \"" + str(transitions[0][1]) + "\", "+str(assignments)+")"
+                z3Graph[nodeFullName] = "(" + guard + ", \"" + str(transitions[0][1]) + "\", "+str(assignments)+")"
 
             elif len(transitions) == 2:
-                z3Graph[name] = "(" + guard + "," + "[" + str(transitions[0]) + "," + str(
+                z3Graph[nodeFullName] = "(" + guard + "," + "[" + str(transitions[0]) + "," + str(
                     transitions[1]) + "], " +str(assignments)+")"
-
 
 
         print(z3Vars)
@@ -105,8 +127,10 @@ def parseGraph(path, out_path):
         z3GraphStr = z3GraphStr[:-2]
         data = "{" + "\"variables\"" + ": " + str(z3Vars) + ",\n" + \
                "\"graph\": { \n" + z3GraphStr + "},\n " + \
-               '\"debugColor\": \"' + Colors[(hash(rname) % len(Colors))] + "\",\n " + \
-               "\"name\": \"" + rname + "\" }"
+               '\"debugColors\": \"' + str(debugColors) + "\",\n " + \
+                "\"startNode\": " + "\"" + startNode + "\",\n " + \
+               "\"mainWorkflowName\": \"" + mainWorkflowName + "\" }" + "\n"
+
         text_file = open(out_path, "w")
         text_file.write(data)
         text_file.close()

@@ -1,9 +1,8 @@
-Create_Loan_Process:Main_loan,Create_Loan_Process:Main_term,Create_Loan_Process:Main_pinCorrectValue,Create_Loan_Process:Main_pinCorrectTest,Create_Loan_Process:Main_loan_type,Create_Loan_Process:Main_term_type,Create_Loan_Process:Main_obtained_result,Create_Loan_Process:Pin_local_numberRetries,Create_Loan_Process:Pin_pinCorrectTest_local,Create_Loan_Process:Pin_local_res,PinCheckWorkflow_v1:Main_pinCorrectTest,PinCheckWorkflow_v1:Pin_local_numberRetries,PinCheckWorkflow_v1:Pin_pinCorrectTest_local,PinCheckWorkflow_v1:Pin_local_res,PinCheckWorkflow_v1:Pin_randNum
-999,4,,,,,,,,,,,,,
-999,5,,,,,,,,,,,,,
-98712,4,,,,,,,,,,,,,
-99056,5,,,,,,,,,,,,,
-100000,4,,True,,,,,,,,,True,,
-100000,5,,True,,,,,,,,,True,,
-100000,4,,True,,,,,,,,3,False,,
-100000,5,,True,,,,,,,,3,False,,
+PinCheckWorkflow_v1_1:in_pin_should_be_correct,PinCheckWorkflow_v1_1:out_pin_check_successful,PinCheckWorkflow_v1_1:local_number_retries,PinCheckWorkflow_v1_1:local_pin_test,Create_Loan_Process_1:loan,Create_Loan_Process_1:term,Create_Loan_Process_1:pin_should_be_correct,Create_Loan_Process_1:loan_type,Create_Loan_Process_1:term_type,Create_Loan_Process_1:obtained_result,Create_Loan_Process_1:pin_check_successful
+,,,,999,4,,"""Low-Volume Loan""","""Short-Term""","""Low-Volume Loan Short-Term""",
+,,,,999,5,,"""Low-Volume Loan""","""Long-Term""","""Low-Volume Loan Long-Term""",
+,,,,1000,4,,"""Mid-Volume Loan""","""Short-Term""","""Mid-Volume Loan Short-Term""",
+,,,,1000,5,,"""Mid-Volume Loan""","""Long-Term""","""Mid-Volume Loan Long-Term""",
+True,True,,True,100000,4,True,"""High-Volume Loan""","""Short-Term""","""High-Volume Loan Short-Term""",True
+True,True,,True,100000,5,True,"""High-Volume Loan""","""Long-Term""","""High-Volume Loan Long-Term""",True
+False,False,3,False,100000,,False,"""High-Volume Loan""",,,False

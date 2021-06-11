@@ -30,8 +30,8 @@ Note: In a production environment, probably you could put -loggingEnabled 0 and 
 import ast
 import argparse
 
-from py_expression_eval import Parser # Not used at the moment but might be good !
-parser = Parser()
+#from py_expression_eval import Parser # Not used at the moment but might be good !
+#parser = Parser()
 import copy
 import csv
 import networkx as nx
@@ -43,6 +43,11 @@ import matplotlib as plt
 from enum import Enum
 import json
 from GraphDef import *
+
+
+# Note: Currently, we compact all workflows in a single file and separate their nodes and variables by namespaces
+# This should be ideal for our use cases...
+USE_DISTRIBUTED_WORKFLOWS = False
 
 
 # A symbolic workflow testing assistant starting from a given workflow graph in JSon format and the variables names and their types
@@ -87,20 +92,28 @@ class TestFactory:
             data = f.read()
             data = ast.literal_eval(data)
 
-            self.baseFolderModel = os.path.dirname(testSpecFile)
-            entryTestNodeId = data["entryTestNodeId"]
-            self.mainWorkflowName = data["mainWorkflowName"] # 'Main'
+            self.debugColors = ast.literal_eval(data["debugColors"])
 
-            listOfWorkflowsPaths = data["listOfWorkflows"]
+            self.baseFolderModel = os.path.dirname(testSpecFile)
+            entryTestNodeId = data["startNode"]
+            self.mainWorkflowName = data["mainWorkflowName"]
+
+            #listOfWorkflowsPaths = data["listOfWorkflows"]
             # Put the base folder for each path as prefix
-            listOfWorkflowsPaths = [os.path.join(self.baseFolderModel, workflowPath) for workflowPath in listOfWorkflowsPaths]
+
             allWorkflowsInstances : List[WorkflowDef] = []
-            for workflowPath in listOfWorkflowsPaths:
-                workflowInstance = self.createWorkflowSingleFromFile(workflowPath)
+            if USE_DISTRIBUTED_WORKFLOWS:
+                listOfWorkflowsPaths = [os.path.join(self.baseFolderModel, workflowPath) for workflowPath in listOfWorkflowsPaths]
+                for workflowPath in listOfWorkflowsPaths:
+                    workflowInstance = self.createWorkflowSingleFromFile(workflowPath)
+                    allWorkflowsInstances.append(workflowInstance)
+            else: # Single compacted workflow separated by namespaces
+                workflowInstance = self.createWorkflowSingleFromFile(testSpecFile)
                 allWorkflowsInstances.append(workflowInstance)
 
 
             self.testFuzzerInstance = SymbolicWorflowsTester(workflows=allWorkflowsInstances,
+                                                             debugColors=self.debugColors,
                                                              mainWorflowName=self.mainWorkflowName,
                                                              entryTestNodeId=entryTestNodeId)
 
@@ -123,10 +136,9 @@ class TestFactory:
             data = ast.literal_eval(data)
             variables = data["variables"]
             graph = data["graph"]
-            name = data["name"]
-            color = data["debugColor"]
+            name = data["mainWorkflowName"]
 
-            worfklowInst = WorkflowDef(variables=variables, graph=graph, name=name, color=color)
+            worfklowInst = WorkflowDef(variables=variables, graph=graph, name=name, color=self.debugColors[name])
             return worfklowInst
         return None
 

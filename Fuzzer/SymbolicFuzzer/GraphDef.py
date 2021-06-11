@@ -1,4 +1,4 @@
-
+import z3
 from py_expression_eval import Parser # Not used at the moment but might be good !
 parser = Parser()
 import copy
@@ -16,16 +16,40 @@ class NodeTypes(Enum):
     FLOW_NODE = 1 # Normal node for flow, no branching
     BRANCH_NODE = 2 # Branch node
 
+def extractVarNameFromVarPlain(varNamePlain):
+    """
+    Expecting a "V['name']" => name
+    """
+    assert varNamePlain[0] == 'V' and varNamePlain[1] == '[' and varNamePlain[-1] == "]"
+    subtactVar = varNamePlain[3:-2]
+    subtactVar = subtactVar.replace('\\', "")
+    return subtactVar
+
+class AssignmentOperation:
+    def __init__(self, leftTerm, rightTerm):
+        self.leftTerm = leftTerm
+        self.rightTerm = rightTerm
+        self.leftTermVarName = extractVarNameFromVarPlain(self.leftTerm)
+
+        # True if the assignment is actually something that modifies incrementally the left term value
+        # This is important for SMT because it means that a new variabile is created when called !
+        self.isOverridingValueAssignment = self.leftTerm in rightTerm
+
+
 class BaseNode():
     def __init__(self, id : str, nodeType : NodeTypes):
         self.id = id
         self.nodeType : NodeTypes = nodeType
+        self.assignments : AssignmentOperation = None
 
     def __str__(self):
         return self.id #+ " " + str(self.expression)
 
     def isBranchNode(self) -> bool:
         return False
+
+    def hasAssignments(self) -> bool:
+        return self.assignments != None and len(self.assignments) > 0
 
     def getGraphNameFromNodeId(self) -> str:
         index = self.id.find(':')
@@ -76,7 +100,7 @@ class WorkflowDef:
 # Give all workflows, the main graph workflow name  and the entry point where you want your test to start from
 # NOTE: the workflows should be given in the inverse order of priority ! They will override links
 class SymbolicWorflowsTester():
-    def __init__(self, workflows:List[WorkflowDef], mainWorflowName:str, entryTestNodeId:str):
+    def __init__(self, workflows:List[WorkflowDef], debugColors:Dict[str,str], mainWorflowName:str, entryTestNodeId:str):
         # Not used anymore
         """
         # Preprocessing the input to have the main graph first
@@ -92,7 +116,7 @@ class SymbolicWorflowsTester():
         self.allGraphs = []
         self.V = {} # Variables dict
         self.V_constants = {} # Context variables that are given as fixed for the model
-
+        self.debugColors = debugColors
         # Custom Updates from the source in dest graph, but only if i
         def updateWorkflowGraphConnections(source, dest):
             # Update links from source to destination, but only those which have connections
@@ -110,12 +134,10 @@ class SymbolicWorflowsTester():
         # Merge everything into a single graph and variables def
         graphVariables = {}
         graphDict = {}
-        self.graphColors = {}
         for W in workflows:
             graphVariables.update(W.variables)
             updateWorkflowGraphConnections(source=W.graph, dest=graphDict)
             #graphDict.update(W.graph)
-            self.graphColors[W.name] = W.color
 
         # Create the variables dictionary inside self.V
         self.__createVariables(graphVariables)
@@ -228,6 +250,35 @@ class SymbolicWorflowsTester():
             else:
                 nodeInst = BranchNode(id=nodeId, condition=nodeCond)
 
+            # Solve node assignments
+            nodeAssignments = None
+            if nodeInst.nodeType == NodeTypes.FLOW_NODE:
+                nodeAssignments = nodeSpec[2] if len(nodeSpec) > 2 else None
+
+            elif nodeInst.nodeType == NodeTypes.BRANCH_NODE:
+                nodeAssignments = nodeSpec[2] if len(nodeSpec) > 2 else None
+
+            if nodeAssignments != None and len(nodeAssignments) > 0:
+                nodeInst.assignments = []
+                for targetVarPlain, targetValue in nodeAssignments:
+                    #targetVar = targetVar.replace("\\", "") # Ugly fix...
+                    #targetValue = targetValue.replace("\\", "")  # Ugly fix...
+
+                    # Postprocess variable assignment...
+                    # If the value is not a variable but a string then create Z3 string type
+                    targetVarName = extractVarNameFromVarPlain(targetVarPlain)
+                    assert targetVarName in self.V, f"Variable {targetVarName} was not registered yet !"
+                    isTargetVarString = z3.is_string(self.V[targetVarName])
+
+                    if isTargetVarString and (isinstance(targetValue, str) and ("V[" not in targetValue) and targetValue not in self.V):
+                        if targetValue == "True":
+                            a = 3
+                            a += 1
+                        targetValue = f"StringVal({targetValue})" #z3.StringVal(targetValue)
+
+                    assignmentInst = AssignmentOperation(leftTerm=targetVarPlain, rightTerm=targetValue)
+                    nodeInst.assignments.append(assignmentInst)
+
             nodeIdToInstance[nodeId] = nodeInst
 
             # See here all the graphiviz attributes: https://graphviz.org/doc/info/attrs.html
@@ -241,8 +292,8 @@ class SymbolicWorflowsTester():
 
             #'square' if nodeInst.nodeType == NodeTypes.BranchNode else 'circle'
             nodeGraphParentName = nodeInst.getGraphNameFromNodeId()
-            assert nodeGraphParentName in self.graphColors, f"Looking for graph named {nodeGraphParentName} but it doesn't exist "
-            node_color =  self.graphColors[nodeGraphParentName]
+            assert nodeGraphParentName in self.debugColors, f"Looking for graph named {nodeGraphParentName} but it doesn't exist "
+            node_color =  self.debugColors[nodeGraphParentName]
             node_fill_color = 'blue' if nodeInst.id == self.entryTestNodeId else 'white'
             node_style = 'filled'
             graph.add_node(nodeInst, shape=node_shape, color=node_color, fillcolor = node_fill_color, style=node_style)
@@ -371,24 +422,33 @@ class SymbolicWorflowsTester():
         pathLen = len(path)
         outCOnditions = []
         for nodeIndex in range(pathLen):
+            currNode : BaseNode = path[nodeIndex]
 
+            # Add the condition for a branching node
+            if currNode.nodeType == NodeTypes.BRANCH_NODE:
+                nextNode = path[nodeIndex + 1] if (nodeIndex + 1 < pathLen) and len(currNode.valuesAndNext) > 0 else None
 
-            currNode = path[nodeIndex]
-            if currNode.nodeType != NodeTypes.BRANCH_NODE:
-                continue
+                # Fix the condition to solve
+                condToSolve = currNode.expression
+                if nextNode != None:
+                    # Is inverse branch for next node ?
+                    if 'False' in currNode.valuesAndNext and currNode.valuesAndNext['False'] == nextNode.id:
+                        condToSolve = 'Not(' + condToSolve + ')'
+                    else:
+                        assert currNode.valuesAndNext['True'] == nextNode.id
 
-            nextNode = path[nodeIndex + 1] if (nodeIndex + 1 < pathLen) and len(currNode.valuesAndNext) > 0 else None
+                outCOnditions.append(condToSolve)
 
-            # Fix the condition to solve
-            condToSolve = currNode.expression
-            if nextNode != None:
-                # Is inverse branch for next node ?
-                if 'False' in currNode.valuesAndNext and currNode.valuesAndNext['False'] == nextNode.id:
-                    condToSolve = 'Not(' + condToSolve + ')'
-                else:
-                    assert currNode.valuesAndNext['True'] == nextNode.id
+            # Add the conditions for assignment variables
+            if currNode.hasAssignments():
+                for assignmentInst in currNode.assignments:
+                    assert isinstance(assignmentInst, AssignmentOperation)
+                    if assignmentInst.isOverridingValueAssignment:
+                        continue # Ignored for now. TODO: Ciprian !
 
-            outCOnditions.append(condToSolve)
+                    targetVar = assignmentInst.leftTerm
+                    targetValue = assignmentInst.rightTerm
+                    outCOnditions.append(f"{targetVar}=={targetValue}")
 
         return outCOnditions
 
@@ -437,6 +497,7 @@ class SymbolicWorflowsTester():
 
             conditions_z3 = []
             for s in conditions_str:
+                #print(f"Current condition {s} ...")
                 cond = eval(s)
                 conditions_z3.append(cond)
 
