@@ -22,7 +22,7 @@ namespace XMLParsing.Services.Serializers
             AddGraph(graph, dictionary);
             dictionary.Add("startNode", graph.StartNode.DisplayName + "_" + graph.StartNode.Id);
 
-            var serialized = JsonConvert.SerializeObject(dictionary);
+            var serialized = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
             textWriter.WriteLine(serialized);
         }
 
