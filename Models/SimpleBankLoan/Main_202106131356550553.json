@@ -1,0 +1,334 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "out_pin_check_successful": "Boolean",
+        "local_number_retries": "Int32",
+        "local_pin_test": "Boolean",
+        "expected_pin": "String",
+        "actual_pin_values": "String[]"
+      },
+      "displayName": "Pin_1",
+      "fullPath": "C:\\UiPath\\rpa-testing\\Models\\SimpleBankLoan\\Pin.xaml",
+      "invokedBy": "Main_1",
+      "startNode": "Pin_1:Mock_pin_data_20"
+    },
+    {
+      "variables": {
+        "loan": "Int32",
+        "term": "Int32",
+        "loan_type": "String",
+        "term_type": "String",
+        "obtained_result": "String",
+        "pin_check_successful": "Boolean"
+      },
+      "displayName": "Main_1",
+      "fullPath": "C:\\UiPath\\rpa-testing\\Models\\SimpleBankLoan\\Main.xaml",
+      "invokedBy": "",
+      "startNode": "Main_1:Node_loanTest0_1"
+    }
+  ],
+  "graph": {
+    "Main_1:Node_loanTest0_1": {
+      "expression": "loan < 1000",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_4"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Node_loanTest1_5"
+        }
+      ]
+    },
+    "Main_1:Assign_4": {
+      "expression": "",
+      "variableAssignments": {
+        "to": "loan_type",
+        "value": "\"Low-Volume Loan\""
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:_Term_test0__12"
+        }
+      ]
+    },
+    "Main_1:Node_loanTest1_5": {
+      "expression": "loan >= 1000 AND loan < 100000",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_8"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Assign_11"
+        }
+      ]
+    },
+    "Main_1:Assign_8": {
+      "expression": "",
+      "variableAssignments": {
+        "to": "loan_type",
+        "value": "\"Mid-Volume Loan\""
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:_Term_test0__12"
+        }
+      ]
+    },
+    "Main_1:Assign_11": {
+      "expression": "",
+      "variableAssignments": {
+        "to": "loan_type",
+        "value": "\"High-Volume Loan\""
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Invoke_Pin_Check_25"
+        }
+      ]
+    },
+    "Main_1:_Term_test0__12": {
+      "expression": "term < 5",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_15"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Assign_18"
+        }
+      ]
+    },
+    "Main_1:Assign_15": {
+      "expression": "",
+      "variableAssignments": {
+        "to": "term_type",
+        "value": "\"Short-Term\""
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_21"
+        }
+      ]
+    },
+    "Main_1:Assign_18": {
+      "expression": "",
+      "variableAssignments": {
+        "to": "term_type",
+        "value": "\"Long-Term\""
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_21"
+        }
+      ]
+    },
+    "Main_1:Assign_21": {
+      "expression": "",
+      "variableAssignments": {
+        "to": "obtained_result",
+        "value": "loan_type + \" \" + term_type"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Virtual_Flowchart_End_26"
+        }
+      ]
+    },
+    "Main_1:CheckedPin_24": {
+      "expression": "pin_check_successful = True",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:_Term_test0__12"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Virtual_Flowchart_End_26"
+        }
+      ]
+    },
+    "Main_1:Invoke_Pin_Check_25": {
+      "expression": "",
+      "invokedWorkflow": "Pin.xaml",
+      "invokedWorkflowDisplayName": "Pin_1",
+      "variableMappings": [
+        {
+          "destinationWfArg": "out_pin_check_successful",
+          "argumentType": "Out",
+          "sourceWfValue": "pin_check_successful"
+        }
+      ],
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Mock_pin_data_20"
+        }
+      ]
+    },
+    "Pin_1:Assign_3": {
+      "expression": "",
+      "variableAssignments": {
+        "to": "out_pin_check_successful",
+        "value": "False"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Virtual_Flowchart_End_23"
+        }
+      ]
+    },
+    "Pin_1:CheckRetryTest_4": {
+      "expression": "local_number_retries < 3",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:If_14"
+        },
+        {
+          "value": "False",
+          "destination": "Pin_1:Assign_3"
+        }
+      ]
+    },
+    "Pin_1:Assign_7": {
+      "expression": "",
+      "variableAssignments": {
+        "to": "local_number_retries",
+        "value": "local_number_retries + 1"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:CheckRetryTest_4"
+        }
+      ]
+    },
+    "Pin_1:Assign_10": {
+      "expression": "",
+      "variableAssignments": {
+        "to": "out_pin_check_successful",
+        "value": "True"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Virtual_Flowchart_End_23"
+        }
+      ]
+    },
+    "Pin_1:pinTest0_11": {
+      "expression": "local_pin_test = True",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Assign_10"
+        },
+        {
+          "value": "False",
+          "destination": "Pin_1:Assign_7"
+        }
+      ]
+    },
+    "Pin_1:If_14": {
+      "expression": "actual_pin_values.ElementAt(local_number_retries) = expected_pin",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Assign_16"
+        },
+        {
+          "value": "False",
+          "destination": "Pin_1:Assign_17"
+        }
+      ]
+    },
+    "Pin_1:Assign_16": {
+      "expression": "",
+      "variableAssignments": {
+        "to": "local_pin_test",
+        "value": "True"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:pinTest0_11"
+        }
+      ]
+    },
+    "Pin_1:Assign_17": {
+      "expression": "",
+      "variableAssignments": {
+        "to": "local_pin_test",
+        "value": "False"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:pinTest0_11"
+        }
+      ]
+    },
+    "Pin_1:Mock_pin_data_20": {
+      "expression": "",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Set_expected_pin_21"
+        }
+      ]
+    },
+    "Pin_1:Set_expected_pin_21": {
+      "expression": "",
+      "variableAssignments": {
+        "to": "expected_pin",
+        "value": "\"1234\""
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Set_actual_values_22"
+        }
+      ]
+    },
+    "Pin_1:Set_actual_values_22": {
+      "expression": "",
+      "variableAssignments": {
+        "to": "actual_pin_values",
+        "value": "{\"1235\", \"1245\", \"1234\"}"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:If_14"
+        }
+      ]
+    },
+    "Pin_1:Virtual_Flowchart_End_23": {
+      "expression": "",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:CheckedPin_24"
+        }
+      ]
+    },
+    "Main_1:Virtual_Flowchart_End_26": {
+      "expression": "",
+      "transitions": []
+    }
+  },
+  "startNode": "Main_1:Node_loanTest0_1"
+}

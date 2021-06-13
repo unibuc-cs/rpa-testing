@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
 using XMLParsing.Common;
-using XMLParsing.Common.NodeExtensions;
-using XMLParsing.Utils;
 
 namespace XMLParsing.Services.Serializers
 {
@@ -22,7 +18,7 @@ namespace XMLParsing.Services.Serializers
             AddGraph(graph, dictionary);
             dictionary.Add("startNode", graph.StartNode.DisplayName + "_" + graph.StartNode.Id);
 
-            var serialized = JsonConvert.SerializeObject(dictionary);
+            var serialized = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
             textWriter.WriteLine(serialized);
         }
 
