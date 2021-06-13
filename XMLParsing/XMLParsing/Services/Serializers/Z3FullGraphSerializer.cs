@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
 using XMLParsing.Common;
-using XMLParsing.Common.NodeExtensions;
-using XMLParsing.Utils;
 
 namespace XMLParsing.Services.Serializers
 {
