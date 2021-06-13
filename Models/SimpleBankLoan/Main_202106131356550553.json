@@ -17,7 +17,6 @@
       "variables": {
         "loan": "Int32",
         "term": "Int32",
-        "pin_should_be_correct": "Boolean",
         "loan_type": "String",
         "term_type": "String",
         "obtained_result": "String",
