@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using XMLParsing.Common;
@@ -24,19 +25,7 @@ namespace XMLParsing.Services.Serializers
 
         private IDictionary<string, object> GetWorkflowDataVariables(WorkflowData workflowData)
         {
-            IDictionary<string, object> variables = new Dictionary<string, object>();
-            foreach (var dynamicActivityProperty in workflowData.Arguments)
-            {
-                var name = dynamicActivityProperty.Name;
-                var type = typeof(object).Name;
-                if (dynamicActivityProperty.Type.GetGenericArguments().Length > 0)
-                {
-                    type = dynamicActivityProperty.Type.GetGenericArguments()[0].Name;
-                }
-
-                variables.Add(name, type);
-
-            }
+            IDictionary<string, object> variables = GetWorkflowArguments(workflowData);
 
             foreach (var variable in workflowData.Variables)
             {
@@ -46,11 +35,40 @@ namespace XMLParsing.Services.Serializers
             return variables;
         }
 
+        private IDictionary<string, object> GetWorkflowArguments(WorkflowData workflowData)
+        {
+            IDictionary<string, object> arguments = new Dictionary<string, object>();
+            foreach (var dynamicActivityProperty in workflowData.Arguments)
+            {
+                var name = dynamicActivityProperty.Name;
+                var type = typeof(object).Name;
+                if (dynamicActivityProperty.Type.GetGenericArguments().Length > 0)
+                {
+                    type = dynamicActivityProperty.Type.GetGenericArguments()[0].Name;
+                }
+
+                arguments.Add(name, type);
+
+            }
+            return arguments;
+        }
+
+        private string[] GetWorkflowInputArgumentsArray(WorkflowData workflowData)
+        {
+            List<string> inputArguments = new List<string>();
+            foreach(var key in GetWorkflowArguments(workflowData).Keys)
+            {
+                inputArguments.Add(key);
+            }
+            return inputArguments.ToArray();
+        }
+
         private IDictionary<string, object> GetWorkflowData(WorkflowData workflowData)
         {
             IDictionary<string, object> workflowDataMap = new Dictionary<string, object>();
 
             workflowDataMap.Add("variables", GetWorkflowDataVariables(workflowData));
+            workflowDataMap.Add("inputArguments", GetWorkflowInputArgumentsArray(workflowData));
             workflowDataMap.Add("displayName", workflowData.DisplayName);
             workflowDataMap.Add("fullPath", workflowData.FullPath);
             workflowDataMap.Add("invokedBy", workflowData.InvokedBy != null ? workflowData.InvokedBy : "");
