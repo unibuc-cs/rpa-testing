@@ -8,9 +8,7 @@
         "expected_pin": "String",
         "actual_pin_values": "String[]"
       },
-      "inputArguments": [
-        "out_pin_check_successful"
-      ],
+      "inputArguments": [],
       "displayName": "Pin_1",
       "fullPath": "C:\\UiPath\\rpa-testing\\Models\\SimpleBankLoan\\Pin.xaml",
       "invokedBy": "Main_1",
@@ -20,6 +18,7 @@
       "variables": {
         "loan": "Int32",
         "term": "Int32",
+        "argument1": "String",
         "loan_type": "String",
         "term_type": "String",
         "obtained_result": "String",

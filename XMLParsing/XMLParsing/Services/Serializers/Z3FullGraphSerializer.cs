@@ -56,9 +56,13 @@ namespace XMLParsing.Services.Serializers
         private string[] GetWorkflowInputArgumentsArray(WorkflowData workflowData)
         {
             List<string> inputArguments = new List<string>();
-            foreach(var key in GetWorkflowArguments(workflowData).Keys)
+            foreach (var dynamicActivityProperty in workflowData.Arguments)
             {
-                inputArguments.Add(key);
+                var name = dynamicActivityProperty.Name;
+                if(dynamicActivityProperty.Type.Name.Contains("In") && dynamicActivityProperty.Type.Name.Contains("Argument"))
+                {
+                    inputArguments.Add(name);
+                }
             }
             return inputArguments.ToArray();
         }
