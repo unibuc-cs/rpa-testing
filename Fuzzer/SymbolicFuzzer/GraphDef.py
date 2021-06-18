@@ -56,6 +56,17 @@ class BaseNode():
         assert index != -1, "There is no namespace for this node !"
         return str(self.id[:index])
 
+    # Gets a debug label string to be used for this node
+    def getDebugLabel(self):
+        # HTML way ...maybe later
+        # labelStr = f"<{nodeInst.id}<BR/><FONT POINT-SIZE=\"10\">v[add]  &gt 100 </FONT>>"
+
+        baseOutput = self.id
+        if self.hasAssignments():
+            for assignment in self.assignments:
+                baseOutput += "\n" + str(assignment.leftTerm) + " <- " + str(assignment.rightTerm)
+        return baseOutput
+
 class FlowNode(BaseNode):
     def __init__(self, id : str):
         super().__init__(id, NodeTypes.FLOW_NODE)
@@ -74,6 +85,12 @@ class BranchNode(BaseNode):  # Just an example of a base class
 
     def isBranchNode(self) -> bool:
         return True
+
+    def getDebugLabel(self):
+        baseOutput = super().getDebugLabel()
+        outputStr = baseOutput + "\n" + str(self.expression)
+        return outputStr
+
 
     # Functions and examples to inspect the graph at a higher level
     #-------------------------------------------------
@@ -296,7 +313,13 @@ class SymbolicWorflowsTester():
             node_color =  self.debugColors[nodeGraphParentName]
             node_fill_color = 'blue' if nodeInst.id == self.entryTestNodeId else 'white'
             node_style = 'filled'
-            graph.add_node(nodeInst, shape=node_shape, color=node_color, fillcolor = node_fill_color, style=node_style)
+
+            labelStr = nodeInst.getDebugLabel()
+
+            # HTML way ...maybe later
+            #labelStr = f"<{nodeInst.id}<BR/><FONT POINT-SIZE=\"10\">v[add]  $#60 100 </FONT>>"
+
+            graph.add_node(nodeInst, label=labelStr, shape=node_shape, color=node_color, fillcolor = node_fill_color, style=node_style)
 
         graph.graph['nodeIdToInstance'] = nodeIdToInstance
 
@@ -477,6 +500,8 @@ class SymbolicWorflowsTester():
 
         fieldNamesList = [key for key in self.V_constants] # Put the constants firsts
         fieldNamesList.extend([key for key in self.V if key not in self.V_constants])
+        if debugLogging:
+            fieldNamesList.append("GraphPath")
         set_fieldNamesList = set(fieldNamesList)
 
         csv_stream = None
@@ -490,8 +515,10 @@ class SymbolicWorflowsTester():
         allpaths = self.__getAllPaths()
 
         for index, P in enumerate(allpaths):
+            pathStr = None
             if debugLogging:
-                print(f"Analyzing path {index}: [{self.__debugPrintSinglePath(P)}]")
+                pathStr = self.__debugPrintSinglePath(P)
+                print(f"Analyzing path {index}: [{pathStr}]")
                 print("-------------------------")
             conditions_str = self.__getPathConditions(allpaths[index])
 
@@ -525,6 +552,7 @@ class SymbolicWorflowsTester():
                 # Get one output row for csv extract
                 if csv_stream != None:
                     rowContent = {}
+                    # For each variabile in the model, output its storage
                     for decl in m.decls():
                         declAsString = str(decl)
                         if declAsString in set_fieldNamesList:
@@ -538,6 +566,8 @@ class SymbolicWorflowsTester():
                                 valueOfDecl = True if z3.is_true(valueOfDecl) else False
 
                             rowContent[declAsString] = valueOfDecl
+                    if pathStr != None:
+                        rowContent["GraphPath"] =pathStr
 
                     if csv_stream:
                         csv_stream.writerow(rowContent)
