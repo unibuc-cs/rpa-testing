@@ -5,7 +5,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1164,1069</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>744,1069</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>PinCheckWorkflow_v1_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="31">
@@ -43,7 +43,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="30">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="60">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -74,6 +74,7 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Flowchart sap2010:Annotation.AnnotationText="Workflow is meant to check if the robot that is executing can provide a valid pin for the bank account. There is a retry mechanism and, for now, everything is hardcoded. &#xA;expected_pin = &quot;1234&quot;&#xA;actual_pin_values = [&quot;1235&quot;, &quot;1324&quot;, &quot;1234&quot;]" DisplayName="Pin" sap:VirtualizedContainerService.HintSize="754,904" sap2010:WorkflowViewState.IdRef="Flowchart_2">
@@ -296,7 +297,7 @@
             <OutArgument x:TypeArguments="x:String">[expected_pin]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="x:String">[local_test_data.Rows.Item(0).Item("expected_pin").ToString()]</InArgument>
+            <InArgument x:TypeArguments="x:String">[local_test_data.Rows.Item(0).Item("Pin:expected_pin").ToString()]</InArgument>
           </Assign.Value>
         </Assign>
         <Assign DisplayName="Set actual values" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_20">
@@ -304,7 +305,7 @@
             <OutArgument x:TypeArguments="s:String[]">[actual_pin_values]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="s:String[]">[local_test_data.Rows.Item(0).Item("actual_pin_values").ToString().Split("_".ElementAt(0))]</InArgument>
+            <InArgument x:TypeArguments="s:String[]">[local_test_data.Rows.Item(0).Item("Pin:actual_pin_values").ToString().Split("_".ElementAt(0))]</InArgument>
           </Assign.Value>
         </Assign>
       </Sequence>
