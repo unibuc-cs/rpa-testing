@@ -77,7 +77,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Flowchart sap2010:Annotation.AnnotationText="Workflow is meant to check if the robot that is executing can provide a valid pin for the bank account. There is a retry mechanism and, for now, everything is hardcoded. &#xA;expected_pin = &quot;1234&quot;&#xA;actual_pin_values = [&quot;1235&quot;, &quot;1324&quot;, &quot;1234&quot;]" DisplayName="Pin" sap:VirtualizedContainerService.HintSize="754,904" sap2010:WorkflowViewState.IdRef="Flowchart_2">
+  <Flowchart sap2010:Annotation.AnnotationText="Workflow is meant to check if the robot that is executing can provide a valid pin for the bank account. There is a retry mechanism and, for now, everything is hardcoded. &#xA;expected_pin = &quot;1234&quot;&#xA;actual_pin_values = [&quot;1235&quot;, &quot;1324&quot;, &quot;1234&quot;]" DisplayName="Pin" sap:VirtualizedContainerService.HintSize="754,1021" sap2010:WorkflowViewState.IdRef="Flowchart_2">
     <Flowchart.Variables>
       <Variable x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="Number of retries given as static input - for now it's not defined -&gt; infinite loop" Default="0" Name="local_number_retries" />
       <Variable x:TypeArguments="x:Boolean" Name="local_pin_test" />
@@ -90,20 +90,20 @@
         <av:Point x:Key="ShapeLocation">40,2.4</av:Point>
         <av:Size x:Key="ShapeSize">60,75</av:Size>
         <x:Double x:Key="Width">720.30585235907688</x:Double>
-        <av:PointCollection x:Key="ConnectorLocation">100,39.9 200,39.9 200,86</av:PointCollection>
-        <x:Double x:Key="Height">796.45731859667922</x:Double>
+        <av:PointCollection x:Key="ConnectorLocation">100,39.9 190,39.9 190,87</av:PointCollection>
+        <x:Double x:Key="Height">913</x:Double>
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <Flowchart.StartNode>
-      <x:Reference>__ReferenceID7</x:Reference>
+      <x:Reference>__ReferenceID8</x:Reference>
     </Flowchart.StartNode>
     <FlowStep x:Name="__ReferenceID2">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <av:Point x:Key="ShapeLocation">470,636</av:Point>
+          <av:Point x:Key="ShapeLocation">460,757</av:Point>
           <av:Size x:Key="ShapeSize">200,66</av:Size>
-          <av:PointCollection x:Key="ConnectorLocation">570,702 570,760 440,760</av:PointCollection>
+          <av:PointCollection x:Key="ConnectorLocation">560,823 560,880 430,880</av:PointCollection>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <Sequence DisplayName="FailedCheck" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_14">
@@ -126,11 +126,11 @@
         <FlowStep x:Name="__ReferenceID0">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <av:Point x:Key="ShapeLocation">240,726</av:Point>
-              <av:Size x:Key="ShapeSize">200,68</av:Size>
+              <av:Point x:Key="ShapeLocation">230,847</av:Point>
+              <av:Size x:Key="ShapeSize">200,66</av:Size>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Sequence DisplayName="FinishedCheck" sap:VirtualizedContainerService.HintSize="200,68" sap2010:WorkflowViewState.IdRef="Sequence_15">
+          <Sequence DisplayName="FinishedCheck" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_15">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -144,19 +144,19 @@
     <FlowDecision x:Name="__ReferenceID1" Condition="[local_number_retries &lt; 3]" DisplayName="CheckRetryTest" sap:VirtualizedContainerService.HintSize="86,87" sap2010:WorkflowViewState.IdRef="FlowDecision_8">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <av:Point x:Key="ShapeLocation">307,576.5</av:Point>
+          <av:Point x:Key="ShapeLocation">297,696.5</av:Point>
           <av:Size x:Key="ShapeSize">86,87</av:Size>
-          <av:PointCollection x:Key="TrueConnector">307,620 70,620 70,240 100,240</av:PointCollection>
-          <av:PointCollection x:Key="FalseConnector">393,620 570,620 570,636</av:PointCollection>
+          <av:PointCollection x:Key="TrueConnector">297,740 267,740 267,666.5 470,666.5 470,306.5 60,306.5 60,360 90,360</av:PointCollection>
+          <av:PointCollection x:Key="FalseConnector">383,740 560,740 560,757</av:PointCollection>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <FlowDecision.True>
         <FlowStep x:Name="__ReferenceID6">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <av:Point x:Key="ShapeLocation">100,206</av:Point>
+              <av:Point x:Key="ShapeLocation">90,327</av:Point>
               <av:Size x:Key="ShapeSize">200,66</av:Size>
-              <av:PointCollection x:Key="ConnectorLocation">200,272 200,306.5</av:PointCollection>
+              <av:PointCollection x:Key="ConnectorLocation">190,393 190,426.5</av:PointCollection>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
           <Sequence sap2010:Annotation.AnnotationText="Normally this node should perform an interactive call to the Fuzzer and get a pin and compare it to an expected one, but currently, the caller dictates wether the check is correct or no" DisplayName="CheckPin" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_16">
@@ -195,10 +195,10 @@
             <FlowDecision x:Name="__ReferenceID5" Condition="[local_pin_test = True]" DisplayName="pinTest0" sap:VirtualizedContainerService.HintSize="70,87" sap2010:WorkflowViewState.IdRef="FlowDecision_7">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <av:Point x:Key="ShapeLocation">165,306.5</av:Point>
+                  <av:Point x:Key="ShapeLocation">155,426.5</av:Point>
                   <av:Size x:Key="ShapeSize">70,87</av:Size>
-                  <av:PointCollection x:Key="FalseConnector">235,350 350,350 350,446</av:PointCollection>
-                  <av:PointCollection x:Key="TrueConnector">165,350 120,350 120,636</av:PointCollection>
+                  <av:PointCollection x:Key="FalseConnector">225,470 340,470 340,567</av:PointCollection>
+                  <av:PointCollection x:Key="TrueConnector">155,470 120,470 120,636</av:PointCollection>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <FlowDecision.True>
@@ -207,7 +207,7 @@
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <av:Point x:Key="ShapeLocation">20,636</av:Point>
                       <av:Size x:Key="ShapeSize">200,66</av:Size>
-                      <av:PointCollection x:Key="ConnectorLocation">120,702 120,760 240,760</av:PointCollection>
+                      <av:PointCollection x:Key="ConnectorLocation">120,702 120,880 230,880</av:PointCollection>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                   <Sequence DisplayName="SucceedCheck" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_17">
@@ -235,12 +235,12 @@
                 <FlowStep x:Name="__ReferenceID3">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <av:Point x:Key="ShapeLocation">250,446</av:Point>
+                      <av:Point x:Key="ShapeLocation">240,567</av:Point>
                       <av:Size x:Key="ShapeSize">200,66</av:Size>
-                      <av:PointCollection x:Key="ConnectorLocation">350,512 350,576.5</av:PointCollection>
+                      <av:PointCollection x:Key="ConnectorLocation">340,633 340,696.5</av:PointCollection>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <Sequence DisplayName="RetryCheck" sap:VirtualizedContainerService.HintSize="304,253" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                  <Sequence DisplayName="RetryCheck" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_18">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -274,15 +274,15 @@
     <x:Reference>__ReferenceID5</x:Reference>
     <x:Reference>__ReferenceID6</x:Reference>
     <x:Reference>__ReferenceID0</x:Reference>
-    <FlowStep x:Name="__ReferenceID7">
+    <FlowStep x:Name="__ReferenceID8">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <av:Point x:Key="ShapeLocation">100,86</av:Point>
+          <av:Point x:Key="ShapeLocation">90,87</av:Point>
           <av:Size x:Key="ShapeSize">200,66</av:Size>
-          <av:PointCollection x:Key="ConnectorLocation">200,152 200,206</av:PointCollection>
+          <av:PointCollection x:Key="ConnectorLocation">190,153 190,187</av:PointCollection>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <Sequence DisplayName="Get mocked input" sap:VirtualizedContainerService.HintSize="376,548" sap2010:WorkflowViewState.IdRef="Sequence_19">
+      <Sequence DisplayName="Get expected pin value" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_19">
         <Sequence.Variables>
           <Variable x:TypeArguments="sd:DataTable" Name="local_test_data" />
         </Sequence.Variables>
@@ -291,7 +291,7 @@
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
-        <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[local_test_data]" Delimitator="Comma" DisplayName="Read CSV" FilePath="pin_input.csv" sap:VirtualizedContainerService.HintSize="334,152" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1" />
+        <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[local_test_data]" Delimitator="Comma" DisplayName="Read CSV" FilePath="pin_mocked_data.csv" sap:VirtualizedContainerService.HintSize="334,152" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1" />
         <Assign DisplayName="Set expected pin" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_19">
           <Assign.To>
             <OutArgument x:TypeArguments="x:Int32">[expected_pin]</OutArgument>
@@ -300,20 +300,39 @@
             <InArgument x:TypeArguments="x:Int32">[Int32.Parse(local_test_data.Rows.Item(0).Item("Pin:expected_pin").ToString())]</InArgument>
           </Assign.Value>
         </Assign>
-        <ui:InvokeCode ContinueOnError="{x:Null}" Code="var tempArr = local_test_data.Rows[0][&quot;Pin:actual_pin_values&quot;].ToString().Split(&quot;_&quot;.ElementAt(0));&#xD;&#xA;List&lt;Int32&gt; intList = new List&lt;Int32&gt;();&#xD;&#xA;foreach(var val in tempArr) {&#xD;&#xA;&#x9;intList.Add(Int32.Parse(val));&#xD;&#xA;}&#xD;&#xA;actual_pin_values = intList.ToArray();" DisplayName="Set actual values" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
-          <ui:InvokeCode.Arguments>
-            <InOutArgument x:TypeArguments="s:Int32[]" x:Key="actual_pin_values">
-              <mva:VisualBasicReference x:TypeArguments="s:Int32[]" ExpressionText="actual_pin_values" />
-            </InOutArgument>
-            <InArgument x:TypeArguments="sd:DataTable" x:Key="local_test_data">
-              <mva:VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="local_test_data" />
-            </InArgument>
-          </ui:InvokeCode.Arguments>
-        </ui:InvokeCode>
       </Sequence>
       <FlowStep.Next>
-        <x:Reference>__ReferenceID6</x:Reference>
+        <FlowStep x:Name="__ReferenceID7">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <av:Point x:Key="ShapeLocation">90,187</av:Point>
+              <av:Size x:Key="ShapeSize">200,66</av:Size>
+              <av:PointCollection x:Key="ConnectorLocation">190,253 190,327</av:PointCollection>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Sequence DisplayName="Get actual pin values" sap:VirtualizedContainerService.HintSize="376,448" sap2010:WorkflowViewState.IdRef="Sequence_20">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="sd:DataTable" Name="local_test_data" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[local_test_data]" Delimitator="Comma" DisplayName="Read CSV" FilePath="pin_real_data.csv" sap:VirtualizedContainerService.HintSize="334,152" sap2010:WorkflowViewState.IdRef="ReadCsvFile_2" />
+            <ui:InvokeCode ContinueOnError="{x:Null}" Code="var tempArr = local_test_data.Rows[0][&quot;Pin:actual_pin_values&quot;].ToString().Split(&quot;_&quot;.ElementAt(0));&#xA;List&lt;Int32&gt; intList = new List&lt;Int32&gt;();&#xA;foreach(var val in tempArr) {&#xA;&#x9;intList.Add(Int32.Parse(val));&#xA;}&#xA;actual_pin_values = intList.ToArray();" DisplayName="Set actual values" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_2" Language="CSharp">
+              <ui:InvokeCode.Arguments>
+                <InOutArgument x:TypeArguments="s:Int32[]" x:Key="actual_pin_values">[actual_pin_values]</InOutArgument>
+                <InArgument x:TypeArguments="sd:DataTable" x:Key="local_test_data">[local_test_data]</InArgument>
+              </ui:InvokeCode.Arguments>
+            </ui:InvokeCode>
+          </Sequence>
+          <FlowStep.Next>
+            <x:Reference>__ReferenceID6</x:Reference>
+          </FlowStep.Next>
+        </FlowStep>
       </FlowStep.Next>
     </FlowStep>
+    <x:Reference>__ReferenceID7</x:Reference>
   </Flowchart>
 </Activity>
