@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using XMLParsing.Common;
+using XMLParsing.Utils;
 
 namespace XMLParsing.Services.Serializers
 {
@@ -29,7 +30,13 @@ namespace XMLParsing.Services.Serializers
 
             foreach (var variable in workflowData.Variables)
             {
-                variables.Add(variable.Name, variable.Type.Name);
+                IDictionary<string, object> variableData = new Dictionary<string, object>();
+                variableData.Add("Type", variable.Type.Name);
+                if(variable.Default != null)
+                {
+                    variableData.Add("Default", ExpressionUtils.TryParseExpression(variable.Default));
+                }
+                variables.Add(variable.Name, variableData);
             }
 
             return variables;
@@ -47,7 +54,14 @@ namespace XMLParsing.Services.Serializers
                     type = dynamicActivityProperty.Type.GetGenericArguments()[0].Name;
                 }
 
-                arguments.Add(name, type);
+                IDictionary<string, object> argumentData = new Dictionary<string, object>();
+                argumentData.Add("Type", type);
+                if (dynamicActivityProperty.Value != null)
+                {
+                    argumentData.Add("Default", ExpressionUtils.TryParseExpression(dynamicActivityProperty.Value));
+                }
+
+                arguments.Add(name, argumentData);
 
             }
             return arguments;
