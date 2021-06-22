@@ -179,6 +179,35 @@ def test_parser(inputstring):
     graphviz.to_graphviz(ast)
 
 
+#================
+import ast
+import sys
+class GenericCallparsing(ast.NodeVisitor):
+    def __init__(self):
+        self.attributesToCall = [] # The list of objects invoked up to the function call
+        self.funcNames : [str] = "" # Name of the called function from the last attribute in the list above, or if empty it means it is a global function
+        self.params = []
+
+    def visit_Attribute(self, node):
+        ast.NodeVisitor.generic_visit(self, node)
+        self.attributesToCall.append(node.attr)
+
+    def visit_Name(self, node):
+        self.funcNames.append(node.id)
+
+    def visit_Param(self, node):
+        ast.NodeVisitor.generic_visit(self, node)
+        self.params.append(node.id)
+
+
+class FindFuncs(ast.NodeVisitor):
+    def visit_Call(self, node):
+        p = ParseCall()
+        #print(node.func)
+        p.visit(node.func)
+        print(".".join(p.ls))
+        ast.NodeVisitor.generic_visit(self, node)
+
 if __name__ == '__main__':
     path = os.path.join('../Models', sys.argv[1])  # "SimpleBankLoan\Pin Check_202105121449166565.json"
     assert os.path.exists(path), "File not found !"
