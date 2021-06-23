@@ -1,0 +1,14 @@
+{
+  "variables" : {'Pin:pinCorrectTest_local' : 'Int',  'Pin:local_numberRetries' : ('Context', 0, 'Int')},
+  "graph" :  { 'Pin:checkPin' : (None, 'Pin:pinTest0'),
+                    'Pin:pinTest0' : ('V["Pin:pinCorrectTest_local"] == True', [('True', 'Pin:SucceedCheck'), ('False', 'Pin:retryFailed')]),
+                     'Pin:retryFailed' : (None, 'Pin:checkRetryTest'),
+                    'Pin:checkRetryTest' : ('V["Pin:local_numberRetries"] < 3', [('True', 'Pin:checkPin'), ('False', 'Pin:FailedCheck')]),
+                     'Pin:SucceedCheck' : (None, 'Pin:FinishedCheck'),
+                     'Pin:FailedCheck' : (None, 'Pin:FinishedCheck'),
+                     'Pin:FinishedCheck' : (None, None)
+                     },
+
+  "debugColor" : "blue",
+  "name" : "Pin"
+}

@@ -1,0 +1,23 @@
+{"variables": {'Main:loan' : 'Real', 'Main:term' : 'Int', 'Main:context_userId' : ('Context', 2, 'Int'),
+                                       'Main:pinCorrectValue' : 'Int', 'Main:pinCorrectTest' : 'Bool'},
+
+"graph": {'Main:node_loanTest0' : ('V["Main:loan"] < 1000', [('True', 'Main:lowVolumeLoan'), ('False', 'Main:node_loanTest1')]),
+                         'Main:lowVolumeLoan' : (None, 'Main:term_test0'),
+                        'Main:node_loanTest1' : ('And(V["Main:loan"] >= 1000, V["Main:loan"] < 100000)', [('True', 'Main:midVolumeLoan'), ('False', 'Main:highVolumeLoan')]),
+                        'Main:lowVolumeLoan' : (None, 'Main:term_test0'),
+                         'Main:midVolumeLoan' : (None, 'Main:term_test0'),
+                        'Main:highVolumeLoan' : (None, 'Pin:checkPin'),
+
+                        'Pin:FinishedCheck' : (None, 'Main:checkedPin'),
+                        'Main:checkedPin' :('V["Main:pinCorrectTest"] == True', [('True', 'Main:term_test0'), ('False', 'Main:fail')]),
+
+                        'Main:term_test0' : ('V["Main:term"] < 5', [('True', 'Main:shortTermLoan'), ('False', 'Main:longTermLoan')]),
+                        'Main:shortTermLoan' :  (None, 'Main:outputRate'),
+                        'Main:longTermLoan': (None, 'Main:outputRate'),
+                         'Main:outputRate' : (None, None),
+                        'Main:fail' : (None, 'Main:node_loanTest0')
+                        },
+
+  "debugColor" : "red",
+  "name" : "Main"
+}
