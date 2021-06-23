@@ -5,7 +5,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1164,1069</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>950,1186</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>PinCheckWorkflow_v1_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="31">
@@ -74,7 +74,6 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Flowchart sap2010:Annotation.AnnotationText="Workflow is meant to check if the robot that is executing can provide a valid pin for the bank account. There is a retry mechanism and, for now, everything is hardcoded. &#xA;expected_pin = &quot;1234&quot;&#xA;actual_pin_values = [&quot;1235&quot;, &quot;1324&quot;, &quot;1234&quot;]" DisplayName="Pin" sap:VirtualizedContainerService.HintSize="754,1021" sap2010:WorkflowViewState.IdRef="Flowchart_2">
@@ -284,20 +283,20 @@
       </sap:WorkflowViewStateService.ViewState>
       <Sequence DisplayName="Get expected pin value" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_19">
         <Sequence.Variables>
-          <Variable x:TypeArguments="sd:DataTable" Name="local_test_data" />
+          <Variable x:TypeArguments="sd:DataTable" Name="local_test_data_expected" />
         </Sequence.Variables>
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
-        <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[local_test_data]" Delimitator="Comma" DisplayName="Read CSV" FilePath="pin_mocked_data.csv" sap:VirtualizedContainerService.HintSize="334,152" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1" />
+        <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[local_test_data_expected]" Delimitator="Comma" DisplayName="Read CSV" FilePath="pin_mocked_data.csv" sap:VirtualizedContainerService.HintSize="334,152" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1" />
         <Assign DisplayName="Set expected pin" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_19">
           <Assign.To>
             <OutArgument x:TypeArguments="x:Int32">[expected_pin]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="x:Int32">[Int32.Parse(local_test_data.Rows.Item(0).Item("Pin:expected_pin").ToString())]</InArgument>
+            <InArgument x:TypeArguments="x:Int32">[Int32.Parse(local_test_data_expected.Rows.Item(0).Item("Pin:expected_pin").ToString())]</InArgument>
           </Assign.Value>
         </Assign>
       </Sequence>
@@ -310,20 +309,20 @@
               <av:PointCollection x:Key="ConnectorLocation">190,253 190,327</av:PointCollection>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Sequence DisplayName="Get actual pin values" sap:VirtualizedContainerService.HintSize="376,448" sap2010:WorkflowViewState.IdRef="Sequence_20">
+          <Sequence DisplayName="Get actual pin values" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_20">
             <Sequence.Variables>
-              <Variable x:TypeArguments="sd:DataTable" Name="local_test_data" />
+              <Variable x:TypeArguments="sd:DataTable" Name="local_test_data_actual" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[local_test_data]" Delimitator="Comma" DisplayName="Read CSV" FilePath="pin_real_data.csv" sap:VirtualizedContainerService.HintSize="334,152" sap2010:WorkflowViewState.IdRef="ReadCsvFile_2" />
+            <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[local_test_data_actual]" Delimitator="Comma" DisplayName="Read CSV" FilePath="pin_real_data.csv" sap:VirtualizedContainerService.HintSize="334,152" sap2010:WorkflowViewState.IdRef="ReadCsvFile_2" />
             <ui:InvokeCode ContinueOnError="{x:Null}" Code="var tempArr = local_test_data.Rows[0][&quot;Pin:actual_pin_values&quot;].ToString().Split(&quot;_&quot;.ElementAt(0));&#xA;List&lt;Int32&gt; intList = new List&lt;Int32&gt;();&#xA;foreach(var val in tempArr) {&#xA;&#x9;intList.Add(Int32.Parse(val));&#xA;}&#xA;actual_pin_values = intList.ToArray();" DisplayName="Set actual values" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_2" Language="CSharp">
               <ui:InvokeCode.Arguments>
                 <InOutArgument x:TypeArguments="s:Int32[]" x:Key="actual_pin_values">[actual_pin_values]</InOutArgument>
-                <InArgument x:TypeArguments="sd:DataTable" x:Key="local_test_data">[local_test_data]</InArgument>
+                <InArgument x:TypeArguments="sd:DataTable" x:Key="local_test_data">[local_test_data_actual]</InArgument>
               </ui:InvokeCode.Arguments>
             </ui:InvokeCode>
           </Sequence>

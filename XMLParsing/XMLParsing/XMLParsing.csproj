@@ -332,6 +332,7 @@
     <Compile Include="Common\NodeExtensions\AssignWfNode.cs" />
     <Compile Include="Common\NodeExtensions\InvokeWfNode.cs" />
     <Compile Include="Common\NodeExtensions\IRelevantNode.cs" />
+    <Compile Include="Common\NodeExtensions\ReadCsvFileNode.cs" />
     <Compile Include="Common\Transition.cs" />
     <Compile Include="Common\Graph.cs" />
     <Compile Include="Common\WorkflowData.cs" />
@@ -345,6 +346,7 @@
     <Compile Include="Services\Parsers\ActivityParser\FlowchartParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\IActivityParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\ActivityParserFactory.cs" />
+    <Compile Include="Services\Parsers\ActivityParser\ReadCsvFileActivityParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\SequenceParser.cs" />
     <Compile Include="Services\Parsers\WorkflowParser.cs" />
     <Compile Include="Services\Reducers\Z3RelevantWorkflowReducer.cs" />
