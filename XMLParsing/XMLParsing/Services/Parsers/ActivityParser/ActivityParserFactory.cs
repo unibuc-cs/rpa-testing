@@ -3,6 +3,7 @@ using System.Activities;
 using System.Activities.Statements;
 using System.Collections.Generic;
 using UiPath.Core.Activities;
+using UiPath.CSV.Activities;
 using XMLParsing.Services.Parsers.ActivityParser;
 using XMLParsing.Services.Parsers.NativeActivityParser;
 
@@ -37,7 +38,8 @@ namespace XMLParsing.Services
                 { typeof(Sequence), () => new SequenceParser() },
                 { typeof(InvokeWorkflowFile), () => new InvokeWfActivityParser() },
                 { typeof(Assign), () => new AssignActivityParser() },
-                { typeof(If), () => new IfActivityParser() }
+                { typeof(If), () => new IfActivityParser() },
+                { typeof(ReadCsvFile), () => new ReadCsvFileActivityParser() }
             };
 
             if (activityParserDict.ContainsKey(activity.GetType()))
