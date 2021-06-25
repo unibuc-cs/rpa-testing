@@ -7,13 +7,13 @@ import os
 
 import sys
 
-from Applications.ExpressionsParser import main_parse
-#sys.path.append('../Applications\\ExpressionsParser')
-#import main_parse
-#sys.path.append('../Applications\\SymbolicFuzzer')
-#import Main
+#from Applications.ExpressionsParser import main_parse
+sys.path.append('Applications/ExpressionsParser')
+import main_parse
+sys.path.append('Applications/Fuzzer/SymbolicFuzzer')
+import Main
 
-from Applications.Fuzzer.SymbolicFuzzer import Main
+#from Applications.Fuzzer.SymbolicFuzzer import Main
 
 #path to xaml
 #source = os.path.dirname(__file__)
@@ -36,12 +36,12 @@ subprocess.call([exe_path,"/z3ReducedGraph",xaml_path])
 #json_path = os.path.join(parent, 'outputXamlParser.json')
 json_path = "Applications\\Models\\outputXamlParser.json"
 #call ExpressionsParser - inca nu se genereaza ca output un txt de catre ExpressionsParser; 
-main_parse.parseGraph(json_path,"Main") 
+main_parse.parseGraph(json_path,"Applications\\Models") 
 
 #source = os.path.dirname(__file__)
 #parent = os.path.join(source, '../Fuzzer\\SymbolicFuzzer')
 #fuzzer_path = os.path.join(parent, 'Main.py')
-fuzzer_path = "Applications\\Fuzzer\SymbolicFuzzer\\Main.py"
+fuzzer_path = "Applications\\Fuzzer\\SymbolicFuzzer\\Main.py"
 #txt_path = os.path.join(parent,'dummy_TestSpec.txt')
 txt_path = "Applications\\Models\\_tempExpressionParser.txt"
 
