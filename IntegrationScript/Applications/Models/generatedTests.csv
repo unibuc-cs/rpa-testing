@@ -1,8 +1,0 @@
-PinCheckWorkflow_v1_1:in_pin_should_be_correct;PinCheckWorkflow_v1_1:out_pin_check_successful;PinCheckWorkflow_v1_1:local_number_retries;PinCheckWorkflow_v1_1:local_pin_test;Create_Loan_Process_1:loan;Create_Loan_Process_1:term;Create_Loan_Process_1:pin_should_be_correct;Create_Loan_Process_1:loan_type;Create_Loan_Process_1:term_type;Create_Loan_Process_1:obtained_result;Create_Loan_Process_1:pin_check_successful;GraphPath;;;;;
-;;;;999;4;;"""Low-Volume Loan""";"""Short-Term""";"""Low-Volume Loan Short-Term""";;Create_Loan_Process_1:Node_loanTest0_1 ;;;;;
-;;;;999;5;;"""Low-Volume Loan""";"""Long-Term""";"""Low-Volume Loan Long-Term""";;Create_Loan_Process_1:Node_loanTest0_1 ;;;;;
-;;;;1000;4;;"""Mid-Volume Loan""";"""Short-Term""";"""Mid-Volume Loan Short-Term""";;Create_Loan_Process_1:Node_loanTest0_1 ;;;;;
-;;;;1000;5;;"""Mid-Volume Loan""";"""Long-Term""";"""Mid-Volume Loan Long-Term""";;Create_Loan_Process_1:Node_loanTest0_1 ;;;;;
-TRUE;TRUE;;TRUE;100000;4;TRUE;"""High-Volume Loan""";"""Short-Term""";"""High-Volume Loan Short-Term""";TRUE;Create_Loan_Process_1:Node_loanTest0_1 ; Create_Loan_Process_1:_Term_test0__12 ; Create_Loan_Process_1:Assign_15 ; Create_Loan_Process_1:Assign_21 ; Create_Loan_Process_1:Virtual_Flowchart_End_26 ; 
-TRUE;TRUE;;TRUE;100000;5;TRUE;"""High-Volume Loan""";"""Long-Term""";"""High-Volume Loan Long-Term""";TRUE;Create_Loan_Process_1:Node_loanTest0_1 ; Create_Loan_Process_1:_Term_test0__12 ; Create_Loan_Process_1:Assign_18 ; Create_Loan_Process_1:Assign_21 ; Create_Loan_Process_1:Virtual_Flowchart_End_26 ; 
-FALSE;FALSE;3;FALSE;100000;;FALSE;"""High-Volume Loan""";;;FALSE;Create_Loan_Process_1:Node_loanTest0_1 ; Create_Loan_Process_1:CheckedPin_24 ; Create_Loan_Process_1:Virtual_Flowchart_End_26 ; ;;
