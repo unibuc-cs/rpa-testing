@@ -5459,9 +5459,9 @@
     "restore": {
       "projectUniqueName": "Models",
       "projectName": "Models",
-      "projectPath": "C:\\GithubPhD\\rpa-testing\\TestingTool\\IntegrationScript\\Applications\\Models\\.local",
+      "projectPath": "C:\\GithubPhD\\rpa-testing\\TestingTool\\Applications\\Models\\.local",
       "packagesPath": "C:\\Users\\adelinas\\.nuget\\packages\\",
-      "outputPath": "C:\\GithubPhD\\rpa-testing\\TestingTool\\IntegrationScript\\Applications\\Models\\.local"
+      "outputPath": "C:\\GithubPhD\\rpa-testing\\TestingTool\\Applications\\Models\\.local"
     },
     "frameworks": {
       "net461": {
