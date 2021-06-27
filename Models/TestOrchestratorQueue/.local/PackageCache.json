@@ -2,6 +2,53 @@
   "Packages": [
     {
       "Package": {
+        "Id": "UiPath.Excel.Activities",
+        "Version": "2.10.4"
+      },
+      "Assemblies": [
+        "C:\\Users\\adelinas\\.nuget\\packages\\closedxml/0.87.1\\lib/net40/ClosedXML.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\csvhelper/16.0.0\\lib/net45/CsvHelper.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\documentformat.openxml/2.5.0\\lib/DocumentFormat.OpenXml.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.visualstudio.ole.interop/16.7.30328.74\\lib/net45/Microsoft.VisualStudio.OLE.Interop.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OOXML.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OpenXml4Net.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OpenXmlFormats.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\sharpziplib/1.2.0\\lib/net45/ICSharpCode.SharpZipLib.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.4\\lib/net461/UiPath.Excel.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.4\\lib/net461/UiPath.Excel.Activities.Package.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.4\\lib/net461/UiPath.Excel.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.4\\lib/net461/UiPath.Excel.dll"
+      ],
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.10.4"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.MicrosoftOffice365.Activities",
+        "Version": "1.6.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\adelinas\\.nuget\\packages\\closedxml/0.87.1\\lib/net40/ClosedXML.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\documentformat.openxml/2.5.0\\lib/DocumentFormat.OpenXml.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.graph/3.19.0\\lib/net461/Microsoft.Graph.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.graph.core/1.22.0\\lib/net45/Microsoft.Graph.Core.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.identity.client/4.14.0\\lib/net45/Microsoft.Identity.Client.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json/12.0.3\\lib/net45/Newtonsoft.Json.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.buffers/4.5.1\\lib/net461/System.Buffers.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.diagnostics.diagnosticsource/4.6.0\\lib/net46/System.Diagnostics.DiagnosticSource.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.memory/4.5.4\\lib/net461/System.Memory.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.numerics.vectors/4.5.0\\lib/net46/System.Numerics.Vectors.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.runtime.compilerservices.unsafe/4.7.1\\lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.microsoftoffice365.activities/1.6.0\\lib/net461/UiPath.MicrosoftOffice365.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.microsoftoffice365.activities/1.6.0\\lib/net461/UiPath.MicrosoftOffice365.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.microsoftoffice365.activities/1.6.0\\lib/net461/UiPath.MicrosoftOffice365.dll"
+      ],
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.microsoftoffice365.activities\\1.6.0"
+    },
+    {
+      "Package": {
         "Id": "UiPath.System.Activities",
         "Version": "21.4.1"
       },
@@ -111,53 +158,6 @@
         "C:\\Users\\adelinas\\.nuget\\packages\\uipath.vision/3.0.1\\lib/net461/UiPath.Vision.dll"
       ],
       "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\21.4.4"
-    },
-    {
-      "Package": {
-        "Id": "UiPath.MicrosoftOffice365.Activities",
-        "Version": "1.6.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\closedxml/0.87.1\\lib/net40/ClosedXML.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\documentformat.openxml/2.5.0\\lib/DocumentFormat.OpenXml.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.graph/3.19.0\\lib/net461/Microsoft.Graph.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.graph.core/1.22.0\\lib/net45/Microsoft.Graph.Core.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.identity.client/4.14.0\\lib/net45/Microsoft.Identity.Client.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json/12.0.3\\lib/net45/Newtonsoft.Json.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\system.buffers/4.5.1\\lib/net461/System.Buffers.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\system.diagnostics.diagnosticsource/4.6.0\\lib/net46/System.Diagnostics.DiagnosticSource.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\system.memory/4.5.4\\lib/net461/System.Memory.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\system.numerics.vectors/4.5.0\\lib/net46/System.Numerics.Vectors.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\system.runtime.compilerservices.unsafe/4.7.1\\lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.microsoftoffice365.activities/1.6.0\\lib/net461/UiPath.MicrosoftOffice365.Activities.Design.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.microsoftoffice365.activities/1.6.0\\lib/net461/UiPath.MicrosoftOffice365.Activities.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.microsoftoffice365.activities/1.6.0\\lib/net461/UiPath.MicrosoftOffice365.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.microsoftoffice365.activities\\1.6.0"
-    },
-    {
-      "Package": {
-        "Id": "UiPath.Excel.Activities",
-        "Version": "2.10.4"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\closedxml/0.87.1\\lib/net40/ClosedXML.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\csvhelper/16.0.0\\lib/net45/CsvHelper.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\documentformat.openxml/2.5.0\\lib/DocumentFormat.OpenXml.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.visualstudio.ole.interop/16.7.30328.74\\lib/net45/Microsoft.VisualStudio.OLE.Interop.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OOXML.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OpenXml4Net.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OpenXmlFormats.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\sharpziplib/1.2.0\\lib/net45/ICSharpCode.SharpZipLib.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.4\\lib/net461/UiPath.Excel.Activities.Design.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.4\\lib/net461/UiPath.Excel.Activities.Package.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.4\\lib/net461/UiPath.Excel.Activities.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.4\\lib/net461/UiPath.Excel.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.10.4"
     },
     {
       "Package": {

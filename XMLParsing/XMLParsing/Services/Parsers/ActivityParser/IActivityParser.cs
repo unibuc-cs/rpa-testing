@@ -10,7 +10,7 @@ namespace XMLParsing.Services
         /**
          * Method should return a tuple formed by starting and ending node of the activity
          */
-        Tuple<Node, Node> ParseActivity(Activity activity, Graph workflow, WorkflowData workflowData);
+        Tuple<Node, Node> ParseActivity(Activity activity, Graph graph, WorkflowData workflowData);
 
     }
 }

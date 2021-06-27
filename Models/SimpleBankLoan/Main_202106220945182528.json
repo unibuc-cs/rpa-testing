@@ -89,7 +89,7 @@
       ]
     },
     "Main_1:Node_loanTest1_5": {
-      "expression": "loan >= 1000 AND loan < 100000",
+      "expression": "loan >= 1000 and loan < 100000",
       "transitions": [
         {
           "value": "True",
