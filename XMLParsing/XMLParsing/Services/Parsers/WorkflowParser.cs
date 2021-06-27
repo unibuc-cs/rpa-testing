@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xaml;
 using UiPath.Core.Activities;
+using UiPath.CSV.Activities;
 using XMLParsing.Common;
 using XMLParsing.Utils;
 
@@ -23,6 +24,9 @@ namespace XMLParsing.Services
             // UiPath.System.Activities
             LogMessage lm = new LogMessage();
             Assembly.LoadFrom(lm.GetType().Assembly.Location);
+
+            ReadCsvFile rcf = new ReadCsvFile();
+            Assembly.LoadFrom(rcf.GetType().Assembly.Location);
         }
 
         public static WorkflowParser Instance

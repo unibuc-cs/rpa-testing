@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using XMLParsing.Common;
+using XMLParsing.Utils;
 
 namespace XMLParsing.Services.Serializers
 {
@@ -24,7 +26,25 @@ namespace XMLParsing.Services.Serializers
 
         private IDictionary<string, object> GetWorkflowDataVariables(WorkflowData workflowData)
         {
-            IDictionary<string, object> variables = new Dictionary<string, object>();
+            IDictionary<string, object> variables = GetWorkflowArguments(workflowData);
+
+            foreach (var variable in workflowData.Variables)
+            {
+                IDictionary<string, object> variableData = new Dictionary<string, object>();
+                variableData.Add("Type", variable.Type.Name);
+                if(variable.Default != null)
+                {
+                    variableData.Add("Default", ExpressionUtils.TryParseExpression(variable.Default));
+                }
+                variables.Add(variable.Name, variableData);
+            }
+
+            return variables;
+        }
+
+        private IDictionary<string, object> GetWorkflowArguments(WorkflowData workflowData)
+        {
+            IDictionary<string, object> arguments = new Dictionary<string, object>();
             foreach (var dynamicActivityProperty in workflowData.Arguments)
             {
                 var name = dynamicActivityProperty.Name;
@@ -34,16 +54,31 @@ namespace XMLParsing.Services.Serializers
                     type = dynamicActivityProperty.Type.GetGenericArguments()[0].Name;
                 }
 
-                variables.Add(name, type);
+                IDictionary<string, object> argumentData = new Dictionary<string, object>();
+                argumentData.Add("Type", type);
+                if (dynamicActivityProperty.Value != null)
+                {
+                    argumentData.Add("Default", ExpressionUtils.TryParseExpression(dynamicActivityProperty.Value));
+                }
+
+                arguments.Add(name, argumentData);
 
             }
+            return arguments;
+        }
 
-            foreach (var variable in workflowData.Variables)
+        private string[] GetWorkflowInputArgumentsArray(WorkflowData workflowData)
+        {
+            List<string> inputArguments = new List<string>();
+            foreach (var dynamicActivityProperty in workflowData.Arguments)
             {
-                variables.Add(variable.Name, variable.Type.Name);
+                var name = dynamicActivityProperty.Name;
+                if(dynamicActivityProperty.Type.Name.Contains("In") && dynamicActivityProperty.Type.Name.Contains("Argument"))
+                {
+                    inputArguments.Add(name);
+                }
             }
-
-            return variables;
+            return inputArguments.ToArray();
         }
 
         private IDictionary<string, object> GetWorkflowData(WorkflowData workflowData)
@@ -51,6 +86,7 @@ namespace XMLParsing.Services.Serializers
             IDictionary<string, object> workflowDataMap = new Dictionary<string, object>();
 
             workflowDataMap.Add("variables", GetWorkflowDataVariables(workflowData));
+            workflowDataMap.Add("inputArguments", GetWorkflowInputArgumentsArray(workflowData));
             workflowDataMap.Add("displayName", workflowData.DisplayName);
             workflowDataMap.Add("fullPath", workflowData.FullPath);
             workflowDataMap.Add("invokedBy", workflowData.InvokedBy != null ? workflowData.InvokedBy : "");

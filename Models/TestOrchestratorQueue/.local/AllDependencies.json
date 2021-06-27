@@ -5173,9 +5173,9 @@
     "restore": {
       "projectUniqueName": "TestOrchestratorQueue",
       "projectName": "TestOrchestratorQueue",
-      "projectPath": "C:\\Users\\adelinas\\Documents\\UiPath\\TestOrchestratorQueue\\.local",
+      "projectPath": "C:\\GithubPhD\\rpa-testing\\Models\\TestOrchestratorQueue\\.local",
       "packagesPath": "C:\\Users\\adelinas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\adelinas\\Documents\\UiPath\\TestOrchestratorQueue\\.local"
+      "outputPath": "C:\\GithubPhD\\rpa-testing\\Models\\TestOrchestratorQueue\\.local"
     },
     "frameworks": {
       "net461": {

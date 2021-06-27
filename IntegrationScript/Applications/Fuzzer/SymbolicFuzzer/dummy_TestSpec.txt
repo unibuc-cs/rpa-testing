@@ -1,0 +1,5 @@
+{
+    "listOfWorkflows"   : ['dummyTest_Main.txt', 'dummyTest_PinCheck.txt'],
+    "entryTestNodeId"   : 'Main:node_loanTest0',
+    "mainWorkflowName"  : 'Main',
+}

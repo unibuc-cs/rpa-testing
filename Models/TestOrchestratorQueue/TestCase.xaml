@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="TestCase" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1398.4,2220" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sr="clr-namespace:System.Reflection;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uta="clr-namespace:UiPath.Testing.Activities;assembly=UiPath.Testing.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="TestCase" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="884.8,3271.2" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sr="clr-namespace:System.Reflection;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uta="clr-namespace:UiPath.Testing.Activities;assembly=UiPath.Testing.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="39">
       <x:String>System.Activities</x:String>
@@ -76,7 +76,7 @@
       <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Test case" sap:VirtualizedContainerService.HintSize="604.8,2055.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Test case" sap:VirtualizedContainerService.HintSize="770.4,3106.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Int32" Name="firstNumber" />
       <Variable x:TypeArguments="x:Int32" Name="secondNumber" />
@@ -94,14 +94,15 @@
       <Variable x:TypeArguments="njl:JObject" Name="test4" />
       <Variable x:TypeArguments="njl:JObject" Name="test5" />
       <Variable x:TypeArguments="njl:JObject" Name="repl" />
+      <Variable x:TypeArguments="scg:List(x:Object)" Name="testData" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:Comment sap:VirtualizedContainerService.HintSize="563.2,56" sap2010:WorkflowViewState.IdRef="Comment_1" Text="// Blank Test Case" />
-    <ui:ExcelApplicationScope Password="{x:Null}" AutoSave="False" CreateNewFile="False" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="563.2,52.8" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" InstanceCachePeriod="3000" Visible="False" Workbook="[wk]" WorkbookPath="testData.csv">
+    <ui:Comment sap:VirtualizedContainerService.HintSize="728.8,56" sap2010:WorkflowViewState.IdRef="Comment_1" Text="// Blank Test Case" />
+    <ui:ExcelApplicationScope Password="{x:Null}" AutoSave="False" CreateNewFile="False" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="728.8,362.4" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" InstanceCachePeriod="3000" Visible="False" Workbook="[wk]" WorkbookPath="testData.csv">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
@@ -132,19 +133,19 @@
       </ui:ExcelApplicationScope.Body>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ExcelApplicationScope>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="563.2,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="728.8,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info">
       <ui:LogMessage.Message>
         <InArgument x:TypeArguments="x:Object">
           <mva:VisualBasicValue x:TypeArguments="x:Object" ExpressionText="&quot;Reading input test data...&quot;" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_3" />
         </InArgument>
       </ui:LogMessage.Message>
     </ui:LogMessage>
-    <Sequence DisplayName="Given" sap:VirtualizedContainerService.HintSize="563.2,354.4" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence DisplayName="Given" sap:VirtualizedContainerService.HintSize="728.8,354.4" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -173,70 +174,65 @@
         </uta:AddTestDataQueueItem.QueueName>
       </uta:AddTestDataQueueItem>
     </Sequence>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="563.2,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Adding test data to the queue&quot;]" />
-    <uta:GetTestDataQueueItem DisplayName="Get Test Data Queue Item" sap:VirtualizedContainerService.HintSize="563.2,22.4" sap2010:WorkflowViewState.IdRef="GetTestDataQueueItem_1" Output="[itemQueue]" QueueName="testQueue" />
-    <Assign sap:VirtualizedContainerService.HintSize="563.2,60" sap2010:WorkflowViewState.IdRef="Assign_8">
-      <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[converter]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[JsonConvert.SerializeObject(itemQueue)]</InArgument>
-      </Assign.Value>
-    </Assign>
-    <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="563.2,60" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_8" JsonObject="[desss]" JsonString="[converter]" />
-    <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="563.2,287.2" sap2010:WorkflowViewState.IdRef="ForEach`1_7" Values="[desss]">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="728.8,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Adding test data to the queue&quot;]" />
+    <uta:GetTestDataQueueItem DisplayName="Get Test Data Queue Item" sap:VirtualizedContainerService.HintSize="728.8,22.4" sap2010:WorkflowViewState.IdRef="GetTestDataQueueItem_1" Output="[itemQueue]" QueueName="testQueue" />
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="var temp = in_queueItem[&quot;FilterDataTable&quot;] as Object[];&#xD;&#xA;out_testData = temp.ToList();" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="728.8,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
+      <ui:InvokeCode.Arguments>
+        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_queueItem">
+          <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="itemQueue" />
+        </InArgument>
+        <OutArgument x:TypeArguments="scg:List(x:Object)" x:Key="out_testData">
+          <mva:VisualBasicReference x:TypeArguments="scg:List(x:Object)" ExpressionText="testData" />
+        </OutArgument>
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
+    <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="728.8,648" sap2010:WorkflowViewState.IdRef="ForEach`1_8" Values="[testData]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="item" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="304,152.8" sap2010:WorkflowViewState.IdRef="Sequence_15">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="575.2,513.6" sap2010:WorkflowViewState.IdRef="Sequence_18">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_9">
-              <Assign.To>
-                <OutArgument x:TypeArguments="x:String">[test3]</OutArgument>
-              </Assign.To>
-              <Assign.Value>
-                <InArgument x:TypeArguments="x:String">[item.ToString]</InArgument>
-              </Assign.Value>
-            </Assign>
+            <ui:InvokeCode ContinueOnError="{x:Null}" Code="var temp = in_testDataItem as Dictionary&lt;string,object&gt;;&#xD;&#xA;out_firstNumber = Convert.ToInt32(temp[&quot;firstNumber&quot;]);&#xD;&#xA;out_secondNumber = Convert.ToInt32(temp[&quot;secondNumber&quot;]);&#xD;&#xA;out_expected = Convert.ToInt32(temp[&quot;expected&quot;]);" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="533.6,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_2" Language="CSharp">
+              <ui:InvokeCode.Arguments>
+                <OutArgument x:TypeArguments="x:Int32" x:Key="out_firstNumber">
+                  <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="firstNumber" />
+                </OutArgument>
+                <OutArgument x:TypeArguments="x:Int32" x:Key="out_secondNumber">
+                  <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="secondNumber" />
+                </OutArgument>
+                <OutArgument x:TypeArguments="x:Int32" x:Key="out_expected">
+                  <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="expected" />
+                </OutArgument>
+                <InArgument x:TypeArguments="x:Object" x:Key="in_testDataItem">
+                  <mva:VisualBasicValue x:TypeArguments="x:Object" ExpressionText="item" />
+                </InArgument>
+              </ui:InvokeCode.Arguments>
+            </ui:InvokeCode>
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Sum workflow" sap:VirtualizedContainerService.HintSize="533.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Sum.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:Int32" x:Key="firstNumber">
+                  <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="firstNumber" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="secondNumber">
+                  <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="secondNumber" />
+                </InArgument>
+                <OutArgument x:TypeArguments="x:Int32" x:Key="sum">
+                  <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="sum" />
+                </OutArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" DisplayName="Verify Expression" Expression="[sum=expected]" sap:VirtualizedContainerService.HintSize="533.6,62.4" sap2010:WorkflowViewState.IdRef="VerifyExpression_2" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
           </Sequence>
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="563.2,231.2" sap2010:WorkflowViewState.IdRef="CommentOut_6">
-      <ui:CommentOut.Body>
-        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="304,152.8" sap2010:WorkflowViewState.IdRef="Sequence_16">
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-          <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_11">
-            <Assign.To>
-              <OutArgument x:TypeArguments="x:String">[test3]</OutArgument>
-            </Assign.To>
-            <Assign.Value>
-              <InArgument x:TypeArguments="x:String">[test3.Replace(Chr(34),"'")]</InArgument>
-            </Assign.Value>
-          </Assign>
-        </Sequence>
-      </ui:CommentOut.Body>
-    </ui:CommentOut>
-    <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="563.2,60" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_10" JsonObject="[repl]" JsonString="[test3]" />
-    <Assign sap:VirtualizedContainerService.HintSize="563.2,60" sap2010:WorkflowViewState.IdRef="Assign_10">
-      <Assign.To>
-        <OutArgument x:TypeArguments="njl:JObject">[test5]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="njl:JObject">[JObject.Parse(test3)]</InArgument>
-      </Assign.Value>
-    </Assign>
-    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="563.2,52.8" sap2010:WorkflowViewState.IdRef="CommentOut_3">
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="728.8,900" sap2010:WorkflowViewState.IdRef="CommentOut_3">
       <ui:CommentOut.Body>
         <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="693.6,821.6" sap2010:WorkflowViewState.IdRef="Sequence_10">
           <sap:WorkflowViewStateService.ViewState>
@@ -300,7 +296,7 @@
       </ui:CommentOut.Body>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>

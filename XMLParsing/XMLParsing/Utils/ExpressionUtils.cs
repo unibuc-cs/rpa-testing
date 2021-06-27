@@ -18,6 +18,12 @@ namespace XMLParsing.Utils
                 return t2;
             }
 
+            string t3 = TryParseValue(operand);
+            if (t3 != null)
+            {
+                return t3;
+            }
+
             return "";
         }
 
@@ -45,6 +51,29 @@ namespace XMLParsing.Utils
                 // Test string expression
                 var expressionAct = expression as System.Activities.Activity<string>;
                 if(expressionAct != null)
+                {
+                    // This means the expression is a string
+                    res = "\"" + res + "\"";
+                }
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+        private static string TryParseValue(object operand)
+        {
+            try
+            {
+                var dsplayName = ReflectionHelpers.CallMethod(operand, "get_DisplayName");
+                var res = ReflectionHelpers.CallMethod(operand, "get_Value").ToString();
+
+                // Test string expression
+                if (dsplayName.ToString().ToLower().Contains("string"))
                 {
                     // This means the expression is a string
                     res = "\"" + res + "\"";
