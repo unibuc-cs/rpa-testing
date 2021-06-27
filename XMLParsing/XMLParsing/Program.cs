@@ -51,8 +51,8 @@ namespace XMLParsing
                 Console.WriteLine(ex.StackTrace);
             }
 
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadLine();
+            // Console.WriteLine("Press any key to exit...");
+            // Console.ReadLine();
 
         }
 
