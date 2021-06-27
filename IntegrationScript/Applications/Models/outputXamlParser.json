@@ -2,21 +2,6 @@
   "workflows": [
     {
       "variables": {
-        "in_pin_should_be_correct": "Boolean",
-        "out_pin_check_successful": "Boolean",
-        "local_number_retries": "Int32",
-        "local_pin_test": "Boolean"
-      },
-      "inputArguments": [
-        "in_pin_should_be_correct"
-      ],
-      "displayName": "PinCheckWorkflow_v1_1",
-      "fullPath": "C:\\UiPath\\rpa-testing\\IntegrationScript\\Applications\\Models\\PinCheckWorkflow_v2.xaml",
-      "invokedBy": "Create_Loan_Process_1",
-      "startNode": "PinCheckWorkflow_v1_1:CheckPin_11"
-    },
-    {
-      "variables": {
         "loan": "Int32",
         "term": "Int32",
         "pin_should_be_correct": "Boolean",
@@ -31,7 +16,7 @@
         "pin_should_be_correct"
       ],
       "displayName": "Create_Loan_Process_1",
-      "fullPath": "C:\\UiPath\\rpa-testing\\IntegrationScript\\Applications\\Models\\Create Loan Process - With Invoked Pin Check_v2.xaml",
+      "fullPath": "C:\\GithubPhD\\rpa-testing\\IntegrationScript\\Applications\\XMLParser\\Applications\\Models\\Create Loan Process - With Invoked Pin Check_v2.xaml",
       "invokedBy": "",
       "startNode": "Create_Loan_Process_1:Node_loanTest0_1"
     }
@@ -183,7 +168,7 @@
     "Create_Loan_Process_1:Invoke_Pin_Check_26": {
       "expression": "",
       "invokedWorkflow": "PinCheckWorkflow_v2.xaml",
-      "invokedWorkflowDisplayName": "PinCheckWorkflow_v1_1",
+      "invokedWorkflowDisplayName": null,
       "variableMappings": [
         {
           "destinationWfArg": "in_pin_should_be_correct",
@@ -196,134 +181,7 @@
           "sourceWfValue": "pin_check_successful"
         }
       ],
-      "transitions": [
-        {
-          "value": "True",
-          "destination": "PinCheckWorkflow_v1_1:CheckPin_11"
-        }
-      ]
-    },
-    "PinCheckWorkflow_v1_1:Assign_3": {
-      "expression": "",
-      "variableAssignments": {
-        "to": "out_pin_check_successful",
-        "value": "False"
-      },
-      "transitions": [
-        {
-          "value": "True",
-          "destination": "PinCheckWorkflow_v1_1:Virtual_Flowchart_End_20"
-        }
-      ]
-    },
-    "PinCheckWorkflow_v1_1:CheckRetryTest_4": {
-      "expression": "local_number_retries < 3",
-      "transitions": [
-        {
-          "value": "True",
-          "destination": "PinCheckWorkflow_v1_1:CheckPin_11"
-        },
-        {
-          "value": "False",
-          "destination": "PinCheckWorkflow_v1_1:Assign_3"
-        }
-      ]
-    },
-    "PinCheckWorkflow_v1_1:Assign_9": {
-      "expression": "",
-      "variableAssignments": {
-        "to": "out_pin_check_successful",
-        "value": "True"
-      },
-      "transitions": [
-        {
-          "value": "True",
-          "destination": "PinCheckWorkflow_v1_1:Virtual_Flowchart_End_20"
-        }
-      ]
-    },
-    "PinCheckWorkflow_v1_1:pinTest0_10": {
-      "expression": "local_pin_test = true",
-      "transitions": [
-        {
-          "value": "True",
-          "destination": "PinCheckWorkflow_v1_1:Assign_9"
-        },
-        {
-          "value": "False",
-          "destination": "PinCheckWorkflow_v1_1:CheckRetryTest_4"
-        }
-      ]
-    },
-    "PinCheckWorkflow_v1_1:CheckPin_11": {
-      "expression": "",
-      "transitions": [
-        {
-          "value": "True",
-          "destination": "PinCheckWorkflow_v1_1:If_13"
-        }
-      ]
-    },
-    "PinCheckWorkflow_v1_1:If_13": {
-      "expression": "in_pin_should_be_correct = True",
-      "transitions": [
-        {
-          "value": "True",
-          "destination": "PinCheckWorkflow_v1_1:Assign_15"
-        },
-        {
-          "value": "False",
-          "destination": "PinCheckWorkflow_v1_1:Assign_16"
-        }
-      ]
-    },
-    "PinCheckWorkflow_v1_1:Assign_15": {
-      "expression": "",
-      "variableAssignments": {
-        "to": "local_pin_test",
-        "value": "True"
-      },
-      "transitions": [
-        {
-          "value": "True",
-          "destination": "PinCheckWorkflow_v1_1:Assign_17"
-        }
-      ]
-    },
-    "PinCheckWorkflow_v1_1:Assign_16": {
-      "expression": "",
-      "variableAssignments": {
-        "to": "local_pin_test",
-        "value": "False"
-      },
-      "transitions": [
-        {
-          "value": "True",
-          "destination": "PinCheckWorkflow_v1_1:Assign_17"
-        }
-      ]
-    },
-    "PinCheckWorkflow_v1_1:Assign_17": {
-      "expression": "",
-      "variableAssignments": {
-        "to": "local_number_retries",
-        "value": "local_number_retries + 1"
-      },
-      "transitions": [
-        {
-          "value": "True",
-          "destination": "PinCheckWorkflow_v1_1:pinTest0_10"
-        }
-      ]
-    },
-    "PinCheckWorkflow_v1_1:Virtual_Flowchart_End_20": {
-      "expression": "",
-      "transitions": [
-        {
-          "value": "True",
-          "destination": "Create_Loan_Process_1:CheckedPin_25"
-        }
-      ]
+      "transitions": []
     },
     "Create_Loan_Process_1:Virtual_Flowchart_End_27": {
       "expression": "",

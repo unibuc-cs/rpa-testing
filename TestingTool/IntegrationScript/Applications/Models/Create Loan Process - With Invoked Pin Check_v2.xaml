@@ -4,7 +4,6 @@
     <x:Property Name="term" Type="InArgument(x:Int32)" />
     <x:Property Name="pin_should_be_correct" Type="InArgument(x:Boolean)" />
     <x:Property Name="obtained_result" Type="OutArgument(x:String)" />
-    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -75,7 +74,6 @@
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
       <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Flowchart DisplayName="Create_Loan_Process" sap:VirtualizedContainerService.HintSize="2444,1472.8" sap2010:WorkflowViewState.IdRef="Flowchart_1">
@@ -305,14 +303,10 @@
                       <av:PointCollection x:Key="ConnectorLocation">770,429.933333333333 677.5,429.933333333333 677.5,456.5</av:PointCollection>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Pin Check" sap:VirtualizedContainerService.HintSize="378.4,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="[in_Config(&quot;RobotModelFullPath&quot;).ToString+&quot;\PinCheckWorkflow_v2.xaml&quot;]">
+                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Pin Check" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="PinCheckWorkflow_v2.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
-                      <InArgument x:TypeArguments="x:Boolean" x:Key="in_pin_should_be_correct">
-                        <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="pin_should_be_correct" />
-                      </InArgument>
-                      <OutArgument x:TypeArguments="x:Boolean" x:Key="out_pin_check_successful">
-                        <mva:VisualBasicReference x:TypeArguments="x:Boolean" ExpressionText="pin_check_successful" />
-                      </OutArgument>
+                      <InArgument x:TypeArguments="x:Boolean" x:Key="in_pin_should_be_correct">[pin_should_be_correct]</InArgument>
+                      <OutArgument x:TypeArguments="x:Boolean" x:Key="out_pin_check_successful">[pin_check_successful]</OutArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">

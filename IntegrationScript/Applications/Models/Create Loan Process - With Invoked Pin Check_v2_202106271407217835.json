@@ -5,9 +5,9 @@
         "loan": "Int32",
         "term": "Int32",
         "pin_should_be_correct": "Boolean",
+        "obtained_result": "String",
         "loan_type": "String",
         "term_type": "String",
-        "obtained_result": "String",
         "pin_check_successful": "Boolean"
       },
       "inputArguments": [
@@ -83,7 +83,7 @@
       "transitions": [
         {
           "value": "True",
-          "destination": "Create_Loan_Process_1:Invoke_Pin_Check_25"
+          "destination": "Create_Loan_Process_1:Invoke_Pin_Check_26"
         }
       ]
     },
@@ -135,11 +135,24 @@
       "transitions": [
         {
           "value": "True",
-          "destination": "Create_Loan_Process_1:Virtual_Flowchart_End_26"
+          "destination": "Create_Loan_Process_1:Virtual_Flowchart_End_27"
         }
       ]
     },
-    "Create_Loan_Process_1:CheckedPin_24": {
+    "Create_Loan_Process_1:Assign_24": {
+      "expression": "",
+      "variableAssignments": {
+        "to": "obtained_result",
+        "value": "\"\""
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Create_Loan_Process_1:Virtual_Flowchart_End_27"
+        }
+      ]
+    },
+    "Create_Loan_Process_1:CheckedPin_25": {
       "expression": "pin_check_successful = True",
       "transitions": [
         {
@@ -148,13 +161,13 @@
         },
         {
           "value": "False",
-          "destination": "Create_Loan_Process_1:Virtual_Flowchart_End_26"
+          "destination": "Create_Loan_Process_1:Assign_24"
         }
       ]
     },
-    "Create_Loan_Process_1:Invoke_Pin_Check_25": {
+    "Create_Loan_Process_1:Invoke_Pin_Check_26": {
       "expression": "",
-      "invokedWorkflow": "UAT\\PinCheckWorkflow_v2.xaml",
+      "invokedWorkflow": "PinCheckWorkflow_v2.xaml",
       "invokedWorkflowDisplayName": null,
       "variableMappings": [
         {
@@ -170,7 +183,7 @@
       ],
       "transitions": []
     },
-    "Create_Loan_Process_1:Virtual_Flowchart_End_26": {
+    "Create_Loan_Process_1:Virtual_Flowchart_End_27": {
       "expression": "",
       "transitions": []
     }
