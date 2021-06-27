@@ -22,6 +22,6 @@
 "PinCheckWorkflow_v1_1:Assign_17": (None, "PinCheckWorkflow_v1_1:pinTest0_10", [("V['PinCheckWorkflow_v1_1:local_number_retries']", "V['PinCheckWorkflow_v1_1:local_number_retries'] + 1")]),
 "PinCheckWorkflow_v1_1:Virtual_Flowchart_End_20": (None, "Create_Loan_Process_1:CheckedPin_24", []),
 "Create_Loan_Process_1:Virtual_Flowchart_End_26": (None,None, [])},
- "debugColors": "{'PinCheckWorkflow_v1_1': 'yellow', 'Create_Loan_Process_1': 'red'}",
+ "debugColors": "{'PinCheckWorkflow_v1_1': 'blue', 'Create_Loan_Process_1': 'orange'}",
  "startNode": "Create_Loan_Process_1:Node_loanTest0_1",
  "mainWorkflowName": "Create_Loan_Process_1" }

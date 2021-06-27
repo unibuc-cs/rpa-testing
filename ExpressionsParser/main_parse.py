@@ -199,6 +199,9 @@ class GenericCallparsing(ast.NodeVisitor):
         ast.NodeVisitor.generic_visit(self, node)
         self.params.append(node.id)
 
+    def visit_Num(self, node: Num) -> Any:
+        self.params.append(node.value)
+
 
 class FindFuncs(ast.NodeVisitor):
     def visit_Call(self, node):

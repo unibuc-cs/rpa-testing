@@ -29,6 +29,7 @@ Note: In a production environment, probably you could put -loggingEnabled 0 and 
 # pip install pygraphviz
 import ast
 import argparse
+import os
 
 #from py_expression_eval import Parser # Not used at the moment but might be good !
 #parser = Parser()
