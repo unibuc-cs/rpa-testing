@@ -36,7 +36,9 @@ Steps to configure and run TestingTool:
 
 3. Set your paths in configuration file from TestingTool\Applications\Models\ConfigurationFile.
 
-4. Go to TestingTool\Applications\Models
+4. Set a test data queue in orchestrator to be able to run TestCaseWithQueue.xaml and make sure the name of the queue is also set in the configuration file. 
+
+5. Go to TestingTool\Applications\Models
 
    And in order to see the test coverage, run one of the following in the debug mode:
    
