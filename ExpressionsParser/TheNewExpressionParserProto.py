@@ -50,13 +50,19 @@ class GenericCallsParsing(ast.NodeVisitor):
         ast.NodeVisitor.generic_visit(self, node)
         self.params.append(node.id)
 
-
+#  Base class for all nodes
 class ASTFuzzerNode:
     def __init__(self, type : ASTFuzzerNodeType):
         self.type : ASTFuzzerNodeType = type
 
     def isMarkerNode(self) -> bool:
         return self.type == ASTFuzzerNodeType.MARKER
+
+# Attribute data. currently a pair of node and string to processes easier in some cases
+class AttributeData:
+    def __init__(self, node : ASTFuzzerNode, name : str):
+        self.node = node
+        self.name = name
 
 class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
     """ E.g.
@@ -96,15 +102,15 @@ class ASTFuzzerNode_Name(ASTFuzzerNode):
 class ASTFuzzerNode_Attribute(ASTFuzzerNode):
     def __init__(self):
         super().__init__(ASTFuzzerNodeType.ATTRIBUTE)
-        self.names : List[str] = [] # A list of attribute names expected ???
+        self.listOfAttributesData : List[AttributeData] = [] # A list of attribute names expected ???
 
     def addOther(self, other):
         if isinstance(other, ASTFuzzerNode_Attribute):
-            self.names.extend(other.names)
+            self.listOfAttributesData.extend(other.listOfAttributesData)
         elif isinstance(other, ASTFuzzerNode_Name):
-            self.names.append(other.name)
+            self.listOfAttributesData.append(AttributeData(node=other, name=other.name))
         elif isinstance(other, ASTFuzzerNode_Variable):
-            self.names.append(other.variableName)
+            self.listOfAttributesData.appendAttributeData(node=other, name=other.variableName)
         else:
             assert False
 
@@ -180,7 +186,7 @@ class ASTFuzzerNode_Call(ASTFuzzerNode):
     def __init__(self):
         super().__init__(ASTFuzzerNodeType.CALL_FUNC)
 
-        self.attributes : List[str] # The list of attributes used before call name
+        self.attributes : List[AttributeData] # The list of attributes used before call name
         self.funcCallName : str # the function being invoked by the list of attributes above
         self.args : List[ASTFuzzerNode] = [] # The argument nodes
 
@@ -300,13 +306,18 @@ class MainWorkflowParser(ast.NodeVisitor):
             self.tryPopMarker(markerId)
             break
 
-        attrNode.names.append(node.attr)
+        attrNode.listOfAttributesData.append(AttributeData(node=attrNode, name=node.attr))
         self.stackNode(attrNode)
 
     def visit_Name(self, node : ast.Name):
         nameNode = ASTFuzzerNode_Name()
         nameNode.name = node.id
         self.stackNode(nameNode)
+
+    def visit_Str(self, node: ast.Str) -> Any:
+        strConstantNode = ASTFuzzerNode_ConstantString(node.s)
+        strConstantNode.value = node.s
+        self.stackNode(strConstantNode)
 
     # CHECK END #########
 
@@ -331,10 +342,17 @@ class MainWorkflowParser(ast.NodeVisitor):
                 funcCallNode.attributes = []
             elif isinstance(topNode, ASTFuzzerNode_Attribute):
                 attrNode : ASTFuzzerNode_Attribute = self.popNode()
-                funcCallNode.funcCallName = attrNode.names[-1]
-                funcCallNode.attributes = attrNode.names[:-1]
+                lastAttrInList : AttributeData = attrNode.listOfAttributesData[-1]
+                assert isinstance(lastAttrInList.node, ASTFuzzerNode_Name), "I was expecting a name for function call !"
+
+                funcCallNode.funcCallName = attrNode.listOfAttributesData[-1].name
+                funcCallNode.attributes = attrNode.listOfAttributesData[:-1]
+            elif isinstance(topNode, ASTFuzzerNode_Variable):
+                nameNode: ASTFuzzerNode_Variable = self.popNode()
+                funcCallNode.funcCallName = nameNode.variableName
+                funcCallNode.attributes = []
             else:
-                assert False ,"Unkown case"
+                assert False,f"Unkown case {type(topNode)}"
             break
 
         funcCallNode.args = []
@@ -395,44 +413,70 @@ class DataStore:
 
 # This class will be responsible for the execution of ASTFuzzer nodes
 class ASTFuzzerNodeExecutor:
-    def __init__(self, DS : DataStore):
+    def __init__(self, DS : DataStore, ExternalCallsDict : DictionaryOfExternalCalls):
         self.DS = DS
+        self.ExternalCallsDict = ExternalCallsDict
 
     def executeNode(self, node : ASTFuzzerNode):
         if isinstance(node, ASTFuzzerNode_Call):
             args : List[ASTFuzzerNode] = node.args
             funcName : str = node.funcCallName
-            attributes : List[str] = node.attributes
+            attributes : List[AttributeData] = node.attributes
+
+            # First, arguments list parse and execute
             args_values = [self.executeNode(argNode) for argNode in args]
 
-            # We have a sequence of attributes, so we must check what are the types behind first
-            if len(attributes) > 0:
-                pass
-            else:
-                pass
+            # Then call the functor
+            self._executeNode_FuncCall(funcName=funcName, funcAttrs=attributes, args=args_values)
+
         elif isinstance(node, ASTFuzzerNode_VariableDecl):
             self.DS.addVariable(node)
             return None
         elif isinstance(node, list):
             for exprNode in node:
                 self.executeNode(exprNode)
+
+        elif isinstance(node, (ASTFuzzerNode_ConstantString, ASTFuzzerNode_ConstantInt, ASTFuzzerNode_ConstantReal)):
+            value = node.value
+            return value
         else:
             raise NotImplementedError("This is not supported yet")
 
+    def _executeNode_FuncCall(self, funcName : str, funcAttrs : List[AttributeData], args : List[any]):
+        # No attribute object, global function call
+        if len(funcAttrs) == 0:
+            functorToCall = self.ExternalCallsDict.getFunctor(funcName)
+            functorToCall(*funcAttrs)
+        # The case where there are multiple objects invoked before call
+        else:
+            pass
 
 def unitTest1():
-    DS = DataStore()
-    astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(DS)
+    # Init the base objects
+    dataStore = DataStore()
+    externalFunctionsDict = DictionaryOfExternalCalls()
+    astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(dataStore, externalFunctionsDict)
+    ourMainWorkflowParser = MainWorkflowParser()
+
+    # Call a simple print function registered externally
+    code_block = "PrettyPrint(\"the value of variable is \", myStr)"
+    code_block = ast.parse(code_block)
+    ourMainWorkflowParser.visit(code_block)
+    result: List[ASTFuzzerNode] = ourMainWorkflowParser.getFinalOutput()
+    astFuzzerNodeExecutor.executeNode(result)
+
+    return
 
     # Declare a variable
     varDecl1 = ASTFuzzerNode_VariableDecl(varName="myStr", typeName='Int32', defaultVal="123")
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Test code: Convert it to string, then to integer, then to float
-    code_block = "float.Parse(Int32.Parse(varName.ToString()))"
+    code_block = "float.Parse(Int32.Parse(myStr.ToString()))"
+    code_block = "myStr.ToString()"
     code_block = ast.parse(code_block)
 
-    ourMainWorkflowParser = MainWorkflowParser()
+
     ourMainWorkflowParser.visit(code_block)
     result: List[ASTFuzzerNode] = ourMainWorkflowParser.getFinalOutput()
 

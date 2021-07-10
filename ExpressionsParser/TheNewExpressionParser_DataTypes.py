@@ -1,15 +1,18 @@
 import sys
 import pandas as pd
 
-"""
+# From str to API object
+def str2Class(str):
+    return getattr(sys.modules[__name__], str)
+
 # An Object kind of thing that has a value and can be converted to values
 # Purpose to call obj.ToString() and some others
 class ObjectValue:
-	def __init__(self. value):
-		self.value = value 
-	
-	def ToString():
-"""
+	def __init__(self, value):
+		self.value = value
+
+	def ToString(self):
+		return str(self.value)
 
 ######### # Data tables default logic
 class DataTable_Column:
