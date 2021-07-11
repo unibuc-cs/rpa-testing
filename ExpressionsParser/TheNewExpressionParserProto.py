@@ -72,10 +72,10 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
     },
     """
     # Will put the variabile in the datastore
-    def __init__(self, varName : str, typeName : str, defaultVal : str = None):
+    def __init__(self, varName : str, typeName : str, **kwargs):
         super().__init__(ASTFuzzerNodeType.VARIABLE_DECL)
         self.typeName = typeName
-        self.value = defaultVal
+        self.value = kwargs['defaultVal'] if 'defaultVal' in kwargs else None
         self.varName = varName
 
         if typeName == "Int32":
@@ -83,7 +83,9 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
         elif typeName == 'Boolean':
             self.value = False if (self.value == 'false' or self.value == 'False' or int(self.value) == 0) else True
         elif typeName == "DataTable":
-            self.value = DataTable()
+            lazyLoad = True if 'lazyLoad' not in kwargs else kwargs['lazyLoad']
+            path = None if 'path' not in kwargs else kwargs['path']
+            self.value = DataTable(path=path, lazyLoad=lazyLoad)
         elif typeName == "Float":
             pass
         else:
@@ -111,6 +113,8 @@ class ASTFuzzerNode_Attribute(ASTFuzzerNode):
             self.listOfAttributesData.append(AttributeData(node=other, name=other.name))
         elif isinstance(other, ASTFuzzerNode_Variable):
             self.listOfAttributesData.append(AttributeData(node=other, name=other.variableName))
+        elif isinstance(other, ASTFuzzerNode_Call):
+            self.listOfAttributesData.append(AttributeData(node=other, name=other.funcCallName))
         else:
             assert False
 
@@ -508,7 +512,7 @@ class ASTFuzzerNodeExecutor:
                     continue
 
                 assert isinstance(attData, AttributeData)
-                assert currObject.hasattr(attData.name), f"Object {currObject} of type {type(currObject)} doesn't have an attribute named {attData.name} as requested"
+                #assert currObject.hasattr(attData.name), f"Object {currObject} of type {type(currObject)} doesn't have an attribute named {attData.name} as requested"
                 attrToCallOnObject = getattr(currObject, attData.name)
                 currObject = attrToCallOnObject()
 
@@ -525,7 +529,6 @@ class ASTFuzzerNodeExecutor:
 
         return result
 
-
 def unitTest1():
     # Init the base objects
     dataStore = DataStore()
@@ -534,7 +537,9 @@ def unitTest1():
     ourMainWorkflowParser = MainWorkflowParser()
 
     # Declare a variable
-    varDecl1 = ASTFuzzerNode_VariableDecl(varName="myStr", typeName='Int32', defaultVal="123")
+    varDecl1 = ASTFuzzerNode_VariableDecl("myStr",
+                                          'Int32',
+                                          defaultVal=123)
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Call a simple print function registered externally
@@ -554,7 +559,7 @@ def unitTest2():
     ourMainWorkflowParser.reset()
 
     # Declare a variable
-    varDecl1 = ASTFuzzerNode_VariableDecl(varName="myStr", typeName='Int32', defaultVal="123")
+    varDecl1 = ASTFuzzerNode_VariableDecl("myStr", 'Int32', defaultVal=123)
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Test code: Convert it to string, then to integer, then to float
@@ -577,11 +582,11 @@ def unitTest3():
     ourMainWorkflowParser = MainWorkflowParser()
 
     # Declare a variable
-    varDecl1 = ASTFuzzerNode_VariableDecl(varName="local_test_data", typeName='DataTable')
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName="local_test_data", typeName='DataTable', lazyLoad=False, path="pin_mocked_data.csv")
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Call a simple print function registered externally
-    code_block = "PrettyPrint(\"the value of variable is \", myStr)"
+    code_block = "PrettyPrint(Int32.Parse(local_test_data.Rows.Item(0).Item(\"Pin:expected_pin\").ToString()))"
     result: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block)
     astFuzzerNodeExecutor.executeNode(result)
 
@@ -589,8 +594,8 @@ def unitTest3():
 
 
 if __name__ == '__main__':
-    unitTest1()
-    unitTest2()
+    #unitTest1()
+    #unitTest2()
     unitTest3()
     sys.exit(0)
 

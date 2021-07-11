@@ -54,6 +54,9 @@ class DataTable_Column:
 		else:
 			raise NotImplementedError("Not supported")
 
+	def __call__(self):
+		return self
+
 # Data table row access
 class DataTable_Row:
 	def __init__(self, data):
@@ -67,12 +70,18 @@ class DataTable_Row:
 		else:
 			raise NotImplementedError("Not supported")
 
+	def __call__(self):
+		return self
+
 class DataTable_RowsView:
 	def __init__(self, data):
 		self.data : pd.DataFrame = data
 
 	def Item(self, index) -> DataTable_Row:
 		return DataTable_Row(self.data.iloc[index])
+
+	def __call__(self):
+		return self
 
 
 class DataTable_ColumnsView:
@@ -82,12 +91,19 @@ class DataTable_ColumnsView:
 	def Item(self, index) -> DataTable_Column:
 		return DataTable_Column(self.data[index])
 
+	def __call__(self):
+		return self
+
 class DataTable:
-	def __init__(self, path, lazyLoad=True):
-		self.path = path
+	def __init__(self, **kwargs):
+		self.path = kwargs["path"]
 		self.data = None
-		if not lazyLoad:
+		self.lazyLoad = kwargs["lazyLoad"]
+		if not self.lazyLoad:
 			self.__load()
+
+	def __call__(self):
+		return self
 
 	# This should be called when using the lazy load to check data is loaded or not
 	def _checkInit(self):
