@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Activities;
+using System.Activities.Presentation.Annotations;
 using UiPath.CSV.Activities;
 using XMLParsing.Common;
 using XMLParsing.Common.NodeExtensions;
@@ -7,9 +8,9 @@ using XMLParsing.Utils;
 
 namespace XMLParsing.Services.Parsers.ActivityParser
 {
-    class ReadCsvFileActivityParser : IActivityParser
+    class ReadCsvFileActivityParser : DefaultActivityParser
     {
-        public Tuple<Node, Node> ParseActivity(Activity activity, Graph graph, WorkflowData workflowData)
+        public override Tuple<Node, Node> ParseImplementation(Activity activity, Graph graph, WorkflowData workflowData)
         {
             Node node = ActivityUtils.CreateSimpleNodeFromActivity(activity, workflowData.DisplayName);
             ReadCsvFileNode assignNode = new ReadCsvFileNode(node);

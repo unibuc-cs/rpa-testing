@@ -6,9 +6,9 @@ using XMLParsing.Utils;
 
 namespace XMLParsing.Services.Parsers.ActivityParser
 {
-    class IfActivityParser : IActivityParser
+    class IfActivityParser : DefaultActivityParser
     {
-        public Tuple<Node, Node> ParseActivity(Activity activity, Graph graph, WorkflowData workflowData)
+        public override Tuple<Node, Node> ParseImplementation(Activity activity, Graph graph, WorkflowData workflowData)
         {
             If ifActivity = activity as If;
 

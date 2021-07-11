@@ -25,10 +25,7 @@ namespace XMLParsing.Common.NodeExtensions
 
         public override void AddAdditionalNodeInformation(IDictionary<string, object> nodeInformation)
         {
-            IDictionary<string, string> assigninfo = new Dictionary<string, string>();
-            assigninfo.Add("to", To);
-            assigninfo.Add("value", Value);
-            nodeInformation.Add("variableAssignments", assigninfo);
+            nodeInformation.Add("expression", To + " = " + Value);
         }
 
     }

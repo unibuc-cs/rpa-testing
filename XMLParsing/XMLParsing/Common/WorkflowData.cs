@@ -16,6 +16,8 @@ namespace XMLParsing.Common
 
         public Node EndNode { get; set; }
 
+        public string VariablesAnnotation { get; set; }
+
         public List<Variable> Variables { get; set; }
 
         public List<DynamicActivityProperty> Arguments { get; set; }

@@ -7,9 +7,9 @@ using XMLParsing.Utils;
 
 namespace XMLParsing.Services.Parsers.ActivityParser
 {
-    class AssignActivityParser : IActivityParser
+    class AssignActivityParser : DefaultActivityParser
     {
-        public Tuple<Node, Node> ParseActivity(Activity activity, Graph graph, WorkflowData workflowData)
+        public override Tuple<Node, Node> ParseImplementation(Activity activity, Graph graph, WorkflowData workflowData)
         {
             Node node = ActivityUtils.CreateSimpleNodeFromActivity(activity, workflowData.DisplayName);
             AssignWfNode assignNode = new AssignWfNode(node);
