@@ -22,7 +22,9 @@
         "actual_pin_values": {
           "Type": "Int32[]",
           "Annotation": {
-            "bounds": 10
+            "bounds": 10,
+            "min": 0,
+            "max": 9999
           }
         },
         "local_test_data_expected": {
@@ -298,7 +300,7 @@
     },
     "Pin_1:Read_CSV_21": {
       "additional_info": {
-        "expression": "local_test_data_expected = ReadCsv(\"pin_mocked_data.csv\")"
+        "expression": "local_test_data_expected = LoadCSV(\"pin_mocked_data.csv\")"
       },
       "transitions": [
         {
@@ -318,7 +320,7 @@
     },
     "Pin_1:Read_CSV_24": {
       "additional_info": {
-        "expression": "local_test_data_actual = ReadCsv(\"pin_real_data.csv\")"
+        "expression": "local_test_data_actual = LoadCSV(\"pin_real_data.csv\")"
       },
       "transitions": [
         {
