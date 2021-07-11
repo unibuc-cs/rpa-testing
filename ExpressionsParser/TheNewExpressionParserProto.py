@@ -26,6 +26,7 @@ class ASTFuzzerNodeType(Enum):
     NAME=13
     MARKER = 14
     VARIABLE_DECL = 15
+    ASSIGNMENT = 16
 
 class ASTFuzzerComparator(Enum):
     COMP_LT = 1
@@ -117,6 +118,12 @@ class ASTFuzzerNode_Attribute(ASTFuzzerNode):
             self.listOfAttributesData.append(AttributeData(node=other, name=other.funcCallName))
         else:
             assert False
+
+class ASTFuzzerNode_Assignment(ASTFuzzerNode):
+    def __init__(self):
+        super().__init__(ASTFuzzerNodeType.ASSIGNMENT)
+        self.leftTerm: ASTFuzzerNode = None
+        self.rightTerm: ASTFuzzerNode = None
 
 class ASTFuzzerNode_MathUnary(ASTFuzzerNode):
     def __init__(self):
@@ -287,7 +294,7 @@ class MainWorkflowParser(ast.NodeVisitor):
         self.expectedNumExpressions = len(node.body)
 
         for exprNode in node.body:
-            assert isinstance(exprNode, ast.Expr)
+            assert isinstance(exprNode, ast.Expr) or isinstance(exprNode, ast.Assign)
             self.visit(exprNode)
 
         #self.tryPopMarker(markerId)
@@ -390,7 +397,24 @@ class MainWorkflowParser(ast.NodeVisitor):
         self.stackNode(nameVar)
 
     def visit_Assign(self, node: ast.Assign) -> Any:
-        pass
+        markerId = self.pushStartMarker()
+
+        # Parse the node elements
+        self.visit(node.targets[0])
+        self.visit(node.value)
+
+        # Now pop the needed element from stack and fill them.
+        rightTerm = self.popNode()
+        leftTerm = self.popNode()
+        self.tryPopMarker(markerId)
+
+        # expected semantic: marker + leftTerm + comparator + rightTerm
+        assignNode = ASTFuzzerNode_Assignment()
+        assignNode.leftTerm = leftTerm
+        assignNode.rightTerm = rightTerm
+
+        # Get back and fill the compare node
+        self.stackNode(assignNode)
 
     def visit_And(self, node: ast.And) -> Any:
         pass
@@ -477,6 +501,26 @@ class ASTFuzzerNodeExecutor:
             # This could be either a real variabile inside dictionary or just a global API name object
             object = self._getObjectInstanceByName(node)
             return object
+        elif isinstance(node, ASTFuzzerNode_Assignment):
+            # Check left and right therms, evaluate them
+            leftTerm = node.leftTerm
+            rightTerm = node.rightTerm
+            assert isinstance(leftTerm, (ASTFuzzerNode_Variable, ASTFuzzerNode_Name))
+
+            leftTermVarName = None
+            if isinstance(leftTerm, ASTFuzzerNode_Variable):
+                leftTermVarName = leftTerm.variableName
+            elif isinstance(leftTerm, ASTFuzzerNode_Name):
+                leftTermVarName = leftTerm.name
+
+            assert leftTermVarName
+
+            rightTermValue = self.executeNode(rightTerm)
+            assert rightTermValue
+
+            # Then set the new value to the dictionary
+            self.DS.setVariableValue(leftTermVarName, rightTermValue)
+            return None
         else:
             raise NotImplementedError("This is not supported yet")
 
@@ -498,7 +542,7 @@ class ASTFuzzerNodeExecutor:
         # No attribute object, global function call
         if len(funcAttrs) == 0:
             functorToCall = self.ExternalCallsDict.getFunctor(funcName)
-            functorToCall(*args)
+            return functorToCall(*args)
         # The case where there are multiple objects invoked before call
         else:
             # Get the object behind the first attribute invoked
@@ -592,11 +636,34 @@ def unitTest3():
 
     return
 
+def unitTest4():
+    # Init the base objects
+    dataStore = DataStore()
+    externalFunctionsDict = DictionaryOfExternalCalls()
+    astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(dataStore, externalFunctionsDict)
+    ourMainWorkflowParser = MainWorkflowParser()
+
+    # Declare a variable
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName="local_test_data", typeName='DataTable', lazyLoad=True)
+    astFuzzerNodeExecutor.executeNode(varDecl1)
+
+    # Call a simple print function registered externally
+    code_block = "local_test_data = LoadCSV(\"pin_mocked_data.csv\")"
+    result: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block)
+    astFuzzerNodeExecutor.executeNode(result)
+
+    return
+
+def unitTest5():
+    pass
 
 if __name__ == '__main__':
     #unitTest1()
     #unitTest2()
-    unitTest3()
+    #unitTest3()
+    unitTest4()
+    unitTest5()
+
     sys.exit(0)
 
     """

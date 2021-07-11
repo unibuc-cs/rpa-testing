@@ -1,5 +1,5 @@
 import sys
-
+from TheNewExpressionParser_DataTypes import DataTable
 
 def outPrettyPrint(*args):
 	outStr = "PrettyPrint: "
@@ -7,6 +7,9 @@ def outPrettyPrint(*args):
 		outStr += str(arg) + " "
 	print(outStr)
 
+def LoadCSVDefault(*args):
+	dataTable = DataTable(path=args[0], lazyLoad=False)
+	return dataTable
 
 class DictionaryOfExternalCalls():
 	def __init__(self):
@@ -16,6 +19,7 @@ class DictionaryOfExternalCalls():
 	# Initialization of defaults , could be overriden by client with addFunctor function
 	def defaultSetup(self):
 		self.addFunctor("PrettyPrint", outPrettyPrint)
+		self.addFunctor("LoadCSV", LoadCSVDefault)
 
 	def addFunctor(self, funcStr : str, funcMethod : any):
 		self.funcToCallForSymbol[funcStr] = funcMethod
