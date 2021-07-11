@@ -355,6 +355,7 @@
     <Compile Include="Services\Serializers\IWorkflowSerializer.cs" />
     <Compile Include="Services\Reducers\IWorkflowReducer.cs" />
     <Compile Include="Utils\ActivityUtils.cs" />
+    <Compile Include="Utils\AnnotationHelper.cs" />
     <Compile Include="Utils\ExpressionUtils.cs" />
     <Compile Include="Utils\ReflectionHelpers.cs" />
     <Compile Include="Utils\XamlParserException.cs" />

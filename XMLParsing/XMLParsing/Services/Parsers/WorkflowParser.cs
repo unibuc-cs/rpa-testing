@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Activities;
+using System.Activities.Presentation.Annotations;
 using System.Activities.XamlIntegration;
 using System.Collections.Generic;
 using System.IO;
@@ -79,6 +80,8 @@ namespace XMLParsing.Services
             {
                 return null;
             }
+
+            string s = Annotation.GetAnnotationText(activityBuilder);
 
             var workflowData = new WorkflowData(ActivityUtils.SanitizeString(activityBuilder.Name));
 

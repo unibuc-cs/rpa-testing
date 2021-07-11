@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Activities;
+using System.Activities.Presentation.Annotations;
 using System.Activities.Statements;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using XMLParsing.Common;
+using XMLParsing.Services.Parsers.ActivityParser;
 using XMLParsing.Utils;
 
 
 namespace XMLParsing.Services
 {
-    class FlowchartParser : IActivityParser
+    class FlowchartParser : DefaultActivityParser
     {
-        public Tuple<Node, Node> ParseActivity(Activity activity, Graph graph, WorkflowData workflowData)
+        public override Tuple<Node, Node> ParseImplementation(Activity activity, Graph graph, WorkflowData workflowData)
         {
             NativeActivity nativeActivity = activity as NativeActivity;
             if(nativeActivity == null || ! nativeActivity.GetType().Equals(typeof(Flowchart)))
