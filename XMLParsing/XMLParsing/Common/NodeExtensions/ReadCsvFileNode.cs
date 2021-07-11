@@ -26,8 +26,7 @@ namespace XMLParsing.Common.NodeExtensions
         public override void AddAdditionalNodeInformation(IDictionary<string, object> nodeInformation)
         {
             IDictionary<string, string> readCsvInfo = new Dictionary<string, string>();
-            readCsvInfo.Add("csv_file_path", CsvFilePath);
-            readCsvInfo.Add("data_table", DataTable);
+            readCsvInfo.Add("expression", DataTable + " = " + "LoadCSV(" + CsvFilePath + ")");
             nodeInformation.Add("additional_info", readCsvInfo);
         }
     }

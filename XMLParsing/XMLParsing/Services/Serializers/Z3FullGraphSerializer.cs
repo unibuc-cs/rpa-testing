@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using XMLParsing.Common;
 using XMLParsing.Utils;
 
@@ -24,6 +26,30 @@ namespace XMLParsing.Services.Serializers
             textWriter.WriteLine(serialized);
         }
 
+        private object TryGetVariableAnnotationFrom(string variableName, string variablesAnnotations)
+        {
+            if (variableName == null || variablesAnnotations == null)
+            {
+                return null;
+            }
+
+            try
+            {
+                var jsonObj = JsonConvert.DeserializeObject(variablesAnnotations);
+                if (jsonObj == null)
+                {
+                    return null;
+                }
+
+                return ((JObject)jsonObj).Value<object>(variableName);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
         private IDictionary<string, object> GetWorkflowDataVariables(WorkflowData workflowData)
         {
             IDictionary<string, object> variables = GetWorkflowArguments(workflowData);
@@ -36,6 +62,13 @@ namespace XMLParsing.Services.Serializers
                 {
                     variableData.Add("Default", ExpressionUtils.TryParseExpression(variable.Default));
                 }
+
+                var variableAnnotation = TryGetVariableAnnotationFrom(variable.Name, workflowData.VariablesAnnotation);
+                if(variableAnnotation != null)
+                {
+                    variableData.Add("Annotation", variableAnnotation);
+                }
+
                 variables.Add(variable.Name, variableData);
             }
 
@@ -126,7 +159,10 @@ namespace XMLParsing.Services.Serializers
             var nodeLabel = node.DisplayName + "_" + node.Id;
 
             IDictionary<string, object> nodeInformation = new Dictionary<string, object>();
-            nodeInformation.Add("expression", node.Expression);
+            if(node.Expression != null && node.Expression != "")
+            {
+                nodeInformation.Add("expression", node.Expression);
+            }
 
             List<IDictionary<string, object>> transitionDataList = new List<IDictionary<string, object>>();
 

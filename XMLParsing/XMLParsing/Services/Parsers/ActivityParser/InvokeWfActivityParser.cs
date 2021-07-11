@@ -9,9 +9,9 @@ using XMLParsing.Utils;
 
 namespace XMLParsing.Services.Parsers.ActivityParser
 {
-    class InvokeWfActivityParser : IActivityParser
+    class InvokeWfActivityParser : DefaultActivityParser
     {
-        public Tuple<Node, Node> ParseActivity(Activity activity, Graph graph, WorkflowData workflowData)
+        public override Tuple<Node, Node> ParseImplementation(Activity activity, Graph graph, WorkflowData workflowData)
         {
             Node node = ActivityUtils.CreateSimpleNodeFromActivity(activity, workflowData.DisplayName);
             InvokeWfNode invokeNode = new InvokeWfNode(node);
