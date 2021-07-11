@@ -110,7 +110,7 @@ class ASTFuzzerNode_Attribute(ASTFuzzerNode):
         elif isinstance(other, ASTFuzzerNode_Name):
             self.listOfAttributesData.append(AttributeData(node=other, name=other.name))
         elif isinstance(other, ASTFuzzerNode_Variable):
-            self.listOfAttributesData.appendAttributeData(node=other, name=other.variableName)
+            self.listOfAttributesData.append(AttributeData(node=other, name=other.variableName))
         else:
             assert False
 
@@ -194,6 +194,7 @@ class ASTForFuzzer:
     def __init__(self):
         self.dictOfExternalCalls : DictionaryOfExternalCalls = {}
 
+WorkflowCodeBlockParsed = List[ASTFuzzerNode]
 
 class MainWorkflowParser(ast.NodeVisitor):
     def __init__(self):
@@ -343,7 +344,8 @@ class MainWorkflowParser(ast.NodeVisitor):
             elif isinstance(topNode, ASTFuzzerNode_Attribute):
                 attrNode : ASTFuzzerNode_Attribute = self.popNode()
                 lastAttrInList : AttributeData = attrNode.listOfAttributesData[-1]
-                assert isinstance(lastAttrInList.node, ASTFuzzerNode_Name), "I was expecting a name for function call !"
+                assert isinstance(lastAttrInList.node, ASTFuzzerNode_Name)\
+                    or isinstance(lastAttrInList.node, ASTFuzzerNode_Attribute), "I was expecting a name for function call !"
 
                 funcCallNode.funcCallName = attrNode.listOfAttributesData[-1].name
                 funcCallNode.attributes = attrNode.listOfAttributesData[:-1]
@@ -390,6 +392,28 @@ class MainWorkflowParser(ast.NodeVisitor):
         pass
 
 
+    # Send a code block expression (possible multiple lines separated by \n, and it will give you back the result
+    # in our Fuzzer Nodes AST
+    def parseModuleCodeBlock(self, code_block_ast) -> WorkflowCodeBlockParsed:
+        self.reset()
+
+        # Parse the expr to an AST
+        code_block = ast.parse(code_block_ast)
+
+        # Then obtain internally the AST with fuzzer nodes
+        self.visit(code_block)
+
+        result: WorkflowCodeBlockParsed = self.getFinalOutput()
+
+        return result
+
+    # Reset the parser state
+    def reset(self):
+        self.expectedNumExpressions = None
+        self.currentMarkerHead = 0
+
+
+
 # Data store to handle variables management, either static, dynamic, symbolic, etc
 class DataStore:
     def __init__(self):
@@ -411,6 +435,12 @@ class DataStore:
     def getVariableValue(self, varName) -> any:
         return self.Values[varName]
 
+    def getVariableType(self, varName)-> str:
+        return self.Types[varName]
+
+    def hasVariable(self, varName) -> bool:
+        return varName in self.Values
+
 # This class will be responsible for the execution of ASTFuzzer nodes
 class ASTFuzzerNodeExecutor:
     def __init__(self, DS : DataStore, ExternalCallsDict : DictionaryOfExternalCalls):
@@ -427,7 +457,7 @@ class ASTFuzzerNodeExecutor:
             args_values = [self.executeNode(argNode) for argNode in args]
 
             # Then call the functor
-            self._executeNode_FuncCall(funcName=funcName, funcAttrs=attributes, args=args_values)
+            return self._executeNode_FuncCall(funcName=funcName, funcAttrs=attributes, args=args_values)
 
         elif isinstance(node, ASTFuzzerNode_VariableDecl):
             self.DS.addVariable(node)
@@ -439,17 +469,62 @@ class ASTFuzzerNodeExecutor:
         elif isinstance(node, (ASTFuzzerNode_ConstantString, ASTFuzzerNode_ConstantInt, ASTFuzzerNode_ConstantReal)):
             value = node.value
             return value
+        elif isinstance(node, ASTFuzzerNode_Variable) or isinstance(node, ASTFuzzerNode_Attribute):
+            # This could be either a real variabile inside dictionary or just a global API name object
+            object = self._getObjectInstanceByName(node)
+            return object
         else:
             raise NotImplementedError("This is not supported yet")
 
+    # Given an AST Fuzzer node as a variabile/name, returns the type begind - a static global object or a dictionary
+    # registered variable
+    def _getObjectInstanceByName(self, node : ASTFuzzerNode) -> any:
+        assert isinstance(node, (ASTFuzzerNode_Variable, ASTFuzzerNode_Name))
+        object = None
+        if self.DS.hasVariable(node.variableName):
+            object = self.DS.getVariableValue(node.variableName)
+        else:
+            object = str2Class(node.variableName)
+
+        assert object is not None, f"Can't find the object named by {node.variableName}"
+        return object
+
     def _executeNode_FuncCall(self, funcName : str, funcAttrs : List[AttributeData], args : List[any]):
+        result = None
         # No attribute object, global function call
         if len(funcAttrs) == 0:
             functorToCall = self.ExternalCallsDict.getFunctor(funcName)
-            functorToCall(*funcAttrs)
+            functorToCall(*args)
         # The case where there are multiple objects invoked before call
         else:
-            pass
+            # Get the object behind the first attribute invoked
+            firstAttrObject = self.executeNode(funcAttrs[0].node)
+
+            # invoke attributes one by one up to the target call function
+            currObject = firstAttrObject
+            numAttrs = len(funcAttrs)
+            for attrIdx, attData in enumerate(funcAttrs):
+                if attrIdx == 0:
+                    continue
+
+                assert isinstance(attData, AttributeData)
+                assert currObject.hasattr(attData.name), f"Object {currObject} of type {type(currObject)} doesn't have an attribute named {attData.name} as requested"
+                attrToCallOnObject = getattr(currObject, attData.name)
+                currObject = attrToCallOnObject()
+
+            # Now invoke the function
+            # We have some custom functions harcoded here because currently we don't plan to support wrapper for
+            # Object in C# for exemple. Could be in the future, but doesn't make sense now for performance
+            if funcName == "ToString": # add some other Object API functions too if needed
+                result = str(currObject)
+            else:
+                # Retrieve the function attribute and call it
+                funcToCallOnObject = getattr(currObject, funcName)
+                assert funcToCallOnObject
+                result = funcToCallOnObject(*args)
+
+        return result
+
 
 def unitTest1():
     # Init the base objects
@@ -458,39 +533,65 @@ def unitTest1():
     astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(dataStore, externalFunctionsDict)
     ourMainWorkflowParser = MainWorkflowParser()
 
+    # Declare a variable
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName="myStr", typeName='Int32', defaultVal="123")
+    astFuzzerNodeExecutor.executeNode(varDecl1)
+
     # Call a simple print function registered externally
     code_block = "PrettyPrint(\"the value of variable is \", myStr)"
-    code_block = ast.parse(code_block)
-    ourMainWorkflowParser.visit(code_block)
-    result: List[ASTFuzzerNode] = ourMainWorkflowParser.getFinalOutput()
+    result : WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block)
     astFuzzerNodeExecutor.executeNode(result)
 
     return
+
+def unitTest2():
+    # Init the base objects
+    dataStore = DataStore()
+    externalFunctionsDict = DictionaryOfExternalCalls()
+    astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(dataStore, externalFunctionsDict)
+    ourMainWorkflowParser = MainWorkflowParser()
+
+    ourMainWorkflowParser.reset()
 
     # Declare a variable
     varDecl1 = ASTFuzzerNode_VariableDecl(varName="myStr", typeName='Int32', defaultVal="123")
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Test code: Convert it to string, then to integer, then to float
-    code_block = "float.Parse(Int32.Parse(myStr.ToString()))"
-    code_block = "myStr.ToString()"
+    code_block = "PrettyPrint(Float.Parse(Int32.Parse(myStr.ToString())))"
+    #code_block = "PrettyPrint(myStr.ToString())"
     code_block = ast.parse(code_block)
-
 
     ourMainWorkflowParser.visit(code_block)
     result: List[ASTFuzzerNode] = ourMainWorkflowParser.getFinalOutput()
 
-
     res = astFuzzerNodeExecutor.executeNode(result)
 
-def unitTest2():
-    # TODO: table test
     pass
+
+def unitTest3():
+    # Init the base objects
+    dataStore = DataStore()
+    externalFunctionsDict = DictionaryOfExternalCalls()
+    astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(dataStore, externalFunctionsDict)
+    ourMainWorkflowParser = MainWorkflowParser()
+
+    # Declare a variable
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName="local_test_data", typeName='DataTable')
+    astFuzzerNodeExecutor.executeNode(varDecl1)
+
+    # Call a simple print function registered externally
+    code_block = "PrettyPrint(\"the value of variable is \", myStr)"
+    result: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block)
+    astFuzzerNodeExecutor.executeNode(result)
+
+    return
 
 
 if __name__ == '__main__':
     unitTest1()
     unitTest2()
+    unitTest3()
     sys.exit(0)
 
     """

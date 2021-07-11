@@ -1,8 +1,11 @@
 import sys
 
 
-def outPrettyPrint(args):
-	print(args)
+def outPrettyPrint(*args):
+	outStr = "PrettyPrint: "
+	for arg in args:
+		outStr += str(arg) + " "
+	print(outStr)
 
 
 class DictionaryOfExternalCalls():
@@ -15,10 +18,10 @@ class DictionaryOfExternalCalls():
 		self.addFunctor("PrettyPrint", outPrettyPrint)
 
 	def addFunctor(self, funcStr : str, funcMethod : any):
-		self.funcToCallForSymbol[str] = funcMethod
+		self.funcToCallForSymbol[funcStr] = funcMethod
 
 	def getFunctor(self, funcStr : str):
-		assert funcStr not in self.funcToCallForSymbol, f"There is no functor registered for {funcStr} !"
+		assert funcStr in self.funcToCallForSymbol, f"There is no functor registered for {funcStr} !"
 		return self.funcToCallForSymbol[funcStr]
 """"
 if __name__ == "__main__":

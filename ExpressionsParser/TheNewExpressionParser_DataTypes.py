@@ -14,6 +14,33 @@ class ObjectValue:
 	def ToString(self):
 		return str(self.value)
 
+# Int32 mock
+class Int32:
+	def __init__(self):
+		pass
+
+	@staticmethod
+	def Parse(value):
+		try:
+			valueAsInt = int(value)
+			return valueAsInt
+		except:
+			print(f"can't convert value {value} of type {type(value)} to Int")
+
+# Float mock
+class Float:
+	def __init__(self):
+		pass
+
+	@staticmethod
+	def Parse(value):
+		try:
+			valueAsFloat = float(value)
+			return valueAsFloat
+		except:
+			print(f"can't convert value {value} of type {type(value)} to Int")
+
+
 ######### # Data tables default logic
 class DataTable_Column:
 	def __init__(self, data):
