@@ -1,5 +1,10 @@
+# MOCKING Functions, usually Global ones. For localized functions inside objects, even static methods inside objects,
+# Please use the Parser_DataTypes file !
+# The purpose of this file is to offer a default implementation of certain global functions.
+# The client can then import its own function set here to extend the system
+
 import sys
-from TheNewExpressionParser_DataTypes import DataTable
+from Parser_DataTypes import DataTable
 
 def outPrettyPrint(*args):
 	outStr = "PrettyPrint: "
@@ -27,6 +32,7 @@ class DictionaryOfExternalCalls():
 	def getFunctor(self, funcStr : str):
 		assert funcStr in self.funcToCallForSymbol, f"There is no functor registered for {funcStr} !"
 		return self.funcToCallForSymbol[funcStr]
+
 """"
 if __name__ == "__main__":
 	# Simulate a dictionary of functions

@@ -3,9 +3,9 @@
 import ast
 import sys
 from enum import Enum
-from typing import Any, List, Dict, Set
-from TheNewExpressionParser_DataTypes import *
-from TheNewExpressionParser_Functions import *
+from typing import Any, List, Dict, Set, Tuple, Union
+from Parser_DataTypes import *
+from Parser_Functions import *
 
 #================
 
@@ -27,6 +27,8 @@ class ASTFuzzerNodeType(Enum):
     MARKER = 14
     VARIABLE_DECL = 15
     ASSIGNMENT = 16
+    KEYWORD_PARAM = 17
+    DICT = 18
 
 class ASTFuzzerComparator(Enum):
     COMP_LT = 1
@@ -125,6 +127,13 @@ class ASTFuzzerNode_Assignment(ASTFuzzerNode):
         self.leftTerm: ASTFuzzerNode = None
         self.rightTerm: ASTFuzzerNode = None
 
+class ASTFuzzerNode_KeywordParam(ASTFuzzerNode):
+    def __init__(self):
+        super().__init__(ASTFuzzerNodeType.KEYWORD_PARAM)
+        self.paramName : Union[None, str] = None
+        self.paramNode: Union[None, ASTFuzzerNode] = None
+
+
 class ASTFuzzerNode_MathUnary(ASTFuzzerNode):
     def __init__(self):
         super().__init__(ASTFuzzerNodeType.MATH_OP_UNARY)
@@ -169,6 +178,11 @@ class ASTFuzzerNode_ConstantString(ASTFuzzerNode):
         super().__init__(ASTFuzzerNodeType.CONSTANT_STR)
         self.value = value
 
+class ASTFuzzerNode_Dict(ASTFuzzerNode):
+    def __init__(self, value : Dict):
+        super().__init__(ASTFuzzerNodeType.DICT)
+        self.value = value
+
 class ASTFuzzerNode_Comparator(ASTFuzzerNode):
     def __init__(self, node :Any ):
         super().__init__(ASTFuzzerNodeType.COMPARATOR)
@@ -200,6 +214,7 @@ class ASTFuzzerNode_Call(ASTFuzzerNode):
         self.attributes : List[AttributeData] # The list of attributes used before call name
         self.funcCallName : str # the function being invoked by the list of attributes above
         self.args : List[ASTFuzzerNode] = [] # The argument nodes
+        self.kwargs : Dict[str, ASTFuzzerNode] = {} # The kwargs stuff
 
 class ASTForFuzzer:
     def __init__(self):
@@ -331,8 +346,39 @@ class MainWorkflowParser(ast.NodeVisitor):
         strConstantNode.value = node.s
         self.stackNode(strConstantNode)
 
+    def visit_Dict(self, node: Dict) -> Any:
+        markerId = self.pushStartMarker()
+
+        dictRes = {}
+
+        # For each key and data parse them and fill in the dict
+        for keyIndex, keyNodeData in enumerate(node.keys):
+            # Visit the key
+            self.visit(keyNodeData)
+            nodeKey = self.popNode()
+
+            # Visit the data value
+            nodeValueData = node.values[keyIndex]
+            self.visit(nodeValueData)
+            nodeValue = self.popNode()
+
+            dictRes[nodeKey.value] = nodeValue
+        self.tryPopMarker(markerId)
+
+        res = ASTFuzzerNode_Dict(dictRes)
+        self.stackNode(res)
+
+
     def visit_keyword(self, node: ast.keyword) -> Any:
-        raise NotImplementedError
+        markerId = self.pushStartMarker()
+
+        keywordParamNode = ASTFuzzerNode_KeywordParam()
+        keywordParamNode.paramName = node.arg
+        self.visit(node.value)
+        keywordParamNode.paramNode = self.popNode()
+
+        self.tryPopMarker(markerId)
+        self.stackNode(keywordParamNode)
 
     # CHECK END #########
 
@@ -382,11 +428,11 @@ class MainWorkflowParser(ast.NodeVisitor):
 
         # Add keyword arguments sent e.g. ( args..., row=12, col =123, value=123)
         for funcArgKeyword in node.keywords:
-            raise NotImplementedError("Not needed now and they might even confuse the c# users...")
+            #raise NotImplementedError("Not needed now and they might even confuse the c# users...")
             self.visit(funcArgKeyword)
             topNode = self.popNode()
-            assert topNode == None or topNode.isMarkerNode() is False, "Invalid expected argument node parsed"
-            funcCallNode.args.append(topNode)
+            assert isinstance(topNode, ASTFuzzerNode_KeywordParam), "Invalid expected argument node parsed"
+            funcCallNode.kwargs[topNode.paramName] = topNode.paramNode
 
         self.tryPopMarker(markerId)
 
@@ -490,14 +536,16 @@ class ASTFuzzerNodeExecutor:
     def executeNode(self, node : ASTFuzzerNode):
         if isinstance(node, ASTFuzzerNode_Call):
             args : List[ASTFuzzerNode] = node.args
+            kwargs : Dict[str, ASTFuzzerNode] = node.kwargs
             funcName : str = node.funcCallName
             attributes : List[AttributeData] = node.attributes
 
             # First, arguments list parse and execute
             args_values = [self.executeNode(argNode) for argNode in args]
+            kwargs_values = {argName:self.executeNode(argNode) for argName, argNode in kwargs.items()}
 
             # Then call the functor
-            return self._executeNode_FuncCall(funcName=funcName, funcAttrs=attributes, args=args_values)
+            return self._executeNode_FuncCall(funcName=funcName, funcAttrs=attributes, args=args_values, kwargs=kwargs_values)
 
         elif isinstance(node, ASTFuzzerNode_VariableDecl):
             self.DS.addVariable(node)
@@ -505,10 +553,14 @@ class ASTFuzzerNodeExecutor:
         elif isinstance(node, list):
             for exprNode in node:
                 self.executeNode(exprNode)
-
         elif isinstance(node, (ASTFuzzerNode_ConstantString, ASTFuzzerNode_ConstantInt, ASTFuzzerNode_ConstantReal)):
             value = node.value
             return value
+        elif isinstance(node, ASTFuzzerNode_Dict):
+            # execute the nodes inside the dict parsed
+            for key,arg in node.value.items():
+                node.value[key] = self.executeNode(arg)
+            return node.value
         elif isinstance(node, ASTFuzzerNode_Variable) or isinstance(node, ASTFuzzerNode_Attribute):
             # This could be either a real variabile inside dictionary or just a global API name object
             object = self._getObjectInstanceByName(node)
@@ -549,12 +601,12 @@ class ASTFuzzerNodeExecutor:
         assert object is not None, f"Can't find the object named by {node.variableName}"
         return object
 
-    def _executeNode_FuncCall(self, funcName : str, funcAttrs : List[AttributeData], args : List[any]):
+    def _executeNode_FuncCall(self, funcName : str, funcAttrs : List[AttributeData], args : List[any], kwargs : Dict[any, any]):
         result = None
         # No attribute object, global function call
         if len(funcAttrs) == 0:
             functorToCall = self.ExternalCallsDict.getFunctor(funcName)
-            return functorToCall(*args)
+            return functorToCall(*args, **kwargs)
         # The case where there are multiple objects invoked before call
         else:
             # Get the object behind the first attribute invoked
@@ -581,7 +633,7 @@ class ASTFuzzerNodeExecutor:
                 # Retrieve the function attribute and call it
                 funcToCallOnObject = getattr(currObject, funcName)
                 assert funcToCallOnObject
-                result = funcToCallOnObject(*args)
+                result = funcToCallOnObject(*args, **kwargs)
 
         return result
 
@@ -680,11 +732,12 @@ def unitTest5():
     code_block = r'''
 local_test_data = LoadCSV("pin_mocked_data.csv")
 PrettyPrint(Int32.Parse(local_test_data.Rows.Item(0).Item("Pin:expected_pin").ToString()))
-PrettyPrint("Max col: ", local_test_data.Max("Pin:expected_pin"))
-PrettyPrint("Min col: ", local_test_data.Min("Pin:expected_pin"))
-PrettyPrint("Sum col: ", local_test_data.Sum("Pin:expected_pin"))
-local_test_data.UpdateValue(1, "Pin:expected_pin", 9999)
+PrettyPrint("Max col: ", local_test_data.Max(column="Pin:expected_pin"))
+PrettyPrint("Min col: ", local_test_data.Min(column="Pin:expected_pin"))
+PrettyPrint("Sum col: ", local_test_data.Sum(column="Pin:expected_pin"))
+local_test_data.UpdateValue(row=1, column="Pin:expected_pin", value=9999)
 PrettyPrint("Max col after new add: ", local_test_data.Max("Pin:expected_pin"))
+local_test_data.AppendRow(data={"Pin:expected_pin":1010})
 local_test_data.SaveToCSV("pin_mocked_data_new.csv")
     '''
 
