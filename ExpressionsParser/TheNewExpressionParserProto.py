@@ -331,6 +331,9 @@ class MainWorkflowParser(ast.NodeVisitor):
         strConstantNode.value = node.s
         self.stackNode(strConstantNode)
 
+    def visit_keyword(self, node: ast.keyword) -> Any:
+        raise NotImplementedError
+
     # CHECK END #########
 
     def visit_Call(self, node):
@@ -370,8 +373,17 @@ class MainWorkflowParser(ast.NodeVisitor):
 
         funcCallNode.args = []
 
+        # Add direct arguments sent
         for funcArg in node.args:
             self.visit(funcArg)
+            topNode = self.popNode()
+            assert topNode == None or topNode.isMarkerNode() is False, "Invalid expected argument node parsed"
+            funcCallNode.args.append(topNode)
+
+        # Add keyword arguments sent e.g. ( args..., row=12, col =123, value=123)
+        for funcArgKeyword in node.keywords:
+            raise NotImplementedError("Not needed now and they might even confuse the c# users...")
+            self.visit(funcArgKeyword)
             topNode = self.popNode()
             assert topNode == None or topNode.isMarkerNode() is False, "Invalid expected argument node parsed"
             funcCallNode.args.append(topNode)
@@ -655,7 +667,54 @@ def unitTest4():
     return
 
 def unitTest5():
-    pass
+    # Init the base objects
+    dataStore = DataStore()
+    externalFunctionsDict = DictionaryOfExternalCalls()
+    astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(dataStore, externalFunctionsDict)
+    ourMainWorkflowParser = MainWorkflowParser()
+
+    # Declare a variable
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName="local_test_data", typeName='DataTable', lazyLoad=True)
+    astFuzzerNodeExecutor.executeNode(varDecl1)
+
+    code_block = r'''
+local_test_data = LoadCSV("pin_mocked_data.csv")
+PrettyPrint(Int32.Parse(local_test_data.Rows.Item(0).Item("Pin:expected_pin").ToString()))
+PrettyPrint("Max col: ", local_test_data.Max("Pin:expected_pin"))
+PrettyPrint("Min col: ", local_test_data.Min("Pin:expected_pin"))
+PrettyPrint("Sum col: ", local_test_data.Sum("Pin:expected_pin"))
+local_test_data.UpdateValue(1, "Pin:expected_pin", 9999)
+PrettyPrint("Max col after new add: ", local_test_data.Max("Pin:expected_pin"))
+local_test_data.SaveToCSV("pin_mocked_data_new.csv")
+    '''
+
+    result: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block)
+    astFuzzerNodeExecutor.executeNode(result)
+
+
+
+    code = r'''
+    print('\n')
+    print('hello world')
+    '''
+    """
+    # Call a simple print function registered externally
+    code_block = r"local_test_data = LoadCSV(\"pin_mocked_data.csv\")"
+    result: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block)
+    astFuzzerNodeExecutor.executeNode(result)
+
+    code_block = 'PrettyPrint("Max col: local_test_data.Max(\"Pin:expected_pin\"))'
+    result: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block)
+    astFuzzerNodeExecutor.executeNode(result)
+
+    code_block = 'PrettyPrint(local_test_data.Min(\"Pin:expected_pin\"))'
+    result: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block)
+    astFuzzerNodeExecutor.executeNode(result)
+
+    code_block = 'PrettyPrint(local_test_data.Sum(\"Pin:expected_pin\"))'
+    result: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block)
+    astFuzzerNodeExecutor.executeNode(result)
+    """
 
 if __name__ == '__main__':
     #unitTest1()

@@ -120,6 +120,35 @@ class DataTable:
 		self._checkInit()
 		return DataTable_ColumnsView(self.data)
 
+	# Some aggregate functions for columns
+	def Max(self, column):
+		colValues = self.data[column]
+		res = colValues.max()
+		return res
+	def Min(self, column):
+		colValues = self.data[column]
+		res = colValues.min()
+		return res
+
+	def Sum(self, column):
+		colValues = self.data[column]
+		res = colValues.sum()
+		return res
+
+	# Set a given value on a row and column
+	def UpdateValue(self, row, column, value):
+		self.data.iloc[row][column] = value
+		return True
+
+	# Set a given value on a row and column
+	def InsertNewRow(self, rowData):
+		self.data.append(rowData,ignore_index=True,sort=False)
+		return True
+
+	# Saves the current datatable to a file (could be the same or other)
+	def SaveToCSV(self, filePath : str):
+		self.data.to_csv(path_or_buf=filePath, index=False)
+
 	def __load(self):
 		# TODO
 		self.data = pd.read_csv(self.path)
