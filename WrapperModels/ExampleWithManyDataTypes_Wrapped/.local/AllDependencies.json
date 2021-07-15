@@ -5099,15 +5099,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\adelinas\\.nuget\\packages\\": {}
+    "C:\\Users\\Marina Cernat\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
       "projectUniqueName": "RobotModelRPATesting",
       "projectName": "RobotModelRPATesting",
-      "projectPath": "C:\\GithubPhD\\rpa-testing\\WrapperModels\\ExampleWithManyDatatypes\\.local",
-      "packagesPath": "C:\\Users\\adelinas\\.nuget\\packages\\",
-      "outputPath": "C:\\GithubPhD\\rpa-testing\\WrapperModels\\ExampleWithManyDatatypes\\.local"
+      "projectPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\WrapperModels\\ExampleWithManyDataTypes_Wrapped\\.local",
+      "packagesPath": "C:\\Users\\Marina Cernat\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\WrapperModels\\ExampleWithManyDataTypes_Wrapped\\.local"
     },
     "frameworks": {
       "net461": {
@@ -5133,7 +5133,7 @@
             "version": "[20.10.6, 20.10.6]"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\adelinas\\AppData\\Local\\UiPath\\app-21.4.4\\runtime.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\Marina Cernat\\AppData\\Local\\UiPath\\app-21.4.4\\runtime.json"
       }
     }
   }
