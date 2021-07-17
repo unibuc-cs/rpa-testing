@@ -192,21 +192,33 @@ class DataTable:
 		self.data = pd.read_csv(self.path)
 
 class FuzzerArray:
-	def __init__(self, internalDataType : str, annotation : VarAnnotation):
+	def __init__(self, internalDataType : str, annotation : VarAnnotation, defaultValue = None):
 		self.internalDataType = internalDataType
 		self.annotation = annotation
+		self.defaultValue = defaultValue
 
 		if self.annotation.isFromUserInput:
 			# TODO: create simbolic here or in the executor ?
 			#raise NotImplementedError
 			pass
 		else:
-			self.internalValue = [] if self.annotation.bounds is None else [None]*self.annotation.bounds
+			self.internalValue = [] if self.annotation.bounds is None else [self.defaultValue]*self.annotation.bounds
+
+
+	def elementAt(self, index): #->FuzzerArrayRefIndex:
+		res = FuzzerArrayRefIndex(index)
+		return res
 
 	@staticmethod
-	def CreateArray(internalType : str, annotation : VarAnnotation = None):
-		res = FuzzerArray(internalType, annotation)
+	def CreateArray(internalType : str, annotation : VarAnnotation = None, defaultValue = None):
+		res = FuzzerArray(internalType, annotation, defaultValue)
 		return res
+
+# A reference to a FuzzerArray and a particular index
+class FuzzerArrayRefIndex:
+	def __init__(self, index, parentInstace:FuzzerArray):
+		self.index = index
+		self.parentInstance = parentInstace
 
 
 """"

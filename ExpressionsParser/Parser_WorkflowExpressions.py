@@ -61,7 +61,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
     def __init__(self, varName : str, typeName : str, **kwargs):
         super().__init__(ASTFuzzerNodeType.VARIABLE_DECL)
         self.typeName = typeName
-        self.value = kwargs['defaultVal'] if 'defaultVal' in kwargs else None
+        self.defaultValue = kwargs['Default'] if 'Default' in kwargs else None
         self.varName = varName
 
         # Fill the annotations
@@ -79,19 +79,25 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
             if 'userinput' in annotationTag:
                 valSpec = annotationTag['userInput']
                 self.annotation.isFromUserInput = 1 if (valSpec == 'True' or valSpec == '1' or valSpec == 'true') else 0
+                if self.annotation.isFromUserInput == 1:
+                    assert self.defaultValue == None, "In the case of variables coming as inputs you can't put a default value !"
+
 
         if typeName == "Int32":
-            self.value = int(self.value)
-        if typeName == 'Int32[]':
-            self.value = FuzzerArray.CreateArray('Int32', annotation = self.annotation)
+            self.value = 0 if self.defaultValue is None else int(self.defaultValue)
+        elif typeName == 'Int32[]':
+            self.value = FuzzerArray.CreateArray('Int32', annotation=self.annotation, defaultValue=self.defaultValue)
         elif typeName == 'Boolean':
-            self.value = False if (self.value == 'false' or self.value == 'False' or int(self.value) == 0) else True
+            self.value = False if (self.defaultValue == None or self.defaultValue == 'false' or self.defaultValue == 'False'
+                                   or int(self.defaultValue) == 0) else True
         elif typeName == "DataTable":
             lazyLoad = True if 'lazyLoad' not in kwargs else kwargs['lazyLoad']
-            path = None if 'defaultPath' not in kwargs else kwargs['defaultPath']
+            path = self.defaultValue
             self.value = DataTable(path=path, lazyLoad=lazyLoad)
+        elif typeName == "String":
+            self.value = str(self.defaultValue) if self.defaultValue == None else ""
         elif typeName == "Float":
-            pass
+            raise NotImplementedError("Not yet")
         else:
             raise  NotImplementedError(f"Unknown decl type {typeName}")
 
