@@ -10,7 +10,7 @@
     <option name="ADD_SOURCE_ROOTS" value="true" />
     <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
     <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main_parse.py" />
-    <option name="PARAMETERS" value="&quot;SimpleBankLoan/Create Loan Process - With Invoked PinCheck_v2_202106091239359392.json&quot;" />
+    <option name="PARAMETERS" value="&quot;SimpleBankLoan/Main_202107111620491659.json&quot;" />
     <option name="SHOW_COMMAND_LINE" value="true" />
     <option name="EMULATE_TERMINAL" value="false" />
     <option name="MODULE_MODE" value="false" />
