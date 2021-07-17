@@ -64,13 +64,31 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
         self.value = kwargs['defaultVal'] if 'defaultVal' in kwargs else None
         self.varName = varName
 
+        # Fill the annotations
+        self.annotation = VarAnnotation()
+        annotationTag = kwargs.get('Annotation')
+        if annotationTag is not None:
+            if 'bounds' in annotationTag:
+                self.annotation.bounds = int(annotationTag['bounds'])
+            if 'min' in annotationTag:
+                self.annotation.min = int(annotationTag['min'])
+            if 'max' in annotationTag:
+                self.annotation.max = int(annotationTag['max'])
+            if 'pattern' in annotationTag:
+                self.annotation.pattern = str(annotationTag['pattern'])
+            if 'userinput' in annotationTag:
+                valSpec = annotationTag['userInput']
+                self.annotation.isFromUserInput = 1 if (valSpec == 'True' or valSpec == '1' or valSpec == 'true') else 0
+
         if typeName == "Int32":
             self.value = int(self.value)
+        if typeName == 'Int32[]':
+            self.value = FuzzerArray.CreateArray('Int32', annotation = self.annotation)
         elif typeName == 'Boolean':
             self.value = False if (self.value == 'false' or self.value == 'False' or int(self.value) == 0) else True
         elif typeName == "DataTable":
             lazyLoad = True if 'lazyLoad' not in kwargs else kwargs['lazyLoad']
-            path = None if 'path' not in kwargs else kwargs['path']
+            path = None if 'defaultPath' not in kwargs else kwargs['defaultPath']
             self.value = DataTable(path=path, lazyLoad=lazyLoad)
         elif typeName == "Float":
             pass

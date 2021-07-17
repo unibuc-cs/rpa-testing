@@ -36,6 +36,15 @@ def str2Class(str):
 
 # An Object kind of thing that has a value and can be converted to values
 # Purpose to call obj.ToString() and some others
+
+class VarAnnotation:
+    def __init__(self):
+        # This is to mark if the variabile comes from an user input or not
+        self.isFromUserInput = False
+        self.min = None
+        self.max = None
+        self.bounds = None
+
 class ObjectValue:
 	def __init__(self, value):
 		self.value = value
@@ -181,6 +190,24 @@ class DataTable:
 	def __load(self):
 		# TODO
 		self.data = pd.read_csv(self.path)
+
+class FuzzerArray:
+	def __init__(self, internalDataType : str, annotation : VarAnnotation):
+		self.internalDataType = internalDataType
+		self.annotation = annotation
+
+		if self.annotation.isFromUserInput:
+			# TODO: create simbolic here or in the executor ?
+			#raise NotImplementedError
+			pass
+		else:
+			self.internalValue = [] if self.annotation.bounds is None else [None]*self.annotation.bounds
+
+	@staticmethod
+	def CreateArray(internalType : str, annotation : VarAnnotation = None):
+		res = FuzzerArray(internalType, annotation)
+		return res
+
 
 """"
 if __name__ == "__main__":

@@ -54,7 +54,7 @@ def unitTest3():
     ourMainWorkflowParser = WorkflowExpressionsParser()
 
     # Declare a variable
-    varDecl1 = ASTFuzzerNode_VariableDecl(varName="local_test_data", typeName='DataTable', lazyLoad=False, path="pin_mocked_data.csv")
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName="local_test_data", typeName='DataTable', lazyLoad=False, defaultPath="pin_mocked_data.csv")
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Call a simple print function registered externally
