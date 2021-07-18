@@ -91,7 +91,7 @@ class BranchNode(BaseNode):  # Just an example of a base class
         outputStr = baseOutput + "\n" + str(self.expression)
         return outputStr
 
-
+    """
     # Functions and examples to inspect the graph at a higher level
     #-------------------------------------------------
     # A function to collect all variables by nodes
@@ -102,22 +102,12 @@ class BranchNode(BaseNode):  # Just an example of a base class
             variablesInNode = node.getVariables()
             setOfVariables.update(variablesInNode)
         return setOfVariables
+    """
 
 
-
-# Class for defining an workflow graph
-class WorkflowDef:
-    def __init__(self, variables : Dict[str, tuple or str], graph : Dict[any, any], name, color):
-        self.variables = variables
-        self.graph = graph
-        self.name = name
-        self.color = color
-
-
-# Give all workflows, the main graph workflow name  and the entry point where you want your test to start from
-# NOTE: the workflows should be given in the inverse order of priority ! They will override links
 class SymbolicWorflowsTester():
-    def __init__(self, workflows:List[WorkflowDef], debugColors:Dict[str,str], mainWorflowName:str, entryTestNodeId:str):
+    def __init__(self):
+        pass
         # Not used anymore
         """
         # Preprocessing the input to have the main graph first
@@ -171,81 +161,6 @@ class SymbolicWorflowsTester():
         # Test 1: is entry test node given in the graph at least ?:)
         assert nodeIdsToInstances[self.entryTestNodeId] is not None
 
-
-
-    # A factory of variables by name and specification!
-    def __createSingleVariableBySpec(self, varName, varSpec):
-        varType = varSpec
-        if not isinstance(varType, tuple):  # Simple types
-            if varType == 'Int':
-                self.V[varName] = z3.Int(varName)
-            elif varType == 'Bool':
-                self.V[varName] = z3.Bool(varName)
-            elif varType == 'Real':
-                self.V[varName] = z3.Real(varName)
-            elif varType == 'String':
-                self.V[varName] = z3.String(varName)
-
-            # TODO: there are two variants !!!
-            # elif varType == 'BitVec':
-            #    self.V[varName] == z3.BitVec()
-
-        else:  # Composed type
-            assert len(varType) > 1, f"Specification is incorrect for varName {varName} and varType {varType}"
-            varType = varSpec[0]
-            if varType == 'IntVector':
-                size = varSpec[1]
-                self.V[varName] = z3.IntVector(varName, size)
-            elif varType == 'BoolVector':
-                size = varSpec[1]
-                self.V[varName] = z3.BoolVector(varName, size)
-            elif varType == 'IntVector':
-                size = varSpec[1]
-                self.V[varName] = z3.RealVector(varName, size)
-            elif varType == 'Array':
-                indexSort = self.__fromStrSortToZ3Sort(varSpec[1])
-                valuesSort = self.__fromStrSortToZ3Sort(varSpec[2])
-                self.V[varName] = z3.Array(varName, indexSort, valuesSort)
-            elif varType == 'Function':
-                pass  # TODO fix later
-
-    # Parse a variables dictionary and stores them in this class
-    def __createVariables(self, graphVariables):
-        for varName, varSpec in graphVariables.items():
-            if isinstance(varSpec, tuple):
-                varType = varSpec[0]
-                if varType == 'Context': # This is special because:   (name , ('Context', Value, Sort)). Base type is (name, Sort)
-                    constVal = varSpec[1]
-                    self.V_constants[varName] = constVal
-                    varSpec = list(varSpec)[2:]
-                    if len(varSpec) == 1:
-                        varSpec = varSpec[0]
-                    else:
-                        varSpec = tuple(varSpec[0])
-
-            self.__createSingleVariableBySpec(varName, varSpec)
-
-            assert varName in self.V, f"Couldn't fix this variable name {varName} !!"
-
-
-    # Given a sort as a string convert to a real Z3 object sort
-    def __fromStrSortToZ3Sort(self, strSort : str):
-        if strSort == 'Int':
-            return z3.IntSort()
-        elif strSort == 'Bool':
-            return z3.BoolSort()
-        elif strSort == 'String':
-            return z3.StringSort()
-        elif strSort == 'Real':
-            return z3.RealSort()
-        elif strSort == 'Array':
-            return z3.ArraySort()
-        elif strSort == 'BitVec':
-            return z3.BitVecSort()
-        else:
-            assert f"Can't solve the given {strSort} type !"
-            return None
-        return None
 
     # Parse a graph dictionary
     def __createTestGraph_fromDict(self,dictSpec: Dict[str, any], graphName):

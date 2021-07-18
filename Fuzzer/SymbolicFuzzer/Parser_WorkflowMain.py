@@ -51,6 +51,7 @@ def ast_to_string(localast, rname):
     return localstr
 """
 
+
 class WorkflowParser:
     def __init__(self, astFuzzerNodeExecutor : ASTFuzzerNodeExecutor,
                         workflowExpressionParser : WorkflowExpressionsParser):
@@ -64,7 +65,7 @@ class WorkflowParser:
 
         # Declare a variable and execute it in the executor
         # This will also put it in the datastore inside executor and make all connection links
-        varDecl = ASTFuzzerNode_VariableDecl(varName=varName, typeName=varType, defaultValue=defaultValue)
+        varDecl = ASTFuzzerNode_VariableDecl(varName=workflowName+ ":"+varName, typeName=varType, defaultValue=defaultValue)
         self.astFuzzerNodeExecutor.executeNode(varDecl)
 
     def parseWorkflows(self, inputPath : str, baseOutPath : str):
@@ -97,86 +98,21 @@ class WorkflowParser:
             # Where to write the output
             out_path = os.path.join(baseOutPath, OUTPUT_FILE_NAME) #mainWorkflowName)
 
-            if False:
-                # Parse the entire graph and save it in a file
-                for nodeFullName, nodeData in graph.items():
-                    nodeFullNameSplit = nodeFullName.split(":")
-                    assert len(nodeFullNameSplit) ==2, f"Node content is {nodeFullNameSplit}. Expecting format namespace:nodeName"
-                    parentGraphName = nodeFullNameSplit[0]
-                    nodeName = nodeFullNameSplit[1]
+            # Parse the entire graph and save it in a file
+            for nodeFullName, nodeData in graph.items():
+                nodeFullNameSplit = nodeFullName.split(":")
+                assert len(nodeFullNameSplit) ==2, f"Node content is {nodeFullNameSplit}. Expecting format namespace:nodeName"
+                parentGraphName = nodeFullNameSplit[0]
+                nodeName = nodeFullNameSplit[1]
+
+                # Parse node expr
+                expression = nodeData.get('expression')
 
 
-                    # the guard will contain the expression parsed using myparser
-                    if nodeData['expression'] == '':
-                        guard = 'None'
-                    else:
-                        ast = myparser.parse(nodeData['expression'])
-                        guard = "\"" + ast_to_string(ast, parentGraphName) + "\""
-
-                    # assigments
-                    assign_list = nodeData.get("variableAssignments")
-                    assignments = []
-                    if assign_list:
-                       assignment_var = assign_list['to']
-                       assignment_exp = assign_list['value']
-                       ast_v = myparser.parse(assignment_var)
-                       ast_e = myparser.parse(assignment_exp)
-                       if ast_e.token_type == myparser.TokenType.T_VAR:
-                            ast_e_str = ast_to_string(ast_e, parentGraphName)
-                       else:
-                           ast_e_str =  ast_to_string(ast_e, parentGraphName)
-                       assignments.append((ast_to_string(ast_v, parentGraphName), ast_e_str))
-
-                    #invoked wf args
-                    invokedWorkflow = nodeData.get("invokedWorkflow")
-                    if invokedWorkflow:
-                        variableMappings = nodeData["variableMappings"]
-                        invokedWorkflowDisplayName = nodeData.get("invokedWorkflowDisplayName")
-                        print(invokedWorkflowDisplayName)
-                        if invokedWorkflowDisplayName == None:
-                            invokedWorkflowDisplayName="Wf2"
-                        for var in variableMappings:
-                            type = var['argumentType']
-                            v1_ast = myparser.parse(var['destinationWfArg'])
-                            v2_ast = myparser.parse(var['sourceWfValue'])
-                            if type=="Out":
-                                asgn = (ast_to_string(v2_ast,parentGraphName),ast_to_string(v1_ast,invokedWorkflowDisplayName))
-                            else:
-                                asgn = (ast_to_string(v1_ast, invokedWorkflowDisplayName), ast_to_string(v2_ast, parentGraphName))
-                            assignments.append(asgn)
-                    # transitions contain a list of transitions
-                    transitions = []
-                    for trans in nodeData['transitions']:
-                        transition = (trans['value'], trans['destination'])
-                        # transition = (trans['value'],rname+':'+trans['destination'])
-                        transitions.append(transition)
-                    if len(transitions) == 0:
-                        z3Graph[nodeFullName] = "(" + guard + "," + 'None' + ", "+str(assignments)+")"
-                    elif len(transitions) == 1:
-                        z3Graph[nodeFullName] = "(" + guard + ", \"" + str(transitions[0][1]) + "\", "+str(assignments)+")"
-
-                    elif len(transitions) == 2:
-                        z3Graph[nodeFullName] = "(" + guard + "," + "[" + str(transitions[0]) + "," + str(
-                            transitions[1]) + "], " +str(assignments)+")"
+                # Deal with transitions
+                transitions = nodeData.get('transitions')
 
 
-                print(z3Vars)
-                print(z3Graph)
-                z3GraphStr = ""
-                for (k, v) in z3Graph.items():
-                    z3GraphStr = z3GraphStr + "\"" + k + "\"" + ": " + v + ",\n"
-                z3GraphStr = z3GraphStr[:-2]
-                data = "{" + "\"variables\"" + ": " + str(z3Vars) + ",\n" + \
-                       "\"graph\": { \n" + z3GraphStr + "},\n " + \
-                       '\"debugColors\": \"' + str(debugColors) + "\",\n " + \
-                        "\"startNode\": " + "\"" + startNode + "\",\n " + \
-                       "\"mainWorkflowName\": \"" + mainWorkflowName + "\" }" + "\n"
-
-                text_file = open(out_path, "w")
-                text_file.write(data)
-                text_file.close()
-
-            # return z3Graph
 
 if __name__ == '__main__':
     # Get input

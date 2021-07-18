@@ -45,6 +45,8 @@ from enum import Enum
 import json
 from GraphDef import *
 
+from Parser_WorkflowMain import *
+
 
 # Note: Currently, we compact all workflows in a single file and separate their nodes and variables by namespaces
 # This should be ideal for our use cases...
@@ -82,41 +84,18 @@ USE_DISTRIBUTED_WORKFLOWS = False
 # 3. solveOnlineDynamicSymbolic - concolic, with interaction nodes that requires feedback from robot
 # ----------
 
-class TestFactory:
-    def __init__(self):
-        self.baseFolderModel = None
-        self.testFuzzerInstance = None
-        self.mainWorkflowName = None
+class SymbolicWorflowsTester:
+    def __init__(self, testSpecFile):
+        self.baseFolderModel = os.path.dirname(testSpecFile)
 
-    def loadTestSpecFromFile(self, testSpecFile):
-        with open(testSpecFile) as f:
-            data = f.read()
-            data = ast.literal_eval(data)
+        # Create Workflow parser and all its dependencies
+        self.dataStore = DataStore()
+        self.externalFunctionsDict = DictionaryOfExternalCalls()
+        self.astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(self.dataStore, self.externalFunctionsDict)
+        self.workflowExpressionParser = WorkflowExpressionsParser()
 
-            self.debugColors = ast.literal_eval(data["debugColors"])
-
-            self.baseFolderModel = os.path.dirname(testSpecFile)
-            entryTestNodeId = data["startNode"]
-            self.mainWorkflowName = data["mainWorkflowName"]
-
-            #listOfWorkflowsPaths = data["listOfWorkflows"]
-            # Put the base folder for each path as prefix
-
-            allWorkflowsInstances : List[WorkflowDef] = []
-            if USE_DISTRIBUTED_WORKFLOWS:
-                listOfWorkflowsPaths = [os.path.join(self.baseFolderModel, workflowPath) for workflowPath in listOfWorkflowsPaths]
-                for workflowPath in listOfWorkflowsPaths:
-                    workflowInstance = self.createWorkflowSingleFromFile(workflowPath)
-                    allWorkflowsInstances.append(workflowInstance)
-            else: # Single compacted workflow separated by namespaces
-                workflowInstance = self.createWorkflowSingleFromFile(testSpecFile)
-                allWorkflowsInstances.append(workflowInstance)
-
-
-            self.testFuzzerInstance = SymbolicWorflowsTester(workflows=allWorkflowsInstances,
-                                                             debugColors=self.debugColors,
-                                                             mainWorflowName=self.mainWorkflowName,
-                                                             entryTestNodeId=entryTestNodeId)
+        self.WP = WorkflowParser(self.astFuzzerNodeExecutor, self.workflowExpressionParser)
+        self.WP.parseWorkflows(inputPath=testSpecFile, baseOutPath=self.baseFolderModel)
 
     def getSolutionsOutputFilePath(self, fileName):
         return os.path.join(self.baseFolderModel, "generatedTests.csv")
@@ -145,19 +124,20 @@ class TestFactory:
 
 
 def runTest(args):
-    workflowsFactory = TestFactory()
-    workflowsFactory.loadTestSpecFromFile(args.testConfigFilePath) # To do: maybe we should put these files on parameters in the end :)
+    workflowsTester = SymbolicWorflowsTester(args.workflowsSpecInput)
 
+    """
     if args.loggingEnabled:
         workflowsFactory.debugFullGraph(outputGraphFile=workflowsFactory.getDebugGraphFilePath(args.outputGraphFile))
 
     workflowsFactory.solveOfflineStaticGraph(outputResultsFile=workflowsFactory.getSolutionsOutputFilePath(args.outputResultsFile),
                                              loggingEnabled=args.loggingEnabled)
+    """
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Fuzzer process')
-    parser.add_argument('-testConfigFilePath', type=str, help='Path to the config file', required=True)
+    parser.add_argument('-workflowsSpecInput', type=str, help='Path to the config file', required=True)
     parser.add_argument('-outputGraphFile', type=str, default="debugGraph.png", help='Path to the output debug graph file', required=True)
     parser.add_argument('-loggingEnabled', type=int, default=1, help='Verbose everything ?', required=True)
     parser.add_argument('-outputResultsFile', type=str, default="generatedests.csv", help='Path to write the output CSV file', required=True)

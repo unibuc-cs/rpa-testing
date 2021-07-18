@@ -6,6 +6,8 @@ class DataStore:
     def __init__(self):
         self.Values : Dict[str, any] = {}
         self.Types : Dict[str, str] = {}
+        self.SymbolicValues : Dict[str, any] = {}
+        self.Annotations : Dict[str, any] = {}
 
     # Sets an existing variable value
     def setVariableValue(self, varName, value):
@@ -16,14 +18,23 @@ class DataStore:
     def addVariable(self, varDecl : ASTFuzzerNode_VariableDecl):
         assert varDecl.varName not in self.Values and varDecl.varName not in self.Types
         self.Values[varDecl.varName] = varDecl.value
-        self.Types[varDecl.typeName] = varDecl.typeName
+        self.Types[varDecl.varName] = varDecl.typeName
+        self.SymbolicValues[varDecl.varName] = varDecl.symbolicValue
+        self.Annotations[varDecl.varName] = varDecl.annotation
 
     # Retrieve the value of a variable
     def getVariableValue(self, varName) -> any:
         return self.Values[varName]
+
+    def getSymbolicVariableValue(self, varName) -> any:
+        return self.SymbolicValues.get(varName)
 
     def getVariableType(self, varName)-> str:
         return self.Types[varName]
 
     def hasVariable(self, varName) -> bool:
         return varName in self.Values
+
+    def isVariableSymbolic(self, varName) -> bool:
+        res = self.getSymbolicVariableValue(varName)
+        return res is not None

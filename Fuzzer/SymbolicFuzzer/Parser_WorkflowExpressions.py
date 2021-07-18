@@ -6,6 +6,7 @@ from enum import Enum
 from typing import Any, List, Dict, Set, Tuple, Union
 from Parser_DataTypes import *
 from Parser_Functions import *
+from SymbolicHelpers import *
 
 #================
 
@@ -64,6 +65,10 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
         self.defaultValue = kwargs['Default'] if 'Default' in kwargs else None
         self.varName = varName
 
+        # self.value represents the CURRENT concrete value, while self.symbolicValue represents the Z3 symbolic value associated with it
+        self.symbolicValue = None
+        self.value = None
+
         # Fill the annotations
         self.annotation = VarAnnotation()
         annotationTag = kwargs.get('Annotation')
@@ -84,18 +89,32 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
 
 
         if typeName == "Int32":
-            self.value = 0 if self.defaultValue is None else int(self.defaultValue)
+            self.value = 0 if self.defaultValue is None else int(self.defaultValue, self.varName)
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
+
         elif typeName == 'Int32[]':
             self.value = FuzzerArray.CreateArray('Int32', annotation=self.annotation, defaultValue=self.defaultValue)
+            self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
         elif typeName == 'Boolean':
             self.value = False if (self.defaultValue == None or self.defaultValue == 'false' or self.defaultValue == 'False'
                                    or int(self.defaultValue) == 0) else True
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
         elif typeName == "DataTable":
             lazyLoad = True if 'lazyLoad' not in kwargs else kwargs['lazyLoad']
             path = self.defaultValue
             self.value = DataTable(path=path, lazyLoad=lazyLoad)
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
         elif typeName == "String":
             self.value = str(self.defaultValue) if self.defaultValue == None else ""
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
         elif typeName == "Float":
             raise NotImplementedError("Not yet")
         else:
