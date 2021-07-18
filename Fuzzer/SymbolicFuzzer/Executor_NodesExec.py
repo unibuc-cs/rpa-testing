@@ -1,3 +1,6 @@
+# THis is the runtime executor
+# Many things need to be done at runtime, for example check the SMT stuff in getSymbolicExpressionFromNode func !!!
+
 from Executor_DataStore import *
 from Parser_Functions import *
 from Parser_DataTypes import *
@@ -75,7 +78,7 @@ class ASTFuzzerNodeExecutor:
 
             leftTermVarName = None
             if isinstance(leftTerm, ASTFuzzerNode_Variable):
-                leftTermVarName = leftTerm.variableName
+                leftTermVarName = leftTerm.name
             elif isinstance(leftTerm, ASTFuzzerNode_Name):
                 leftTermVarName = leftTerm.name
 
@@ -96,14 +99,14 @@ class ASTFuzzerNodeExecutor:
             res_right = self.executeNode(rightTerm)
             assert res_left and res_right, "The terms can't be evaluated !"
 
-            if node.mathSymbol == "*":
+            if node.op == "*":
                 return res_left * res_right
-            elif node.mathSymbol == "/":
+            elif node.op == "/":
                 assert res_right != 0.0 and res_right != 0
                 return res_left / res_right
-            elif node.mathSymbol == "-":
+            elif node.op == "-":
                 return res_left - res_right
-            elif node.mathSymbol == "+":
+            elif node.op == "+":
                 return res_left + res_right
             else:
                 raise NotImplementedError()
@@ -116,12 +119,12 @@ class ASTFuzzerNodeExecutor:
     def _getObjectInstanceByName(self, node : ASTFuzzerNode) -> any:
         assert isinstance(node, (ASTFuzzerNode_Variable, ASTFuzzerNode_Name))
         object = None
-        if self.DS.hasVariable(node.variableName):
-            object = self.DS.getVariableValue(node.variableName)
+        if self.DS.hasVariable(node.name):
+            object = self.DS.getVariableValue(node.name)
         else:
-            object = str2Class(node.variableName)
+            object = str2Class(node.name)
 
-        assert object is not None, f"Can't find the object named by {node.variableName}"
+        assert object is not None, f"Can't find the object named by {node.name}"
         return object
 
     def _executeNode_FuncCall(self, funcName : str, funcAttrs : List[AttributeData], args : List[any], kwargs : Dict[any, any]):
@@ -159,3 +162,47 @@ class ASTFuzzerNodeExecutor:
                 result = funcToCallOnObject(*args, **kwargs)
 
         return result
+
+    # Gets a symbolic expression out of a node
+    # WHy this is needed at runtime ?
+    # Imagine that we have an expression like this:   if varname < GetThingFromDB("row,col,index") jump X
+    # We need to query the DB at runtime !
+
+
+    # TODO: Implement Logic Op !
+    # Implement the case for assignment node
+    def getSymbolicExpressionFromNode(self, nodeInst : ASTFuzzerNode):
+        if nodeInst.type in [ASTFuzzerNodeType.COMPARE, ASTFuzzerNodeType.MATH_OP_BINARY, ASTFuzzerNodeType.LOGIC_OP_BINARY]:
+            # Check if each the two left/right terms. If they contain a symbolic expression we need to get the expr out of it.
+            # If not, we just execute the node in the executor and get the result back in plain value !
+            leftExpr = None
+            if nodeInst.leftTerm.isAnySymbolicVar():
+                leftExpr = self.getSymbolicExpressionFromNode(nodeInst.leftTerm)
+            else:
+                leftExpr = self.executeNode(nodeInst.leftTerm)
+
+            rightExpr = None
+            if nodeInst.rightTerm.isAnySymbolicVar():
+                rightExpr = self.getSymbolicExpressionFromNode(nodeInst.rightTerm)
+            else:
+                rightExpr = self.executeNode(nodeInst.rightTerm)
+
+            symbolicExprRes = None
+            if nodeInst.type == ASTFuzzerNodeType.COMPARE:
+                compStr = ASTFuzzerComparatorToStr(nodeInst.comparatorClass.comparatorClass)
+            else:
+                assert isinstance(nodeInst.op, str)
+                compStr = nodeInst.op
+
+            symbolicExprRes = f"{leftExpr} {compStr} {rightExpr}"
+            return symbolicExprRes
+        elif nodeInst.type in [ASTFuzzerNodeType.VARIABLE, ASTFuzzerNodeType.NAME]: # Get an access to SMT variable in the store
+            symbolicExprRes = "self.DS.SymbolicValues["+"\"" + nodeInst.name  + "\"" + "]"
+            return symbolicExprRes
+        elif nodeInst.type == ASTFuzzerNodeType.ASSIGNMENT:
+            raise NotImplementedError()
+        else:
+            raise NotImplementedError()
+
+
+

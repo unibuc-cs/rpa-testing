@@ -11,6 +11,8 @@ from z3 import *
 import matplotlib as plt
 from enum import Enum
 
+from Parser_WorkflowExpressions import *
+
 class NodeTypes(Enum):
     BASE_NODE = 0 # Abstract, base
     FLOW_NODE = 1 # Normal node for flow, no branching
@@ -36,20 +38,19 @@ class AssignmentOperation:
         self.isOverridingValueAssignment = self.leftTerm in rightTerm
 
 
-class BaseNode():
+class BaseSymGraphNode():
     def __init__(self, id : str, nodeType : NodeTypes):
         self.id = id
         self.nodeType : NodeTypes = nodeType
-        self.assignments : AssignmentOperation = None
+
+        # This is the node available for executor
+        self.fuzzerNodeInst = ASTFuzzerNode()
 
     def __str__(self):
         return self.id #+ " " + str(self.expression)
 
     def isBranchNode(self) -> bool:
         return False
-
-    def hasAssignments(self) -> bool:
-        return self.assignments != None and len(self.assignments) > 0
 
     def getGraphNameFromNodeId(self) -> str:
         index = self.id.find(':')
@@ -62,19 +63,23 @@ class BaseNode():
         # labelStr = f"<{nodeInst.id}<BR/><FONT POINT-SIZE=\"10\">v[add]  &gt 100 </FONT>>"
 
         baseOutput = self.id
+
+        # TODO: more stuff into the new output
+        """
         if self.hasAssignments():
             for assignment in self.assignments:
                 baseOutput += "\n" + str(assignment.leftTerm) + " <- " + str(assignment.rightTerm)
+        """
         return baseOutput
 
-class FlowNode(BaseNode):
+class SymGraphNodeFlow(BaseSymGraphNode):
     def __init__(self, id : str):
         super().__init__(id, NodeTypes.FLOW_NODE)
         self.nextNodeId : str = None
 
 
 # A generic branch node definition
-class BranchNode(BaseNode):  # Just an example of a base class
+class SymGraphNodeBranch(BaseSymGraphNode):  # Just an example of a base class
     def __init__(self, id : str, condition : str):
         super().__init__(id, NodeTypes.BRANCH_NODE)
         self.expression = condition
@@ -170,7 +175,7 @@ class SymbolicWorflowsTester():
         # Step 1: Create all the node firsts and cache the inverse dictionary in the graph from node_id to node instance
         graph.graph['graphName'] = graphName
 
-        nodeIdToInstance: Dict[str, BranchNode] = {}
+        nodeIdToInstance: Dict[str, SymGraphNodeBranch] = {}
 
         # Factory of nodes...too simple to put it now in a different class
         for nodeId, nodeSpec in dictSpec.items():
@@ -178,9 +183,9 @@ class SymbolicWorflowsTester():
             nodeCond = nodeSpec[0]
 
             if nodeCond is None:
-                nodeInst = FlowNode(id=nodeId)
+                nodeInst = SymGraphNodeFlow(id=nodeId)
             else:
-                nodeInst = BranchNode(id=nodeId, condition=nodeCond)
+                nodeInst = SymGraphNodeBranch(id=nodeId, condition=nodeCond)
 
             # Solve node assignments
             nodeAssignments = None
@@ -356,11 +361,11 @@ class SymbolicWorflowsTester():
         print("Out Degrees: ", self.mainGraph.out_degree([node for node in self.mainGraph.nodes]))
 
     def __getPathConditions(self, path):
-        assert isinstance(path, list) and len(path) > 0 and isinstance(path[0], BranchNode)
+        assert isinstance(path, list) and len(path) > 0 and isinstance(path[0], SymGraphNodeBranch)
         pathLen = len(path)
         outCOnditions = []
         for nodeIndex in range(pathLen):
-            currNode : BaseNode = path[nodeIndex]
+            currNode : BaseSymGraphNode = path[nodeIndex]
 
             # Add the condition for a branching node
             if currNode.nodeType == NodeTypes.BRANCH_NODE:

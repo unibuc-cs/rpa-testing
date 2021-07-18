@@ -37,13 +37,32 @@ class ASTFuzzerComparator(Enum):
     COMP_GT = 3
     COMP_GTE = 4
 
-#  Base class for all nodes
+
+def ASTFuzzerComparatorToStr(compOp: ASTFuzzerComparator) -> str:
+    if compOp == ASTFuzzerComparator.COMP_LT:
+        return "<"
+    elif compOp == ASTFuzzerComparator.COMP_GT:
+        return ">"
+    elif compOp == ASTFuzzerComparator.COMP_LTE:
+        return "<="
+    elif compOp == ASTFuzzerComparator.COMP_GTE:
+        return "<="
+    else:
+        raise NotImplementedError("Unknwon type")
+        return None
+
+
+    #  Base class for all nodes
 class ASTFuzzerNode:
     def __init__(self, type : ASTFuzzerNodeType):
         self.type : ASTFuzzerNodeType = type
 
     def isMarkerNode(self) -> bool:
         return self.type == ASTFuzzerNodeType.MARKER
+
+    # returns true if there is any symbolic variabile inside the node
+    def isAnySymbolicVar(self) -> bool:
+        raise NotImplementedError() # Base class not
 
 # Attribute data. currently a pair of node and string to processes easier in some cases
 class AttributeData:
@@ -141,7 +160,7 @@ class ASTFuzzerNode_Attribute(ASTFuzzerNode):
         elif isinstance(other, ASTFuzzerNode_Name):
             self.listOfAttributesData.append(AttributeData(node=other, name=other.name))
         elif isinstance(other, ASTFuzzerNode_Variable):
-            self.listOfAttributesData.append(AttributeData(node=other, name=other.variableName))
+            self.listOfAttributesData.append(AttributeData(node=other, name=other.name))
         elif isinstance(other, ASTFuzzerNode_Call):
             self.listOfAttributesData.append(AttributeData(node=other, name=other.funcCallName))
         else:
@@ -167,10 +186,10 @@ class ASTFuzzerNode_MathUnary(ASTFuzzerNode):
 
 class ASTFuzzerNode_MathBinary(ASTFuzzerNode):
     def __init__(self):
-        super().__init__(ASTFuzzerNodeType.LOGIC_OP_BINARY)
+        super().__init__(ASTFuzzerNodeType.MATH_OP_BINARY)
         self.leftTerm : ASTFuzzerNode = None
         self.rightTerm : ASTFuzzerNode = None
-        self.mathSymbol : str = None
+        self.op : str = None
 
 class ASTFuzzerNode_LogicUnary(ASTFuzzerNode):
     def __init__(self):
@@ -182,12 +201,12 @@ class ASTFuzzerNode_LogicBinary(ASTFuzzerNode):
         super().__init__(ASTFuzzerNodeType.LOGIC_OP_BINARY)
         self.leftTerm : ASTFuzzerNode = None
         self.rightTerm : ASTFuzzerNode = None
-        self.logicSymbol : str = None
+        self.op : str = None
 
 class ASTFuzzerNode_Variable(ASTFuzzerNode):
     def __init__(self, variableName : str):
         super().__init__(ASTFuzzerNodeType.VARIABLE)
-        self.variableName = variableName
+        self.name = variableName
 
 class ASTFuzzerNode_ConstantInt(ASTFuzzerNode):
     def __init__(self, value : str):
@@ -437,7 +456,7 @@ class WorkflowExpressionsParser(ast.NodeVisitor):
                 funcCallNode.attributes = attrNode.listOfAttributesData[:-1]
             elif isinstance(topNode, ASTFuzzerNode_Variable):
                 nameNode: ASTFuzzerNode_Variable = self.popNode()
-                funcCallNode.funcCallName = nameNode.variableName
+                funcCallNode.funcCallName = nameNode.name
                 funcCallNode.attributes = []
             else:
                 assert False,f"Unkown case {type(topNode)}"
@@ -507,16 +526,16 @@ class WorkflowExpressionsParser(ast.NodeVisitor):
         mathBinaryNode = ASTFuzzerNode_MathBinary()
         mathBinaryNode.leftTerm = leftTerm
         mathBinaryNode.rightTerm = rightTerm
-        mathBinaryNode.mathSymbol = None
+        mathBinaryNode.op = None
 
         if isinstance(node.op, ast.Mult):
-            mathBinaryNode.mathSymbol = "*"
+            mathBinaryNode.op = "*"
         elif isinstance(node.op, ast.Add):
-            mathBinaryNode.mathSymbol = "+"
+            mathBinaryNode.op = "+"
         elif isinstance(node.op, ast.Sub):
-            mathBinaryNode.mathSymbol = "-"
+            mathBinaryNode.op = "-"
         elif isinstance(node.op, ast.Div):
-            mathBinaryNode.mathSymbol = "/"
+            mathBinaryNode.op = "/"
         else:
             raise NotImplementedError()
 
