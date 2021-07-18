@@ -473,6 +473,39 @@ class WorkflowExpressionsParser(ast.NodeVisitor):
         # Get back and fill the compare node
         self.stackNode(assignNode)
 
+    def visit_BinOp(self, node: ast.BinOp) -> Any:
+        markerId = self.pushStartMarker()
+
+        # Parse the left/right nodes
+        self.visit(node.left)
+        leftTerm = self.popNode()
+
+        self.visit(node.right)
+        rightTerm = self.popNode()
+
+        self.tryPopMarker(markerId)
+
+        mathBinaryNode = ASTFuzzerNode_MathBinary()
+        mathBinaryNode.leftTerm = leftTerm
+        mathBinaryNode.rightTerm = rightTerm
+        mathBinaryNode.mathSymbol = None
+
+        if isinstance(node.op, ast.Mult):
+            mathBinaryNode.mathSymbol = "*"
+        elif isinstance(node.op, ast.Add):
+            mathBinaryNode.mathSymbol = "+"
+        elif isinstance(node.op, ast.Sub):
+            mathBinaryNode.mathSymbol = "-"
+        elif isinstance(node.op, ast.Div):
+            mathBinaryNode.mathSymbol = "/"
+        else:
+            raise NotImplementedError()
+
+        assert mathBinaryNode is not None, "Cannot find the math operator for this expression !"
+
+        # Get back and fill the compare node
+        self.stackNode(mathBinaryNode)
+
     def visit_And(self, node: ast.And) -> Any:
         pass
 

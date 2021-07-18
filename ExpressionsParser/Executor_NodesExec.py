@@ -2,6 +2,33 @@ from Executor_DataStore import *
 from Parser_Functions import *
 from Parser_DataTypes import *
 
+
+# An abstract class for references to variables
+class VariableRef:
+    # parent is a pointer to the variable
+    def __init__(self, parentInstace, dataStore : DataStore):
+        self.parentInstance = parentInstace
+        self.dataStore = dataStore
+
+    def assignValue(self, val):
+        pass
+
+    def getValue(self):
+        pass
+
+# A reference to a FuzzerArray and a particular index
+class FuzzerArrayRefIndex(VariableRef):
+    def __init__(self, index, parentInstace: FuzzerArray, dataStore: DataStore):
+        super().__init__(parentInstace, dataStore)
+        self.index = index
+
+    def assignValue(self, val):
+        self.parentInstance.setVal(self.index, val)
+
+    def getValue(self):
+        return self.parentInstance.getVal(self.index.val)
+
+
 # This class will be responsible for the execution of ASTFuzzer nodes
 class ASTFuzzerNodeExecutor:
     def __init__(self, DS : DataStore, ExternalCallsDict : DictionaryOfExternalCalls):
@@ -60,6 +87,27 @@ class ASTFuzzerNodeExecutor:
             # Then set the new value to the dictionary
             self.DS.setVariableValue(leftTermVarName, rightTermValue)
             return None
+        elif isinstance(node, ASTFuzzerNode_MathBinary):
+            # Check left and right terms, evaluate them
+            leftTerm = node.leftTerm
+            rightTerm = node.rightTerm
+
+            res_left = self.executeNode(leftTerm)
+            res_right = self.executeNode(rightTerm)
+            assert res_left and res_right, "The terms can't be evaluated !"
+
+            if node.mathSymbol == "*":
+                return res_left * res_right
+            elif node.mathSymbol == "/":
+                assert res_right != 0.0 and res_right != 0
+                return res_left / res_right
+            elif node.mathSymbol == "-":
+                return res_left - res_right
+            elif node.mathSymbol == "+":
+                return res_left + res_right
+            else:
+                raise NotImplementedError()
+
         else:
             raise NotImplementedError("This is not supported yet")
 

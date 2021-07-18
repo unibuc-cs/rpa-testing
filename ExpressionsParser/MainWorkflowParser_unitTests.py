@@ -133,12 +133,55 @@ local_test_data.SaveToCSV("pin_mocked_data_new.csv")
     astFuzzerNodeExecutor.executeNode(result)
     """
 
+# Array tests and access in c# style
+def unitTest6():
+    # Init the base objects
+    dataStore = DataStore()
+    externalFunctionsDict = DictionaryOfExternalCalls()
+    astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(dataStore, externalFunctionsDict)
+    ourMainWorkflowParser = WorkflowExpressionsParser()
+
+    # Declare a variable
+    annotation = {
+            "bounds": 10,
+            "min": 0,
+            "max": 9999
+          }
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName="actual_pin_values",
+                                          typeName='Int32[]', Annotation=annotation)
+    astFuzzerNodeExecutor.executeNode(varDecl1)
+
+    annotation = {
+            "min": 0,
+            "max": 9999
+    }
+    varDecl2 = ASTFuzzerNode_VariableDecl(varName="local_number_retries",
+                                          typeName='Int32', Annotation=annotation, Default=0)
+    astFuzzerNodeExecutor.executeNode(varDecl2)
+
+    varDecl3 = ASTFuzzerNode_VariableDecl(varName="expected_pin",
+                                          typeName='Int32', Annotation=annotation, Default=9123)
+    astFuzzerNodeExecutor.executeNode(varDecl3)
+
+    # Call a put value function using reference API and call to get ref to a particular index
+    code_block1 = "actual_pin_values.SetElementAt(local_number_retries, expected_pin * 10)"
+    code_block2 = "PrettyPrint(actual_pin_values.GetElementAt(local_number_retries))"
+
+    result1: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block1)
+    astFuzzerNodeExecutor.executeNode(result1)
+
+    result2: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block2)
+    astFuzzerNodeExecutor.executeNode(result2)
+
+    return
+
 if __name__ == '__main__':
     #unitTest1()
     #unitTest2()
     #unitTest3()
-    unitTest4()
-    unitTest5()
+    #unitTest4()
+    #unitTest5()
+    unitTest6()
 
     sys.exit(0)
 

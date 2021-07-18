@@ -196,6 +196,7 @@ class FuzzerArray:
 		self.internalDataType = internalDataType
 		self.annotation = annotation
 		self.defaultValue = defaultValue
+		self.internalValue = None
 
 		if self.annotation.isFromUserInput:
 			# TODO: create simbolic here or in the executor ?
@@ -204,21 +205,30 @@ class FuzzerArray:
 		else:
 			self.internalValue = [] if self.annotation.bounds is None else [self.defaultValue]*self.annotation.bounds
 
-
+	# Retrieve the element from a particular index by creating a fuzzer array index ref
+	# This actually mimics the C# code
 	def elementAt(self, index): #->FuzzerArrayRefIndex:
 		res = FuzzerArrayRefIndex(index)
 		return res
 
+	# A static helper to create an array given a type, annotation and a default value
 	@staticmethod
 	def CreateArray(internalType : str, annotation : VarAnnotation = None, defaultValue = None):
 		res = FuzzerArray(internalType, annotation, defaultValue)
 		return res
 
-# A reference to a FuzzerArray and a particular index
-class FuzzerArrayRefIndex:
-	def __init__(self, index, parentInstace:FuzzerArray):
-		self.index = index
-		self.parentInstance = parentInstace
+	# set/get value at an index, creates no references as elementAt does
+	def SetElementAt(self, index, val):
+		self.setVal(index, val)
+
+	def GetElementAt(self, index):
+		return self.getVal(index)
+
+	def setVal(self, index, val):
+		self.internalValue[index] = val
+
+	def getVal(self, index):
+		return self.internalValue[index]
 
 
 """"
