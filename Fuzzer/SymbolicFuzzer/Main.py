@@ -95,7 +95,8 @@ class SymbolicWorflowsTester:
         self.workflowExpressionParser = WorkflowExpressionsParser()
 
         self.WP = WorkflowParser(self.astFuzzerNodeExecutor, self.workflowExpressionParser)
-        self.WP.parseWorkflows(inputPath=testSpecFile, baseOutPath=self.baseFolderModel)
+        workflowGraph : WorkflowGraph = self.WP.parseWorkflows(inputPath=testSpecFile, baseOutPath=self.baseFolderModel)
+
 
     def getSolutionsOutputFilePath(self, fileName):
         return os.path.join(self.baseFolderModel, "generatedTests.csv")
