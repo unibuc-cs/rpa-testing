@@ -24,7 +24,8 @@
           "Annotation": {
             "bounds": 10,
             "min": 0,
-            "max": 9999
+            "max": 9999,
+            "userInput":"True"
           }
         },
         "local_test_data_expected": {
@@ -50,11 +51,19 @@
       "variables": {
         "loan": {
           "Type": "Int32",
-          "Default": "1000000"
+          "Default": "1000000",
+
+           "Annotation": {
+            "userInput" : "True"
+          }
         },
         "term": {
           "Type": "Int32",
-          "Default": "10"
+          "Default": "10",
+
+          "Annotation": {
+            "userInput" : "True"
+          }
         },
         "loan_type": {
           "Type": "String"
@@ -177,7 +186,7 @@
       ]
     },
     "Main_1:CheckedPin_24": {
-      "expression": "pin_check_successful = True",
+      "expression": "pin_check_successful == True",
       "transitions": [
         {
           "value": "True",
@@ -247,7 +256,7 @@
       ]
     },
     "Pin_1:pinTest0_11": {
-      "expression": "local_pin_test = True",
+      "expression": "local_pin_test == True",
       "transitions": [
         {
           "value": "True",
@@ -260,7 +269,7 @@
       ]
     },
     "Pin_1:If_14": {
-      "expression": "actual_pin_values.ElementAt(local_number_retries) = expected_pin",
+      "expression": "actual_pin_values.GetElementAt(local_number_retries) == expected_pin",
       "transitions": [
         {
           "value": "True",
