@@ -1,3 +1,4 @@
+# THis is workflow expression parser purpose script, using AST
 
 #================
 import ast
@@ -30,12 +31,15 @@ class ASTFuzzerNodeType(Enum):
     ASSIGNMENT = 16
     KEYWORD_PARAM = 17
     DICT = 18
+    CONSTANT_BOOL = 19
 
 class ASTFuzzerComparator(Enum):
     COMP_LT = 1
     COMP_LTE = 2
     COMP_GT = 3
     COMP_GTE = 4
+    COMP_EQ = 5
+    COMP_NOTEQ = 6
 
 
 def ASTFuzzerComparatorToStr(compOp: ASTFuzzerComparator) -> str:
@@ -47,6 +51,10 @@ def ASTFuzzerComparatorToStr(compOp: ASTFuzzerComparator) -> str:
         return "<="
     elif compOp == ASTFuzzerComparator.COMP_GTE:
         return "<="
+    elif compOp == ASTFuzzerComparator.COMP_EQ:
+        return "=="
+    elif compOp == ASTFuzzerComparator.COMP_NOTEQ:
+        return "!="
     else:
         raise NotImplementedError("Unknwon type")
         return None
@@ -213,6 +221,11 @@ class ASTFuzzerNode_ConstantInt(ASTFuzzerNode):
         super().__init__(ASTFuzzerNodeType.CONSTANT_INT)
         self.value = value
 
+class ASTFuzzerNode_ConstantBool(ASTFuzzerNode):
+    def __init__(self, value : str):
+        super().__init__(ASTFuzzerNodeType.CONSTANT_BOOL)
+        self.value = bool(value)
+
 class ASTFuzzerNode_ConstantReal(ASTFuzzerNode):
     def __init__(self, value : str):
         super().__init__(ASTFuzzerNodeType.CONSTANT_REAL)
@@ -241,6 +254,10 @@ class ASTFuzzerNode_Comparator(ASTFuzzerNode):
             self.comparatorClass = ASTFuzzerComparator.COMP_GTE
         elif isinstance(node, ast.Gt):
             self.comparatorClass = ASTFuzzerComparator.COMP_GT
+        elif isinstance(node, ast.Eq):
+            self.comparatorClass = ASTFuzzerComparator.COMP_EQ
+        elif isinstance(node, ast.NotEq):
+            self.comparatorClass = ASTFuzzerComparator.COMP_NOTEQ
 
         assert self.comparatorClass, "No one could be set for this node !"
 
@@ -484,8 +501,26 @@ class WorkflowExpressionsParser(ast.NodeVisitor):
         self.stackNode(funcCallNode)
 
     def visit_Num(self, node: ast.Num) -> Any:
-        constantNum = ASTFuzzerNode_ConstantInt(node.n)
-        self.stackNode(constantNum)
+        constantNode = None
+        if isinstance(node.n, int):
+            constantNode = ASTFuzzerNode_ConstantInt(node.n)
+        elif isinstance(node.n, (float, c_double, c_longdouble)):
+            constantNode = ASTFuzzerNode_ConstantReal(node.n)
+        else:
+            raise NotImplementedError()
+
+        assert constantNode, "Coudn't fix node"
+        self.stackNode(constantNode)
+
+    def visit_NameConstant(self, node: ast.NameConstant) -> Any:
+        constantNode = None
+        if isinstance(node.value, bool):
+            constantNode = ASTFuzzerNode_ConstantBool(node.value)
+        else:
+            raise NotImplementedError()
+
+        assert constantNode, "Coudn't fix node"
+        self.stackNode(constantNode)
 
     def visit_Name(self, node: ast.Name) -> Any:
         nameVar = ASTFuzzerNode_Variable(node.id)
@@ -543,6 +578,37 @@ class WorkflowExpressionsParser(ast.NodeVisitor):
 
         # Get back and fill the compare node
         self.stackNode(mathBinaryNode)
+
+    def visit_BoolOp(self, node: ast.BoolOp) -> Any:
+        markerId = self.pushStartMarker()
+
+        # Parse the left/right nodes
+        self.visit(node.values[0])
+        leftTerm = self.popNode()
+
+        self.visit(node.values[1])
+        rightTerm = self.popNode()
+
+        self.tryPopMarker(markerId)
+
+        logicBinaryNode = ASTFuzzerNode_LogicBinary()
+        logicBinaryNode.leftTerm = leftTerm
+        logicBinaryNode.rightTerm = rightTerm
+        logicBinaryNode.op = None
+
+        if isinstance(node.op, ast.And):
+            logicBinaryNode.op = "and"
+        elif isinstance(node.op, ast.Or):
+            logicBinaryNode.op = "or"
+        elif isinstance(node.op, ast.BitXor):
+            logicBinaryNode.op = "^"
+        else:
+            raise NotImplementedError()
+
+        assert logicBinaryNode is not None, "Cannot find the math operator for this expression !"
+
+        # Get back and fill the compare node
+        self.stackNode(logicBinaryNode)
 
     def visit_And(self, node: ast.And) -> Any:
         pass

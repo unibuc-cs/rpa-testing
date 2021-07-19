@@ -58,7 +58,7 @@ class ASTFuzzerNodeExecutor:
         elif isinstance(node, list):
             for exprNode in node:
                 self.executeNode(exprNode)
-        elif isinstance(node, (ASTFuzzerNode_ConstantString, ASTFuzzerNode_ConstantInt, ASTFuzzerNode_ConstantReal)):
+        elif isinstance(node, (ASTFuzzerNode_ConstantString, ASTFuzzerNode_ConstantInt, ASTFuzzerNode_ConstantReal, ASTFuzzerNode_ConstantBool)):
             value = node.value
             return value
         elif isinstance(node, ASTFuzzerNode_Dict):
@@ -90,7 +90,7 @@ class ASTFuzzerNodeExecutor:
             # Then set the new value to the dictionary
             self.DS.setVariableValue(leftTermVarName, rightTermValue)
             return None
-        elif isinstance(node, ASTFuzzerNode_MathBinary):
+        elif isinstance(node, (ASTFuzzerNode_MathBinary, ASTFuzzerNode_LogicBinary)):
             # Check left and right terms, evaluate them
             leftTerm = node.leftTerm
             rightTerm = node.rightTerm
@@ -99,18 +99,52 @@ class ASTFuzzerNodeExecutor:
             res_right = self.executeNode(rightTerm)
             assert res_left and res_right, "The terms can't be evaluated !"
 
-            if node.op == "*":
-                return res_left * res_right
-            elif node.op == "/":
-                assert res_right != 0.0 and res_right != 0
-                return res_left / res_right
-            elif node.op == "-":
-                return res_left - res_right
-            elif node.op == "+":
-                return res_left + res_right
+            if isinstance(node, ASTFuzzerNode_MathBinary):
+                if node.op == "*":
+                    return res_left * res_right
+                elif node.op == "/":
+                    assert res_right != 0.0 and res_right != 0
+                    return res_left / res_right
+                elif node.op == "-":
+                    return res_left - res_right
+                elif node.op == "+":
+                    return res_left + res_right
+                else:
+                    raise NotImplementedError()
+            elif isinstance(node, ASTFuzzerNode_LogicBinary):
+                if node.op == "and":
+                    return res_left and res_right
+                elif node.op == "or":
+                    return res_left or res_right
+                elif node.op == "^":
+                    return res_left ^ res_right
+                else:
+                    raise NotImplementedError()
             else:
                 raise NotImplementedError()
+        elif isinstance(node, ASTFuzzerNode_Compare):
+            # Check left and right terms, evaluate them
+            leftTerm = node.leftTerm
+            rightTerm = node.rightTerm
 
+            res_left = self.executeNode(leftTerm)
+            res_right = self.executeNode(rightTerm)
+            assert res_left and res_right, "The terms can't be evaluated !"
+
+            if node.comparatorClass == ASTFuzzerComparator.COMP_LT:
+                return res_left < res_right
+            elif node.comparatorClass == ASTFuzzerComparator.COMP_LTE:
+                return res_left <= res_right
+            elif node.comparatorClass == ASTFuzzerComparator.COMP_GT:
+                return res_left > res_right
+            elif node.comparatorClass == ASTFuzzerComparator.COMP_GTE:
+                return res_left >= res_right
+            elif node.comparatorClass == ASTFuzzerComparator.COMP_EQ:
+                return res_left == res_right
+            elif node.comparatorClass == ASTFuzzerComparator.COMP_NOTEQ:
+                return res_left != res_right
+            else:
+                raise NotImplementedError()
         else:
             raise NotImplementedError("This is not supported yet")
 
