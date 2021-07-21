@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace XMLParsing.Common.NodeExtensions
 {
@@ -26,8 +22,7 @@ namespace XMLParsing.Common.NodeExtensions
         public override void AddAdditionalNodeInformation(IDictionary<string, object> nodeInformation)
         {
             IDictionary<string, string> readCsvInfo = new Dictionary<string, string>();
-            readCsvInfo.Add("expression", DataTable + " = " + "LoadCSV(" + CsvFilePath + ")");
-            nodeInformation.Add("additional_info", readCsvInfo);
+            nodeInformation.Add("expression", DataTable + " = " + "LoadCSV(" + CsvFilePath + ")");
         }
     }
 }
