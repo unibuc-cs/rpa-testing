@@ -24,6 +24,12 @@ namespace XMLParsing.Utils
                 return t3;
             }
 
+            string t4 = TryParseCSharpValue(operand);
+            if (t4 != null)
+            {
+                return t4;
+            }
+
             return "";
         }
 
@@ -36,7 +42,7 @@ namespace XMLParsing.Utils
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                // Console.WriteLine(e.Message);
                 return null;
             }
         }
@@ -60,7 +66,7 @@ namespace XMLParsing.Utils
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                // Console.WriteLine(e.Message);
                 return null;
             }
         }
@@ -69,21 +75,25 @@ namespace XMLParsing.Utils
         {
             try
             {
-                var dsplayName = ReflectionHelpers.CallMethod(operand, "get_DisplayName");
-                var res = ReflectionHelpers.CallMethod(operand, "get_Value").ToString();
-
-                // Test string expression
-                if (dsplayName.ToString().ToLower().Contains("string"))
-                {
-                    // This means the expression is a string
-                    res = "\"" + res + "\"";
-                }
-
-                return res;
+                var expression = ReflectionHelpers.CallMethod(operand, "get_Expression");
+                return ReflectionHelpers.CallMethod(expression, "get_ExpressionText") as string;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                // Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+        private static string TryParseCSharpValue(object operand)
+        {
+            try
+            {
+                return ReflectionHelpers.CallMethod(operand, "get_ExpressionText") as string;
+            }
+            catch (Exception e)
+            {
+                // Console.WriteLine(e.Message);
                 return null;
             }
         }

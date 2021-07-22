@@ -339,6 +339,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IOHandler.cs" />
+    <Compile Include="Services\Parsers\ActivityParser\ForEachActivityParser.cs" />
+    <Compile Include="Services\Parsers\ActivityParser\InterruptibleDoWhileActivityParser.cs" />
+    <Compile Include="Services\Parsers\ActivityParser\InterruptibleWhileActivityParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\AssignActivityParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\IfActivityParser.cs" />
     <Compile Include="Services\Parsers\ActivityParser\InvokeWfActivityParser.cs" />

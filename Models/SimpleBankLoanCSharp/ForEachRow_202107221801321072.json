@@ -1,0 +1,70 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "data": {
+          "Type": "List`1"
+        },
+        "arr_data": {
+          "Type": "String[]"
+        },
+        "dataInput": {
+          "Type": "DataTable"
+        },
+        "sum": {
+          "Type": "Int32"
+        }
+      },
+      "inputArguments": [],
+      "displayName": "ForEach_1",
+      "fullPath": "C:\\UiPath\\rpa-testing\\Models\\SimpleBankLoanCSharp\\ForEachRow.xaml",
+      "invokedBy": "",
+      "startNode": "ForEach_1:ForEach_1"
+    }
+  ],
+  "graph": {
+    "ForEach_1:ForEach_1": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ForEach_1:Read_CSV_2"
+        }
+      ]
+    },
+    "ForEach_1:Read_CSV_2": {
+      "expression": "dataInput = LoadCSV(\"dtinput.csv\")",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ForEach_1:For_Each_Row_in_Data_Table_3"
+        }
+      ]
+    },
+    "ForEach_1:For_Each_Row_in_Data_Table_3": {
+      "expression": "for CurrentRow in dataInput",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ForEach_1:Assign_5"
+        },
+        {
+          "value": "False",
+          "destination": "ForEach_1:Virtual_ForEach_End_7"
+        }
+      ]
+    },
+    "ForEach_1:Assign_5": {
+      "expression": "sum = Int32.Parse(CurrentRow[\"a\"].ToString()) + Int32.Parse(CurrentRow[\"b\"].ToString())",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ForEach_1:For_Each_Row_in_Data_Table_3"
+        }
+      ]
+    },
+    "ForEach_1:Virtual_ForEach_End_7": {
+      "transitions": []
+    }
+  },
+  "startNode": "ForEach_1:ForEach_1"
+}

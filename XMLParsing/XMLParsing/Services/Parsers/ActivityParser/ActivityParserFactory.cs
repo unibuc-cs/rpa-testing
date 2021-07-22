@@ -32,19 +32,23 @@ namespace XMLParsing.Services
                 return null;
             }
 
-            var activityParserDict = new Dictionary<Type, Func<IActivityParser>>
+            var activityParserDict = new Dictionary<String, Func<IActivityParser>>
             {
-                { typeof(Flowchart), () => new FlowchartParser() },
-                { typeof(Sequence), () => new SequenceParser() },
-                { typeof(InvokeWorkflowFile), () => new InvokeWfActivityParser() },
-                { typeof(Assign), () => new AssignActivityParser() },
-                { typeof(If), () => new IfActivityParser() },
-                { typeof(ReadCsvFile), () => new ReadCsvFileActivityParser() }
+                { typeof(Flowchart).Name, () => new FlowchartParser() },
+                { typeof(Sequence).Name, () => new SequenceParser() },
+                { typeof(InvokeWorkflowFile).Name, () => new InvokeWfActivityParser() },
+                { typeof(Assign).Name, () => new AssignActivityParser() },
+                { typeof(If).Name, () => new IfActivityParser() },
+                { typeof(ReadCsvFile).Name, () => new ReadCsvFileActivityParser() },
+                { typeof(InterruptibleWhile).Name, () => new InterruptibleWhileActivityParser() },
+                { typeof(InterruptibleDoWhile).Name, () => new InterruptibleDoWhileActivityParser() },
+                { typeof(UiPath.Core.Activities.ForEach<>).Name, () => new ForEachActivityParser() },
+                { typeof(ForEachRow).Name, () => new ForEachActivityParser() }
             };
 
-            if (activityParserDict.ContainsKey(activity.GetType()))
+            if (activityParserDict.ContainsKey(activity.GetType().Name))
             {
-                return activityParserDict[activity.GetType()]();
+                return activityParserDict[activity.GetType().Name]();
             }
             else
             {
