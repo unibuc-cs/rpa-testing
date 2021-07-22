@@ -86,9 +86,6 @@
   "graph": {
     "Main_1:Node_loanTest0_1": {
       "expression": "loan < 1000",
-      "Annotation": {
-        "expression": "my_loan < 1000"
-      },
       "transitions": [
         {
           "value": "True",
