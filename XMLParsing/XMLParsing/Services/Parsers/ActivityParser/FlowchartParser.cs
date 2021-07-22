@@ -117,6 +117,14 @@ namespace XMLParsing.Services
                     }
                 }
 
+                // Check for expression annotation
+                string annotationText = Annotation.GetAnnotationText(flowDecision);
+                string expressionAnnotation = AnnotationHelper.TryExtractExpressionAnnotation(annotationText);
+                if (expressionAnnotation != null && nodes[flowDecision].Item1 != null)
+                {
+                    nodes[flowDecision].Item1.ExpressionAnnotation = expressionAnnotation;
+                }
+
                 return t;
             };
 
@@ -188,6 +196,10 @@ namespace XMLParsing.Services
             var expression = ReflectionHelpers.CallMethod(flowSwitch, "get_Expression");
             var expressionText = ReflectionHelpers.CallMethod(expression, "get_ExpressionText") as string;
 
+            // Check for expression annotation
+            string annotationText = Annotation.GetAnnotationText(flowSwitch);
+            string expressionAnnotation = AnnotationHelper.TryExtractExpressionAnnotation(annotationText);
+
             var cases = ReflectionHelpers.CallMethod(flowSwitch, "get_Cases") as IEnumerable;
             var defaultCase = ReflectionHelpers.CallMethod(flowSwitch, "get_Default") as FlowNode;
 
@@ -206,6 +218,7 @@ namespace XMLParsing.Services
                 currentVirtualNode.DisplayName = displayName + "_Case_" + key.ToString();
                 currentVirtualNode.IsConditional = true;
                 currentVirtualNode.Expression = expressionText + " == " + key.ToString();
+                currentVirtualNode.ExpressionAnnotation = expressionAnnotation + " == " + key.ToString();
                 graph.Nodes.Add(currentVirtualNode);
 
 

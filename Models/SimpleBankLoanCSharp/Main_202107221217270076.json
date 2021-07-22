@@ -24,7 +24,8 @@
           "Annotation": {
             "bounds": 10,
             "min": 0,
-            "max": 9999
+            "max": 9999,
+            "userInput": "True"
           }
         },
         "local_test_data_expected": {
@@ -85,6 +86,9 @@
   "graph": {
     "Main_1:Node_loanTest0_1": {
       "expression": "loan < 1000",
+      "Annotation": {
+        "expression": "my_loan < 1000"
+      },
       "transitions": [
         {
           "value": "True",
@@ -261,6 +265,9 @@
     },
     "Pin_1:If_14": {
       "expression": "actual_pin_values.ElementAt(local_number_retries) == expected_pin",
+      "Annotation": {
+        "expression": "actual_pin_values.GetElementAt(local_number_retries) == expected_pin"
+      },
       "transitions": [
         {
           "value": "True",

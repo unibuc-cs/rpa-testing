@@ -151,7 +151,36 @@ namespace XMLParsing.Services.Serializers
             }
             dictionary.Add("graph", graph);
         }
+        
+        protected IDictionary<string, object> GetAnnotation(Node node)
+        {
+            IDictionary<string, object> nodeAnnotations = new Dictionary<string, object>();
 
+            // 1. Expression annotation
+
+            try
+            {
+                if (node.ExpressionAnnotation != null)
+                {
+                    var expressionJsonObj = (JObject) JsonConvert.DeserializeObject(node.ExpressionAnnotation);
+                    if (expressionJsonObj != null)
+                    {
+                        foreach(var pair in expressionJsonObj)
+                        {
+                            nodeAnnotations[pair.Key] = pair.Value.ToObject<object>();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+
+            return nodeAnnotations;
+        }
 
         protected void AddGraphNode(Graph graph, IDictionary<string, object> dictionary, Node node)
         {
@@ -164,6 +193,12 @@ namespace XMLParsing.Services.Serializers
                 nodeInformation.Add("expression", node.Expression);
             }
 
+            var annotations = GetAnnotation(node);
+            if(annotations != null && annotations.Keys.Count != 0)
+            {
+                nodeInformation.Add("Annotation", annotations);
+            }
+            
             List<IDictionary<string, object>> transitionDataList = new List<IDictionary<string, object>>();
 
             foreach (var transition in nodeTransitions)

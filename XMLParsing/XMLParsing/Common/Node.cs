@@ -10,6 +10,7 @@ namespace XMLParsing.Common
         public bool IsConditional { get; set; }
 
         public string Expression { get; set; }
+        public string ExpressionAnnotation { get; set; }
 
         public Node() 
         {

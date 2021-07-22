@@ -74,11 +74,10 @@
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Flowchart sap2010:Annotation.AnnotationText="Workflow is meant to check if the robot that is executing can provide a valid pin for the bank account. There is a retry mechanism and, for now, everything is hardcoded. &#xA;expected_pin = &quot;1234&quot;&#xA;actual_pin_values = [&quot;1235&quot;, &quot;1324&quot;, &quot;1234&quot;]&#xA;&#xA;Variable annotation restrictions: &#xA;- should start with `@Variables`&#xA;- should be followed by a json object&#xA;- should be last in annotation text&#xA;&#xA;@Variables&#xA;{&quot;local_number_retries&quot;:{&quot;min&quot;:0,&quot;max&quot;:3},&quot;local_test_data_expected&quot;:{&quot;path&quot;:&quot;pin_mocked_data.csv&quot;},&quot;local_test_data_actual&quot;:{&quot;path&quot;:&quot;pin_real_data.csv&quot;},&quot;actual_pin_values&quot;:{&quot;bounds&quot;:10,&quot;min&quot;:0,&quot;max&quot;:9999}}" DisplayName="Pin" sap:VirtualizedContainerService.HintSize="754,1156" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+  <Flowchart sap2010:Annotation.AnnotationText="Workflow is meant to check if the robot that is executing can provide a valid pin for the bank account. There is a retry mechanism and, for now, everything is hardcoded. &#xA;expected_pin = &quot;1234&quot;&#xA;actual_pin_values = [&quot;1235&quot;, &quot;1324&quot;, &quot;1234&quot;]&#xA;&#xA;Variable annotation restrictions: &#xA;- should start with `@Variables`&#xA;- should be followed by a json object&#xA;- should be last in annotation text&#xA;&#xA;@Variables&#xA;{&quot;local_number_retries&quot;:{&quot;min&quot;:0,&quot;max&quot;:3},&quot;local_test_data_expected&quot;:{&quot;path&quot;:&quot;pin_mocked_data.csv&quot;},&quot;local_test_data_actual&quot;:{&quot;path&quot;:&quot;pin_real_data.csv&quot;},&quot;actual_pin_values&quot;:{&quot;bounds&quot;:10,&quot;min&quot;:0,&quot;max&quot;:9999,&quot;userInput&quot; : &quot;True&quot;}}" DisplayName="Pin" sap:VirtualizedContainerService.HintSize="754,1156" sap2010:WorkflowViewState.IdRef="Flowchart_1">
     <Flowchart.Variables>
       <Variable x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="Number of retries given as static input - for now it's not defined -&gt; infinite loop" Default="0" Name="local_number_retries" />
       <Variable x:TypeArguments="x:Boolean" Name="local_pin_test" />
@@ -169,7 +168,7 @@
               <av:PointCollection x:Key="ConnectorLocation">190,393 190,426.5</av:PointCollection>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Sequence sap2010:Annotation.AnnotationText="Normally this node should perform an interactive call to the Fuzzer and get a pin and compare it to an expected one, but currently, the caller dictates wether the check is correct or no" DisplayName="CheckPin" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <Sequence sap2010:Annotation.AnnotationText="Normally this node should perform an interactive call to the Fuzzer and get a pin and compare it to an expected one, but currently, the caller dictates wether the check is correct or no" DisplayName="CheckPin" sap:VirtualizedContainerService.HintSize="611,453" sap2010:WorkflowViewState.IdRef="Sequence_4">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -182,12 +181,17 @@
                 <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_4">"Pin check. Retry number: " + local_number_retries.ToString()</mca:CSharpValue>
               </InArgument>
             </WriteLine>
-            <If sap:VirtualizedContainerService.HintSize="569,218" sap2010:WorkflowViewState.IdRef="If_1">
+            <If sap2010:Annotation.AnnotationText="@Expression&#xD;&#xA;{&quot;expression&quot;:&quot;actual_pin_values.GetElementAt(local_number_retries) == expected_pin&quot;}" sap:VirtualizedContainerService.HintSize="569,260" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Condition>
                 <InArgument x:TypeArguments="x:Boolean">
                   <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_5">actual_pin_values.ElementAt(local_number_retries) == expected_pin</mca:CSharpValue>
                 </InArgument>
               </If.Condition>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
               <If.Then>
                 <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
                   <Assign.To>
