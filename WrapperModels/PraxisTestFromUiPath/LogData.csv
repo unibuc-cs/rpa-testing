@@ -1,9 +1,0 @@
-﻿Date,Time,Message text,Message class,Message no.,Message type
-18.12.2020,10:44:23,Job TEST1 10432900 started,"     00","    516","     S"
-18.12.2020,10:44:23,"Step 001 started (program SE16N_BATCH, variant &0000000000005, user ID S4H_HOREA)","     00","    550","     S"
-18.12.2020,10:44:23,Field Catalog Structure,"     KZ","    555","     I"
-18.12.2020,10:44:23,Data Selection,"     KZ","    555","     I"
-18.12.2020,10:44:23,Number of hits:500,"     KZ","    555","     I"
-18.12.2020,10:44:23,List Output,"     KZ","    555","     I"
-18.12.2020,10:45:49,Internal session terminated with a runtime error SPOOL_INTERNAL_ERROR (see ST22),"     00","    671","     A"
-18.12.2020,10:45:49,Job canceled,"     00","    518","     A"
