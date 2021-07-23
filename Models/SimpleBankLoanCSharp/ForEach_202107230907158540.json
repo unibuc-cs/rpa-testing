@@ -3,7 +3,10 @@
     {
       "variables": {
         "data": {
-          "Type": "List`1"
+          "Type": "List`1",
+          "Annotation": {
+            "Type": "List"
+          }
         },
         "arr_data": {
           "Type": "String[]"
@@ -29,6 +32,9 @@
       ]
     },
     "ForEach_1:Assign_2": {
+      "Annotation": {
+        "expression": "arr_data = {\"item1\", \"item2\", \"item3\", \"item4\"}"
+      },
       "expression": "arr_data = new string[] {\"item1\", \"item2\", \"item3\", \"item4\"}",
       "transitions": [
         {
@@ -38,6 +44,9 @@
       ]
     },
     "ForEach_1:Assign_3": {
+      "Annotation": {
+        "expression": "data = arr_data"
+      },
       "expression": "data = new List<string>(arr_data)",
       "transitions": [
         {

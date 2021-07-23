@@ -8,7 +8,7 @@
       },
       "inputArguments": [],
       "displayName": "RepetitiveTest_1",
-      "fullPath": "C:\\UiPath\\rpa-testing\\Models\\SimpleBankLoanCSharp\\RepetitiveTest.xaml",
+      "fullPath": "C:\\UiPath\\rpa-testing\\Models\\SimpleBankLoanCSharp\\WhileTest.xaml",
       "invokedBy": "",
       "startNode": "RepetitiveTest_1:RepetitiveTest_1"
     }

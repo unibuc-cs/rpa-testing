@@ -2,12 +2,6 @@
   "workflows": [
     {
       "variables": {
-        "data": {
-          "Type": "List`1"
-        },
-        "arr_data": {
-          "Type": "String[]"
-        },
         "dataInput": {
           "Type": "DataTable"
         },
