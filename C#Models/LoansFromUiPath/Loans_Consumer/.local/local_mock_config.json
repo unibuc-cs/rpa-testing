@@ -1,0 +1,9 @@
+{
+  "Mocks\\Main_mock.xaml": {
+    "sourceWorkflowHash": "22b34f93da2238acd637a73ffd945b4cfba11971f7f7da8fe6033684f7c514a8"
+  },
+  "Mocks\\Main_mock_1.xaml": {
+    "sourceWorkflowHash": "22b34f93da2238acd637a73ffd945b4cfba11971f7f7da8fe6033684f7c514a8"
+  },
+  "Mocks\\Framework\\GetTransactionData_mock.xaml": {}
+}
