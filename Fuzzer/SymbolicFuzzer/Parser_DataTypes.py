@@ -118,9 +118,11 @@ class DataTable_RowsView:
 	def Item(self, index) -> DataTable_Row:
 		return DataTable_Row(self.data.iloc[index])
 
+	def NumIems(self) -> int:
+		return self.data.shape[0]
+
 	def __call__(self):
 		return self
-
 
 class DataTable_ColumnsView:
 	def __init__(self, data):
@@ -132,11 +134,56 @@ class DataTable_ColumnsView:
 	def __call__(self):
 		return self
 
+
+class DataTable_iterator:
+	def __init__(self, parentTable):
+		self.parentTable = parentTable
+
+		self.rowsView  : DataTable_RowsView = None
+		self.rowIterIndex = None
+		self.expectedNumRows = None
+
+	# ITERATION LOGIC
+	#-------------------------------------
+	# Checks if we are already iterating over the database or not
+	# If not, we start it, if yes do nothing
+	def checkStartRowIteration(self) -> bool:
+		if self.rowsView is None:
+			self.rowsView = self.parentTable.Rows
+			self.expectedNumRows = self.rowsView.data.items()
+			self.rowIterIndex = -1
+			return True
+		else:
+			return False
+
+	def nextRowIteration(self):
+		assert(self.rowsView is not None)
+		self.rowIterIndex += 1
+
+		# Check if it should close
+		if self.rowIterIndex == self.expectedNumRows:
+			self.closeRowIteration()
+			return None
+
+		return self.rowsView.data[self.rowIterIndex]
+
+	def getCurrentRowData(self):
+		assert self.rowsView is not None
+		return self.rowsView.data[self.rowIterIndex]
+
+	def closeRowIteration(self):
+		self.rowsView = None
+		self.expectedNumRows = None
+		self.rowIterIndex = None
+		self.parentTable.existingIter = None
+	# --- END ITERATION LOGIC -------------------------------------
+
 class DataTable:
 	def __init__(self, **kwargs):
 		self.path = kwargs["path"]
 		self.data = None
 		self.lazyLoad = kwargs["lazyLoad"]
+		self.existingIter : DataTable_iterator = None
 		if not self.lazyLoad:
 			self.__load()
 
@@ -190,6 +237,15 @@ class DataTable:
 	def __load(self):
 		# TODO
 		self.data = pd.read_csv(self.path)
+
+	def getIterator(self) -> DataTable_iterator:
+		assert self.existingIter is None
+		newIter = DataTable_iterator(self)
+		self.existingIter = newIter
+		return newIter
+
+	def isIterationInProgress(self) -> bool:
+		return self.existingIter is not None
 
 class FuzzerArray:
 	def __init__(self, internalDataType : str, annotation : VarAnnotation, defaultValue = None):

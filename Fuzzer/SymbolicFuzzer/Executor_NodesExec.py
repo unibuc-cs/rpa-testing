@@ -61,6 +61,52 @@ class ASTFuzzerNodeExecutor:
         elif isinstance(node, (ASTFuzzerNode_ConstantString, ASTFuzzerNode_ConstantInt, ASTFuzzerNode_ConstantReal, ASTFuzzerNode_ConstantBool)):
             value = node.value
             return value
+
+        elif isinstance(node, ASTFuzzerNode_Subscript):
+            # Array is treated using function
+            # Currently the use case is when the valueNode[sliceNodes], valueNode is a databale. Will be implemented case by case !
+            # Probably list is next !
+            valueNodeObj = self.executeNode(node.valueNode)
+            sliceNodeObj = self.executeNode(node.sliceNode)
+
+            if isinstance(valueNodeObj, DataTable_iterator):
+                return valueNodeObj.getCurrentRowData()[sliceNodeObj]
+            else:
+                raise NotImplementedError()
+
+            return None
+        elif isinstance(node, ASTFuzzerNode_FOREACH):
+            # Get special cases of what objects we are iterating on and solve
+            if isinstance(node.iteratedObject_node, DataTable):
+                # Data table solving
+                iteratedObject : DataTable = self.DS.getVariableValue(node.iteratedObject_node)
+
+                # Iteration already in progress case
+                if iteratedObject.isIterationInProgress():
+                    # Move pointer
+                    nextRowData = iteratedObject.existingIter.nextRowIteration()
+
+                    # Check data, update DS variable !
+                    if nextRowData is None:
+                        # TODO: solve this
+
+                    else:
+                        # TODO
+
+                else: #Create a new iterator
+                    dataTableIter = iteratedObject.getIterator()
+
+                    # TODO fill this
+                    dataTableIter_varDecl = ASTFuzzerNode_VariableDecl()
+
+                    self.DS.addVariable(dataTableIter_varDecl)
+
+            else:
+                raise NotImplementedError()
+
+        elif isinstance(node, ASTFuzzerNode_Attribute) and node.subscript != None:
+            return self.executeNode(node.subscript)
+
         elif isinstance(node, ASTFuzzerNode_Dict):
             # execute the nodes inside the dict parsed
             for key,arg in node.value.items():
@@ -233,6 +279,23 @@ class ASTFuzzerNodeExecutor:
         elif nodeInst.type in [ASTFuzzerNodeType.VARIABLE, ASTFuzzerNodeType.NAME]: # Get an access to SMT variable in the store
             symbolicExprRes = "self.DS.SymbolicValues["+"\"" + nodeInst.name  + "\"" + "]"
             return symbolicExprRes
+        elif nodeInst.type in [ASTFuzzerNodeType.ATTRIBUTE]:
+            if nodeInst.subscript is not None:
+                return self.getSymbolicExpressionFromNode(nodeInst.subscript)
+            else:
+                raise NotImplementedError()
+        elif nodeInst.type in [ASTFuzzerNodeType.SUBSCRIPT]:
+            symbolicFromValue = self.getSymbolicExpressionFromNode(nodeInst.valueNode)
+            symbolicFromSlice = self.getSymbolicExpressionFromNode(nodeInst.sliceNode)
+
+            numSymbolicNodes = (1 if symbolicFromSlice is not None else 0) + (1 if symbolicFromValue is not None else 0)
+            assert numSymbolicNodes < 2, "Only one of the items should be not none in a symbolic expression, at the moment !"
+
+            if symbolicFromSlice is not None:
+                return symbolicFromSlice
+            else:
+                return symbolicFromValue # Could be also None, no problem.
+
         elif nodeInst.type == ASTFuzzerNodeType.ASSIGNMENT:
             raise NotImplementedError()
         else:

@@ -7,6 +7,7 @@ import os
 from Parser_WorkflowExpressions import *
 from Executor_NodesExec import *
 from WorkflowGraph import *
+import re
 
 class WorkflowParser:
     def __init__(self, astFuzzerNodeExecutor : ASTFuzzerNodeExecutor,
@@ -46,7 +47,6 @@ class WorkflowParser:
                 variables = workflowData['variables']
                 graphName = workflowData['displayName']
                 invokedBy = workflowData["invokedBy"]
-
                 startNode = workflowData["startNode"]
                 workflowGraph.debugColors[graphName] = getDebugColorByName(graphName)
 
@@ -70,9 +70,7 @@ class WorkflowParser:
                 expression_raw_str = nodeData.get('expression')
                 expression_node = None
                 if expression_raw_str != "" and expression_raw_str != None:
-                    expression_node = self.workflowExpressionParser.parseModuleCodeBlock(expression_raw_str)
-                    assert len(expression_node) == 1, " Currently we expected 1 understandable code block in the input. Do you need more or less ?"
-                    expression_node = expression_node[0]
+                    expression_node = self.workflowExpressionParser.parseModuleCodeBlock(expression_raw_str)[0]
 
                 # Create a node based on its expression node
                 nodeInst = None

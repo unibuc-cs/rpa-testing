@@ -3,6 +3,7 @@
 #================
 import ast
 import sys
+import re
 from enum import Enum
 from typing import Any, List, Dict, Set, Tuple, Union
 from Parser_DataTypes import *
@@ -32,6 +33,9 @@ class ASTFuzzerNodeType(Enum):
     KEYWORD_PARAM = 17
     DICT = 18
     CONSTANT_BOOL = 19
+    FOREACH_ITERATION = 20
+    SUBSCRIPT = 21
+
 
 class ASTFuzzerComparator(Enum):
     COMP_LT = 1
@@ -72,11 +76,13 @@ class ASTFuzzerNode:
     def isAnySymbolicVar(self) -> bool:
         raise NotImplementedError() # Base class not
 
+
 # Attribute data. currently a pair of node and string to processes easier in some cases
 class AttributeData:
-    def __init__(self, node : ASTFuzzerNode, name : str):
+    def __init__(self, node : ASTFuzzerNode, name : str, subscriptNode = None):
         self.node = node
         self.name = name
+        self.subscript : ASTFuzzerNode_Subscript = subscriptNode
 
 class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
     """ E.g.
@@ -171,6 +177,8 @@ class ASTFuzzerNode_Attribute(ASTFuzzerNode):
             self.listOfAttributesData.append(AttributeData(node=other, name=other.name))
         elif isinstance(other, ASTFuzzerNode_Call):
             self.listOfAttributesData.append(AttributeData(node=other, name=other.funcCallName))
+        elif isinstance(other, ASTFuzzerNode_Subscript):
+            self.listOfAttributesData.append(AttributeData(node=None, name=None, subscriptNode=other))
         else:
             assert False
 
@@ -269,6 +277,14 @@ class ASTFuzzerNode_Compare(ASTFuzzerNode):
         self.leftTerm : ASTFuzzerNode = None
         self.rightTerm : ASTFuzzerNode = None
 
+class ASTFuzzerNode_Subscript(ASTFuzzerNode):
+    def __init__(self, node: Any):
+        super().__init__(ASTFuzzerNodeType.SUBSCRIPT)
+
+        self.valueNode : ASTFuzzerNode = None
+        self.sliceNode : ASTFuzzerNode = None  # value[slice] node
+
+
 class ASTFuzzerNode_Call(ASTFuzzerNode):
     def __init__(self):
         super().__init__(ASTFuzzerNodeType.CALL_FUNC)
@@ -281,6 +297,12 @@ class ASTFuzzerNode_Call(ASTFuzzerNode):
 class ASTForFuzzer:
     def __init__(self):
         self.dictOfExternalCalls : DictionaryOfExternalCalls = {}
+
+class ASTFuzzerNode_FOREACH(ASTFuzzerNode):
+    def __init__(self):
+        super().__init__(ASTFuzzerNodeType.FOREACH_ITERATION)
+        self.iteratedObject_node: ASTFuzzerNode = None
+        self.iteratedVar_node: ASTFuzzerNode = None
 
 WorkflowCodeBlockParsed = List[ASTFuzzerNode]
 
@@ -375,6 +397,23 @@ class WorkflowExpressionsParser(ast.NodeVisitor):
             self.visit(exprNode)
 
         #self.tryPopMarker(markerId)
+
+    def visit_Subscript(self, node: ast.Subscript) -> Any:
+        markerId = self.pushStartMarker()
+
+        # Create the subscript node
+        resNode = ASTFuzzerNode_Subscript()
+        self.visit(resNode.valueNode)
+
+        resNode.valueNode = self.popNode()
+        self.visit(resNode.sliceNode)
+
+        resNode.sliceNode = self.popNode()
+        # And stack it
+        self.stackNode(resNode)
+
+
+        self.tryPopMarker(markerId)
 
     # CHECK #########
     def visit_Attribute(self, node : ast.Attribute):
@@ -613,21 +652,41 @@ class WorkflowExpressionsParser(ast.NodeVisitor):
     def visit_And(self, node: ast.And) -> Any:
         pass
 
-
     # Send a code block expression (possible multiple lines separated by \n, and it will give you back the result
     # in our Fuzzer Nodes AST
-    def parseModuleCodeBlock(self, code_block_ast) -> WorkflowCodeBlockParsed:
+    def parseModuleCodeBlock(self, code_block_rawStr : str) -> WorkflowCodeBlockParsed:
         self.reset()
 
-        # Parse the expr to an AST
-        code_block = ast.parse(code_block_ast)
+        result: WorkflowCodeBlockParsed = None # result
 
-        # Then obtain internally the AST with fuzzer nodes
-        self.visit(code_block)
+        # Special expression node for iteration side
+        var_pattern_iterObject = '(?P<iteratedObject>(range\([^()]*\))|[a-zA-Z0-9_]+)'
+        var_pattern_iterVar = '(?P<iteratorName>[a-zA-Z0-9_]+)'
+        match = re.search(f'[\s]*for[\s]+{var_pattern_iterVar}[\s]+in[\s]+{var_pattern_iterObject}', code_block_rawStr)
 
-        result: WorkflowCodeBlockParsed = self.getFinalOutput()
+        if not match: # Regular flow
+            # Parse the expr to an AST
+            code_block = ast.parse(code_block_rawStr)
 
-        return result
+            # Then obtain internally the AST with fuzzer nodes
+            self.visit(code_block)
+
+            result = self.getFinalOutput()
+            assert len(result) == 1, " Currently we expected 1 understandable code block in the input. Do you need more or less ?"
+            return result
+        else:
+            #print(match.group('iteratorName'))
+            #if False:
+            #    for groupId in match.groups():
+            #        print(f"{groupId}")
+
+            iteratedObject_expressionRaw = match.group('iteratedObject')
+            iteratedVar_expressionRaw = match.group('iteratorName')
+
+            result : WorkflowCodeBlockParsed = [ASTFuzzerNode_FOREACH()]
+            result[0].iteratedObject_node = self.parseModuleCodeBlock(iteratedObject_expressionRaw)
+            result[0].iteratedVar_node = self.parseModuleCodeBlock(iteratedVar_expressionRaw)
+            return result
 
     # Reset the parser state
     def reset(self):
