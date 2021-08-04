@@ -162,20 +162,21 @@ class DataTable_iterator:
 
 		# Check if it should close
 		if self.rowIterIndex == self.expectedNumRows:
-			self.closeRowIteration()
+			self.closeRowsIteration()
 			return None
 
 		return self.rowsView.data[self.rowIterIndex]
 
 	def getCurrentRowData(self):
-		assert self.rowsView is not None
+		if self.rowsView is None:
+			return None
 		return self.rowsView.data[self.rowIterIndex]
 
-	def closeRowIteration(self):
+	def closeRowsIteration(self):
 		self.rowsView = None
 		self.expectedNumRows = None
 		self.rowIterIndex = None
-		self.parentTable.existingIter = None
+		self.parentTable.clearIterator()
 	# --- END ITERATION LOGIC -------------------------------------
 
 class DataTable:
@@ -238,14 +239,20 @@ class DataTable:
 		# TODO
 		self.data = pd.read_csv(self.path)
 
+	# Creates a persistent iterator on
 	def getIterator(self) -> DataTable_iterator:
 		assert self.existingIter is None
 		newIter = DataTable_iterator(self)
 		self.existingIter = newIter
 		return newIter
 
+	# Returns true if there is an iteration in progress
 	def isIterationInProgress(self) -> bool:
 		return self.existingIter is not None
+
+	def clearIterator(self):
+		assert self.existingIter is not None
+
 
 class FuzzerArray:
 	def __init__(self, internalDataType : str, annotation : VarAnnotation, defaultValue = None):

@@ -62,7 +62,7 @@ class WorkflowParser:
                 nodeName = nodeFullNameSplit[1]
 
                 ## DEBUG CODE
-                if "loanTest1_5" in nodeFullName:
+                if "For_Each_Row_in_Data_Table_3" in nodeFullName:
                     a = 3
                     a += 1
 
@@ -74,7 +74,7 @@ class WorkflowParser:
 
                 # Create a node based on its expression node
                 nodeInst = None
-                if expression_node is None or not expression_node.type in [ASTFuzzerNodeType.COMPARE, ASTFuzzerNodeType.LOGIC_OP_BINARY]:
+                if expression_node is None or not expression_node.type in [ASTFuzzerNodeType.COMPARE, ASTFuzzerNodeType.LOGIC_OP_BINARY, ASTFuzzerNodeType.FOREACH_ITERATION]:
                     nodeInst = SymGraphNodeFlow(id=nodeFullName)
                 else:
                     nodeInst = SymGraphNodeBranch(id=nodeFullName)

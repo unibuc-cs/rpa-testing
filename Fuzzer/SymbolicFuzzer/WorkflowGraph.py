@@ -63,6 +63,15 @@ class SymGraphNodeFlow(BaseSymGraphNode):
         super().__init__(id, NodeTypes.FLOW_NODE)
         self.nextNodeId : str = None
 
+    def getDebugLabel(self):
+        baseOutput = super().getDebugLabel()
+        outputStr = baseOutput\
+
+        if self.expression is not None:
+            if isinstance(self.expression, (ASTFuzzerNode_Assignment)):
+                outputStr += "\n" + str(self.expression)
+        return outputStr
+
 
 # A generic branch node definition
 class SymGraphNodeBranch(BaseSymGraphNode):  # Just an example of a base class

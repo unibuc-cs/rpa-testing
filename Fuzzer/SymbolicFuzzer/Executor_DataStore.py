@@ -19,8 +19,17 @@ class DataStore:
         assert varDecl.varName not in self.Values and varDecl.varName not in self.Types
         self.Values[varDecl.varName] = varDecl.value
         self.Types[varDecl.varName] = varDecl.typeName
-        self.SymbolicValues[varDecl.varName] = varDecl.symbolicValue
+
+        if varDecl.annotation and varDecl.annotation.isFromUserInput:
+            self.SymbolicValues[varDecl.varName] = varDecl.symbolicValue
+
         self.Annotations[varDecl.varName] = varDecl.annotation
+
+    def removeVariable(self, varName):
+        self.Values.pop(varName)
+        self.Types.pop(varName)
+        self.SymbolicValues.pop(varName)
+        self.Annotations.pop(varName)
 
     # Retrieve the value of a variable
     def getVariableValue(self, varName) -> any:

@@ -79,27 +79,37 @@ class ASTFuzzerNodeExecutor:
             # Get special cases of what objects we are iterating on and solve
             if isinstance(node.iteratedObject_node, DataTable):
                 # Data table solving
-                iteratedObject : DataTable = self.DS.getVariableValue(node.iteratedObject_node)
+                iteratedObject : DataTable = self.DS.getVariableValue(node.iteratedObject_node.name)
 
                 # Iteration already in progress case
                 if iteratedObject.isIterationInProgress():
+                    iteratorObj : DataTable_iterator = self.DS.getVariableValue(node.iteratedVar_node.name)
+                    assert iteratorObj == iteratedObject.existingIter, "Sanity check failed, not the same object iterating and in progress. Out of sync with DataStore (DS) !"
                     # Move pointer
-                    nextRowData = iteratedObject.existingIter.nextRowIteration()
+                    nextRowData = iteratorObj.nextRowIteration()
 
-                    # Check data, update DS variable !
+                    # Is iteration over ?
                     if nextRowData is None:
-                        # TODO: solve this
+                        # Close the iterator
+                        iteratorObj.closeRowsIteration()
 
+                        # Remove the variable from data store
+                        self.DS.removeVariable(node.iteratedVar_node.name)
+
+                        return True
                     else:
-                        # TODO
+                        return False
 
-                else: #Create a new iterator
+                else: # New iteration !
+                    #Create a new iterator variable and add it to the dictionary
                     dataTableIter = iteratedObject.getIterator()
-
-                    # TODO fill this
-                    dataTableIter_varDecl = ASTFuzzerNode_VariableDecl()
-
+                    dataTableIter_varDecl = ASTFuzzerNode_VariableDecl(varName=node.iteratedVar_node.name,
+                                                                       typeName=DataTable_iterator.__class__.__name__,
+                                                                       Default=dataTableIter)
                     self.DS.addVariable(dataTableIter_varDecl)
+
+                    # Now push the node execution again, this time with an in progress iteration to do the checking of the above
+                    return self.executeNode(node)
 
             else:
                 raise NotImplementedError()

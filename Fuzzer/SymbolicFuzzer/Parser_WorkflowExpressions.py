@@ -83,6 +83,12 @@ class AttributeData:
         self.node = node
         self.name = name
         self.subscript : ASTFuzzerNode_Subscript = subscriptNode
+        if self.subscript:
+            self.name = self.subscript.valueNode.name
+
+    def __str__(self):
+        res = str(self.subscript) if self.subscript is not None else self.name
+        return res
 
 class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
     """ E.g.
@@ -143,6 +149,11 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
 
             if self.annotation.isFromUserInput:
                 self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
+
+        elif typeName == "DataTable_iterator":
+            assert self.defaultValue, "You must specify a default value in this case"
+
+            self.value = self.defaultValue
         elif typeName == "String":
             self.value = str(self.defaultValue) if self.defaultValue == None else ""
 
@@ -188,6 +199,10 @@ class ASTFuzzerNode_Assignment(ASTFuzzerNode):
         self.leftTerm: ASTFuzzerNode = None
         self.rightTerm: ASTFuzzerNode = None
 
+    def __str__(self):
+        res = f"{self.leftTerm} = {self.rightTerm}"
+        return res
+
 class ASTFuzzerNode_KeywordParam(ASTFuzzerNode):
     def __init__(self):
         super().__init__(ASTFuzzerNodeType.KEYWORD_PARAM)
@@ -207,6 +222,10 @@ class ASTFuzzerNode_MathBinary(ASTFuzzerNode):
         self.rightTerm : ASTFuzzerNode = None
         self.op : str = None
 
+    def __str__(self):
+        res = f"{self.leftTerm} {self.op} {self.rightTerm}"
+        return res
+
 class ASTFuzzerNode_LogicUnary(ASTFuzzerNode):
     def __init__(self):
         super().__init__(ASTFuzzerNodeType.LOGIC_OP_UNARY)
@@ -219,35 +238,57 @@ class ASTFuzzerNode_LogicBinary(ASTFuzzerNode):
         self.rightTerm : ASTFuzzerNode = None
         self.op : str = None
 
+    def __str__(self):
+        res = f"{self.leftTerm} {self.op} {self.rightTerm}"
+        return res
+
 class ASTFuzzerNode_Variable(ASTFuzzerNode):
     def __init__(self, variableName : str):
         super().__init__(ASTFuzzerNodeType.VARIABLE)
         self.name = variableName
+
+    def __str__(self):
+        return str(self.name)
 
 class ASTFuzzerNode_ConstantInt(ASTFuzzerNode):
     def __init__(self, value : str):
         super().__init__(ASTFuzzerNodeType.CONSTANT_INT)
         self.value = value
 
+    def __str__(self):
+        return str(self.value)
+
 class ASTFuzzerNode_ConstantBool(ASTFuzzerNode):
     def __init__(self, value : str):
         super().__init__(ASTFuzzerNodeType.CONSTANT_BOOL)
         self.value = bool(value)
+
+    def __str__(self):
+        return str(self.value)
 
 class ASTFuzzerNode_ConstantReal(ASTFuzzerNode):
     def __init__(self, value : str):
         super().__init__(ASTFuzzerNodeType.CONSTANT_REAL)
         self.value = value
 
+    def __str__(self):
+        return str(self.value)
+
 class ASTFuzzerNode_ConstantString(ASTFuzzerNode):
     def __init__(self, value : str):
         super().__init__(ASTFuzzerNodeType.CONSTANT_STR)
         self.value = value
 
+    def __str__(self):
+        return str(self.value)
+
 class ASTFuzzerNode_Dict(ASTFuzzerNode):
     def __init__(self, value : Dict):
         super().__init__(ASTFuzzerNodeType.DICT)
         self.value = value
+
+    def __str__(self):
+        return str(self.value)
 
 class ASTFuzzerNode_Comparator(ASTFuzzerNode):
     def __init__(self, node :Any ):
@@ -269,6 +310,9 @@ class ASTFuzzerNode_Comparator(ASTFuzzerNode):
 
         assert self.comparatorClass, "No one could be set for this node !"
 
+    def __str__(self):
+        return ASTFuzzerComparatorToStr(self.comparatorClass)
+
 class ASTFuzzerNode_Compare(ASTFuzzerNode):
     def __init__(self, node :Any ):
         super().__init__(ASTFuzzerNodeType.COMPARE)
@@ -277,12 +321,20 @@ class ASTFuzzerNode_Compare(ASTFuzzerNode):
         self.leftTerm : ASTFuzzerNode = None
         self.rightTerm : ASTFuzzerNode = None
 
+    def __str__(self):
+        res = f"{self.leftTerm} {self.comparatorClass} {self.rightTerm}"
+        return res
+
 class ASTFuzzerNode_Subscript(ASTFuzzerNode):
-    def __init__(self, node: Any):
+    def __init__(self):
         super().__init__(ASTFuzzerNodeType.SUBSCRIPT)
 
         self.valueNode : ASTFuzzerNode = None
         self.sliceNode : ASTFuzzerNode = None  # value[slice] node
+
+    def __str__(self):
+        res = f"{self.valueNode}[{self.sliceNode}]"
+        return res
 
 
 class ASTFuzzerNode_Call(ASTFuzzerNode):
@@ -294,6 +346,25 @@ class ASTFuzzerNode_Call(ASTFuzzerNode):
         self.args : List[ASTFuzzerNode] = [] # The argument nodes
         self.kwargs : Dict[str, ASTFuzzerNode] = {} # The kwargs stuff
 
+    def __str__(self):
+        res = ""
+        # Put attributes up to the function call
+        for attr in self.attributes:
+            res += str(attr)
+            res += "."
+
+        # Put func call name
+        res += self.funcCallName + "("
+
+        # Then the parameter
+        for argIndex, argValue in enumerate(self.args):
+            res += str(argValue)
+            if argIndex < len(self.args) - 1:
+                res += ","
+        res += ")"
+
+        return res
+
 class ASTForFuzzer:
     def __init__(self):
         self.dictOfExternalCalls : DictionaryOfExternalCalls = {}
@@ -303,6 +374,10 @@ class ASTFuzzerNode_FOREACH(ASTFuzzerNode):
         super().__init__(ASTFuzzerNodeType.FOREACH_ITERATION)
         self.iteratedObject_node: ASTFuzzerNode = None
         self.iteratedVar_node: ASTFuzzerNode = None
+        self.originalExpression : str = None
+
+    def __str__(self):
+        return self.originalExpression
 
 WorkflowCodeBlockParsed = List[ASTFuzzerNode]
 
@@ -403,17 +478,16 @@ class WorkflowExpressionsParser(ast.NodeVisitor):
 
         # Create the subscript node
         resNode = ASTFuzzerNode_Subscript()
-        self.visit(resNode.valueNode)
-
+        self.visit(node.value)
         resNode.valueNode = self.popNode()
-        self.visit(resNode.sliceNode)
 
+        self.visit(node.slice)
         resNode.sliceNode = self.popNode()
-        # And stack it
-        self.stackNode(resNode)
-
 
         self.tryPopMarker(markerId)
+
+        # And stack it
+        self.stackNode(resNode)
 
     # CHECK #########
     def visit_Attribute(self, node : ast.Attribute):
@@ -505,8 +579,8 @@ class WorkflowExpressionsParser(ast.NodeVisitor):
             elif isinstance(topNode, ASTFuzzerNode_Attribute):
                 attrNode : ASTFuzzerNode_Attribute = self.popNode()
                 lastAttrInList : AttributeData = attrNode.listOfAttributesData[-1]
-                assert isinstance(lastAttrInList.node, ASTFuzzerNode_Name)\
-                    or isinstance(lastAttrInList.node, ASTFuzzerNode_Attribute), "I was expecting a name for function call !"
+                assert isinstance(lastAttrInList.node, (ASTFuzzerNode_Name, ASTFuzzerNode_Attribute)),\
+                    "I was expecting a name for function call !"
 
                 funcCallNode.funcCallName = attrNode.listOfAttributesData[-1].name
                 funcCallNode.attributes = attrNode.listOfAttributesData[:-1]
@@ -684,6 +758,7 @@ class WorkflowExpressionsParser(ast.NodeVisitor):
             iteratedVar_expressionRaw = match.group('iteratorName')
 
             result : WorkflowCodeBlockParsed = [ASTFuzzerNode_FOREACH()]
+            result[0].originalExpression = code_block_rawStr
             result[0].iteratedObject_node = self.parseModuleCodeBlock(iteratedObject_expressionRaw)
             result[0].iteratedVar_node = self.parseModuleCodeBlock(iteratedVar_expressionRaw)
             return result
