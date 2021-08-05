@@ -216,6 +216,14 @@ class ASTFuzzerNode_Attribute(ASTFuzzerNode):
         else:
             assert False
 
+    def __str__(self):
+        res = ""
+        for x in self.listOfAttributesData:
+            res += str(x)
+            if x != self.listOfAttributesData[-1]:
+                res += "."
+        return res
+
 class ASTFuzzerNode_Assignment(ASTFuzzerNode):
     def __init__(self):
         super().__init__(ASTFuzzerNodeType.ASSIGNMENT)
