@@ -6,20 +6,20 @@
         "Version": "2.10.0-preview"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\closedxml/0.87.1\\lib/net40/ClosedXML.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\csvhelper/2.13.5\\lib/net40-client/CsvHelper.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\documentformat.openxml/2.5.0\\lib/DocumentFormat.OpenXml.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.visualstudio.ole.interop/7.10.6071\\lib/Microsoft.VisualStudio.OLE.Interop.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OOXML.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OpenXml4Net.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OpenXmlFormats.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\sharpziplib/1.2.0\\lib/net45/ICSharpCode.SharpZipLib.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.excel.activities/2.10.0-preview\\lib/net461/UiPath.Excel.Activities.Design.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.excel.activities/2.10.0-preview\\lib/net461/UiPath.Excel.Activities.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.excel.activities/2.10.0-preview\\lib/net461/UiPath.Excel.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\closedxml/0.87.1\\lib/net40/ClosedXML.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\csvhelper/2.13.5\\lib/net40-client/CsvHelper.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\documentformat.openxml/2.5.0\\lib/DocumentFormat.OpenXml.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.visualstudio.ole.interop/7.10.6071\\lib/Microsoft.VisualStudio.OLE.Interop.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OOXML.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OpenXml4Net.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OpenXmlFormats.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\sharpziplib/1.2.0\\lib/net45/ICSharpCode.SharpZipLib.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.0-preview\\lib/net461/UiPath.Excel.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.0-preview\\lib/net461/UiPath.Excel.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.0-preview\\lib/net461/UiPath.Excel.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.excel.activities\\2.10.0-preview"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.10.0-preview"
     },
     {
       "Package": {
@@ -27,56 +27,56 @@
         "Version": "20.10.3"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\csvhelper/2.13.5\\lib/net40-client/CsvHelper.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnet.signalr.client/2.4.0\\lib/net45/Microsoft.AspNet.SignalR.Client.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Connections.Abstractions.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.Client.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.Common.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.http.features/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.signalr.client/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Client.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Client.Core.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.signalr.common/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Common.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.bcl.asyncinterfaces/1.1.1\\lib/net461/Microsoft.Bcl.AsyncInterfaces.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.configuration/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.configuration.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.configuration.binder/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.dependencyinjection/3.1.6\\lib/net461/Microsoft.Extensions.DependencyInjection.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.logging/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Logging.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.logging.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.options/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Options.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.primitives/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Primitives.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.rest.clientruntime/2.3.21\\lib/net461/Microsoft.Rest.ClientRuntime.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\newtonsoft.json/11.0.2\\lib/net45/Newtonsoft.Json.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\sharpziplib/1.2.0\\lib/net45/ICSharpCode.SharpZipLib.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.buffers/4.5.1\\lib/net461/System.Buffers.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.componentmodel.annotations/4.7.0\\lib/net461/System.ComponentModel.Annotations.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.io.abstractions/3.0.10\\lib/net40/System.IO.Abstractions.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.io.pipelines/4.7.1\\lib/netstandard2.0/System.IO.Pipelines.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.memory/4.5.4\\lib/net461/System.Memory.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.numerics.vectors/4.5.0\\lib/net46/System.Numerics.Vectors.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.runtime.compilerservices.unsafe/4.7.1\\lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.text.encodings.web/4.7.1\\lib/net461/System.Text.Encodings.Web.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.text.json/4.7.2\\lib/net461/System.Text.Json.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.threading.channels/4.7.1\\lib/net461/System.Threading.Channels.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.threading.tasks.extensions/4.5.4\\lib/net461/System.Threading.Tasks.Extensions.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.platform/20.10.4\\lib/net461/UiPath.Platform.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.Docking.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.Ribbon.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.Shared.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.SyntaxEditor.Addons.DotNet.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.SyntaxEditor.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.Text.Addons.DotNet.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.Text.LLParser.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.Text.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.Wizard.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/UiPath.OrchestratorClient.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/UiPath.System.Activities.Design.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/UiPath.System.Activities.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\csvhelper/2.13.5\\lib/net40-client/CsvHelper.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnet.signalr.client/2.4.0\\lib/net45/Microsoft.AspNet.SignalR.Client.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Connections.Abstractions.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.Client.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.Common.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.http.features/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.signalr.client/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Client.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Client.Core.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.signalr.common/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Common.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.bcl.asyncinterfaces/1.1.1\\lib/net461/Microsoft.Bcl.AsyncInterfaces.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.configuration/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.configuration.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.configuration.binder/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.dependencyinjection/3.1.6\\lib/net461/Microsoft.Extensions.DependencyInjection.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.logging/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Logging.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.logging.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.options/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Options.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.primitives/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Primitives.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.rest.clientruntime/2.3.21\\lib/net461/Microsoft.Rest.ClientRuntime.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json/11.0.2\\lib/net45/Newtonsoft.Json.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\sharpziplib/1.2.0\\lib/net45/ICSharpCode.SharpZipLib.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.buffers/4.5.1\\lib/net461/System.Buffers.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.componentmodel.annotations/4.7.0\\lib/net461/System.ComponentModel.Annotations.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.io.abstractions/3.0.10\\lib/net40/System.IO.Abstractions.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.io.pipelines/4.7.1\\lib/netstandard2.0/System.IO.Pipelines.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.memory/4.5.4\\lib/net461/System.Memory.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.numerics.vectors/4.5.0\\lib/net46/System.Numerics.Vectors.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.runtime.compilerservices.unsafe/4.7.1\\lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.text.encodings.web/4.7.1\\lib/net461/System.Text.Encodings.Web.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.text.json/4.7.2\\lib/net461/System.Text.Json.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.threading.channels/4.7.1\\lib/net461/System.Threading.Channels.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.threading.tasks.extensions/4.5.4\\lib/net461/System.Threading.Tasks.Extensions.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.platform/20.10.4\\lib/net461/UiPath.Platform.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.Docking.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.Ribbon.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.Shared.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.SyntaxEditor.Addons.DotNet.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.SyntaxEditor.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.Text.Addons.DotNet.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.Text.LLParser.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.Text.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/ActiproSoftware.Wizard.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/UiPath.OrchestratorClient.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/UiPath.System.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities/20.10.3\\lib/net461/UiPath.System.Activities.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3"
     },
     {
       "Package": {
@@ -84,54 +84,54 @@
         "Version": "20.12.0-preview"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\aforge/2.2.5\\lib/AForge.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\aforge.imaging/2.2.5\\lib/AForge.Imaging.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\aforge.math/2.2.5\\lib/AForge.Math.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\avalonedit/6.0.1\\lib/net45/ICSharpCode.AvalonEdit.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\newtonsoft.json/11.0.2\\lib/net45/Newtonsoft.Json.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\nlog/4.5.11\\lib/net45/NLog.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.collections.immutable/1.5.0\\lib/netstandard2.0/System.Collections.Immutable.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.io.abstractions/3.0.10\\lib/net40/System.IO.Abstractions.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.threading.tasks.dataflow/4.10.0\\lib/netstandard2.0/System.Threading.Tasks.Dataflow.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath/20.12.7654.25299-preview\\lib/UiPath.Interop.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.ocr.activities/2.4.1\\lib/net461/UiPath.OCR.Activities.Design.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.ocr.activities/2.4.1\\lib/net461/UiPath.OCR.Activities.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.ocr.activities/2.4.1\\lib/net461/UiPath.OCR.Core.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.ocr.contracts/2.7.1\\lib/net461/UiPath.OCR.Contracts.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.platform/20.10.4\\lib/net461/UiPath.Platform.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.telemetry.client/1.2.20\\lib/net461/TelemetryClient.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.DataGrid.Contrib.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Docking.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Editors.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Ribbon.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Shared.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.SyntaxEditor.Addons.DotNet.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.SyntaxEditor.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Text.Addons.DotNet.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Text.LLParser.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Text.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Wizard.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.CV.Activities.Design.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.CV.Activities.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.CV.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.UIAutomation.Activities.Design.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.UIAutomationCore.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.UIAutomationNext.Activities.Design.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.UIAutomationNext.Activities.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.UIAutomationNext.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.UiAutomation.Activities.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.Wizards.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.AzureComputerVision.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.Core.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.GoogleCloud.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.Host.Common.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.Microsoft.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.MicrosoftCloud.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.Tesseract.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\aforge/2.2.5\\lib/AForge.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\aforge.imaging/2.2.5\\lib/AForge.Imaging.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\aforge.math/2.2.5\\lib/AForge.Math.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\avalonedit/6.0.1\\lib/net45/ICSharpCode.AvalonEdit.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json/11.0.2\\lib/net45/Newtonsoft.Json.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\nlog/4.5.11\\lib/net45/NLog.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.collections.immutable/1.5.0\\lib/netstandard2.0/System.Collections.Immutable.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.io.abstractions/3.0.10\\lib/net40/System.IO.Abstractions.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.threading.tasks.dataflow/4.10.0\\lib/netstandard2.0/System.Threading.Tasks.Dataflow.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath/20.12.7654.25299-preview\\lib/UiPath.Interop.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.ocr.activities/2.4.1\\lib/net461/UiPath.OCR.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.ocr.activities/2.4.1\\lib/net461/UiPath.OCR.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.ocr.activities/2.4.1\\lib/net461/UiPath.OCR.Core.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.ocr.contracts/2.7.1\\lib/net461/UiPath.OCR.Contracts.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.platform/20.10.4\\lib/net461/UiPath.Platform.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.telemetry.client/1.2.20\\lib/net461/TelemetryClient.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.DataGrid.Contrib.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Docking.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Editors.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Ribbon.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Shared.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.SyntaxEditor.Addons.DotNet.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.SyntaxEditor.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Text.Addons.DotNet.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Text.LLParser.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Text.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/ActiproSoftware.Wizard.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.CV.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.CV.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.CV.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.UIAutomation.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.UIAutomationCore.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.UIAutomationNext.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.UIAutomationNext.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.UIAutomationNext.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.UiAutomation.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities/20.12.0-preview\\lib/net461/UiPath.Wizards.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.AzureComputerVision.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.Core.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.GoogleCloud.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.Host.Common.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.Microsoft.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.MicrosoftCloud.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.Tesseract.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.vision/2.3.0-preview\\lib/net461/UiPath.Vision.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview"
     }
   ],
   "Conflicts": [],
@@ -858,9 +858,9 @@
         "Version": "2.2.5"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\aforge\\2.2.5\\lib\\AForge.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\aforge\\2.2.5\\lib\\AForge.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\aforge\\2.2.5"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\aforge\\2.2.5"
     },
     {
       "Package": {
@@ -868,9 +868,9 @@
         "Version": "2.2.5"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\aforge.imaging\\2.2.5\\lib\\AForge.Imaging.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\aforge.imaging\\2.2.5\\lib\\AForge.Imaging.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\aforge.imaging\\2.2.5"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\aforge.imaging\\2.2.5"
     },
     {
       "Package": {
@@ -878,9 +878,9 @@
         "Version": "2.2.5"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\aforge.math\\2.2.5\\lib\\AForge.Math.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\aforge.math\\2.2.5\\lib\\AForge.Math.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\aforge.math\\2.2.5"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\aforge.math\\2.2.5"
     },
     {
       "Package": {
@@ -888,9 +888,9 @@
         "Version": "6.0.1"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\avalonedit\\6.0.1\\lib\\net45\\ICSharpCode.AvalonEdit.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\avalonedit\\6.0.1\\lib\\net45\\ICSharpCode.AvalonEdit.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\avalonedit\\6.0.1"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\avalonedit\\6.0.1"
     },
     {
       "Package": {
@@ -898,9 +898,9 @@
         "Version": "0.87.1"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\closedxml\\0.87.1\\lib\\net40\\ClosedXML.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\closedxml\\0.87.1\\lib\\net40\\ClosedXML.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\closedxml\\0.87.1"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\closedxml\\0.87.1"
     },
     {
       "Package": {
@@ -908,9 +908,9 @@
         "Version": "2.13.5"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\csvhelper\\2.13.5\\lib\\net40-client\\CsvHelper.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\csvhelper\\2.13.5\\lib\\net40-client\\CsvHelper.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\csvhelper\\2.13.5"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\csvhelper\\2.13.5"
     },
     {
       "Package": {
@@ -918,9 +918,9 @@
         "Version": "2.5.0"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\documentformat.openxml\\2.5.0\\lib\\DocumentFormat.OpenXml.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\documentformat.openxml\\2.5.0\\lib\\DocumentFormat.OpenXml.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\documentformat.openxml\\2.5.0"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\documentformat.openxml\\2.5.0"
     },
     {
       "Package": {
@@ -928,9 +928,9 @@
         "Version": "2.4.0"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnet.signalr.client\\2.4.0\\lib\\net45\\Microsoft.AspNet.SignalR.Client.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnet.signalr.client\\2.4.0\\lib\\net45\\Microsoft.AspNet.SignalR.Client.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnet.signalr.client\\2.4.0"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnet.signalr.client\\2.4.0"
     },
     {
       "Package": {
@@ -938,9 +938,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Connections.Abstractions.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Connections.Abstractions.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\3.1.6"
     },
     {
       "Package": {
@@ -948,9 +948,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Connections.Client.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Connections.Client.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client\\3.1.6"
     },
     {
       "Package": {
@@ -958,9 +958,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Connections.Common.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Connections.Common.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common\\3.1.6"
     },
     {
       "Package": {
@@ -968,9 +968,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Features.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Features.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.6"
     },
     {
       "Package": {
@@ -978,9 +978,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.signalr.client\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Client.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.signalr.client\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Client.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.signalr.client\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.signalr.client\\3.1.6"
     },
     {
       "Package": {
@@ -988,9 +988,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Client.Core.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Client.Core.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core\\3.1.6"
     },
     {
       "Package": {
@@ -998,9 +998,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.signalr.common\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Common.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.signalr.common\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Common.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.signalr.common\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.signalr.common\\3.1.6"
     },
     {
       "Package": {
@@ -1008,9 +1008,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Protocols.Json.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Protocols.Json.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json\\3.1.6"
     },
     {
       "Package": {
@@ -1018,9 +1018,9 @@
         "Version": "1.1.1"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\lib\\net461\\Microsoft.Bcl.AsyncInterfaces.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\lib\\net461\\Microsoft.Bcl.AsyncInterfaces.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1"
     },
     {
       "Package": {
@@ -1028,9 +1028,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.6"
     },
     {
       "Package": {
@@ -1038,9 +1038,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.Abstractions.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.Abstractions.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.6"
     },
     {
       "Package": {
@@ -1048,9 +1048,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.Binder.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.Binder.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.6"
     },
     {
       "Package": {
@@ -1058,9 +1058,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.6\\lib\\net461\\Microsoft.Extensions.DependencyInjection.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.6\\lib\\net461\\Microsoft.Extensions.DependencyInjection.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.6"
     },
     {
       "Package": {
@@ -1068,9 +1068,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.DependencyInjection.Abstractions.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.DependencyInjection.Abstractions.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.6"
     },
     {
       "Package": {
@@ -1078,9 +1078,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.logging\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Logging.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.logging\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Logging.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.logging\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.logging\\3.1.6"
     },
     {
       "Package": {
@@ -1088,9 +1088,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Logging.Abstractions.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Logging.Abstractions.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.6"
     },
     {
       "Package": {
@@ -1098,9 +1098,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.options\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Options.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.options\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Options.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.options\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.options\\3.1.6"
     },
     {
       "Package": {
@@ -1108,9 +1108,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Primitives.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Primitives.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.6"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.6"
     },
     {
       "Package": {
@@ -1118,9 +1118,9 @@
         "Version": "2.3.21"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.rest.clientruntime\\2.3.21\\lib\\net461\\Microsoft.Rest.ClientRuntime.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.rest.clientruntime\\2.3.21\\lib\\net461\\Microsoft.Rest.ClientRuntime.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.rest.clientruntime\\2.3.21"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.rest.clientruntime\\2.3.21"
     },
     {
       "Package": {
@@ -1128,9 +1128,9 @@
         "Version": "7.10.6071"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.visualstudio.ole.interop\\7.10.6071\\lib\\Microsoft.VisualStudio.OLE.Interop.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.visualstudio.ole.interop\\7.10.6071\\lib\\Microsoft.VisualStudio.OLE.Interop.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\microsoft.visualstudio.ole.interop\\7.10.6071"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.visualstudio.ole.interop\\7.10.6071"
     },
     {
       "Package": {
@@ -1138,9 +1138,9 @@
         "Version": "11.0.2"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\newtonsoft.json\\11.0.2\\lib\\net45\\Newtonsoft.Json.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json\\11.0.2\\lib\\net45\\Newtonsoft.Json.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\newtonsoft.json\\11.0.2"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json\\11.0.2"
     },
     {
       "Package": {
@@ -1148,9 +1148,9 @@
         "Version": "4.5.11"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\nlog\\4.5.11\\lib\\net45\\NLog.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\nlog\\4.5.11\\lib\\net45\\NLog.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\nlog\\4.5.11"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\nlog\\4.5.11"
     },
     {
       "Package": {
@@ -1158,12 +1158,12 @@
         "Version": "2.4.1"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\npoi\\2.4.1\\lib\\net45\\NPOI.OOXML.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\npoi\\2.4.1\\lib\\net45\\NPOI.OpenXml4Net.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\npoi\\2.4.1\\lib\\net45\\NPOI.OpenXmlFormats.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\npoi\\2.4.1\\lib\\net45\\NPOI.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi\\2.4.1\\lib\\net45\\NPOI.OOXML.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi\\2.4.1\\lib\\net45\\NPOI.OpenXml4Net.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi\\2.4.1\\lib\\net45\\NPOI.OpenXmlFormats.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi\\2.4.1\\lib\\net45\\NPOI.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\npoi\\2.4.1"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\npoi\\2.4.1"
     },
     {
       "Package": {
@@ -1171,9 +1171,9 @@
         "Version": "1.2.0"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\sharpziplib\\1.2.0\\lib\\net45\\ICSharpCode.SharpZipLib.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\sharpziplib\\1.2.0\\lib\\net45\\ICSharpCode.SharpZipLib.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\sharpziplib\\1.2.0"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\sharpziplib\\1.2.0"
     },
     {
       "Package": {
@@ -1181,9 +1181,9 @@
         "Version": "4.5.1"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.buffers\\4.5.1\\lib\\net461\\System.Buffers.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.buffers\\4.5.1\\lib\\net461\\System.Buffers.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.buffers\\4.5.1"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.buffers\\4.5.1"
     },
     {
       "Package": {
@@ -1191,9 +1191,9 @@
         "Version": "1.5.0"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.collections.immutable\\1.5.0\\lib\\netstandard2.0\\System.Collections.Immutable.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.collections.immutable\\1.5.0\\lib\\netstandard2.0\\System.Collections.Immutable.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.collections.immutable\\1.5.0"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.collections.immutable\\1.5.0"
     },
     {
       "Package": {
@@ -1201,9 +1201,9 @@
         "Version": "4.7.0"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\lib\\net461\\System.ComponentModel.Annotations.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\lib\\net461\\System.ComponentModel.Annotations.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0"
     },
     {
       "Package": {
@@ -1211,9 +1211,9 @@
         "Version": "3.0.10"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.io.abstractions\\3.0.10\\lib\\net40\\System.IO.Abstractions.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.io.abstractions\\3.0.10\\lib\\net40\\System.IO.Abstractions.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.io.abstractions\\3.0.10"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.io.abstractions\\3.0.10"
     },
     {
       "Package": {
@@ -1221,9 +1221,9 @@
         "Version": "4.7.1"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.io.pipelines\\4.7.1\\lib\\netstandard2.0\\System.IO.Pipelines.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.io.pipelines\\4.7.1\\lib\\netstandard2.0\\System.IO.Pipelines.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.io.pipelines\\4.7.1"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.io.pipelines\\4.7.1"
     },
     {
       "Package": {
@@ -1231,9 +1231,9 @@
         "Version": "4.5.4"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.memory\\4.5.4\\lib\\net461\\System.Memory.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.memory\\4.5.4\\lib\\net461\\System.Memory.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.memory\\4.5.4"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.memory\\4.5.4"
     },
     {
       "Package": {
@@ -1241,9 +1241,9 @@
         "Version": "4.5.0"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\lib\\net46\\System.Numerics.Vectors.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\lib\\net46\\System.Numerics.Vectors.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.numerics.vectors\\4.5.0"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.numerics.vectors\\4.5.0"
     },
     {
       "Package": {
@@ -1251,9 +1251,9 @@
         "Version": "4.7.1"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1\\lib\\net461\\System.Runtime.CompilerServices.Unsafe.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1\\lib\\net461\\System.Runtime.CompilerServices.Unsafe.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1"
     },
     {
       "Package": {
@@ -1261,9 +1261,9 @@
         "Version": "4.7.1"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.text.encodings.web\\4.7.1\\lib\\net461\\System.Text.Encodings.Web.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.text.encodings.web\\4.7.1\\lib\\net461\\System.Text.Encodings.Web.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.text.encodings.web\\4.7.1"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.text.encodings.web\\4.7.1"
     },
     {
       "Package": {
@@ -1271,9 +1271,9 @@
         "Version": "4.7.2"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.text.json\\4.7.2\\lib\\net461\\System.Text.Json.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.text.json\\4.7.2\\lib\\net461\\System.Text.Json.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.text.json\\4.7.2"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.text.json\\4.7.2"
     },
     {
       "Package": {
@@ -1281,9 +1281,9 @@
         "Version": "4.7.1"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.threading.channels\\4.7.1\\lib\\net461\\System.Threading.Channels.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.threading.channels\\4.7.1\\lib\\net461\\System.Threading.Channels.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.threading.channels\\4.7.1"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.threading.channels\\4.7.1"
     },
     {
       "Package": {
@@ -1291,9 +1291,9 @@
         "Version": "4.10.0"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.threading.tasks.dataflow\\4.10.0\\lib\\netstandard2.0\\System.Threading.Tasks.Dataflow.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.threading.tasks.dataflow\\4.10.0\\lib\\netstandard2.0\\System.Threading.Tasks.Dataflow.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.threading.tasks.dataflow\\4.10.0"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.threading.tasks.dataflow\\4.10.0"
     },
     {
       "Package": {
@@ -1301,9 +1301,9 @@
         "Version": "4.5.4"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\lib\\net461\\System.Threading.Tasks.Extensions.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\lib\\net461\\System.Threading.Tasks.Extensions.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4"
     },
     {
       "Package": {
@@ -1311,9 +1311,9 @@
         "Version": "4.5.0"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.valuetuple\\4.5.0\\lib\\net461\\System.ValueTuple.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.valuetuple\\4.5.0\\lib\\net461\\System.ValueTuple.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\system.valuetuple\\4.5.0"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.valuetuple\\4.5.0"
     },
     {
       "Package": {
@@ -1321,9 +1321,9 @@
         "Version": "20.12.7654.25299-preview"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath\\20.12.7654.25299-preview\\lib\\UiPath.Interop.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath\\20.12.7654.25299-preview\\lib\\UiPath.Interop.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath\\20.12.7654.25299-preview"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath\\20.12.7654.25299-preview"
     },
     {
       "Package": {
@@ -1331,11 +1331,11 @@
         "Version": "2.10.0-preview"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.excel.activities\\2.10.0-preview\\lib\\net461\\UiPath.Excel.Activities.Design.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.excel.activities\\2.10.0-preview\\lib\\net461\\UiPath.Excel.Activities.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.excel.activities\\2.10.0-preview\\lib\\net461\\UiPath.Excel.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.10.0-preview\\lib\\net461\\UiPath.Excel.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.10.0-preview\\lib\\net461\\UiPath.Excel.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.10.0-preview\\lib\\net461\\UiPath.Excel.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.excel.activities\\2.10.0-preview"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.10.0-preview"
     },
     {
       "Package": {
@@ -1343,11 +1343,11 @@
         "Version": "2.4.1"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.ocr.activities\\2.4.1\\lib\\net461\\UiPath.OCR.Activities.Design.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.ocr.activities\\2.4.1\\lib\\net461\\UiPath.OCR.Activities.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.ocr.activities\\2.4.1\\lib\\net461\\UiPath.OCR.Core.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.ocr.activities\\2.4.1\\lib\\net461\\UiPath.OCR.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.ocr.activities\\2.4.1\\lib\\net461\\UiPath.OCR.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.ocr.activities\\2.4.1\\lib\\net461\\UiPath.OCR.Core.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.ocr.activities\\2.4.1"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.ocr.activities\\2.4.1"
     },
     {
       "Package": {
@@ -1355,9 +1355,9 @@
         "Version": "2.7.1"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.ocr.contracts\\2.7.1\\lib\\net461\\UiPath.OCR.Contracts.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.ocr.contracts\\2.7.1\\lib\\net461\\UiPath.OCR.Contracts.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.ocr.contracts\\2.7.1"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.ocr.contracts\\2.7.1"
     },
     {
       "Package": {
@@ -1365,9 +1365,9 @@
         "Version": "20.10.4"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.platform\\20.10.4\\lib\\net461\\UiPath.Platform.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.platform\\20.10.4\\lib\\net461\\UiPath.Platform.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.platform\\20.10.4"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.platform\\20.10.4"
     },
     {
       "Package": {
@@ -1375,21 +1375,21 @@
         "Version": "20.10.3"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.Docking.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.Ribbon.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.Shared.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.SyntaxEditor.Addons.DotNet.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.SyntaxEditor.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.Text.Addons.DotNet.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.Text.LLParser.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.Text.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.Wizard.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\CustomInputForm.exe",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\UiPath.OrchestratorClient.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\UiPath.System.Activities.Design.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\UiPath.System.Activities.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.Docking.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.Ribbon.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.Shared.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.SyntaxEditor.Addons.DotNet.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.SyntaxEditor.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.Text.Addons.DotNet.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.Text.LLParser.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.Text.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\ActiproSoftware.Wizard.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\CustomInputForm.exe",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\UiPath.OrchestratorClient.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\UiPath.System.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3\\lib\\net461\\UiPath.System.Activities.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.system.activities\\20.10.3"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.system.activities\\20.10.3"
     },
     {
       "Package": {
@@ -1397,9 +1397,9 @@
         "Version": "1.2.20"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.telemetry.client\\1.2.20\\lib\\net461\\TelemetryClient.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.telemetry.client\\1.2.20\\lib\\net461\\TelemetryClient.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.telemetry.client\\1.2.20"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.telemetry.client\\1.2.20"
     },
     {
       "Package": {
@@ -1407,29 +1407,29 @@
         "Version": "20.12.0-preview"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.DataGrid.Contrib.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Docking.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Editors.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Ribbon.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Shared.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.SyntaxEditor.Addons.DotNet.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.SyntaxEditor.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Text.Addons.DotNet.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Text.LLParser.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Text.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Wizard.Wpf.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.CV.Activities.Design.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.CV.Activities.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.CV.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.UIAutomation.Activities.Design.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.UIAutomationCore.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.UIAutomationNext.Activities.Design.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.UIAutomationNext.Activities.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.UIAutomationNext.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.UiAutomation.Activities.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.Wizards.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.DataGrid.Contrib.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Docking.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Editors.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Ribbon.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Shared.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.SyntaxEditor.Addons.DotNet.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.SyntaxEditor.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Text.Addons.DotNet.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Text.LLParser.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Text.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\ActiproSoftware.Wizard.Wpf.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.CV.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.CV.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.CV.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.UIAutomation.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.UIAutomationCore.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.UIAutomationNext.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.UIAutomationNext.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.UIAutomationNext.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.UiAutomation.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview\\lib\\net461\\UiPath.Wizards.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\20.12.0-preview"
     },
     {
       "Package": {
@@ -1437,10 +1437,10 @@
         "Version": "2.3.0-preview"
       },
       "Assemblies": [
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.vision\\2.3.0-preview\\lib\\net461\\UiPath.Vision.Core.dll",
-        "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.vision\\2.3.0-preview\\lib\\net461\\UiPath.Vision.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.vision\\2.3.0-preview\\lib\\net461\\UiPath.Vision.Core.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.vision\\2.3.0-preview\\lib\\net461\\UiPath.Vision.dll"
       ],
-      "Path": "C:\\Users\\Marina Cernat\\.nuget\\packages\\uipath.vision\\2.3.0-preview"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.vision\\2.3.0-preview"
     }
   ]
 }

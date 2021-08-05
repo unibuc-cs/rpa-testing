@@ -1,6 +1,6 @@
 {
   "name": "CSharpLoansProducer",
-  "description": "Blank Process",
+  "description": "",
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.Excel.Activities": "[2.10.4]",
@@ -12,7 +12,7 @@
   "entitiesStores": [],
   "schemaVersion": "4.0",
   "studioVersion": "21.4.4.0",
-  "projectVersion": "1.0.0",
+  "projectVersion": "1.0.5",
   "runtimeOptions": {
     "autoDispose": false,
     "isPausable": true,
@@ -43,7 +43,7 @@
   "entryPoints": [
     {
       "filePath": "Main.xaml",
-      "uniqueId": "e4c8a202-8e06-4f94-802e-30bb13a4fd90",
+      "uniqueId": "89f32b03-e55e-4793-855f-0e539d223f43",
       "input": [],
       "output": []
     }
