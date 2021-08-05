@@ -101,7 +101,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
     def __init__(self, varName : str, typeName : str, **kwargs):
         super().__init__(ASTFuzzerNodeType.VARIABLE_DECL)
         self.typeName = typeName
-        self.defaultValue = kwargs['Default'] if 'Default' in kwargs else None
+        self.defaultValue = kwargs['defaultValue'] if 'defaultValue' in kwargs else None
         self.varName = varName
 
         # self.value represents the CURRENT concrete value, while self.symbolicValue represents the Z3 symbolic value associated with it
@@ -110,7 +110,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
 
         # Fill the annotations
         self.annotation = VarAnnotation()
-        annotationTag = kwargs.get('Annotation')
+        annotationTag = kwargs.get('annotation')
         if annotationTag is not None:
             if 'bounds' in annotationTag:
                 self.annotation.bounds = int(annotationTag['bounds'])
@@ -126,7 +126,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
                 if self.annotation.isFromUserInput == 1:
                     assert self.defaultValue == None, "In the case of variables coming as inputs you can't put a default value !"
 
-
+        # Build the variabile symbolic and default value depending on its type
         if typeName == "Int32":
             self.value = 0 if self.defaultValue is None else int(self.defaultValue, self.varName)
 
@@ -135,7 +135,20 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
 
         elif typeName == 'Int32[]':
             self.value = FuzzerArray.CreateArray('Int32', annotation=self.annotation, defaultValue=self.defaultValue)
-            self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
+        elif typeName == 'String[]':
+            self.value = FuzzerArray.CreateArray('String', annotation=self.annotation, defaultValue=self.defaultValue)
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
+        elif typeName == "List":
+            assert self.annotation is None or self.annotation.isFromUserInput is False, \
+                "List type is not supported for symbolic execution since its element could be anything !!. So no annotation please that involves symbolic"
+
+            self.value = FuzzerList.Create(annotation=self.annotation, defaultValue=self.defaultValue)
+
         elif typeName == 'Boolean':
             self.value = False if (self.defaultValue == None or self.defaultValue == 'false' or self.defaultValue == 'False'
                                    or int(self.defaultValue) == 0) else True
@@ -200,7 +213,17 @@ class ASTFuzzerNode_Assignment(ASTFuzzerNode):
         self.rightTerm: ASTFuzzerNode = None
 
     def __str__(self):
-        res = f"{self.leftTerm} = {self.rightTerm}"
+        if isinstance(self.rightTerm, (List, Set)):
+            res = f"{self.leftTerm} = ["
+            numItems = len(self.rightTerm)
+            for rightIndex, rightVal in enumerate(self.rightTerm):
+                res += str(rightVal)
+                if rightIndex < numItems - 1:
+                    res += ", "
+                else:
+                    res += "]"
+        else:
+            res = f"{self.leftTerm} = {self.rightTerm}"
         return res
 
 class ASTFuzzerNode_KeywordParam(ASTFuzzerNode):
@@ -647,7 +670,17 @@ class WorkflowExpressionsParser(ast.NodeVisitor):
         self.visit(node.value)
 
         # Now pop the needed element from stack and fill them.
-        rightTerm = self.popNode()
+        rightTerm = None
+
+        if isinstance(node.value, (ast.List, ast.Set)):
+            rightTerm = []
+            for elemValue in node.value.elts:
+                rightTerm.append(self.popNode())
+            rightTerm.reverse()
+        else:
+            rightTerm = self.popNode()
+
+
         leftTerm = self.popNode()
         self.tryPopMarker(markerId)
 

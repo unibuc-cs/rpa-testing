@@ -134,7 +134,6 @@ class DataTable_ColumnsView:
 	def __call__(self):
 		return self
 
-
 class DataTable_iterator:
 	def __init__(self, parentTable):
 		self.parentTable = parentTable
@@ -252,7 +251,48 @@ class DataTable:
 
 	def clearIterator(self):
 		assert self.existingIter is not None
+		self.existingIter = None
 
+class FuzzerArray_iterator:
+	def __init__(self, parentArray):
+		self.parentArray = parentArray
+		self.currentIndex = None
+		self.expectedNumItems = None
+
+	# ITERATION LOGIC
+	#-------------------------------------
+	# Checks if we are already iterating over the array or not
+	# If not, we start it, if yes do nothing
+	def checkStartIteration(self) -> bool:
+		if self.currentIndex is None:
+			self.expectedNumItems = len(self.parentArray.internalValue)
+			self.currentIndex = -1
+			return True
+		else:
+			return False
+
+	def nextIteration(self):
+		assert(self.currentIndex is not None)
+		self.currentIndex += 1
+
+		# Check if it should close
+		if self.currentIndex == self.expectedNumItems:
+			self.closeIteration()
+			return None
+
+		return self.parentArray.internalValue[self.currentIndex]
+
+	def getCurrentData(self):
+		if self.currentIndex is None:
+			return None
+		return self.parentArray.internalValue[self.currentIndex]
+
+	def closeIteration(self):
+		self.rowsView = None
+		self.expectedNumRows = None
+		self.rowIterIndex = None
+		self.parentTable.clearIterator()
+	# --- END ITERATION LOGIC -------------------------------------
 
 class FuzzerArray:
 	def __init__(self, internalDataType : str, annotation : VarAnnotation, defaultValue = None):
@@ -260,10 +300,11 @@ class FuzzerArray:
 		self.annotation = annotation
 		self.defaultValue = defaultValue
 		self.internalValue = None
+		self.existingIter = None
 
 		if self.annotation.isFromUserInput:
-			# TODO: create simbolic here or in the executor ?
-			#raise NotImplementedError
+			# TODO: create symbolic here or in the executor ?
+			raise NotImplementedError
 			pass
 		else:
 			self.internalValue = [] if self.annotation.bounds is None else [self.defaultValue]*self.annotation.bounds
@@ -293,6 +334,66 @@ class FuzzerArray:
 	def getVal(self, index):
 		return self.internalValue[index]
 
+	# Creates a persistent iterator on
+	def getIterator(self) -> FuzzerArray_iterator:
+		assert self.existingIter is None
+		newIter = FuzzerArray_iterator(self)
+		self.existingIter = newIter
+		return newIter
+
+	# Returns true if there is an iteration in progress
+	def isIterationInProgress(self) -> bool:
+		return self.existingIter is not None
+
+	def clearIterator(self):
+		assert self.existingIter is not None
+		self.existingIter = None
+
+class FuzzerList:
+	def __init__(self, annotation : VarAnnotation, defaultValue = None):
+		self.annotation = annotation
+		self.defaultValue = defaultValue
+		self.internalValue = None
+		self.existingIter = None
+
+		self.internalValue = self.defaultValue if self.defaultValue is not None else []
+
+	# A static helper to create an array given a type, annotation and a default value
+	@staticmethod
+	def Create(annotation : VarAnnotation = None, defaultValue = None):
+		res = FuzzerList(annotation, defaultValue)
+		return res
+
+	# set/get value at an index, creates no references as elementAt does
+	def SetElementAt(self, index, val):
+		self.setVal(index, val)
+
+	def GetElementAt(self, index):
+		return self.getVal(index)
+
+	def setVal(self, index, val):
+		self.internalValue[index] = val
+
+	def getVal(self, index):
+		return self.internalValue[index]
+
+	# Creates a persistent iterator on
+	def getIterator(self) -> FuzzerArray_iterator:
+		assert self.existingIter is None
+		newIter = FuzzerArray_iterator(self)
+		self.existingIter = newIter
+		return newIter
+
+	# Returns true if there is an iteration in progress
+	def isIterationInProgress(self) -> bool:
+		return self.existingIter is not None
+
+	def clearIterator(self):
+		assert self.existingIter is not None
+		self.existingIter = None
+
+	def Add(self, item):
+		self.internalValue.append(item)
 
 """"
 if __name__ == "__main__":
