@@ -77,14 +77,24 @@ class ASTFuzzerNode:
         raise NotImplementedError() # Base class not
 
 
-# Attribute data. currently a pair of node and string to processes easier in some cases
+# Attribute data.
 class AttributeData:
     def __init__(self, node : ASTFuzzerNode, name : str, subscriptNode = None):
         self.node = node
         self.name = name
         self.subscript : ASTFuzzerNode_Subscript = subscriptNode
+
+        # We recursively try to find out the name of the last attribute that is using one or more subscripts eg. datatable.rows[row_index][column_index]
         if self.subscript:
-            self.name = self.subscript.valueNode.name
+            currNode = self.subscript.valueNode
+            while currNode is not None and isinstance(currNode, AttributeData) and currNode.subscript != None:
+                currNode = currNode.subscript.valueNode
+
+            if isinstance(currNode, ASTFuzzerNode_Subscript):
+                validName = currNode.valueNode.listOfAttributesData[-1].name
+            else:
+                validName = currNode.name
+            self.name = validName
 
     def __str__(self):
         res = str(self.subscript) if self.subscript is not None else self.name
@@ -128,7 +138,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
 
         # Build the variabile symbolic and default value depending on its type
         if typeName == "Int32":
-            self.value = 0 if self.defaultValue is None else int(self.defaultValue, self.varName)
+            self.value = 0 if self.defaultValue is None else int(self.defaultValue) #, self.varName)
 
             if self.annotation.isFromUserInput:
                 self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
