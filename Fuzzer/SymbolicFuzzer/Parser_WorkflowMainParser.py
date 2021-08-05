@@ -16,13 +16,17 @@ class WorkflowParser:
         self.workflowExpressionParser = workflowExpressionParser
 
     def parseVariable(self, workflowName : str, varName : str, varData):
+        annotation = varData.get("Annotation")
 
         varType = varData["Type"]
+        if annotation is not None and "Type" in annotation:
+            varType = annotation["Type"] # Override by type
+
         defaultValue = varData.get("Default")
 
         # Declare a variable and execute it in the executor
         # This will also put it in the datastore inside executor and make all connection links
-        varDecl = ASTFuzzerNode_VariableDecl(varName=workflowName+ ":"+varName, typeName=varType, defaultValue=defaultValue)
+        varDecl = ASTFuzzerNode_VariableDecl(varName=workflowName+ ":"+varName, typeName=varType, defaultValue=defaultValue, annotation=annotation)
         self.astFuzzerNodeExecutor.executeNode(varDecl)
 
     def parseWorkflows(self, inputPath : str, baseOutPath : str) -> WorkflowGraph:
@@ -67,9 +71,14 @@ class WorkflowParser:
                     a += 1
 
                 # Parse node expr
-                expression_raw_str = nodeData.get('expression')
+                annotation = nodeData.get("Annotation")
+                # Take the expression from annotation if exist, otherwise the direct one
+                expression_raw_str = nodeData.get('expression') if (annotation is None or "expression" not in annotation) else annotation["expression"]
                 expression_node = None
                 if expression_raw_str != "" and expression_raw_str != None:
+                    # Now check if the expression is actually around an annotation
+                    #if nodeData.get("Anno")
+
                     expression_node = self.workflowExpressionParser.parseModuleCodeBlock(expression_raw_str)[0]
 
                 # Create a node based on its expression node

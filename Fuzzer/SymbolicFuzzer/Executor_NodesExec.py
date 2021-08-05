@@ -55,9 +55,15 @@ class ASTFuzzerNodeExecutor:
         elif isinstance(node, ASTFuzzerNode_VariableDecl):
             self.DS.addVariable(node)
             return None
-        elif isinstance(node, list):
+
+        elif isinstance(node, (list, set)):
+            # TODO: should we add a specialized LIST set node for parsing now ?
+            fuzzerList = FuzzerList()
             for exprNode in node:
-                self.executeNode(exprNode)
+                resExprEval = self.executeNode(exprNode)
+                fuzzerList.Add(resExprEval)
+            return fuzzerList
+
         elif isinstance(node, (ASTFuzzerNode_ConstantString, ASTFuzzerNode_ConstantInt, ASTFuzzerNode_ConstantReal, ASTFuzzerNode_ConstantBool)):
             value = node.value
             return value
@@ -111,10 +117,45 @@ class ASTFuzzerNodeExecutor:
                     # Now push the node execution again, this time with an in progress iteration to do the checking of the above
                     return self.executeNode(node)
 
+            elif isinstance(node.iteratedObject_node, FuzzerArray):
+                # Array object solving
+                iteratedObject: DataTable = self.DS.getVariableValue(node.iteratedObject_node.name)
+
+                # Iteration already in progress case
+                if iteratedObject.isIterationInProgress():
+                    iteratorObj: FuzzerArray_iterator = self.DS.getVariableValue(node.iteratedVar_node.name)
+                    assert iteratorObj == iteratedObject.existingIter, "Sanity check failed, not the same object iterating and in progress. Out of sync with DataStore (DS) !"
+
+                    # Move pointer
+                    nextData = iteratorObj.nextIteration()
+
+                    # Is iteration over ?
+                    if nextData is None:
+                        # Close the iterator
+                        iteratorObj.closeIteration()
+
+                        # Remove the variable from data store
+                        self.DS.removeVariable(node.iteratedVar_node.name)
+
+                        return True
+                    else:
+                        return False
+
+                else:  # New iteration !
+                    # Create a new iterator variable and add it to the dictionary
+                    arrayIter = iteratedObject.getIterator()
+                    arrayIter_varDecl = ASTFuzzerNode_VariableDecl(varName=node.iteratedVar_node.name,
+                                                                       typeName=FuzzerArray_iterator.__class__.__name__,
+                                                                       Default=arrayIter)
+                    self.DS.addVariable(arrayIter_varDecl)
+
+                    # Now push the node execution again, this time with an in progress iteration to do the checking of the above
+                    return self.executeNode(node)
+
             else:
                 raise NotImplementedError()
 
-        elif isinstance(node, ASTFuzzerNode_Attribute) and node.subscript != None:
+        elif isinstance(node, AttributeData) and node.subscript != None:
             return self.executeNode(node.subscript)
 
         elif isinstance(node, ASTFuzzerNode_Dict):
