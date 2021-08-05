@@ -3157,6 +3157,7 @@
       "path": "closedxml/0.87.1",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "closedxml.0.87.1.nupkg.sha512",
         "closedxml.nuspec",
         "lib/net35/ClosedXML.dll",
@@ -3193,6 +3194,7 @@
       "path": "documentformat.openxml/2.5.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "documentformat.openxml.2.5.0.nupkg.sha512",
         "documentformat.openxml.nuspec",
         "lib/DocumentFormat.OpenXml.dll"
@@ -3628,6 +3630,7 @@
       "path": "microsoft.exchange.webservices/2.2.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "doc/License Terms.rtf",
         "doc/README.htm",
         "doc/Redist.txt",
@@ -3914,6 +3917,7 @@
       "path": "newtonsoft.json/11.0.2",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.md",
         "lib/net20/Newtonsoft.Json.dll",
         "lib/net20/Newtonsoft.Json.xml",
@@ -3943,6 +3947,7 @@
       "path": "npoi/2.4.1",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE",
         "Read Me.txt",
         "lib/NPOI.xml",
@@ -3991,6 +3996,7 @@
       "path": "sharpziplib/1.2.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "lib/net45/ICSharpCode.SharpZipLib.dll",
         "lib/net45/ICSharpCode.SharpZipLib.pdb",
         "lib/net45/ICSharpCode.SharpZipLib.xml",
@@ -5008,15 +5014,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Marina Cernat\\.nuget\\packages\\": {}
+    "C:\\Users\\adelinas\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
       "projectUniqueName": "CSharpLoansProducer",
       "projectName": "CSharpLoansProducer",
-      "projectPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\C#Models\\CSharpLoansProducer\\.local",
-      "packagesPath": "C:\\Users\\Marina Cernat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\C#Models\\CSharpLoansProducer\\.local"
+      "projectPath": "C:\\GithubPhD\\rpa-testing\\C#Models\\CSharpLoansProducer\\.local",
+      "packagesPath": "C:\\Users\\adelinas\\.nuget\\packages\\",
+      "outputPath": "C:\\GithubPhD\\rpa-testing\\C#Models\\CSharpLoansProducer\\.local"
     },
     "frameworks": {
       "net461": {
@@ -5042,7 +5048,7 @@
             "version": "[21.4.4, 21.4.4]"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\Marina Cernat\\AppData\\Local\\UiPath\\app-21.4.4\\runtime.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\adelinas\\AppData\\Local\\UiPath\\app-21.4.4\\runtime.json"
       }
     }
   }
