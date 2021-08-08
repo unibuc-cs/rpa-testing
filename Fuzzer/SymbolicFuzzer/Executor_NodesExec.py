@@ -303,7 +303,7 @@ class ASTFuzzerNodeExecutor:
     # TODO: Implement Logic Op !
     # Implement the case for assignment node
     def getSymbolicExpressionFromNode(self, nodeInst : ASTFuzzerNode):
-        if nodeInst.type in [ASTFuzzerNodeType.COMPARE, ASTFuzzerNodeType.MATH_OP_BINARY, ASTFuzzerNodeType.LOGIC_OP_BINARY]:
+        if nodeInst.nodeType in [ASTFuzzerNodeType.COMPARE, ASTFuzzerNodeType.MATH_OP_BINARY, ASTFuzzerNodeType.LOGIC_OP_BINARY]:
             # Check if each the two left/right terms. If they contain a symbolic expression we need to get the expr out of it.
             # If not, we just execute the node in the executor and get the result back in plain value !
             leftExpr = None
@@ -319,7 +319,7 @@ class ASTFuzzerNodeExecutor:
                 rightExpr = self.executeNode(nodeInst.rightTerm)
 
             symbolicExprRes = None
-            if nodeInst.type == ASTFuzzerNodeType.COMPARE:
+            if nodeInst.nodeType == ASTFuzzerNodeType.COMPARE:
                 compStr = ASTFuzzerComparatorToStr(nodeInst.comparatorClass.comparatorClass)
             else:
                 assert isinstance(nodeInst.op, str)
@@ -327,15 +327,15 @@ class ASTFuzzerNodeExecutor:
 
             symbolicExprRes = f"{leftExpr} {compStr} {rightExpr}"
             return symbolicExprRes
-        elif nodeInst.type in [ASTFuzzerNodeType.VARIABLE, ASTFuzzerNodeType.NAME]: # Get an access to SMT variable in the store
+        elif nodeInst.nodeType in [ASTFuzzerNodeType.VARIABLE, ASTFuzzerNodeType.NAME]: # Get an access to SMT variable in the store
             symbolicExprRes = "self.DS.SymbolicValues["+"\"" + nodeInst.name  + "\"" + "]"
             return symbolicExprRes
-        elif nodeInst.type in [ASTFuzzerNodeType.ATTRIBUTE]:
+        elif nodeInst.nodeType in [ASTFuzzerNodeType.ATTRIBUTE]:
             if nodeInst.subscript is not None:
                 return self.getSymbolicExpressionFromNode(nodeInst.subscript)
             else:
                 raise NotImplementedError()
-        elif nodeInst.type in [ASTFuzzerNodeType.SUBSCRIPT]:
+        elif nodeInst.nodeType in [ASTFuzzerNodeType.SUBSCRIPT]:
             symbolicFromValue = self.getSymbolicExpressionFromNode(nodeInst.valueNode)
             symbolicFromSlice = self.getSymbolicExpressionFromNode(nodeInst.sliceNode)
 
@@ -347,10 +347,10 @@ class ASTFuzzerNodeExecutor:
             else:
                 return symbolicFromValue # Could be also None, no problem.
 
-        elif nodeInst.type == ASTFuzzerNodeType.ASSIGNMENT:
+        elif nodeInst.nodeType == ASTFuzzerNodeType.ASSIGNMENT:
             raise NotImplementedError()
         else:
-            raise NotImplementedError()
+            return None
 
 
 

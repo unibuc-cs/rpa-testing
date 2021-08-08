@@ -56,7 +56,7 @@ class SymbolicWorflowsTester:
 
         # Parse the workflow spec input and create a workflow graph instance
         self.WP = WorkflowParser(self.astFuzzerNodeExecutor, self.workflowExpressionParser)
-        self.workflowGraph : WorkflowGraph = self.WP.parseWorkflows(inputPath=testSpecFile, baseOutPath=self.baseFolderModel)
+        self.workflowGraph : WorkflowGraph = self.WP.parseWorkflows(inputPath=testSpecFile, baseOutPath=self.baseFolderModel, astFuzzerNodeExecutor=self.astFuzzerNodeExecutor)
 
 
     def getSolutionsOutputFilePath(self, fileName):

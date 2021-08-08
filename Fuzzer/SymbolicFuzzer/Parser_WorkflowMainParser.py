@@ -29,8 +29,8 @@ class WorkflowParser:
         varDecl = ASTFuzzerNode_VariableDecl(varName=workflowName+ ":"+varName, typeName=varType, defaultValue=defaultValue, annotation=annotation)
         self.astFuzzerNodeExecutor.executeNode(varDecl)
 
-    def parseWorkflows(self, inputPath : str, baseOutPath : str) -> WorkflowGraph:
-        workflowGraph : WorkflowGraph = WorkflowGraph(dataStore=self.astFuzzerNodeExecutor.DS)
+    def parseWorkflows(self, inputPath : str, baseOutPath : str, astFuzzerNodeExecutor : ASTFuzzerNodeExecutor) -> WorkflowGraph:
+        workflowGraph : WorkflowGraph = WorkflowGraph(dataStore=self.astFuzzerNodeExecutor.DS, astFuzzerNodeExecutor=self.astFuzzerNodeExecutor)
 
         with open(inputPath) as json_file:
             dataAll = json.load(json_file)

@@ -3,6 +3,7 @@ from networkx.drawing.nx_agraph import graphviz_layout, to_agraph
 from enum import Enum
 from Executor_NodesExec import *
 import json
+import  csv
 
 # Logic to get a debug color output depending on the name of the graph
 AllDebugColors = ["red", "blue", "yellow", "green", "violet", "orange"]
@@ -93,12 +94,13 @@ class SymGraphNodeBranch(BaseSymGraphNode):  # Just an example of a base class
         return outputStr
 
 class WorkflowGraph:
-    def __init__(self, dataStore):
+    def __init__(self, dataStore, astFuzzerNodeExecutor):
         # Data needed and filled in when parsing the workflows
         self.entryTestNodeId = None
         self.debugColors = None
         self.mainWorkflowName = None
         self.DS : DataStore = dataStore
+        self.astFuzzerNodeExecutor = astFuzzerNodeExecutor
 
         # This is the connection to the nx digraph instance
         self.graphInst = nx.DiGraph()
@@ -215,7 +217,7 @@ class WorkflowGraph:
 
     # TODO: the two functions below need to be refactored !!
     def __getPathConditions(self, path):
-        assert isinstance(path, list) and len(path) > 0 and isinstance(path[0], SymGraphNodeBranch)
+        assert isinstance(path, list) and len(path) > 0 #and isinstance(path[0], SymGraphNodeBranch)
         pathLen = len(path)
         outCOnditions = []
         for nodeIndex in range(pathLen):
@@ -225,18 +227,21 @@ class WorkflowGraph:
             if currNode.nodeType == NodeTypes.BRANCH_NODE:
                 nextNode = path[nodeIndex + 1] if (nodeIndex + 1 < pathLen) and len(currNode.valuesAndNext) > 0 else None
 
+                symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode)
+
                 # Fix the condition to solve
-                condToSolve = currNode.expression
-                if nextNode != None:
+                condToSolve = symbolicExpressionForNode
+                if nextNode != None and condToSolve != None:
                     # Is inverse branch for next node ?
                     if 'False' in currNode.valuesAndNext and currNode.valuesAndNext['False'] == nextNode.id:
                         condToSolve = 'Not(' + condToSolve + ')'
                     else:
                         assert currNode.valuesAndNext['True'] == nextNode.id
 
-                outCOnditions.append(condToSolve)
+                    outCOnditions.append(condToSolve)
 
             # Add the conditions for assignment variables
+            """
             if currNode.hasAssignments():
                 for assignmentInst in currNode.assignments:
                     assert isinstance(assignmentInst, AssignmentOperation)
@@ -246,15 +251,13 @@ class WorkflowGraph:
                     targetVar = assignmentInst.leftTerm
                     targetValue = assignmentInst.rightTerm
                     outCOnditions.append(f"{targetVar}=={targetValue}")
+            """
 
         return outCOnditions
 
     # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file
-    def solveOfflineStaticGraph(self, outputCsvFile=None, debugLogging=False):
-        V = self.V
-
-        fieldNamesList = [key for key in self.V_constants] # Put the constants firsts
-        fieldNamesList.extend([key for key in self.V if key not in self.V_constants])
+    def solveOfflineStaticGraph(self, outputCsvFile=None, debugLogging=False, astFuzzerNodeExecutor=None):
+        fieldNamesList = [key for key in self.DS.Values.keys()]
         if debugLogging:
             fieldNamesList.append("GraphPath")
         set_fieldNamesList = set(fieldNamesList)
@@ -285,8 +288,8 @@ class WorkflowGraph:
 
             solver = Solver()
             # Add all the required conditions for the constant variables
-            for constName, constValue in self.V_constants.items():
-                solver.add(self.V[constName] == constValue)
+            #for constName, constValue in self.V_constants.items():
+            #    solver.add(self.V[constName] == constValue)
 
             # Add all the required conditions for the path
             for cond_z3 in conditions_z3:

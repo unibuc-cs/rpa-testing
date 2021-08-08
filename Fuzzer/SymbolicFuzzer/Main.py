@@ -35,10 +35,8 @@ def runTest(args):
     if args.loggingEnabled:
         workflowsTester.debugFullGraph(outputGraphFile=workflowsTester.getDebugGraphFilePath(args.outputGraphFile))
 
-    """
-    workflowsFactory.solveOfflineStaticGraph(outputResultsFile=workflowsFactory.getSolutionsOutputFilePath(args.outputResultsFile),
+    workflowsTester.solveOfflineStaticGraph(outputResultsFile=workflowsTester.getSolutionsOutputFilePath(args.outputResultsFile),
                                              loggingEnabled=args.loggingEnabled)
-    """
 
 
 if __name__ == "__main__":
