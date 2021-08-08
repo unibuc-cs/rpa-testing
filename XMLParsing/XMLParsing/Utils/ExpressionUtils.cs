@@ -24,10 +24,16 @@ namespace XMLParsing.Utils
                 return t3;
             }
 
-            string t4 = TryParseCSharpValue(operand);
+            string t4 = TryParseCSharpExpression(operand);
             if (t4 != null)
             {
                 return t4;
+            }
+
+            string t5 = TryParseCSharpValue(operand);
+            if (t5 != null)
+            {
+                return t5;
             }
 
             return "";
@@ -85,11 +91,39 @@ namespace XMLParsing.Utils
             }
         }
 
-        private static string TryParseCSharpValue(object operand)
+        private static string TryParseCSharpExpression(object operand)
         {
             try
             {
                 return ReflectionHelpers.CallMethod(operand, "get_ExpressionText") as string;
+            }
+            catch (Exception e)
+            {
+                // Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+        private static string TryParseCSharpValue(object operand)
+        {
+            try
+            {
+                var res = ReflectionHelpers.CallMethod(operand, "get_Value");
+                if (res == null)
+                {
+                    return null;
+                } 
+                else
+                {
+                    // 0 wrapped as object is casted to null string so we should avoid this.
+                    var resAsString = res as string;
+                    if (resAsString != null) 
+                    {
+                        return resAsString;
+                    }
+
+                    return "0";
+                }
             }
             catch (Exception e)
             {
