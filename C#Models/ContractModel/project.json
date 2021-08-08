@@ -1,9 +1,10 @@
 {
-  "name": "CSharpLoans_Consumer",
-  "description": "Robotic Enterprise Framework",
+  "name": "ContractModel",
+  "description": "Blank Process",
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.Excel.Activities": "[2.10.4]",
+    "UiPath.Mail.Activities": "[1.10.5]",
     "UiPath.System.Activities": "[21.4.1]",
     "UiPath.UIAutomation.Activities": "[21.4.4]"
   },
@@ -11,7 +12,7 @@
   "entitiesStores": [],
   "schemaVersion": "4.0",
   "studioVersion": "21.4.4.0",
-  "projectVersion": "1.0.2",
+  "projectVersion": "1.0.0",
   "runtimeOptions": {
     "autoDispose": false,
     "isPausable": true,
@@ -42,7 +43,7 @@
   "entryPoints": [
     {
       "filePath": "Main.xaml",
-      "uniqueId": "08f30d81-1df2-4804-9094-8c9bd681c343",
+      "uniqueId": "77023b85-e676-4351-b2e4-1701a03aa227",
       "input": [],
       "output": []
     }
