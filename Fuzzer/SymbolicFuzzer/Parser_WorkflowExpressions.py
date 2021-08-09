@@ -10,6 +10,8 @@ from Parser_DataTypes import *
 from Parser_Functions import *
 from SymbolicHelpers import *
 
+USE_WORKFLOWNAME_BEFORE_VARIABLE = True # WorkflowName:VariableName in expressions or just VariableName ?
+
 #================
 
 class ASTFuzzerNodeType(Enum):
@@ -54,7 +56,7 @@ def ASTFuzzerComparatorToStr(compOp: ASTFuzzerComparator) -> str:
     elif compOp == ASTFuzzerComparator.COMP_LTE:
         return "<="
     elif compOp == ASTFuzzerComparator.COMP_GTE:
-        return "<="
+        return ">="
     elif compOp == ASTFuzzerComparator.COMP_EQ:
         return "=="
     elif compOp == ASTFuzzerComparator.COMP_NOTEQ:
@@ -96,6 +98,10 @@ class AttributeData:
                 validName = currNode.name
             self.name = validName
 
+    # returns true if there is any symbolic variabile inside the node
+    def isAnySymbolicVar(self) -> bool:
+        return self.node.isAnySymbolicVar() or (self.subscript != None and self.subscript.isAnySymbolicVar())
+
     def __str__(self):
         res = str(self.subscript) if self.subscript is not None else self.name
         return res
@@ -130,7 +136,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
                 self.annotation.max = int(annotationTag['max'])
             if 'pattern' in annotationTag:
                 self.annotation.pattern = str(annotationTag['pattern'])
-            if 'userinput' in annotationTag:
+            if 'userInput' in annotationTag:
                 valSpec = annotationTag['userInput']
                 self.annotation.isFromUserInput = 1 if (valSpec == 'True' or valSpec == '1' or valSpec == 'true') else 0
                 if self.annotation.isFromUserInput == 1:
@@ -192,10 +198,17 @@ class ASTFuzzerNode_Marker(ASTFuzzerNode):
         super().__init__(ASTFuzzerNodeType.MARKER)
         self.id = id # The id of the marker
 
+    def isAnySymbolicVar(self) -> bool:
+        raise NotImplementedError() # Not needed
+
 class ASTFuzzerNode_Name(ASTFuzzerNode):
     def __init__(self):
         super().__init__(ASTFuzzerNodeType.NAME)
         self.name : str = None # A simple string name expected for something...
+
+    # returns true if there is any symbolic variabile inside the node
+    def isAnySymbolicVar(self) -> bool:
+        return ASTFuzzerNode.dataStore.isVariableSymbolic(self.name)
 
 class ASTFuzzerNode_Attribute(ASTFuzzerNode):
     def __init__(self):
@@ -215,6 +228,12 @@ class ASTFuzzerNode_Attribute(ASTFuzzerNode):
             self.listOfAttributesData.append(AttributeData(node=None, name=None, subscriptNode=other))
         else:
             assert False
+
+    def isAnySymbolicVar(self) -> bool:
+        for x in self.listOfAttributesData:
+            if x.isAnySymbolicVar():
+                return True
+        return False
 
     def __str__(self):
         res = ""
@@ -244,12 +263,17 @@ class ASTFuzzerNode_Assignment(ASTFuzzerNode):
             res = f"{self.leftTerm} = {self.rightTerm}"
         return res
 
+    def isAnySymbolicVar(self) -> bool:
+        return self.leftTerm.isAnySymbolicVar() or self.rightTerm.isAnySymbolicVar()
+
 class ASTFuzzerNode_KeywordParam(ASTFuzzerNode):
     def __init__(self):
         super().__init__(ASTFuzzerNodeType.KEYWORD_PARAM)
         self.paramName : Union[None, str] = None
         self.paramNode: Union[None, ASTFuzzerNode] = None
 
+    def isAnySymbolicVar(self) -> bool:
+        return self.paramNode.isAnySymbolicVar()
 
 class ASTFuzzerNode_MathUnary(ASTFuzzerNode):
     def __init__(self):
@@ -267,6 +291,9 @@ class ASTFuzzerNode_MathBinary(ASTFuzzerNode):
         res = f"{self.leftTerm} {self.op} {self.rightTerm}"
         return res
 
+    def isAnySymbolicVar(self) -> bool:
+        return self.leftTerm.isAnySymbolicVar() or self.rightTerm.isAnySymbolicVar()
+
 class ASTFuzzerNode_LogicUnary(ASTFuzzerNode):
     def __init__(self):
         super().__init__(ASTFuzzerNodeType.LOGIC_OP_UNARY)
@@ -283,13 +310,19 @@ class ASTFuzzerNode_LogicBinary(ASTFuzzerNode):
         res = f"{self.leftTerm} {self.op} {self.rightTerm}"
         return res
 
+    def isAnySymbolicVar(self) -> bool:
+        return self.leftTerm.isAnySymbolicVar() or self.rightTerm.isAnySymbolicVar()
+
 class ASTFuzzerNode_Variable(ASTFuzzerNode):
     def __init__(self, variableName : str):
         super().__init__(ASTFuzzerNodeType.VARIABLE)
-        self.name = variableName
+        self.name = f"{ASTFuzzerNode.currentWorkflowNameParsed}:{variableName}" if USE_WORKFLOWNAME_BEFORE_VARIABLE else variableName
 
     def __str__(self):
         return str(self.name)
+
+    def isAnySymbolicVar(self) -> bool:
+        return ASTFuzzerNode.dataStore.isVariableSymbolic(self.name)
 
 class ASTFuzzerNode_ConstantInt(ASTFuzzerNode):
     def __init__(self, value : str):
@@ -299,6 +332,9 @@ class ASTFuzzerNode_ConstantInt(ASTFuzzerNode):
     def __str__(self):
         return str(self.value)
 
+    def isAnySymbolicVar(self) -> bool:
+        return False
+
 class ASTFuzzerNode_ConstantBool(ASTFuzzerNode):
     def __init__(self, value : str):
         super().__init__(ASTFuzzerNodeType.CONSTANT_BOOL)
@@ -306,6 +342,9 @@ class ASTFuzzerNode_ConstantBool(ASTFuzzerNode):
 
     def __str__(self):
         return str(self.value)
+
+    def isAnySymbolicVar(self) -> bool:
+        return False
 
 class ASTFuzzerNode_ConstantReal(ASTFuzzerNode):
     def __init__(self, value : str):
@@ -315,6 +354,9 @@ class ASTFuzzerNode_ConstantReal(ASTFuzzerNode):
     def __str__(self):
         return str(self.value)
 
+    def isAnySymbolicVar(self) -> bool:
+        return False
+
 class ASTFuzzerNode_ConstantString(ASTFuzzerNode):
     def __init__(self, value : str):
         super().__init__(ASTFuzzerNodeType.CONSTANT_STR)
@@ -323,6 +365,9 @@ class ASTFuzzerNode_ConstantString(ASTFuzzerNode):
     def __str__(self):
         return str(self.value)
 
+    def isAnySymbolicVar(self) -> bool:
+        return False
+
 class ASTFuzzerNode_Dict(ASTFuzzerNode):
     def __init__(self, value : Dict):
         super().__init__(ASTFuzzerNodeType.DICT)
@@ -330,6 +375,9 @@ class ASTFuzzerNode_Dict(ASTFuzzerNode):
 
     def __str__(self):
         return str(self.value)
+
+    def isAnySymbolicVar(self) -> bool:
+        return False
 
 class ASTFuzzerNode_Comparator(ASTFuzzerNode):
     def __init__(self, node :Any ):
@@ -354,17 +402,24 @@ class ASTFuzzerNode_Comparator(ASTFuzzerNode):
     def __str__(self):
         return ASTFuzzerComparatorToStr(self.comparatorClass)
 
+    def isAnySymbolicVar(self) -> bool:
+        return False
+
+
 class ASTFuzzerNode_Compare(ASTFuzzerNode):
     def __init__(self, node :Any ):
         super().__init__(ASTFuzzerNodeType.COMPARE)
 
-        self.comparatorClass : ASTFuzzerNode_Comparator = None
+        self.comparatorClassNode : ASTFuzzerNode_Comparator = None
         self.leftTerm : ASTFuzzerNode = None
         self.rightTerm : ASTFuzzerNode = None
 
     def __str__(self):
-        res = f"{self.leftTerm} {self.comparatorClass} {self.rightTerm}"
+        res = f"{self.leftTerm} {self.comparatorClassNode} {self.rightTerm}"
         return res
+
+    def isAnySymbolicVar(self) -> bool:
+        return self.leftTerm.isAnySymbolicVar() or self.rightTerm.isAnySymbolicVar()
 
 class ASTFuzzerNode_Subscript(ASTFuzzerNode):
     def __init__(self):
@@ -376,6 +431,9 @@ class ASTFuzzerNode_Subscript(ASTFuzzerNode):
     def __str__(self):
         res = f"{self.valueNode}[{self.sliceNode}]"
         return res
+
+    def isAnySymbolicVar(self) -> bool:
+        return self.valueNode.isAnySymbolicVar() or self.sliceNode.isAnySymbolicVar()
 
 
 class ASTFuzzerNode_Call(ASTFuzzerNode):
@@ -405,6 +463,13 @@ class ASTFuzzerNode_Call(ASTFuzzerNode):
         res += ")"
 
         return res
+
+    def isAnySymbolicVar(self) -> bool:
+        for argIndex, argValue in enumerate(self.args):
+            if argValue.isAnySymbolicVar():
+                return True
+
+        return True
 
 class ASTForFuzzer:
     def __init__(self):
@@ -490,7 +555,7 @@ class WorkflowExpressionsParser(ast.NodeVisitor):
         compareNode = ASTFuzzerNode_Compare(ASTFuzzerNodeType.COMPARE)
         compareNode.leftTerm = leftTerm
         compareNode.rightTerm = rightTerm
-        compareNode.comparatorClass = compTerm
+        compareNode.comparatorClassNode = compTerm
 
 
         # Get back and fill the compare node
@@ -677,7 +742,11 @@ class WorkflowExpressionsParser(ast.NodeVisitor):
         self.stackNode(constantNode)
 
     def visit_Name(self, node: ast.Name) -> Any:
-        nameVar = ASTFuzzerNode_Variable(node.id)
+        # Special case for true and false => True and False in python.
+        if node.id in ["false", "true"]:
+            nameVar = ASTFuzzerNode_ConstantBool(node.id)
+        else:
+            nameVar = ASTFuzzerNode_Variable(node.id)
         self.stackNode(nameVar)
 
     def visit_Assign(self, node: ast.Assign) -> Any:

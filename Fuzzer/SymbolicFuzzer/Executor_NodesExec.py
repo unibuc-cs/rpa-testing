@@ -37,6 +37,7 @@ class ASTFuzzerNodeExecutor:
     def __init__(self, DS : DataStore, ExternalCallsDict : DictionaryOfExternalCalls):
         self.DS = DS
         self.ExternalCallsDict = ExternalCallsDict
+        ASTFuzzerNode.dataStore = self.DS
 
     def executeNode(self, node : ASTFuzzerNode):
         if isinstance(node, ASTFuzzerNode_Call):
@@ -228,17 +229,17 @@ class ASTFuzzerNodeExecutor:
             res_right = self.executeNode(rightTerm)
             assert res_left and res_right, "The terms can't be evaluated !"
 
-            if node.comparatorClass == ASTFuzzerComparator.COMP_LT:
+            if node.comparatorClassNode.comparatorClass == ASTFuzzerComparator.COMP_LT:
                 return res_left < res_right
-            elif node.comparatorClass == ASTFuzzerComparator.COMP_LTE:
+            elif node.comparatorClassNode.comparatorClass == ASTFuzzerComparator.COMP_LTE:
                 return res_left <= res_right
-            elif node.comparatorClass == ASTFuzzerComparator.COMP_GT:
+            elif node.comparatorClassNode.comparatorClass == ASTFuzzerComparator.COMP_GT:
                 return res_left > res_right
-            elif node.comparatorClass == ASTFuzzerComparator.COMP_GTE:
+            elif node.comparatorClassNode.comparatorClass == ASTFuzzerComparator.COMP_GTE:
                 return res_left >= res_right
-            elif node.comparatorClass == ASTFuzzerComparator.COMP_EQ:
+            elif node.comparatorClassNode.comparatorClass == ASTFuzzerComparator.COMP_EQ:
                 return res_left == res_right
-            elif node.comparatorClass == ASTFuzzerComparator.COMP_NOTEQ:
+            elif node.comparatorClassNode.comparatorClass == ASTFuzzerComparator.COMP_NOTEQ:
                 return res_left != res_right
             else:
                 raise NotImplementedError()
@@ -303,7 +304,7 @@ class ASTFuzzerNodeExecutor:
     # TODO: Implement Logic Op !
     # Implement the case for assignment node
     def getSymbolicExpressionFromNode(self, nodeInst : ASTFuzzerNode):
-        if nodeInst.nodeType in [ASTFuzzerNodeType.COMPARE, ASTFuzzerNodeType.MATH_OP_BINARY, ASTFuzzerNodeType.LOGIC_OP_BINARY]:
+        if nodeInst.type in [ASTFuzzerNodeType.COMPARE, ASTFuzzerNodeType.MATH_OP_BINARY, ASTFuzzerNodeType.LOGIC_OP_BINARY]:
             # Check if each the two left/right terms. If they contain a symbolic expression we need to get the expr out of it.
             # If not, we just execute the node in the executor and get the result back in plain value !
             leftExpr = None
@@ -319,23 +320,35 @@ class ASTFuzzerNodeExecutor:
                 rightExpr = self.executeNode(nodeInst.rightTerm)
 
             symbolicExprRes = None
-            if nodeInst.nodeType == ASTFuzzerNodeType.COMPARE:
-                compStr = ASTFuzzerComparatorToStr(nodeInst.comparatorClass.comparatorClass)
-            else:
-                assert isinstance(nodeInst.op, str)
-                compStr = nodeInst.op
+            if nodeInst.type == ASTFuzzerNodeType.COMPARE:
+                compStr = ASTFuzzerComparatorToStr(nodeInst.comparatorClassNode.comparatorClass)
+                symbolicExprRes = f"{leftExpr} {compStr} {rightExpr}"
+                return symbolicExprRes
 
-            symbolicExprRes = f"{leftExpr} {compStr} {rightExpr}"
-            return symbolicExprRes
-        elif nodeInst.nodeType in [ASTFuzzerNodeType.VARIABLE, ASTFuzzerNodeType.NAME]: # Get an access to SMT variable in the store
+            elif nodeInst.type == nodeInst.type == ASTFuzzerNodeType.LOGIC_OP_BINARY:
+                if nodeInst.op == 'and':
+                    symbolicExprRes = f"And({leftExpr},{rightExpr})"
+                    return symbolicExprRes
+                elif nodeInst.op == 'or':
+                    symbolicExprRes = f"Or({leftExpr},{rightExpr})"
+                    return symbolicExprRes
+                elif nodeInst.op == '!=':
+                    symbolicExprRes = f"And({leftExpr},{rightExpr})"
+                    return symbolicExprRes
+            else:
+                assert False, "Have to check the correctness of this failure safe branch !" #isinstance(nodeInst.op, str)
+                compStr = nodeInst.op
+                return None
+
+        elif nodeInst.type in [ASTFuzzerNodeType.VARIABLE, ASTFuzzerNodeType.NAME]: # Get an access to SMT variable in the store
             symbolicExprRes = "self.DS.SymbolicValues["+"\"" + nodeInst.name  + "\"" + "]"
             return symbolicExprRes
-        elif nodeInst.nodeType in [ASTFuzzerNodeType.ATTRIBUTE]:
+        elif nodeInst.type in [ASTFuzzerNodeType.ATTRIBUTE]:
             if nodeInst.subscript is not None:
                 return self.getSymbolicExpressionFromNode(nodeInst.subscript)
             else:
                 raise NotImplementedError()
-        elif nodeInst.nodeType in [ASTFuzzerNodeType.SUBSCRIPT]:
+        elif nodeInst.type in [ASTFuzzerNodeType.SUBSCRIPT]:
             symbolicFromValue = self.getSymbolicExpressionFromNode(nodeInst.valueNode)
             symbolicFromSlice = self.getSymbolicExpressionFromNode(nodeInst.sliceNode)
 
@@ -347,7 +360,7 @@ class ASTFuzzerNodeExecutor:
             else:
                 return symbolicFromValue # Could be also None, no problem.
 
-        elif nodeInst.nodeType == ASTFuzzerNodeType.ASSIGNMENT:
+        elif nodeInst.type == ASTFuzzerNodeType.ASSIGNMENT:
             raise NotImplementedError()
         else:
             return None

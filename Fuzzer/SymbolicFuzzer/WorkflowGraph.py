@@ -227,7 +227,13 @@ class WorkflowGraph:
             if currNode.nodeType == NodeTypes.BRANCH_NODE:
                 nextNode = path[nodeIndex + 1] if (nodeIndex + 1 < pathLen) and len(currNode.valuesAndNext) > 0 else None
 
-                symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode)
+                symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
+
+                # DEBUG CODE
+                if "and" in symbolicExpressionForNode:
+                    a = 3
+                    a +=1
+                    symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
 
                 # Fix the condition to solve
                 condToSolve = symbolicExpressionForNode

@@ -66,9 +66,11 @@ class WorkflowParser:
                 nodeName = nodeFullNameSplit[1]
 
                 ## DEBUG CODE
-                if "For_Each_Row_in_Data_Table_3" in nodeFullName:
+                if "Do_While_3" in nodeFullName:
                     a = 3
                     a += 1
+
+                ASTFuzzerNode.currentWorkflowNameParsed = parentGraphName
 
                 # Parse node expr
                 annotation = nodeData.get("Annotation")
@@ -136,6 +138,11 @@ class WorkflowParser:
                 parentNodeInst = nodeIdToInstance[nodeFullName]
                 transitions = nodeData.get('transitions')
 
+                ## DEBUG CODE
+                if "Do_While_3" in nodeFullName:
+                    a = 3
+                    a += 1
+
                 if parentNodeInst.nodeType == NodeTypes.BRANCH_NODE:
                     # Currently we support two transition on branching nodes, T and F.
                     # Later add support for switch, etc
@@ -147,6 +154,8 @@ class WorkflowParser:
                         trans_branchDest_nodeId = trans["destination"]
                         trans_branchDest_nodeInst = nodeIdToInstance[trans_branchDest_nodeId]
                         edgeLabel: str = 'T' if trans_branchValue == 'True' else 'F'
+
+                        parentNodeInst.valuesAndNext[trans_branchValue] = trans_branchDest_nodeId
 
                         # Add the edge into the graph instance
                         workflowGraph.graphInst.add_edge(parentNodeInst, trans_branchDest_nodeInst, label=edgeLabel, labelfontsize=20)

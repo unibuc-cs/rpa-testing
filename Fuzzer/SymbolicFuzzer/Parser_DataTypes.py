@@ -28,6 +28,8 @@ Check the more complex examples below and in your manual
 """
 
 import sys
+
+import SymbolicHelpers
 import pandas as pd
 
 # From str to API object
@@ -303,9 +305,7 @@ class FuzzerArray:
 		self.existingIter = None
 
 		if self.annotation.isFromUserInput:
-			# TODO: create symbolic here or in the executor ?
-			raise NotImplementedError
-			pass
+			self.internalValue = [] #SymbolicHelpers.createVariable()
 		else:
 			self.internalValue = [] if self.annotation.bounds is None else [self.defaultValue]*self.annotation.bounds
 
