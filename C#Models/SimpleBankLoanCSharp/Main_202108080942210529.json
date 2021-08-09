@@ -43,7 +43,7 @@
       },
       "inputArguments": [],
       "displayName": "Pin_1",
-      "fullPath": "C:\\UiPath\\rpa-testing\\Models\\SimpleBankLoanCSharp\\Pin.xaml",
+      "fullPath": "C:\\UiPath\\rpa-testing\\C#Models\\SimpleBankLoanCSharp\\Pin.xaml",
       "invokedBy": "Main_1",
       "startNode": "Pin_1:Get_expected_pin_value_20"
     },
@@ -78,7 +78,7 @@
         "term"
       ],
       "displayName": "Main_1",
-      "fullPath": "C:\\UiPath\\rpa-testing\\Models\\SimpleBankLoanCSharp\\Main.xaml",
+      "fullPath": "C:\\UiPath\\rpa-testing\\C#Models\\SimpleBankLoanCSharp\\Main.xaml",
       "invokedBy": "",
       "startNode": "Main_1:Node_loanTest0_1"
     }
@@ -107,10 +107,10 @@
       ]
     },
     "Main_1:Node_loanTest1_5": {
-      "Annotation": {
-          "expression": "loan >= 1000 and loan < 100000"
-      },
       "expression": "loan >= 1000 && loan < 100000",
+      "Annotation": {
+        "expression": "loan >= 1000 and loan < 100000"
+      },
       "transitions": [
         {
           "value": "True",
