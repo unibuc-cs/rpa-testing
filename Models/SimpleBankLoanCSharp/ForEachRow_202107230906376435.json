@@ -43,7 +43,7 @@
         },
         {
           "value": "False",
-          "destination": "ForEach_1:Virtual_ForEach_End_7"
+          "destination": "ForEach_1:Virtual_ForEach_BeforeEnd_7"
         }
       ]
     },
@@ -54,6 +54,15 @@
           "value": "True",
           "destination": "ForEach_1:For_Each_Row_in_Data_Table_3"
         }
+      ]
+    },
+    "ForEach_1:Virtual_ForEach_BeforeEnd_7": {
+      "expression" : "outPrettyPrintVariable(sum)",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ForEach_1:Virtual_ForEach_End_7"
+        }        
       ]
     },
     "ForEach_1:Virtual_ForEach_End_7": {

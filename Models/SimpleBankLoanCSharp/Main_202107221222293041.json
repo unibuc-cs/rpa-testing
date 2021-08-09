@@ -51,11 +51,17 @@
       "variables": {
         "loan": {
           "Type": "Int32",
-          "Default": "1000000"
+
+          "Annotation": {
+            "userInput": "True"
+          }
         },
         "term": {
           "Type": "Int32",
-          "Default": "10"
+          "Annotation": {
+            "userInput": "True"
+          }
+
         },
         "loan_type": {
           "Type": "String"

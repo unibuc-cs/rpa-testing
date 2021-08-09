@@ -2,6 +2,16 @@
   "workflows": [
     {
       "variables": {
+
+      "highBound" : {
+          "Type" : "Int32",
+
+          "Annotation":
+          {
+            "userInput": "True"
+          }
+        },
+
         "it": {
           "Type": "Int32"
         }

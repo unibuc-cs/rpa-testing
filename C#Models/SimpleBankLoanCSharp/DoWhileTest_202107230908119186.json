@@ -2,6 +2,16 @@
   "workflows": [
     {
       "variables": {
+
+      "highBound" : {
+          "Type" : "Int32",
+
+          "Annotation":
+          {
+            "userInput": "True"
+          }
+        },
+
         "it": {
           "Type": "Int32"
         }
@@ -27,12 +37,12 @@
       "transitions": [
         {
           "value": "True",
-          "destination": "RepetitiveTest_1:Assign_6"
+          "destination": "RepetitiveTest_1:Do_While_3"
         }
       ]
     },
     "RepetitiveTest_1:Do_While_3": {
-      "expression": "it < 20",
+      "expression": "it < highBound",
       "transitions": [
         {
           "value": "True",
