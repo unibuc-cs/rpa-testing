@@ -1,0 +1,9 @@
+variable,value
+test_var1,True
+test_var2,True
+test_var3,True
+test_var4,True
+test_var5,False
+test_var6,False
+test_var7,False
+test_var8,False
