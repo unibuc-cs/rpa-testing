@@ -32,9 +32,23 @@ import sys
 import SymbolicHelpers
 import pandas as pd
 
+
+def removeNamespacesFromName(nameToParse):
+	splitByNamespaces = nameToParse.split(":")
+	assert len(splitByNamespaces) > 0
+	return splitByNamespaces[-1]
+
 # From str to API object
 def str2Class(str):
-    return getattr(sys.modules[__name__], str)
+	if hasattr(sys.modules[__name__], str):
+		return getattr(sys.modules[__name__], str)
+	else:
+		strWithoutNamespaces = removeNamespacesFromName(str)
+		if hasattr(sys.modules[__name__], strWithoutNamespaces): # Failsafe without namespace ?
+			return getattr(sys.modules[__name__], strWithoutNamespaces)
+		else:
+			return None
+	return None
 
 # An Object kind of thing that has a value and can be converted to values
 # Purpose to call obj.ToString() and some others

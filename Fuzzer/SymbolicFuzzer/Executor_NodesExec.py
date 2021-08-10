@@ -78,6 +78,14 @@ class ASTFuzzerNodeExecutor:
 
             if isinstance(valueNodeObj, DataTable_iterator):
                 return valueNodeObj.getCurrentRowData()[sliceNodeObj]
+            elif isinstance(valueNodeObj, DataTable_RowsView):
+                return valueNodeObj.Item(sliceNodeObj)
+            elif isinstance(valueNodeObj, DataTable_ColumnsView):
+                return valueNodeObj.Item(sliceNodeObj)
+            elif isinstance(valueNodeObj, DataTable_Row):
+                return valueNodeObj.Item(sliceNodeObj)
+            elif isinstance(valueNodeObj, DataTable_Column):
+                return valueNodeObj.Item(sliceNodeObj)
             else:
                 raise NotImplementedError()
 
@@ -164,10 +172,14 @@ class ASTFuzzerNodeExecutor:
             for key,arg in node.value.items():
                 node.value[key] = self.executeNode(arg)
             return node.value
-        elif isinstance(node, ASTFuzzerNode_Variable) or isinstance(node, ASTFuzzerNode_Attribute):
+        elif isinstance(node, ASTFuzzerNode_Variable):
             # This could be either a real variabile inside dictionary or just a global API name object
             object = self._getObjectInstanceByName(node)
             return object
+        elif isinstance(node, ASTFuzzerNode_Attribute):
+            object = self._invokeSeriesOfAttributes(node.listOfAttributesData)
+            return object
+
         elif isinstance(node, ASTFuzzerNode_Assignment):
             # Check left and right therms, evaluate them
             leftTerm = node.leftTerm
@@ -259,6 +271,29 @@ class ASTFuzzerNodeExecutor:
         assert object is not None, f"Can't find the object named by {node.name}"
         return object
 
+    def _invokeSeriesOfAttributes(self, listOfAttributes):
+        # Get the object behind the first attribute invoked
+        firstAttrNode = listOfAttributes[0].node
+        if isinstance(listOfAttributes[0], AttributeData) and firstAttrNode is None:
+            # In the case of an attribute data note, it could be a subscript beneath !
+            firstAttrNode = listOfAttributes[0].subscript
+
+        firstAttrObject = self.executeNode(firstAttrNode)
+
+        # invoke attributes one by one up to the target call function
+        currObject = firstAttrObject
+        numAttrs = len(listOfAttributes)
+        for attrIdx, attData in enumerate(listOfAttributes):
+            if attrIdx == 0:
+                continue
+
+            assert isinstance(attData, AttributeData)
+            # assert currObject.hasattr(attData.name), f"Object {currObject} of type {type(currObject)} doesn't have an attribute named {attData.name} as requested"
+            attrToCallOnObject = getattr(currObject, attData.name)
+            currObject = attrToCallOnObject()
+
+        return currObject
+
     def _executeNode_FuncCall(self, funcName : str, funcAttrs : List[AttributeData], args : List[any], kwargs : Dict[any, any]):
         result = None
         # No attribute object, global function call
@@ -267,20 +302,8 @@ class ASTFuzzerNodeExecutor:
             return functorToCall(*args, **kwargs)
         # The case where there are multiple objects invoked before call
         else:
-            # Get the object behind the first attribute invoked
-            firstAttrObject = self.executeNode(funcAttrs[0].node)
-
-            # invoke attributes one by one up to the target call function
-            currObject = firstAttrObject
-            numAttrs = len(funcAttrs)
-            for attrIdx, attData in enumerate(funcAttrs):
-                if attrIdx == 0:
-                    continue
-
-                assert isinstance(attData, AttributeData)
-                #assert currObject.hasattr(attData.name), f"Object {currObject} of type {type(currObject)} doesn't have an attribute named {attData.name} as requested"
-                attrToCallOnObject = getattr(currObject, attData.name)
-                currObject = attrToCallOnObject()
+            # Invoke a series of attributes up to the function call
+            currObject = self._invokeSeriesOfAttributes(funcAttrs)
 
             # Now invoke the function
             # We have some custom functions harcoded here because currently we don't plan to support wrapper for
@@ -362,6 +385,14 @@ class ASTFuzzerNodeExecutor:
 
         elif nodeInst.type == ASTFuzzerNodeType.ASSIGNMENT:
             raise NotImplementedError()
+        elif nodeInst.type == ASTFuzzerNodeType.CALL_FUNC:
+            # Add here all function calls that are targeted towards symbolic execution
+            # Currently we have a single candidate
+            symbolicVariableInvoked = self.DS.getSymbolicVariableValue(nodeInst.attributes[-1])
+            if symbolicVariableInvoked and (nodeInst.funcCallName in ["GetElementAt"]):
+                return "self.DS.SymbolicValues[" + "\"" + nodeInst.name + "\"" + "][0]"
+
+            return None
         else:
             return None
 

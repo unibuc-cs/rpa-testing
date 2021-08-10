@@ -230,7 +230,7 @@ class WorkflowGraph:
                 symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
 
                 # DEBUG CODE
-                if "and" in symbolicExpressionForNode:
+                if "actual_pin" in symbolicExpressionForNode:
                     a = 3
                     a +=1
                     symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
@@ -245,6 +245,9 @@ class WorkflowGraph:
                         assert currNode.valuesAndNext['True'] == nextNode.id
 
                     outCOnditions.append(condToSolve)
+            else:
+                if currNode.expression:
+                    self.astFuzzerNodeExecutor.executeNode(currNode.expression)
 
             # Add the conditions for assignment variables
             """

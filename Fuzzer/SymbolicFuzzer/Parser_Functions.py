@@ -4,7 +4,7 @@
 # The client can then import its own function set here to extend the system
 
 import sys
-from Parser_DataTypes import DataTable
+from Parser_DataTypes import DataTable, removeNamespacesFromName
 
 def outPrettyPrint(*args):
 	outStr = "PrettyPrint: "
@@ -30,7 +30,15 @@ class DictionaryOfExternalCalls():
 		self.funcToCallForSymbol[funcStr] = funcMethod
 
 	def getFunctor(self, funcStr : str):
-		assert funcStr in self.funcToCallForSymbol, f"There is no functor registered for {funcStr} !"
+		isFuncInDictionary = funcStr in self.funcToCallForSymbol
+		if isFuncInDictionary is False:
+			# Try without namespace ?
+			funcStr_withoutNamespace = removeNamespacesFromName(funcStr)
+			if funcStr_withoutNamespace in self.funcToCallForSymbol:
+				funcStr = funcStr_withoutNamespace
+				isFuncInDictionary = True
+
+		assert isFuncInDictionary, f"There is no functor registered for {funcStr} with/without namespace!"
 		return self.funcToCallForSymbol[funcStr]
 
 """"
