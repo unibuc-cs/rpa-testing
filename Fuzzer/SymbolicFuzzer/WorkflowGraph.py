@@ -249,19 +249,6 @@ class WorkflowGraph:
                 if currNode.expression:
                     self.astFuzzerNodeExecutor.executeNode(currNode.expression)
 
-            # Add the conditions for assignment variables
-            """
-            if currNode.hasAssignments():
-                for assignmentInst in currNode.assignments:
-                    assert isinstance(assignmentInst, AssignmentOperation)
-                    if assignmentInst.isOverridingValueAssignment:
-                        continue # Ignored for now. TODO: Ciprian !
-
-                    targetVar = assignmentInst.leftTerm
-                    targetValue = assignmentInst.rightTerm
-                    outCOnditions.append(f"{targetVar}=={targetValue}")
-            """
-
         return outCOnditions
 
     # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file

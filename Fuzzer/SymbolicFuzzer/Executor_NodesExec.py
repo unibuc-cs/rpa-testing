@@ -195,7 +195,7 @@ class ASTFuzzerNodeExecutor:
             assert leftTermVarName
 
             rightTermValue = self.executeNode(rightTerm)
-            assert rightTermValue
+            assert rightTermValue != None
 
             # Then set the new value to the dictionary
             self.DS.setVariableValue(leftTermVarName, rightTermValue)
@@ -207,7 +207,7 @@ class ASTFuzzerNodeExecutor:
 
             res_left = self.executeNode(leftTerm)
             res_right = self.executeNode(rightTerm)
-            assert res_left and res_right, "The terms can't be evaluated !"
+            assert res_left != None and res_right != None, "The terms can't be evaluated !"
 
             if isinstance(node, ASTFuzzerNode_MathBinary):
                 if node.op == "*":
@@ -388,9 +388,13 @@ class ASTFuzzerNodeExecutor:
         elif nodeInst.type == ASTFuzzerNodeType.CALL_FUNC:
             # Add here all function calls that are targeted towards symbolic execution
             # Currently we have a single candidate
-            symbolicVariableInvoked = self.DS.getSymbolicVariableValue(nodeInst.attributes[-1])
+            symbolicVariableInvoked = self.DS.getSymbolicVariableValue(nodeInst.attributes[-1].name)
             if symbolicVariableInvoked and (nodeInst.funcCallName in ["GetElementAt"]):
-                return "self.DS.SymbolicValues[" + "\"" + nodeInst.name + "\"" + "][0]"
+                # Get the slice index
+                assert len(nodeInst.args) == 1, "Where is the index parameter ?"
+                arg_sliceValue = self.executeNode(nodeInst.args[0])
+                expr_res = "self.DS.SymbolicValues[" + "\"" + nodeInst.attributes[-1].name + "\"" + "][" + str(arg_sliceValue) +"]"
+                return expr_res
 
             return None
         else:
