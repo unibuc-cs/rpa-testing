@@ -1,0 +1,21 @@
+<FlowStep.Next x:Name="__ReferenceID">
+  <sap:WorkflowViewStateService.ViewState>
+    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+      <av:Point x:Key="ShapeLocation">348.8,250</av:Point>
+      <av:Size x:Key="ShapeSize">262.4,60</av:Size>
+    </scg:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Assign DisplayName="Assign False" sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_">
+    <Assign.To>
+      <OutArgument x:TypeArguments="x:Boolean">[test_var]</OutArgument>
+    </Assign.To>
+    <Assign.Value>
+      <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+    </Assign.Value>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+  </Assign>
+</FlowStep>

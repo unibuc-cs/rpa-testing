@@ -1,0 +1,6 @@
+import re
+
+def findNumberOfSwitchFlows(input_text):
+    count = 0
+    count = sum(1 for _ in re.finditer(r'\b%s\b' % re.escape("FlowSwitch x"), input_text))
+    return count
