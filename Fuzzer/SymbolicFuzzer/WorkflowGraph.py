@@ -303,23 +303,60 @@ class WorkflowGraph:
                     if debugLogging:
                         print(f"{d.name()}={m[d]}")
 
+
                 # Get one output row for csv extract
+                # Hold a temporary list of arrays being filled
+                # Note that we need those to be constructed one by one indices...as indices are interpreted as individual parameters inside SMT solver
+                arraysFilledBySMT : Dict[str, Dict[int, any]]  = {} # arrayName ->  {index -> value}
+
                 if csv_stream != None:
                     rowContent = {}
                     # For each variabile in the model, output its storage
                     for decl in m.decls():
+                        # Get the value of declaration from the model
+                        # --------------------------------
+                        valueOfDecl = m[decl]
+                        if z3.is_int_value(valueOfDecl):
+                            valueOfDecl = valueOfDecl.as_long()
+                        elif z3.is_real(valueOfDecl):
+                            valueOfDecl = float(valueOfDecl.as_decimal(prec=2))
+
+                        elif z3.is_bool(valueOfDecl):
+                            valueOfDecl = True if z3.is_true(valueOfDecl) else False
+
+                        # If needed, fill in the variable inside our output variables list
+                        #----------------------------------
                         declAsString = str(decl)
-                        if declAsString in set_fieldNamesList:
-                            valueOfDecl = m[decl]
-                            if z3.is_int_value(valueOfDecl):
-                                valueOfDecl = valueOfDecl.as_long()
-                            elif z3.is_real(valueOfDecl):
-                                valueOfDecl = float(valueOfDecl.as_decimal(prec=2))
+                        isModelVariableNeededForOutput = declAsString in set_fieldNamesList
+                        isArrayBeingFilled = False
+                        if isModelVariableNeededForOutput is False:
+                            # Check the array indices too
+                            if "__" in declAsString:
+                                splitByIndexAddressing = declAsString.split("__")
+                                try:
+                                    index = int(splitByIndexAddressing[-1])
+                                    arrayName = "".join(splitByIndexAddressing[:-1])
+                                    if arrayName in set_fieldNamesList:
+                                        isArrayBeingFilled = True
+                                        if arrayName not in arraysFilledBySMT:
+                                            arraysFilledBySMT[arrayName] = {}
+                                        arraysFilledBySMT[arrayName][index] = valueOfDecl
+                                except e:
+                                    pass
 
-                            elif z3.is_bool(valueOfDecl):
-                                valueOfDecl = True if z3.is_true(valueOfDecl) else False
+                        if  isModelVariableNeededForOutput and (isArrayBeingFilled is False):
+                            rowContent[declAsString] = valueOfDecl # Output the variable value directly
 
-                            rowContent[declAsString] = valueOfDecl
+                    # In the end, add the arrays to the content
+                    for arrayFilled_key, arrayFilled_value in arraysFilledBySMT.items():
+                        assert arrayFilled_key in set_fieldNamesList, "Did I filled an unnedeed array ??"
+                        assert len(arrayFilled_key) > 0 ," Array registered for filling but emtpy ??"
+                        strOutForArray = ""
+                        for arrIndex, arrValue in arrayFilled_value.items():
+                            strOutForArray += f"[{arrIndex}]={arrValue} ; "
+                        rowContent[arrayFilled_key] = strOutForArray
+
+                    # Fill in the path for this node
                     if pathStr != None:
                         rowContent["GraphPath"] =pathStr
 
