@@ -225,12 +225,16 @@ class WorkflowGraph:
 
             # Add the condition for a branching node
             if currNode.nodeType == NodeTypes.BRANCH_NODE:
-                nextNode = path[nodeIndex + 1] if (nodeIndex + 1 < pathLen) and len(currNode.valuesAndNext) > 0 else None
+                # First, Skip if the node doesn't contain any symbolic variable that links to the user input
+                # This is a SOFT requirement, could be changed, left it here for optimization purposes
+                if currNode.expression.isAnySymbolicVar() == False:
+                    continue
 
+                nextNode = path[nodeIndex + 1] if (nodeIndex + 1 < pathLen) and len(currNode.valuesAndNext) > 0 else None
                 symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
 
                 # DEBUG CODE
-                if "actual_pin" in symbolicExpressionForNode:
+                if "5" in symbolicExpressionForNode:
                     a = 3
                     a +=1
                     symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
@@ -269,6 +273,10 @@ class WorkflowGraph:
         allpaths = self.__getAllPaths()
 
         for index, P in enumerate(allpaths):
+
+            # Reset the datastore variables to default variables before each running case
+            self.DS.resetToDefaultValues()
+
             pathStr = None
             if debugLogging:
                 pathStr = self.__debugPrintSinglePath(P)

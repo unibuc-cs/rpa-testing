@@ -12,6 +12,8 @@ from SymbolicHelpers import *
 
 USE_WORKFLOWNAME_BEFORE_VARIABLE = True # WorkflowName:VariableName in expressions or just VariableName ?
 
+
+
 #================
 
 class ASTFuzzerNodeType(Enum):
@@ -106,6 +108,7 @@ class AttributeData:
         res = str(self.subscript) if self.subscript is not None else self.name
         return res
 
+
 class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
     """ E.g.
     "local_number_retries": {
@@ -113,6 +116,22 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
         "Default": "0"
     },
     """
+
+    # Given the type of the variable as a string and the expression containing the default value, get the default object value
+    @staticmethod
+    def getDefaultValueFromExpression(varTypeName: str, defaultExpression: str) -> any:
+        res = None
+        if varTypeName == "Int32":
+            res = 0 if defaultExpression is None else int(defaultExpression)
+        elif varTypeName == 'Boolean':
+            res = False if (defaultExpression == None or defaultExpression == 'false' or defaultExpression == 'False'
+                  or int(defaultExpression) == 0) else True
+        else:
+            raise NotImplementedError("Do it yourself !!")
+
+        return res
+
+
     # Will put the variabile in the datastore
     def __init__(self, varName : str, typeName : str, **kwargs):
         super().__init__(ASTFuzzerNodeType.VARIABLE_DECL)
@@ -144,7 +163,8 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
 
         # Build the variabile symbolic and default value depending on its type
         if typeName == "Int32":
-            self.value = 0 if self.defaultValue is None else int(self.defaultValue) #, self.varName)
+            self.value = ASTFuzzerNode_VariableDecl.getDefaultValueFromExpression(varTypeName=typeName,
+                                                                                  defaultExpression=self.defaultValue)
 
             if self.annotation.isFromUserInput:
                 self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
@@ -166,8 +186,8 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
             self.value = FuzzerList.Create(annotation=self.annotation, defaultValue=self.defaultValue)
 
         elif typeName == 'Boolean':
-            self.value = False if (self.defaultValue == None or self.defaultValue == 'false' or self.defaultValue == 'False'
-                                   or int(self.defaultValue) == 0) else True
+            self.value = ASTFuzzerNode_VariableDecl.getDefaultValueFromExpression(varTypeName=typeName,
+                                                                                  defaultExpression=self.defaultValue)
 
             if self.annotation.isFromUserInput:
                 self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)

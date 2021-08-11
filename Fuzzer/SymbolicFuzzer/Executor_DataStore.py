@@ -8,11 +8,22 @@ class DataStore:
         self.Types : Dict[str, str] = {}
         self.SymbolicValues : Dict[str, any] = {}
         self.Annotations : Dict[str, any] = {}
+        self.DefaultValueExpr : Dict[str, any] = {}
 
     # Sets an existing variable value
     def setVariableValue(self, varName, value):
         assert varName in self.Values
         self.Values[varName] = value
+
+
+    def resetToDefaultValues(self):
+        for varName in self.DefaultValueExpr:
+            defaultExpr = self.DefaultValueExpr[varName]
+            if defaultExpr is None or defaultExpr == "":
+                continue
+
+            self.Values[varName] = ASTFuzzerNode_VariableDecl.getDefaultValueFromExpression(varTypeName=self.Types[varName],
+                                                                                            defaultExpression=self.DefaultValueExpr[varName])
 
     # ADds a variabile
     def addVariable(self, varDecl : ASTFuzzerNode_VariableDecl):
@@ -24,6 +35,7 @@ class DataStore:
             self.SymbolicValues[varDecl.varName] = varDecl.symbolicValue
 
         self.Annotations[varDecl.varName] = varDecl.annotation
+        self.DefaultValueExpr[varDecl.varName] = varDecl.defaultValue
 
     def removeVariable(self, varName):
         self.Values.pop(varName)

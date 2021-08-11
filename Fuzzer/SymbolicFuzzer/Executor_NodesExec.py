@@ -323,22 +323,25 @@ class ASTFuzzerNodeExecutor:
     # Imagine that we have an expression like this:   if varname < GetThingFromDB("row,col,index") jump X
     # We need to query the DB at runtime !
 
-
-    # TODO: Implement Logic Op !
-    # Implement the case for assignment node
-    def getSymbolicExpressionFromNode(self, nodeInst : ASTFuzzerNode):
+    # Given a node returns the symbolic expression out of it and a boolean if the expression really contains a symbolic variable
+    # (if it doesn't normally it shouldn't be added to the solver !)
+    def getSymbolicExpressionFromNode(self, nodeInst : ASTFuzzerNode) -> str:
         if nodeInst.type in [ASTFuzzerNodeType.COMPARE, ASTFuzzerNodeType.MATH_OP_BINARY, ASTFuzzerNodeType.LOGIC_OP_BINARY]:
             # Check if each the two left/right terms. If they contain a symbolic expression we need to get the expr out of it.
             # If not, we just execute the node in the executor and get the result back in plain value !
             leftExpr = None
+            isLeftSymbolic = False
             if nodeInst.leftTerm.isAnySymbolicVar():
                 leftExpr = self.getSymbolicExpressionFromNode(nodeInst.leftTerm)
+                isLeftSymbolic = True
             else:
                 leftExpr = self.executeNode(nodeInst.leftTerm)
 
             rightExpr = None
+            isRightSymbolic = False
             if nodeInst.rightTerm.isAnySymbolicVar():
                 rightExpr = self.getSymbolicExpressionFromNode(nodeInst.rightTerm)
+                isRightSymbolic = True
             else:
                 rightExpr = self.executeNode(nodeInst.rightTerm)
 
