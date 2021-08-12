@@ -1,5 +1,7 @@
 import z3
 from z3 import *
+import heapq
+from typing import List, Dict, Set, Tuple
 
 # TODO: interface / Z3 only ?
 class SymbolicExecutionHelpers:
@@ -75,3 +77,36 @@ class SymbolicExecutionHelpers:
             raise NotImplementedError()
 
         return res
+
+class SMTPath:
+    def __init__(self):
+        self.conditions : List[str] # The conditions in the Z3 format needed for this path
+        # Add many others...
+
+        self.priority = None # the priority of this path..
+
+    def __lt__(self, other):
+        return self.priority > other.priority
+
+
+# A priority queue data structure for holding inputs by their priority
+class SMTWorklist:
+    def __init__(self):
+        self.internalHeap = []
+
+    def extractInput(self):
+        if self.internalHeap:
+            next_item = heapq.heappop(self.internalHeap)
+            return next_item
+        else:
+            return None
+
+    def addPath(self, newPath: SMTPath):
+        heapq.heappush(self.internalHeap, newPath)
+
+    def __str__(self):
+        str = f"[{' ; '.join(inpStr.__str__() for inpStr in self.internalHeap)}]"
+        return str
+
+    def __len__(self):
+        return len(self.internalHeap)

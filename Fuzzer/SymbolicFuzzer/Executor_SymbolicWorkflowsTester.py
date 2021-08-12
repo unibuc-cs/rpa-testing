@@ -70,3 +70,6 @@ class SymbolicWorflowsTester:
 
     def solveOfflineStaticGraph(self, outputResultsFile, loggingEnabled):
         self.workflowGraph.solveOfflineStaticGraph(outputCsvFile=outputResultsFile, debugLogging=loggingEnabled)
+
+    def solveSymbolically(self, outputResultsFile, loggingEnabled):
+        self.workflowGraph.solveSymbolically(outputCsvFile=outputResultsFile, debugLogging=loggingEnabled)

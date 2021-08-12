@@ -374,4 +374,71 @@ class WorkflowGraph:
                 if debugLogging:
                     print("No solution exists for this path")
 
+    def _executeFlowNode(self, executor: ASTFuzzerNodeExecutor, nodeInst: SymGraphNodeFlow):
+        assert isinstance(nodeInst, SymGraphNodeFlow)
+        if nodeInst.expression:
+            executor.executeNode(nodeInst.expression)
 
+    # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file
+    def solveSymbolically(self, outputCsvFile=None, debugLogging=False, astFuzzerNodeExecutor=None):
+        # Setup the output files stuff
+        fieldNamesList = [key for key in self.DS.Values.keys()]
+        if debugLogging:
+            fieldNamesList.append("GraphPath")
+        set_fieldNamesList = set(fieldNamesList)
+
+        csv_stream = None
+        if outputCsvFile != None:
+            csv_file = open(outputCsvFile, mode='w')
+            csv_stream = csv.DictWriter(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, fieldnames=fieldNamesList)
+            csv_stream.writeheader()
+
+
+
+        nodeIdsToInstances = self.graphInst.graph['nodeIdToInstance']
+
+        # Get the start nodes list
+        start_nodes = [nodeIdsToInstances[self.entryTestNodeId]]
+
+
+        # Do a DFS with queue from here
+        for start_node in start_nodes:
+            statesQueue = SMTWorklist()
+            self.DS.resetToDefaultValues()
+
+            currNode = start_node
+            while True:
+                # Is this a flow node ? Execute it to persist its sate
+                if currNode.nodeType != NodeTypes.BRANCH_NODE: #
+                   self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=currNode)
+
+                # Branch node.. hard decisions :)
+                elif currNode.nodeType == NodeTypes.BRANCH_NODE:
+                    # First, Skip if the node doesn't contain any symbolic variable that links to the user input
+                    # This is a SOFT requirement, could be changed, left it here for optimization purposes
+                    if currNode.expression.isAnySymbolicVar() == False:
+                        # Just execute the node and exit !
+
+                        # TODO Ciprian: we get a fixed result. Move currNode towrds it
+                        self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=currNode)
+                        continue
+
+                    # TODO: take a decision. Which branch should we get ?
+                    # TODO: split the DS and conditions , add the branches not used in the queue, continue on the selected branch
+                    # TODO: assign priorities to branches
+                    # TODO: Check feasability of paths before adding to queue.
+                    #  TODO: When getting to the final output node, throw out the result to datastore !
+                    pass
+
+                    symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
+
+                    # DEBUG CODE
+                    if "5" in symbolicExpressionForNode:
+                        a = 3
+                        a +=1
+                        symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
+
+                    # Fix the condition to solve
+                    condToSolve = symbolicExpressionForNode
+
+                break

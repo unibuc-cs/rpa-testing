@@ -35,8 +35,13 @@ def runTest(args):
     if args.loggingEnabled:
         workflowsTester.debugFullGraph(outputGraphFile=workflowsTester.getDebugGraphFilePath(args.outputGraphFile))
 
-    workflowsTester.solveOfflineStaticGraph(outputResultsFile=workflowsTester.getSolutionsOutputFilePath(args.outputResultsFile),
-                                             loggingEnabled=args.loggingEnabled)
+    if True:
+        workflowsTester.solveOfflineStaticGraph(outputResultsFile=workflowsTester.getSolutionsOutputFilePath(args.outputResultsFile),
+                                                 loggingEnabled=args.loggingEnabled)
+    else:
+        # PROTO work in progress
+        workflowsTester.solveSymbolically(outputResultsFile=workflowsTester.getSolutionsOutputFilePath(args.outputResultsFile),
+                                            loggingEnabled=args.loggingEnabled)
 
 
 if __name__ == "__main__":
