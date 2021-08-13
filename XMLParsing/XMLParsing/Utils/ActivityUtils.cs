@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Activities;
+using System.Activities.Statements;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,6 +29,18 @@ namespace XMLParsing.Utils
             }
 
             return ID_GENERATORS_MAP[workflowFullPath];
+        }
+
+        static public Node CreateSimpleNodeFromState(State state, string workflowDisplayName)
+        {
+            if (state == null)
+            {
+                return null;
+            }
+
+            Node node = CreateEmptyNode(workflowDisplayName);
+            node.DisplayName = workflowDisplayName + ":" + GetDisplayNameSanitized(state);
+            return node;
         }
 
         static public Node CreateSimpleNodeFromActivity(Activity activity, string workflowDisplayName)
@@ -60,6 +73,16 @@ namespace XMLParsing.Utils
             }
 
             return SanitizeString(activity.DisplayName);
+        }
+
+        static public string GetDisplayNameSanitized(State state)
+        {
+            if (state == null)
+            {
+                return "";
+            }
+
+            return SanitizeString(state.DisplayName);
         }
 
         static public string SanitizeString(string s)

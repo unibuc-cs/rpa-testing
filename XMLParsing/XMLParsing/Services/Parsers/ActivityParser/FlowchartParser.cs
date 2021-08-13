@@ -9,6 +9,9 @@ using XMLParsing.Common;
 using XMLParsing.Services.Parsers.ActivityParser;
 using XMLParsing.Utils;
 
+/*
+  Flowcharts generally don't have an end node. We mimic one for the sake of enabling the invoke workflow support for it.
+ */
 
 namespace XMLParsing.Services
 {
