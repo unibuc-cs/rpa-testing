@@ -28,6 +28,9 @@ namespace XMLParsing.Services
 
             ReadCsvFile rcf = new ReadCsvFile();
             Assembly.LoadFrom(rcf.GetType().Assembly.Location);
+
+            System.Windows.Media.PointCollection pc = new System.Windows.Media.PointCollection();
+            Assembly.LoadFrom(pc.GetType().Assembly.Location);
         }
 
         public static WorkflowParser Instance

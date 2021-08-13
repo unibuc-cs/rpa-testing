@@ -43,7 +43,8 @@ namespace XMLParsing.Services
                 { typeof(InterruptibleWhile).Name, () => new InterruptibleWhileActivityParser() },
                 { typeof(InterruptibleDoWhile).Name, () => new InterruptibleDoWhileActivityParser() },
                 { typeof(UiPath.Core.Activities.ForEach<>).Name, () => new ForEachActivityParser() },
-                { typeof(ForEachRow).Name, () => new ForEachActivityParser() }
+                { typeof(ForEachRow).Name, () => new ForEachActivityParser() },
+                { typeof(StateMachine).Name, () => new StateMachineActivityParser() }
             };
 
             if (activityParserDict.ContainsKey(activity.GetType().Name))
