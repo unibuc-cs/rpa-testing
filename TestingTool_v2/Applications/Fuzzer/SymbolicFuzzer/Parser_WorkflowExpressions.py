@@ -126,6 +126,10 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
         elif varTypeName == 'Boolean':
             res = False if (defaultExpression == None or defaultExpression == 'false' or defaultExpression == 'False'
                   or int(defaultExpression) == 0) else True
+        elif varTypeName == 'Dictionary<string,int32>':
+            res = Dictionary()
+        elif varTypeName == 'String':
+            res = str(defaultExpression)
         else:
             raise NotImplementedError("Do it yourself !!")
 
@@ -210,6 +214,8 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
                 self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
         elif typeName == "Float":
             raise NotImplementedError("Not yet")
+        elif typeName == "Dictionary<string,int32>":
+            self.value = Dictionary()
         else:
             raise  NotImplementedError(f"Unknown decl type {typeName}")
 

@@ -5284,9 +5284,9 @@
     "restore": {
       "projectUniqueName": "CSharpExampleWithManyDataTypes",
       "projectName": "CSharpExampleWithManyDataTypes",
-      "projectPath": "C:\\GithubPhD\\rpa-testing\\C#Models\\CSharpExampleWithManyDataTypes\\.local",
+      "projectPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v2\\Applications\\C#Models\\CSharpExampleWithManyDataTypes\\.local",
       "packagesPath": "C:\\Users\\adelinas\\.nuget\\packages\\",
-      "outputPath": "C:\\GithubPhD\\rpa-testing\\C#Models\\CSharpExampleWithManyDataTypes\\.local"
+      "outputPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v2\\Applications\\C#Models\\CSharpExampleWithManyDataTypes\\.local"
     },
     "frameworks": {
       "net461": {

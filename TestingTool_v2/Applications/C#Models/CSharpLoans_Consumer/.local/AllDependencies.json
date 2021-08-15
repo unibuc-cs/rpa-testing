@@ -4022,9 +4022,9 @@
     "restore": {
       "projectUniqueName": "CSharpLoans_Consumer",
       "projectName": "CSharpLoans_Consumer",
-      "projectPath": "C:\\GithubPhD\\rpa-testing\\C#Models\\CSharpLoans_Consumer\\.local",
+      "projectPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v2\\Applications\\C#Models\\CSharpLoans_Consumer\\.local",
       "packagesPath": "C:\\Users\\adelinas\\.nuget\\packages\\",
-      "outputPath": "C:\\GithubPhD\\rpa-testing\\C#Models\\CSharpLoans_Consumer\\.local"
+      "outputPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v2\\Applications\\C#Models\\CSharpLoans_Consumer\\.local"
     },
     "frameworks": {
       "net461": {

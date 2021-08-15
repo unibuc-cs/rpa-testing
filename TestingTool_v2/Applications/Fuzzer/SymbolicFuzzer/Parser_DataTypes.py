@@ -28,6 +28,7 @@ Check the more complex examples below and in your manual
 """
 
 import sys
+from datetime import datetime
 
 import SymbolicHelpers
 import pandas as pd
@@ -50,6 +51,12 @@ def str2Class(str):
 			return None
 	return None
 
+
+def getFormat():
+	return 'dd.MM.yyyy'
+def getLastYear():
+	return 2019
+
 # An Object kind of thing that has a value and can be converted to values
 # Purpose to call obj.ToString() and some others
 
@@ -67,6 +74,42 @@ class ObjectValue:
 
 	def ToString(self):
 		return str(self.value)
+
+#DateTime mock
+class DateTime:
+	def __init__(self):
+		pass
+	@staticmethod
+	def ParseExact(value, format, culture):
+		try:
+			datetime_object = datetime.strptime(value, format)
+			return datetime_object
+		except:
+			print(f"can't convert value {value} of type {type(value)} to Datetime")
+
+#Mock string
+
+class String:
+	def __init__(self):
+		pass
+	def ToSring(self):
+		return str(self.value)
+
+	def Equals(value):
+		return True #e de test
+
+	def ToLower(self):
+		return str(self.value).lower()
+
+
+
+#Dictionary mock string int
+class Dictionary:
+	def __init__(self):
+		pass
+	def getValue(key):
+		value = 1234
+		return value
 
 # Int32 mock
 class Int32:

@@ -5008,15 +5008,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Marina Cernat\\.nuget\\packages\\": {}
+    "C:\\Users\\adelinas\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
       "projectUniqueName": "Main",
       "projectName": "Main",
-      "projectPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\C#Models\\SimpleBankLoanCSharp\\.local",
-      "packagesPath": "C:\\Users\\Marina Cernat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\C#Models\\SimpleBankLoanCSharp\\.local"
+      "projectPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v2\\Applications\\C#Models\\SimpleBankLoanCSharp\\.local",
+      "packagesPath": "C:\\Users\\adelinas\\.nuget\\packages\\",
+      "outputPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v2\\Applications\\C#Models\\SimpleBankLoanCSharp\\.local"
     },
     "frameworks": {
       "net461": {
@@ -5042,7 +5042,7 @@
             "version": "[21.4.4, 21.4.4]"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\Marina Cernat\\AppData\\Local\\UiPath\\app-21.4.4\\runtime.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\adelinas\\AppData\\Local\\UiPath\\app-21.4.4\\runtime.json"
       }
     }
   }
