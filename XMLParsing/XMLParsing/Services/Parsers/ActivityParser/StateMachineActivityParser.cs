@@ -124,10 +124,7 @@ namespace XMLParsing.Services
                 }
 
                 var expressionText = ExpressionUtils.TryParseExpression(transition.Condition);
-                var transitionDisplayName = ActivityUtils.SanitizeString(transition.DisplayName);
-
-                Node transitionNode = ActivityUtils.CreateEmptyNode(workflowData.DisplayName);
-                transitionNode.DisplayName = transitionDisplayName;
+                Node transitionNode = ActivityUtils.CreateSimpleNodeFromTransition(transition, workflowData.DisplayName);
                 transitionNode.Expression = expressionText;
                 transitionNode.IsConditional = true;
                 graph.Nodes.Add(transitionNode);

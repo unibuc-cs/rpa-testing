@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using XMLParsing.Common;
+using Transition = System.Activities.Statements.Transition;
 
 namespace XMLParsing.Utils
 {
@@ -55,7 +56,19 @@ namespace XMLParsing.Utils
             return node;
         }
 
-        static public Node CreateEmptyNode(string workflowDisplayName)
+        static public Node CreateSimpleNodeFromTransition(Transition transition, string workflowDisplayName)
+        {
+            if (transition == null)
+            {
+                return null;
+            }
+
+            Node node = CreateEmptyNode(workflowDisplayName);
+            node.DisplayName = workflowDisplayName + ":" + SanitizeString(transition.DisplayName);
+            return node;
+        }
+
+        static public Node CreateEmptyNode(string workflowDisplayName, bool addWorkflowName = false)
         {
             Node node = new Node();
             node.DisplayName = "";

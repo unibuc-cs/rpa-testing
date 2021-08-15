@@ -221,7 +221,7 @@ namespace XMLParsing.Services
                 currentVirtualNode.DisplayName = displayName + "_Case_" + key.ToString();
                 currentVirtualNode.IsConditional = true;
                 currentVirtualNode.Expression = expressionText + " == " + key.ToString();
-                currentVirtualNode.ExpressionAnnotation = expressionAnnotation + " == " + key.ToString();
+                // currentVirtualNode.ExpressionAnnotation = expressionAnnotation + " == " + key.ToString();
                 graph.Nodes.Add(currentVirtualNode);
 
 

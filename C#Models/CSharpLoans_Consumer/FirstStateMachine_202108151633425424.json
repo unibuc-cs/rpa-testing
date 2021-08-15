@@ -1,0 +1,157 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "InitialGuess": {
+          "Type": "Int32"
+        },
+        "RandomNumber": {
+          "Type": "Int32"
+        }
+      },
+      "inputArguments": [],
+      "displayName": "FirstStateMachine_1",
+      "fullPath": "C:\\UiPath\\rpa-testing\\C#Models\\CSharpLoans_Consumer\\FirstStateMachine.xaml",
+      "invokedBy": "",
+      "startNode": "FirstStateMachine_1:Initializing_Random_Number_4"
+    }
+  ],
+  "graph": {
+    "FirstStateMachine_1:Guess_Number_1": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:InputDialog_3"
+        }
+      ]
+    },
+    "FirstStateMachine_1:Guess_Number_Virtual_State_End_2": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:Correct_Guess_10"
+        }
+      ]
+    },
+    "FirstStateMachine_1:InputDialog_3": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:Guess_Number_Virtual_State_End_2"
+        }
+      ]
+    },
+    "FirstStateMachine_1:Initializing_Random_Number_4": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:Assign_6"
+        }
+      ]
+    },
+    "FirstStateMachine_1:Initializing_Random_Number_Virtual_State_End_5": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:T1_15"
+        }
+      ]
+    },
+    "FirstStateMachine_1:Assign_6": {
+      "expression": "RandomNumber = new Random().Next(1,100)",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:Initializing_Random_Number_Virtual_State_End_5"
+        }
+      ]
+    },
+    "FirstStateMachine_1:FinalState_7": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:MessageBox_9"
+        }
+      ]
+    },
+    "FirstStateMachine_1:FinalState_Virtual_State_End_8": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:Initializing_Random_Number_Virtual_End_16"
+        }
+      ]
+    },
+    "FirstStateMachine_1:MessageBox_9": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:FinalState_Virtual_State_End_8"
+        }
+      ]
+    },
+    "FirstStateMachine_1:Correct_Guess_10": {
+      "expression": "InitialGuess = RandomNumber",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:FinalState_7"
+        },
+        {
+          "value": "False",
+          "destination": "FirstStateMachine_1:Try_Smaller_12"
+        }
+      ]
+    },
+    "FirstStateMachine_1:MessageBox_11": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:Guess_Number_1"
+        }
+      ]
+    },
+    "FirstStateMachine_1:Try_Smaller_12": {
+      "expression": "InitialGuess > RandomNumber",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:MessageBox_11"
+        },
+        {
+          "value": "False",
+          "destination": "FirstStateMachine_1:Try_Bigger_14"
+        }
+      ]
+    },
+    "FirstStateMachine_1:MessageBox_13": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:Guess_Number_1"
+        }
+      ]
+    },
+    "FirstStateMachine_1:Try_Bigger_14": {
+      "expression": "InitialGuess < RandomNumber",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:MessageBox_13"
+        }
+      ]
+    },
+    "FirstStateMachine_1:T1_15": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "FirstStateMachine_1:Guess_Number_1"
+        }
+      ]
+    },
+    "FirstStateMachine_1:Initializing_Random_Number_Virtual_End_16": {
+      "transitions": []
+    }
+  },
+  "startNode": "FirstStateMachine_1:Initializing_Random_Number_4"
+}
