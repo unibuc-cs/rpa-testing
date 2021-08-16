@@ -360,7 +360,13 @@
     <Compile Include="Services\Reducers\IWorkflowReducer.cs" />
     <Compile Include="Utils\ActivityUtils.cs" />
     <Compile Include="Utils\AnnotationHelper.cs" />
-    <Compile Include="Utils\ExpressionUtils.cs" />
+    <Compile Include="Utils\ExpressionParsingUtils\ActivityArgumentParser.cs" />
+    <Compile Include="Utils\ExpressionParsingUtils\CSharpValueParser.cs" />
+    <Compile Include="Utils\ExpressionParsingUtils\CSharpExpressionParser.cs" />
+    <Compile Include="Utils\ExpressionParsingUtils\BaseOperandParser.cs" />
+    <Compile Include="Utils\ExpressionParsingUtils\ActivityValueParser.cs" />
+    <Compile Include="Utils\ExpressionParsingUtils\IOperandParser.cs" />
+    <Compile Include="Utils\ExpressionParsingUtils\ExpressionUtils.cs" />
     <Compile Include="Utils\ReflectionHelpers.cs" />
     <Compile Include="Utils\XamlParserException.cs" />
   </ItemGroup>
