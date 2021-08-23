@@ -63,6 +63,7 @@ class SymGraphNodeFlow(BaseSymGraphNode):
     def __init__(self, id : str):
         super().__init__(id, NodeTypes.FLOW_NODE)
         self.nextNodeId : str = None
+        self.nextNodeInst : BaseSymGraphNode = None # Same as above but with instances
 
     def getDebugLabel(self):
         baseOutput = super().getDebugLabel()
@@ -81,6 +82,7 @@ class SymGraphNodeBranch(BaseSymGraphNode):  # Just an example of a base class
         self.expression_rawStr : str = None # The string raw expression as defined in the config file
         self.expression : ASTFuzzerNode = None # The parsed node expression of above
         self.valuesAndNext : Dict[str, str] = {} # A dictionary from expression value to next branch
+        self.valuesAndNextInst : Dict[str, BaseSymGraphNode] = {} # Same as above but with inst
 
     def getVariables(self):
         return None # self.expression.variables()
@@ -161,7 +163,45 @@ class WorkflowGraph:
 
         return allpaths
 
+    # A function to fix internally all nodes from node ids (str) to node instances
+    def fixAllNodesInstances(self):
+        allNodesList = self.graphInst.nodes()
+        for nodeInst in allNodesList:
+            assert isinstance(nodeInst, BaseSymGraphNode)
+            if nodeInst.nodeType == NodeTypes.FLOW_NODE:
+                assert isinstance(nodeInst, SymGraphNodeFlow)
+
+                if nodeInst.nextNodeId is None:
+                    succesors = self.graphInst.successors(nodeInst)
+                    #assert len(succesors) <= 1, " More than 1 successor for a flow node ??"
+                    for succ in succesors:
+                        nodeInst.nextNodeInst = succ
+                        nodeInst.nextNodeId = succ.id
+                        break
+                    continue
+
+                assert isinstance(nodeInst.nextNodeId, str)
+                assert nodeInst.nextNodeInst is None, " ALready converted ??"
+                nodeInst.nextNodeInst = self.__fixNodeInstance(nodeInst.nextNodeId)
+            elif nodeInst.nodeType == NodeTypes.BRANCH_NODE:
+                assert isinstance(nodeInst, SymGraphNodeBranch)
+                """
+                if nodeInst.nextNodeId is None:
+                    succesors = self.graphInst.successors(nodeInst)
+                    #assert len(succesors) <= 1, " More than 1 successor for a flow node ??"
+                    for succ in succesors:
+                        nodeInst.nextNodeInst = succ
+                        nodeInst.nextNodeId = succ.id
+                        break
+                    continue
+                """
+                for nextNode_branchName, nextNode_branchNodeId in nodeInst.valuesAndNext.items():
+                    assert isinstance(nextNode_branchNodeId, str)
+                    assert nextNode_branchName not in nodeInst.valuesAndNextInst, " ALready converted ??"
+                    nodeInst.valuesAndNextInst[nextNode_branchName] = self.__fixNodeInstance(nextNode_branchNodeId)
+
     # A function to fix the node finding inside a graph
+    # returns from node id to node instance
     def __fixNodeInstance(self, node):
         if isinstance(node, str):
             nodeIdToInstance = self.graphInst.graph['nodeIdToInstance']
@@ -233,11 +273,13 @@ class WorkflowGraph:
                 nextNode = path[nodeIndex + 1] if (nodeIndex + 1 < pathLen) and len(currNode.valuesAndNext) > 0 else None
                 symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
 
-                # DEBUG CODE
+                # DEBUG HELPER CODE
+                """
                 if "5" in symbolicExpressionForNode:
                     a = 3
                     a +=1
                     symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
+                """
 
                 # Fix the condition to solve
                 condToSolve = symbolicExpressionForNode
@@ -407,10 +449,17 @@ class WorkflowGraph:
             self.DS.resetToDefaultValues()
 
             currNode = start_node
-            while True:
+
+            def executeNodeAsFlowNode(nodeInst):
+                self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=nodeInst)
+                currNode = nodeInst.nextNodeInst
+                return currNode
+
+            while currNode:
                 # Is this a flow node ? Execute it to persist its sate
                 if currNode.nodeType != NodeTypes.BRANCH_NODE: #
-                   self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=currNode)
+                   #self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=currNode)
+                   currNode = executeNodeAsFlowNode(currNode)
 
                 # Branch node.. hard decisions :)
                 elif currNode.nodeType == NodeTypes.BRANCH_NODE:
@@ -420,25 +469,27 @@ class WorkflowGraph:
                         # Just execute the node and exit !
 
                         # TODO Ciprian: we get a fixed result. Move currNode towrds it
-                        self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=currNode)
-                        continue
+                        #self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=currNode)
+                        result = self.astFuzzerNodeExecutor.executeNode(currNode.expression)
+                        assert result is not None
+                        assert str(result) in currNode.valuesAndNextInst, f"The result is not in the list of branch decisions {str(result)}!"
+                        currNode = currNode.valuesAndNextInst[str(result)]
 
-                    # TODO: take a decision. Which branch should we get ?
-                    # TODO: split the DS and conditions , add the branches not used in the queue, continue on the selected branch
-                    # TODO: assign priorities to branches
-                    # TODO: Check feasability of paths before adding to queue.
-                    #  TODO: When getting to the final output node, throw out the result to datastore !
-                    pass
+                    else: # THe node is symbolic !
+                        # TODO: take a decision. Which branch should we get ?
+                        # TODO: split the DS and conditions , add the branches not used in the queue, continue on the selected branch
+                        # TODO: assign priorities to branches
+                        # TODO: Check feasability of paths before adding to queue.
+                        #  TODO: When getting to the final output node, throw out the result to datastore !
 
-                    symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
 
-                    # DEBUG CODE
-                    if "5" in symbolicExpressionForNode:
-                        a = 3
-                        a +=1
                         symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
 
-                    # Fix the condition to solve
-                    condToSolve = symbolicExpressionForNode
+                        # DEBUG CODE
+                        if "5" in symbolicExpressionForNode:
+                            a = 3
+                            a +=1
+                            symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
 
-                break
+                        # Fix the condition to solve
+                        condToSolve = symbolicExpressionForNode

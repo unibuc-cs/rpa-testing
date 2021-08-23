@@ -170,6 +170,7 @@ class WorkflowParser:
                         # Add the edge into the graph instance
                         workflowGraph.graphInst.add_edge(parentNodeInst, trans_branchDest_nodeInst)
 
+        workflowGraph.fixAllNodesInstances()
         return workflowGraph
 
 

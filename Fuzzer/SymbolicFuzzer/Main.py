@@ -53,3 +53,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     args.loggingEnabled = False if args.loggingEnabled == 0 else True
     runTest(args)
+    print("finished")

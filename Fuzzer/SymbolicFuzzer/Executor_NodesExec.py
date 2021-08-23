@@ -239,7 +239,7 @@ class ASTFuzzerNodeExecutor:
 
             res_left = self.executeNode(leftTerm)
             res_right = self.executeNode(rightTerm)
-            assert res_left and res_right, "The terms can't be evaluated !"
+            assert res_left != None and res_right != None, "The terms can't be evaluated !"
 
             if node.comparatorClassNode.comparatorClass == ASTFuzzerComparator.COMP_LT:
                 return res_left < res_right
