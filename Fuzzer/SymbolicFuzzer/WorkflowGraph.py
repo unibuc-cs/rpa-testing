@@ -4,96 +4,8 @@ from enum import Enum
 from Executor_NodesExec import *
 import json
 import  csv
+from WorkflowGraphBaseNode import *
 
-# Logic to get a debug color output depending on the name of the graph
-AllDebugColors = ["red", "blue", "yellow", "green", "violet", "orange"]
-NumDebugColors = len(AllDebugColors)
-def getDebugColorByName(name : str) -> str:
-    return AllDebugColors[(hash(name) % NumDebugColors)]
-
-class NodeTypes(Enum):
-    BASE_NODE = 0 # Abstract, base
-    FLOW_NODE = 1 # Normal node for flow, no branching
-    BRANCH_NODE = 2 # Branch node
-
-def extractVarNameFromVarPlain(varNamePlain):
-    """
-    Expecting a "V['name']" => name
-    """
-    assert varNamePlain[0] == 'V' and varNamePlain[1] == '[' and varNamePlain[-1] == "]"
-    subtactVar = varNamePlain[3:-2]
-    subtactVar = subtactVar.replace('\\', "")
-    return subtactVar
-
-class BaseSymGraphNode():
-    def __init__(self, id : str, nodeType : NodeTypes):
-        self.id = id
-        self.nodeType : NodeTypes = nodeType
-
-        # This is the node available for executor
-        self.fuzzerNodeInst = None
-
-    def __str__(self):
-        return self.id #+ " " + str(self.expression)
-
-    def isBranchNode(self) -> bool:
-        return False
-
-    def getGraphNameFromNodeId(self) -> str:
-        index = self.id.find(':')
-        assert index != -1, "There is no namespace for this node !"
-        return str(self.id[:index])
-
-    # Gets a debug label string to be used for this node
-    def getDebugLabel(self):
-        # HTML way ...maybe later
-        # labelStr = f"<{nodeInst.id}<BR/><FONT POINT-SIZE=\"10\">v[add]  &gt 100 </FONT>>"
-
-        baseOutput = self.id
-
-        # TODO: more stuff into the new output
-        """
-        if self.hasAssignments():
-            for assignment in self.assignments:
-                baseOutput += "\n" + str(assignment.leftTerm) + " <- " + str(assignment.rightTerm)
-        """
-        return baseOutput
-
-class SymGraphNodeFlow(BaseSymGraphNode):
-    def __init__(self, id : str):
-        super().__init__(id, NodeTypes.FLOW_NODE)
-        self.nextNodeId : str = None
-        self.nextNodeInst : BaseSymGraphNode = None # Same as above but with instances
-
-    def getDebugLabel(self):
-        baseOutput = super().getDebugLabel()
-        outputStr = baseOutput\
-
-        if self.expression is not None:
-            if isinstance(self.expression, (ASTFuzzerNode_Assignment)):
-                outputStr += "\n" + str(self.expression)
-        return outputStr
-
-
-# A generic branch node definition
-class SymGraphNodeBranch(BaseSymGraphNode):  # Just an example of a base class
-    def __init__(self, id : str):
-        super().__init__(id, NodeTypes.BRANCH_NODE)
-        self.expression_rawStr : str = None # The string raw expression as defined in the config file
-        self.expression : ASTFuzzerNode = None # The parsed node expression of above
-        self.valuesAndNext : Dict[str, str] = {} # A dictionary from expression value to next branch
-        self.valuesAndNextInst : Dict[str, BaseSymGraphNode] = {} # Same as above but with inst
-
-    def getVariables(self):
-        return None # self.expression.variables()
-
-    def isBranchNode(self) -> bool:
-        return True
-
-    def getDebugLabel(self):
-        baseOutput = super().getDebugLabel()
-        outputStr = baseOutput + "\n" + str(self.expression)
-        return outputStr
 
 class WorkflowGraph:
     def __init__(self, dataStore, astFuzzerNodeExecutor):
@@ -435,37 +347,32 @@ class WorkflowGraph:
             csv_stream = csv.DictWriter(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, fieldnames=fieldNamesList)
             csv_stream.writeheader()
 
-
-
         nodeIdsToInstances = self.graphInst.graph['nodeIdToInstance']
 
         # Get the start nodes list
         start_nodes = [nodeIdsToInstances[self.entryTestNodeId]]
 
-
-        # Do a DFS with queue from here
-        statesQueue = SMTWorklist()
-
         # Add all starting nodes with equal priority
+        statesQueue = SMTWorklist()
         for start_node in start_nodes:
             self.DS.resetToDefaultValues()
+            assert isinstance(start_node, SymGraphNodeFlow), "We were expecting first node to be a flow node, but if you really need it as a branch node, just put its condition in the starting list below.."
             newPathForNode = SMTPath(conditions_z3=[], dataStore=copy.deepcopy(self.DS))
             newPathForNode.priority = 0
             statesQueue.addPath(newPathForNode)
 
+        # Do a DFS with queue from here
         while len(statesQueue) > 0:
-            currNode = statesQueue.extractPath()
+            currPath = statesQueue.extractPath()
+            assert currPath != None
+            currPath.initExecutionContext()
 
-            def executeNodeAsFlowNode(nodeInst):
-                self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=nodeInst)
-                currNode = nodeInst.nextNodeInst
-                return currNode
-
-            while currNode:
+            while not currPath.finished():
                 # Is this a flow node ? Execute it to persist its sate
+                currNode = currPath.getNode()
                 if currNode.nodeType != NodeTypes.BRANCH_NODE: #
-                   #self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=currNode)
-                   currNode = executeNodeAsFlowNode(currNode)
+                   self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=currNode)
+                   currPath.advance()
 
                 # Branch node.. hard decisions :)
                 elif currNode.nodeType == NodeTypes.BRANCH_NODE:
@@ -478,8 +385,7 @@ class WorkflowGraph:
                         #self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=currNode)
                         result = self.astFuzzerNodeExecutor.executeNode(currNode.expression)
                         assert result is not None
-                        assert str(result) in currNode.valuesAndNextInst, f"The result is not in the list of branch decisions {str(result)}!"
-                        currNode = currNode.valuesAndNextInst[str(result)]
+                        currPath.advance(result)
 
                     else:
                         # THe node is symbolic !
@@ -503,6 +409,7 @@ class WorkflowGraph:
                             for d in m.decls():
                                 if debugLogging:
                                     print(f"{d.name()}={m[d]}")
+
                         # TODO: take a decision. Which branch should we get ?
                         # TODO: split the DS and conditions , add the branches not used in the queue, continue on the selected branch
                         # TODO: assign priorities to branches

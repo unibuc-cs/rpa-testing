@@ -2,6 +2,7 @@ import z3
 from z3 import *
 import heapq
 from typing import List, Dict, Set, Tuple
+from WorkflowGraphBaseNode import BaseSymGraphNode, SymGraphNodeFlow
 
 # TODO: interface / Z3 only ?
 class SymbolicExecutionHelpers:
@@ -91,6 +92,28 @@ class SMTPath:
 
         # Current SMT solver, could be none for paths that are not actually used yet
         self.currentSolver : Solver = None
+
+        # This is the current node iterating in in the workflow
+        self.currNode : BaseSymGraphNode = None
+
+    # Get the current node iterating in in the workflow
+    def getNode(self) -> BaseSymGraphNode:
+        return self.currNode
+
+    def isFinished(self) -> bool:
+        return self.currNode is not None
+
+    # Advance the node towards the next one in the workflow operation
+    # This is the variant when no branch condition is needed
+    def advance(self):
+        assert isinstance(self.currNode, SymGraphNodeFlow)
+        self.currNode = self.currNode.nextNodeInst
+
+    # Ssame as above, but variant with branching result
+    def advance(self, branchToFollowNext : str):
+        assert isinstance(branchToFollowNext, str)
+        assert branchToFollowNext in self.currNode.valuesAndNextInst, f"The result is not in the list of branch decisions {str(branchToFollowNext)}!"
+        self.currNode = self.currNode.valuesAndNextInst[str(branchToFollowNext)]
 
     def __lt__(self, other):
         return self.priority > other.priority

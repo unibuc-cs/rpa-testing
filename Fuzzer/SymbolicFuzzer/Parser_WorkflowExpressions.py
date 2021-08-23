@@ -9,76 +9,10 @@ from typing import Any, List, Dict, Set, Tuple, Union
 from Parser_DataTypes import *
 from Parser_Functions import *
 from SymbolicHelpers import *
+from WorkflowGraphBaseNode import *
+
 
 USE_WORKFLOWNAME_BEFORE_VARIABLE = True # WorkflowName:VariableName in expressions or just VariableName ?
-
-
-
-#================
-
-class ASTFuzzerNodeType(Enum):
-    NOT_SET = 0
-    LOGIC_OP_BINARY = 1
-    LOGIC_OP_UNARY = 2
-    MATH_OP_BINARY = 3
-    MATH_OP_UNARY = 4
-    CALL_FUNC = 5
-    CONSTANT_STR = 6
-    CONSTANT_INT = 7
-    CONSTANT_REAL = 8
-    VARIABLE = 9
-    COMPARATOR = 10
-    COMPARE = 11
-    ATTRIBUTE = 12
-    NAME=13
-    MARKER = 14
-    VARIABLE_DECL = 15
-    ASSIGNMENT = 16
-    KEYWORD_PARAM = 17
-    DICT = 18
-    CONSTANT_BOOL = 19
-    FOREACH_ITERATION = 20
-    SUBSCRIPT = 21
-
-
-class ASTFuzzerComparator(Enum):
-    COMP_LT = 1
-    COMP_LTE = 2
-    COMP_GT = 3
-    COMP_GTE = 4
-    COMP_EQ = 5
-    COMP_NOTEQ = 6
-
-
-def ASTFuzzerComparatorToStr(compOp: ASTFuzzerComparator) -> str:
-    if compOp == ASTFuzzerComparator.COMP_LT:
-        return "<"
-    elif compOp == ASTFuzzerComparator.COMP_GT:
-        return ">"
-    elif compOp == ASTFuzzerComparator.COMP_LTE:
-        return "<="
-    elif compOp == ASTFuzzerComparator.COMP_GTE:
-        return ">="
-    elif compOp == ASTFuzzerComparator.COMP_EQ:
-        return "=="
-    elif compOp == ASTFuzzerComparator.COMP_NOTEQ:
-        return "!="
-    else:
-        raise NotImplementedError("Unknwon type")
-        return None
-
-
-    #  Base class for all nodes
-class ASTFuzzerNode:
-    def __init__(self, type : ASTFuzzerNodeType):
-        self.type : ASTFuzzerNodeType = type
-
-    def isMarkerNode(self) -> bool:
-        return self.type == ASTFuzzerNodeType.MARKER
-
-    # returns true if there is any symbolic variabile inside the node
-    def isAnySymbolicVar(self) -> bool:
-        raise NotImplementedError() # Base class not
 
 
 # Attribute data.
