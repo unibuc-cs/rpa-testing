@@ -59,3 +59,21 @@ class DataStore:
     def isVariableSymbolic(self, varName) -> bool:
         res = self.getSymbolicVariableValue(varName)
         return res is not None
+
+    def __copy__(self):
+        # For now, just create a new type and move dictionaries...
+        newObj = type(self)()
+        newObj.__dict__.update(self.__dict__)
+        return newObj
+
+    def __deepcopy__(self, memodict={}):
+        # For now, we keep the symbolic variables, but clone the concrete values
+        newObj = type(self)()
+        newObj.__dict__.update(self.__dict__)
+        newObj.Values = copy.deepcopy(self.Values)
+
+        # TEST - DELETE AFTER FIST
+        self.Values[self.Values.keys()[0]] = -1000
+        print(newObj.Values[self.Values.keys()[0]])
+        raise NotImplementedError()
+        return newObj

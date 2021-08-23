@@ -403,5 +403,10 @@ class ASTFuzzerNodeExecutor:
         else:
             return None
 
+    def getInverseOfSymbolicExpresion(self, condToSolve):
+        condToSolve = 'Not(' + condToSolve + ')'
+        return condToSolve
 
-
+    def convertStringExpressionTOZ3(self, condToSolve):
+        cond = eval(condToSolve)
+        return cond

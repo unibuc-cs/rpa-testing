@@ -79,11 +79,18 @@ class SymbolicExecutionHelpers:
         return res
 
 class SMTPath:
-    def __init__(self):
-        self.conditions : List[str] # The conditions in the Z3 format needed for this path
-        # Add many others...
+    def __init__(self, conditions_z3, dataStore):
+        # The conditions in the Z3 format needed for this path
+        self.conditions_z3 : List[str] = conditions_z3
 
-        self.priority = None # the priority of this path..
+        # The dataStore this object is iterating on
+        self.dataStore = dataStore
+
+        # The priority of this path..
+        self.priority = None
+
+        # Current SMT solver, could be none for paths that are not actually used yet
+        self.currentSolver : Solver = None
 
     def __lt__(self, other):
         return self.priority > other.priority
@@ -94,7 +101,7 @@ class SMTWorklist:
     def __init__(self):
         self.internalHeap = []
 
-    def extractInput(self):
+    def extractPath(self):
         if self.internalHeap:
             next_item = heapq.heappop(self.internalHeap)
             return next_item

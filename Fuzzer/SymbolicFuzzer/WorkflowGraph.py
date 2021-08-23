@@ -286,7 +286,7 @@ class WorkflowGraph:
                 if nextNode != None and condToSolve != None:
                     # Is inverse branch for next node ?
                     if 'False' in currNode.valuesAndNext and currNode.valuesAndNext['False'] == nextNode.id:
-                        condToSolve = 'Not(' + condToSolve + ')'
+                        condToSolve = self.astFuzzerNodeExecutor.getInverseOfSymbolicExpresion(condToSolve)#'Not(' + condToSolve + ')'
                     else:
                         assert currNode.valuesAndNext['True'] == nextNode.id
 
@@ -327,10 +327,10 @@ class WorkflowGraph:
             conditions_str = self.__getPathConditions(allpaths[index])
 
             conditions_z3 = []
-            for s in conditions_str:
+            for conditionInStr in conditions_str:
                 #print(f"Current condition {s} ...")
-                cond = eval(s)
-                conditions_z3.append(cond)
+                conditionInZ3 = self.astFuzzerNodeExecutor.convertStringExpressionTOZ3(conditionInStr)
+                conditions_z3.append(conditionInZ3)
 
             solver = Solver()
             # Add all the required conditions for the constant variables
@@ -444,11 +444,17 @@ class WorkflowGraph:
 
 
         # Do a DFS with queue from here
-        for start_node in start_nodes:
-            statesQueue = SMTWorklist()
-            self.DS.resetToDefaultValues()
+        statesQueue = SMTWorklist()
 
-            currNode = start_node
+        # Add all starting nodes with equal priority
+        for start_node in start_nodes:
+            self.DS.resetToDefaultValues()
+            newPathForNode = SMTPath(conditions_z3=[], dataStore=copy.deepcopy(self.DS))
+            newPathForNode.priority = 0
+            statesQueue.addPath(newPathForNode)
+
+        while len(statesQueue) > 0:
+            currNode = statesQueue.extractPath()
 
             def executeNodeAsFlowNode(nodeInst):
                 self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=nodeInst)
@@ -475,7 +481,28 @@ class WorkflowGraph:
                         assert str(result) in currNode.valuesAndNextInst, f"The result is not in the list of branch decisions {str(result)}!"
                         currNode = currNode.valuesAndNextInst[str(result)]
 
-                    else: # THe node is symbolic !
+                    else:
+                        # THe node is symbolic !
+                        solver = Solver()
+                        # Add all the required conditions for the constant variables
+                        # for constName, constValue in self.V_constants.items():
+                        #    solver.add(self.V[constName] == constValue)
+
+                        # Add all the required conditions for the path
+                        for cond_z3 in conditions_z3:
+                            solver.add(cond_z3)
+
+                        isSolution = solver.check()
+                        # print(isSolution)
+                        if isSolution and isSolution != z3.unsat:
+                            if debugLogging:
+                                print("Found a solution")
+                            m = solver.model()
+
+                            # Print debug all declarations
+                            for d in m.decls():
+                                if debugLogging:
+                                    print(f"{d.name()}={m[d]}")
                         # TODO: take a decision. Which branch should we get ?
                         # TODO: split the DS and conditions , add the branches not used in the queue, continue on the selected branch
                         # TODO: assign priorities to branches
