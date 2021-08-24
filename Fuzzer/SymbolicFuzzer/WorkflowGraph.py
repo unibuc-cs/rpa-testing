@@ -185,7 +185,7 @@ class WorkflowGraph:
                     continue
 
                 nextNode = path[nodeIndex + 1] if (nodeIndex + 1 < pathLen) and len(currNode.valuesAndNext) > 0 else None
-                symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
+                symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression, executionContext)
 
                 # DEBUG HELPER CODE
                 """
@@ -244,7 +244,7 @@ class WorkflowGraph:
             conditions_z3 = []
             for conditionInStr in conditions_str:
                 #print(f"Current condition {s} ...")
-                conditionInZ3 = self.astFuzzerNodeExecutor.convertStringExpressionTOZ3(conditionInStr)
+                conditionInZ3 = self.astFuzzerNodeExecutor.convertStringExpressionTOZ3(conditionInStr, newPath.dataStore)
                 conditions_z3.append(conditionInZ3)
 
             solver = Solver()

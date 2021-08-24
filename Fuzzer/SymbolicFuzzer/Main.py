@@ -35,7 +35,7 @@ def runTest(args):
     if args.loggingEnabled:
         workflowsTester.debugFullGraph(outputGraphFile=workflowsTester.getDebugGraphFilePath(args.outputGraphFile))
 
-    if False:
+    if True:
         workflowsTester.solveOfflineStaticGraph(outputResultsFile=workflowsTester.getSolutionsOutputFilePath(args.outputResultsFile),
                                                  loggingEnabled=args.loggingEnabled)
     else:

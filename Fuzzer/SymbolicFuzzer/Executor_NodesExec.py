@@ -63,7 +63,7 @@ class ASTFuzzerNodeExecutor:
             # TODO: should we add a specialized LIST set node for parsing now ?
             fuzzerList = FuzzerList()
             for exprNode in node:
-                resExprEval = self.executeNode(exprNode)
+                resExprEval = self.executeNode(exprNode, executionContext)
                 fuzzerList.Add(resExprEval)
             return fuzzerList
 
@@ -75,8 +75,8 @@ class ASTFuzzerNodeExecutor:
             # Array is treated using function
             # Currently the use case is when the valueNode[sliceNodes], valueNode is a databale. Will be implemented case by case !
             # Probably list is next !
-            valueNodeObj = self.executeNode(node.valueNode)
-            sliceNodeObj = self.executeNode(node.sliceNode)
+            valueNodeObj = self.executeNode(node.valueNode, executionContext)
+            sliceNodeObj = self.executeNode(node.sliceNode, executionContext)
 
             if isinstance(valueNodeObj, DataTable_iterator):
                 return valueNodeObj.getCurrentRowData()[sliceNodeObj]
@@ -126,7 +126,7 @@ class ASTFuzzerNodeExecutor:
                     contextDataStore.addVariable(dataTableIter_varDecl)
 
                     # Now push the node execution again, this time with an in progress iteration to do the checking of the above
-                    return self.executeNode(node)
+                    return self.executeNode(node, executionContext)
 
             elif isinstance(node.iteratedObject_node, FuzzerArray):
                 # Array object solving
@@ -161,18 +161,18 @@ class ASTFuzzerNodeExecutor:
                     contextDataStore.addVariable(arrayIter_varDecl)
 
                     # Now push the node execution again, this time with an in progress iteration to do the checking of the above
-                    return self.executeNode(node)
+                    return self.executeNode(node, executionContext)
 
             else:
                 raise NotImplementedError()
 
         elif isinstance(node, AttributeData) and node.subscript != None:
-            return self.executeNode(node.subscript)
+            return self.executeNode(node.subscript, executionContext)
 
         elif isinstance(node, ASTFuzzerNode_Dict):
             # execute the nodes inside the dict parsed
             for key,arg in node.value.items():
-                node.value[key] = self.executeNode(arg)
+                node.value[key] = self.executeNode(arg, executionContext)
             return node.value
         elif isinstance(node, ASTFuzzerNode_Variable):
             # This could be either a real variabile inside dictionary or just a global API name object
@@ -306,7 +306,7 @@ class ASTFuzzerNodeExecutor:
         # The case where there are multiple objects invoked before call
         else:
             # Invoke a series of attributes up to the function call
-            currObject = self._invokeSeriesOfAttributes(funcAttrs, exeuctionContext)
+            currObject = self._invokeSeriesOfAttributes(funcAttrs, executionContext)
 
             # Now invoke the function
             # We have some custom functions harcoded here because currently we don't plan to support wrapper for
@@ -352,7 +352,7 @@ class ASTFuzzerNodeExecutor:
 
             symbolicExprRes = None
             if nodeInst.type == ASTFuzzerNodeType.COMPARE:
-                compStr = ASTFuzzerComparatorToStr(nodeInst.comparatorClassNode.comparatorClass, executionContext)
+                compStr = ASTFuzzerComparatorToStr(nodeInst.comparatorClassNode.comparatorClass)
                 symbolicExprRes = f"{leftExpr} {compStr} {rightExpr}"
                 return symbolicExprRes
 
@@ -412,6 +412,6 @@ class ASTFuzzerNodeExecutor:
         condToSolve = 'Not(' + condToSolve + ')'
         return condToSolve
 
-    def convertStringExpressionTOZ3(self, condToSolve):
+    def convertStringExpressionTOZ3(self, condToSolve, contextDataStore : DataStore):
         cond = eval(condToSolve)
         return cond
