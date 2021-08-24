@@ -15,7 +15,7 @@ class WorkflowParser:
         self.astFuzzerNodeExecutor = astFuzzerNodeExecutor
         self.workflowExpressionParser = workflowExpressionParser
 
-    def parseVariable(self, workflowName : str, varName : str, varData):
+    def parseVariable(self, workflowName : str, varName : str, varData, dataStoreTemplate : DataStore):
         annotation = varData.get("Annotation")
 
         varType = varData["Type"]
@@ -27,10 +27,15 @@ class WorkflowParser:
         # Declare a variable and execute it in the executor
         # This will also put it in the datastore inside executor and make all connection links
         varDecl = ASTFuzzerNode_VariableDecl(varName=workflowName+ ":"+varName, typeName=varType, defaultValue=defaultValue, annotation=annotation)
-        self.astFuzzerNodeExecutor.executeNode(varDecl)
+        self.astFuzzerNodeExecutor.executeNode(varDecl, dataStoreTemplate)
 
-    def parseWorkflows(self, inputPath : str, baseOutPath : str, astFuzzerNodeExecutor : ASTFuzzerNodeExecutor) -> WorkflowGraph:
-        workflowGraph : WorkflowGraph = WorkflowGraph(dataStore=self.astFuzzerNodeExecutor.DS, astFuzzerNodeExecutor=self.astFuzzerNodeExecutor)
+    def parseWorkflows(self, dataStoreTemplate,
+                       inputPath : str,
+                       baseOutPath : str,
+                       astFuzzerNodeExecutor : ASTFuzzerNodeExecutor) -> WorkflowGraph:
+
+        workflowGraph : WorkflowGraph = WorkflowGraph(dataStoreTemplate=dataStoreTemplate,
+                                                      astFuzzerNodeExecutor=self.astFuzzerNodeExecutor)
 
         with open(inputPath) as json_file:
             dataAll = json.load(json_file)
@@ -56,7 +61,7 @@ class WorkflowParser:
 
                 # Parse each variable
                 for varName, varData in variables.items():
-                    self.parseVariable(workflowName = graphName, varName=varName, varData=varData)
+                    self.parseVariable(workflowName = graphName, varName=varName, varData=varData, dataStoreTemplate=dataStoreTemplate)
 
             # Step 1: Create all the node firsts and cache the inverse dictionary in the graph from node_id to node instance
             for nodeFullName, nodeData in graph.items():

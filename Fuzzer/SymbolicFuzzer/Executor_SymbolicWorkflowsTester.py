@@ -49,14 +49,17 @@ class SymbolicWorflowsTester:
         self.baseFolderModel = os.path.dirname(testSpecFile)
 
         # Create Workflow parser and all its dependencies
-        self.dataStore = DataStore()
+        self.dataStoreTemplate = DataStore() # This is the template of the data store that will be split/duplicated/reused by multiple execution branches
         self.externalFunctionsDict = DictionaryOfExternalCalls()
-        self.astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(self.dataStore, self.externalFunctionsDict)
+        self.astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(self.externalFunctionsDict)
         self.workflowExpressionParser = WorkflowExpressionsParser()
 
         # Parse the workflow spec input and create a workflow graph instance
         self.WP = WorkflowParser(self.astFuzzerNodeExecutor, self.workflowExpressionParser)
-        self.workflowGraph : WorkflowGraph = self.WP.parseWorkflows(inputPath=testSpecFile, baseOutPath=self.baseFolderModel, astFuzzerNodeExecutor=self.astFuzzerNodeExecutor)
+        self.workflowGraph : WorkflowGraph = self.WP.parseWorkflows(inputPath=testSpecFile,
+                                                                    baseOutPath=self.baseFolderModel,
+                                                                    astFuzzerNodeExecutor=self.astFuzzerNodeExecutor,
+                                                                    dataStoreTemplate=self.dataStoreTemplate)
 
 
     def getSolutionsOutputFilePath(self, fileName):

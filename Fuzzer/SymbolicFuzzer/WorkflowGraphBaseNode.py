@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Set
 
 
 #================
@@ -65,8 +65,32 @@ class ASTFuzzerNode:
         return self.type == ASTFuzzerNodeType.MARKER
 
     # returns true if there is any symbolic variabile inside the node
-    def isAnySymbolicVar(self) -> bool:
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
         raise NotImplementedError() # Base class not
+
+
+class ASTFuzzerNode_Assignment(ASTFuzzerNode):
+    def __init__(self):
+        super().__init__(ASTFuzzerNodeType.ASSIGNMENT)
+        self.leftTerm: ASTFuzzerNode = None
+        self.rightTerm: ASTFuzzerNode = None
+
+    def __str__(self):
+        if isinstance(self.rightTerm, (List, Set)):
+            res = f"{self.leftTerm} = ["
+            numItems = len(self.rightTerm)
+            for rightIndex, rightVal in enumerate(self.rightTerm):
+                res += str(rightVal)
+                if rightIndex < numItems - 1:
+                    res += ", "
+                else:
+                    res += "]"
+        else:
+            res = f"{self.leftTerm} = {self.rightTerm}"
+        return res
+
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
+        return self.leftTerm.isAnySymbolicVar(contextDataStore) or self.rightTerm.isAnySymbolicVar(contextDataStore)
 
 
 ####################

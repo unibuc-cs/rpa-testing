@@ -1,3 +1,5 @@
+# TODO Ciprian multiprocessing: https://stackoverflow.com/questions/8533318/multiprocessing-pool-when-to-use-apply-apply-async-or-map
+
 import z3
 from z3 import *
 import heapq
@@ -80,7 +82,7 @@ class SymbolicExecutionHelpers:
         return res
 
 class SMTPath:
-    def __init__(self, conditions_z3, dataStore):
+    def __init__(self, conditions_z3, dataStore, start_node : BaseSymGraphNode):
         # The conditions in the Z3 format needed for this path
         self.conditions_z3 : List[str] = conditions_z3
 
@@ -94,26 +96,32 @@ class SMTPath:
         self.currentSolver : Solver = None
 
         # This is the current node iterating in in the workflow
-        self.currNode : BaseSymGraphNode = None
+        self.currNode : BaseSymGraphNode = start_node
+
+    # Init the execution context
+    # TODO Ciprian: init a context solver from existing one maybe ?
+    def initExecutionContext(self):
+        # Initialize the solve, put all the assertions in
+        self.currentSolver = Solver()
+        for z3Cond in self.conditions_z3:
+            self.currentSolver.add(z3Cond)
 
     # Get the current node iterating in in the workflow
     def getNode(self) -> BaseSymGraphNode:
         return self.currNode
 
     def isFinished(self) -> bool:
-        return self.currNode is not None
+        return self.currNode is None
 
     # Advance the node towards the next one in the workflow operation
-    # This is the variant when no branch condition is needed
-    def advance(self):
-        assert isinstance(self.currNode, SymGraphNodeFlow)
-        self.currNode = self.currNode.nextNodeInst
-
-    # Ssame as above, but variant with branching result
-    def advance(self, branchToFollowNext : str):
-        assert isinstance(branchToFollowNext, str)
-        assert branchToFollowNext in self.currNode.valuesAndNextInst, f"The result is not in the list of branch decisions {str(branchToFollowNext)}!"
-        self.currNode = self.currNode.valuesAndNextInst[str(branchToFollowNext)]
+    def advance(self, branchToFollowNext : str = None):
+        if branchToFollowNext != None:
+            assert isinstance(branchToFollowNext, str)
+            assert branchToFollowNext in self.currNode.valuesAndNextInst, f"The result is not in the list of branch decisions {str(branchToFollowNext)}!"
+            self.currNode = self.currNode.valuesAndNextInst[str(branchToFollowNext)]
+        else:
+            assert isinstance(self.currNode, SymGraphNodeFlow)
+            self.currNode = self.currNode.nextNodeInst
 
     def __lt__(self, other):
         return self.priority > other.priority

@@ -1,3 +1,5 @@
+import copy
+
 import networkx as nx
 from networkx.drawing.nx_agraph import graphviz_layout, to_agraph
 from enum import Enum
@@ -8,12 +10,12 @@ from WorkflowGraphBaseNode import *
 
 
 class WorkflowGraph:
-    def __init__(self, dataStore, astFuzzerNodeExecutor):
+    def __init__(self, dataStoreTemplate, astFuzzerNodeExecutor):
         # Data needed and filled in when parsing the workflows
         self.entryTestNodeId = None
         self.debugColors = None
         self.mainWorkflowName = None
-        self.DS : DataStore = dataStore
+        self.dataStoreTemplate = dataStoreTemplate
         self.astFuzzerNodeExecutor = astFuzzerNodeExecutor
 
         # This is the connection to the nx digraph instance
@@ -164,11 +166,11 @@ class WorkflowGraph:
         self.__debugPrintPaths(allpaths)
 
         print("\n\nGetting all used variables inside branches ")
-        print("== Symbolic variables: \n", self.DS.SymbolicValues.keys())  # print(getAllVariables(graph))
-        print("== All variables: \n", self.DS.Values.keys())  # print(getAllVariables(graph))
+        print("== Symbolic variables: \n", self.dataStoreTemplate.SymbolicValues.keys())  # print(getAllVariables(graph))
+        print("== All variables: \n", self.dataStoreTemplate.Values.keys())  # print(getAllVariables(graph))
 
     # TODO: the two functions below need to be refactored !!
-    def __getPathConditions(self, path):
+    def __getPathConditions(self, path, executionContext : SMTPath):
         assert isinstance(path, list) and len(path) > 0 #and isinstance(path[0], SymGraphNodeBranch)
         pathLen = len(path)
         outCOnditions = []
@@ -179,7 +181,7 @@ class WorkflowGraph:
             if currNode.nodeType == NodeTypes.BRANCH_NODE:
                 # First, Skip if the node doesn't contain any symbolic variable that links to the user input
                 # This is a SOFT requirement, could be changed, left it here for optimization purposes
-                if currNode.expression.isAnySymbolicVar() == False:
+                if currNode.expression.isAnySymbolicVar(contextDataStore=executionContext.dataStore) == False:
                     continue
 
                 nextNode = path[nodeIndex + 1] if (nodeIndex + 1 < pathLen) and len(currNode.valuesAndNext) > 0 else None
@@ -205,13 +207,13 @@ class WorkflowGraph:
                     outCOnditions.append(condToSolve)
             else:
                 if currNode.expression:
-                    self.astFuzzerNodeExecutor.executeNode(currNode.expression)
+                    self.astFuzzerNodeExecutor.executeNode(currNode.expression, executionContext)
 
         return outCOnditions
 
     # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file
     def solveOfflineStaticGraph(self, outputCsvFile=None, debugLogging=False, astFuzzerNodeExecutor=None):
-        fieldNamesList = [key for key in self.DS.Values.keys()]
+        fieldNamesList = [key for key in self.dataStoreTemplate.Values.keys()]
         if debugLogging:
             fieldNamesList.append("GraphPath")
         set_fieldNamesList = set(fieldNamesList)
@@ -227,16 +229,17 @@ class WorkflowGraph:
         allpaths = self.__getAllPaths()
 
         for index, P in enumerate(allpaths):
-
             # Reset the datastore variables to default variables before each running case
-            self.DS.resetToDefaultValues()
+            newPath = SMTPath(conditions_z3=[],
+                              dataStore=copy.deepcopy(self.dataStoreTemplate),
+                              start_node=None)
 
             pathStr = None
             if debugLogging:
                 pathStr = self.__debugPrintSinglePath(P)
                 print(f"Analyzing path {index}: [{pathStr}]")
                 print("-------------------------")
-            conditions_str = self.__getPathConditions(allpaths[index])
+            conditions_str = self.__getPathConditions(path = allpaths[index], executionContext=newPath)
 
             conditions_z3 = []
             for conditionInStr in conditions_str:
@@ -328,15 +331,43 @@ class WorkflowGraph:
                 if debugLogging:
                     print("No solution exists for this path")
 
-    def _executeFlowNode(self, executor: ASTFuzzerNodeExecutor, nodeInst: SymGraphNodeFlow):
+    def _executeFlowNode(self, executor: ASTFuzzerNodeExecutor, nodeInst: SymGraphNodeFlow, executionContext : SMTPath):
         assert isinstance(nodeInst, SymGraphNodeFlow)
         if nodeInst.expression:
-            executor.executeNode(nodeInst.expression)
+            executor.executeNode(nodeInst.expression, executionContext=executionContext)
+
+    # Given an smt path in progress (or at begining) this will execute it until finish using DFS and different strategies
+    # Will also put new states on the priority queue
+    def continuePathExecution(self, currPath : SMTPath, worklist : SMTWorklist):
+        assert currPath != None
+        currPath.initExecutionContext()
+
+        while not currPath.isFinished():
+            # Is this a flow node ? Execute it to persist its sate
+            currNode = currPath.getNode()
+            if currNode.nodeType != NodeTypes.BRANCH_NODE:  #
+                self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=currNode, executionContext=currPath)
+                currPath.advance()
+
+            # Branch node.. hard decisions :)
+            elif currNode.nodeType == NodeTypes.BRANCH_NODE:
+                # First, Skip if the node doesn't contain any symbolic variable that links to the user input
+                # This is a SOFT requirement, could be changed, left it here for optimization purposes
+                if currNode.expression.isAnySymbolicVar(currPath.dataStore) == False:
+                    # Just execute the node and exit !
+
+                    # TODO Ciprian: we get a fixed result. Move currNode towrds it
+                    # self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=currNode)
+                    result = self.astFuzzerNodeExecutor.executeNode(currNode.expression, executionContext=currPath)
+                    assert result is not None
+                    currPath.advance(str(result))
+                else:
+                    raise NotImplementedError()
 
     # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file
     def solveSymbolically(self, outputCsvFile=None, debugLogging=False, astFuzzerNodeExecutor=None):
         # Setup the output files stuff
-        fieldNamesList = [key for key in self.DS.Values.keys()]
+        fieldNamesList = [key for key in self.dataStoreTemplate.Values.keys()]
         if debugLogging:
             fieldNamesList.append("GraphPath")
         set_fieldNamesList = set(fieldNamesList)
@@ -355,75 +386,21 @@ class WorkflowGraph:
         # Add all starting nodes with equal priority
         statesQueue = SMTWorklist()
         for start_node in start_nodes:
-            self.DS.resetToDefaultValues()
-            assert isinstance(start_node, SymGraphNodeFlow), "We were expecting first node to be a flow node, but if you really need it as a branch node, just put its condition in the starting list below.."
-            newPathForNode = SMTPath(conditions_z3=[], dataStore=copy.deepcopy(self.DS))
+            assert isinstance(start_node, SymGraphNodeFlow), "We were expecting first node to be a flow node, but if " \
+                                                             "you really need it as a branch node, just put its condition " \
+                                                             "in the starting list below.."
+            newPathForNode = SMTPath(conditions_z3=[],
+                                     dataStore=copy.deepcopy(self.dataStoreTemplate),
+                                     start_node = start_node)
             newPathForNode.priority = 0
             statesQueue.addPath(newPathForNode)
 
         # Do a DFS with queue from here
         while len(statesQueue) > 0:
+            # Extract the top node
             currPath = statesQueue.extractPath()
-            assert currPath != None
-            currPath.initExecutionContext()
 
-            while not currPath.finished():
-                # Is this a flow node ? Execute it to persist its sate
-                currNode = currPath.getNode()
-                if currNode.nodeType != NodeTypes.BRANCH_NODE: #
-                   self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=currNode)
-                   currPath.advance()
-
-                # Branch node.. hard decisions :)
-                elif currNode.nodeType == NodeTypes.BRANCH_NODE:
-                    # First, Skip if the node doesn't contain any symbolic variable that links to the user input
-                    # This is a SOFT requirement, could be changed, left it here for optimization purposes
-                    if currNode.expression.isAnySymbolicVar() == False:
-                        # Just execute the node and exit !
-
-                        # TODO Ciprian: we get a fixed result. Move currNode towrds it
-                        #self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=currNode)
-                        result = self.astFuzzerNodeExecutor.executeNode(currNode.expression)
-                        assert result is not None
-                        currPath.advance(result)
-
-                    else:
-                        # THe node is symbolic !
-                        solver = Solver()
-                        # Add all the required conditions for the constant variables
-                        # for constName, constValue in self.V_constants.items():
-                        #    solver.add(self.V[constName] == constValue)
-
-                        # Add all the required conditions for the path
-                        for cond_z3 in conditions_z3:
-                            solver.add(cond_z3)
-
-                        isSolution = solver.check()
-                        # print(isSolution)
-                        if isSolution and isSolution != z3.unsat:
-                            if debugLogging:
-                                print("Found a solution")
-                            m = solver.model()
-
-                            # Print debug all declarations
-                            for d in m.decls():
-                                if debugLogging:
-                                    print(f"{d.name()}={m[d]}")
-
-                        # TODO: take a decision. Which branch should we get ?
-                        # TODO: split the DS and conditions , add the branches not used in the queue, continue on the selected branch
-                        # TODO: assign priorities to branches
-                        # TODO: Check feasability of paths before adding to queue.
-                        #  TODO: When getting to the final output node, throw out the result to datastore !
+            # Execute the path continuation in a new context setup (possibly new process)
+            self.continuePathExecution(currPath, statesQueue)
 
 
-                        symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
-
-                        # DEBUG CODE
-                        if "5" in symbolicExpressionForNode:
-                            a = 3
-                            a +=1
-                            symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
-
-                        # Fix the condition to solve
-                        condToSolve = symbolicExpressionForNode

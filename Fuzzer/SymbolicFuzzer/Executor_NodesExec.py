@@ -34,12 +34,13 @@ class FuzzerArrayRefIndex(VariableRef):
 
 # This class will be responsible for the execution of ASTFuzzer nodes
 class ASTFuzzerNodeExecutor:
-    def __init__(self, DS : DataStore, ExternalCallsDict : DictionaryOfExternalCalls):
-        self.DS = DS
+    def __init__(self, ExternalCallsDict : DictionaryOfExternalCalls):
         self.ExternalCallsDict = ExternalCallsDict
-        ASTFuzzerNode.dataStore = self.DS
 
-    def executeNode(self, node : ASTFuzzerNode):
+    # Execute a node inside a context
+    def executeNode(self, node : ASTFuzzerNode, executionContext : [SMTPath, DataStore]):
+        contextDataStore = executionContext.dataStore if isinstance(executionContext, SMTPath) else executionContext
+
         if isinstance(node, ASTFuzzerNode_Call):
             args : List[ASTFuzzerNode] = node.args
             kwargs : Dict[str, ASTFuzzerNode] = node.kwargs
@@ -47,14 +48,15 @@ class ASTFuzzerNodeExecutor:
             attributes : List[AttributeData] = node.attributes
 
             # First, arguments list parse and execute
-            args_values = [self.executeNode(argNode) for argNode in args]
-            kwargs_values = {argName:self.executeNode(argNode) for argName, argNode in kwargs.items()}
+            args_values = [self.executeNode(argNode, executionContext) for argNode in args]
+            kwargs_values = {argName:self.executeNode(argNode, executionContext) for argName, argNode in kwargs.items()}
 
             # Then call the functor
-            return self._executeNode_FuncCall(funcName=funcName, funcAttrs=attributes, args=args_values, kwargs=kwargs_values)
+            return self._executeNode_FuncCall(funcName=funcName, funcAttrs=attributes, executionContext=executionContext,
+                                              args=args_values, kwargs=kwargs_values)
 
         elif isinstance(node, ASTFuzzerNode_VariableDecl):
-            self.DS.addVariable(node)
+            contextDataStore.addVariable(node)
             return None
 
         elif isinstance(node, (list, set)):
@@ -94,11 +96,11 @@ class ASTFuzzerNodeExecutor:
             # Get special cases of what objects we are iterating on and solve
             if isinstance(node.iteratedObject_node, DataTable):
                 # Data table solving
-                iteratedObject : DataTable = self.DS.getVariableValue(node.iteratedObject_node.name)
+                iteratedObject : DataTable = contextDataStore.getVariableValue(node.iteratedObject_node.name)
 
                 # Iteration already in progress case
                 if iteratedObject.isIterationInProgress():
-                    iteratorObj : DataTable_iterator = self.DS.getVariableValue(node.iteratedVar_node.name)
+                    iteratorObj : DataTable_iterator = contextDataStore.getVariableValue(node.iteratedVar_node.name)
                     assert iteratorObj == iteratedObject.existingIter, "Sanity check failed, not the same object iterating and in progress. Out of sync with DataStore (DS) !"
                     # Move pointer
                     nextRowData = iteratorObj.nextRowIteration()
@@ -109,7 +111,7 @@ class ASTFuzzerNodeExecutor:
                         iteratorObj.closeRowsIteration()
 
                         # Remove the variable from data store
-                        self.DS.removeVariable(node.iteratedVar_node.name)
+                        contextDataStore.removeVariable(node.iteratedVar_node.name)
 
                         return True
                     else:
@@ -121,18 +123,18 @@ class ASTFuzzerNodeExecutor:
                     dataTableIter_varDecl = ASTFuzzerNode_VariableDecl(varName=node.iteratedVar_node.name,
                                                                        typeName=DataTable_iterator.__class__.__name__,
                                                                        Default=dataTableIter)
-                    self.DS.addVariable(dataTableIter_varDecl)
+                    contextDataStore.addVariable(dataTableIter_varDecl)
 
                     # Now push the node execution again, this time with an in progress iteration to do the checking of the above
                     return self.executeNode(node)
 
             elif isinstance(node.iteratedObject_node, FuzzerArray):
                 # Array object solving
-                iteratedObject: DataTable = self.DS.getVariableValue(node.iteratedObject_node.name)
+                iteratedObject: DataTable = contextDataStore.getVariableValue(node.iteratedObject_node.name)
 
                 # Iteration already in progress case
                 if iteratedObject.isIterationInProgress():
-                    iteratorObj: FuzzerArray_iterator = self.DS.getVariableValue(node.iteratedVar_node.name)
+                    iteratorObj: FuzzerArray_iterator = contextDataStore.getVariableValue(node.iteratedVar_node.name)
                     assert iteratorObj == iteratedObject.existingIter, "Sanity check failed, not the same object iterating and in progress. Out of sync with DataStore (DS) !"
 
                     # Move pointer
@@ -144,7 +146,7 @@ class ASTFuzzerNodeExecutor:
                         iteratorObj.closeIteration()
 
                         # Remove the variable from data store
-                        self.DS.removeVariable(node.iteratedVar_node.name)
+                        contextDataStore.removeVariable(node.iteratedVar_node.name)
 
                         return True
                     else:
@@ -156,7 +158,7 @@ class ASTFuzzerNodeExecutor:
                     arrayIter_varDecl = ASTFuzzerNode_VariableDecl(varName=node.iteratedVar_node.name,
                                                                        typeName=FuzzerArray_iterator.__class__.__name__,
                                                                        Default=arrayIter)
-                    self.DS.addVariable(arrayIter_varDecl)
+                    contextDataStore.addVariable(arrayIter_varDecl)
 
                     # Now push the node execution again, this time with an in progress iteration to do the checking of the above
                     return self.executeNode(node)
@@ -174,10 +176,10 @@ class ASTFuzzerNodeExecutor:
             return node.value
         elif isinstance(node, ASTFuzzerNode_Variable):
             # This could be either a real variabile inside dictionary or just a global API name object
-            object = self._getObjectInstanceByName(node)
+            object = self._getObjectInstanceByName(node, contextDataStore)
             return object
         elif isinstance(node, ASTFuzzerNode_Attribute):
-            object = self._invokeSeriesOfAttributes(node.listOfAttributesData)
+            object = self._invokeSeriesOfAttributes(node.listOfAttributesData, executionContext)
             return object
 
         elif isinstance(node, ASTFuzzerNode_Assignment):
@@ -194,19 +196,19 @@ class ASTFuzzerNodeExecutor:
 
             assert leftTermVarName
 
-            rightTermValue = self.executeNode(rightTerm)
+            rightTermValue = self.executeNode(rightTerm, executionContext)
             assert rightTermValue != None
 
             # Then set the new value to the dictionary
-            self.DS.setVariableValue(leftTermVarName, rightTermValue)
+            contextDataStore.setVariableValue(leftTermVarName, rightTermValue)
             return None
         elif isinstance(node, (ASTFuzzerNode_MathBinary, ASTFuzzerNode_LogicBinary)):
             # Check left and right terms, evaluate them
             leftTerm = node.leftTerm
             rightTerm = node.rightTerm
 
-            res_left = self.executeNode(leftTerm)
-            res_right = self.executeNode(rightTerm)
+            res_left = self.executeNode(leftTerm, executionContext)
+            res_right = self.executeNode(rightTerm, executionContext)
             assert res_left != None and res_right != None, "The terms can't be evaluated !"
 
             if isinstance(node, ASTFuzzerNode_MathBinary):
@@ -237,8 +239,8 @@ class ASTFuzzerNodeExecutor:
             leftTerm = node.leftTerm
             rightTerm = node.rightTerm
 
-            res_left = self.executeNode(leftTerm)
-            res_right = self.executeNode(rightTerm)
+            res_left = self.executeNode(leftTerm, executionContext)
+            res_right = self.executeNode(rightTerm, executionContext)
             assert res_left != None and res_right != None, "The terms can't be evaluated !"
 
             if node.comparatorClassNode.comparatorClass == ASTFuzzerComparator.COMP_LT:
@@ -258,27 +260,27 @@ class ASTFuzzerNodeExecutor:
         else:
             raise NotImplementedError("This is not supported yet")
 
-    # Given an AST Fuzzer node as a variabile/name, returns the type begind - a static global object or a dictionary
+    # Given an AST Fuzzer node as a variabile/name, returns the type behind - a static global object or a dictionary
     # registered variable
-    def _getObjectInstanceByName(self, node : ASTFuzzerNode) -> any:
+    def _getObjectInstanceByName(self, node : ASTFuzzerNode, contextDataStore : SMTPath) -> any:
         assert isinstance(node, (ASTFuzzerNode_Variable, ASTFuzzerNode_Name))
         object = None
-        if self.DS.hasVariable(node.name):
-            object = self.DS.getVariableValue(node.name)
+        if contextDataStore.hasVariable(node.name):
+            object = contextDataStore.getVariableValue(node.name)
         else:
             object = str2Class(node.name)
 
         assert object is not None, f"Can't find the object named by {node.name}"
         return object
 
-    def _invokeSeriesOfAttributes(self, listOfAttributes):
+    def _invokeSeriesOfAttributes(self, listOfAttributes, executionContext : Tuple[DataStore, SMTPath]):
         # Get the object behind the first attribute invoked
         firstAttrNode = listOfAttributes[0].node
         if isinstance(listOfAttributes[0], AttributeData) and firstAttrNode is None:
             # In the case of an attribute data note, it could be a subscript beneath !
             firstAttrNode = listOfAttributes[0].subscript
 
-        firstAttrObject = self.executeNode(firstAttrNode)
+        firstAttrObject = self.executeNode(firstAttrNode, executionContext)
 
         # invoke attributes one by one up to the target call function
         currObject = firstAttrObject
@@ -294,7 +296,8 @@ class ASTFuzzerNodeExecutor:
 
         return currObject
 
-    def _executeNode_FuncCall(self, funcName : str, funcAttrs : List[AttributeData], args : List[any], kwargs : Dict[any, any]):
+    def _executeNode_FuncCall(self, funcName : str, funcAttrs : List[AttributeData], executionContext : Tuple[DataStore, SMTPath],
+                              args : List[any], kwargs : Dict[any, any]):
         result = None
         # No attribute object, global function call
         if len(funcAttrs) == 0:
@@ -303,7 +306,7 @@ class ASTFuzzerNodeExecutor:
         # The case where there are multiple objects invoked before call
         else:
             # Invoke a series of attributes up to the function call
-            currObject = self._invokeSeriesOfAttributes(funcAttrs)
+            currObject = self._invokeSeriesOfAttributes(funcAttrs, exeuctionContext)
 
             # Now invoke the function
             # We have some custom functions harcoded here because currently we don't plan to support wrapper for
@@ -325,29 +328,31 @@ class ASTFuzzerNodeExecutor:
 
     # Given a node returns the symbolic expression out of it and a boolean if the expression really contains a symbolic variable
     # (if it doesn't normally it shouldn't be added to the solver !)
-    def getSymbolicExpressionFromNode(self, nodeInst : ASTFuzzerNode) -> str:
+    def getSymbolicExpressionFromNode(self, nodeInst : ASTFuzzerNode, executionContext : SMTPath) -> str:
+        contextDataStore = executionContext.dataStore
+
         if nodeInst.type in [ASTFuzzerNodeType.COMPARE, ASTFuzzerNodeType.MATH_OP_BINARY, ASTFuzzerNodeType.LOGIC_OP_BINARY]:
             # Check if each the two left/right terms. If they contain a symbolic expression we need to get the expr out of it.
             # If not, we just execute the node in the executor and get the result back in plain value !
             leftExpr = None
             isLeftSymbolic = False
-            if nodeInst.leftTerm.isAnySymbolicVar():
-                leftExpr = self.getSymbolicExpressionFromNode(nodeInst.leftTerm)
+            if nodeInst.leftTerm.isAnySymbolicVar(contextDataStore):
+                leftExpr = self.getSymbolicExpressionFromNode(nodeInst.leftTerm, executionContext)
                 isLeftSymbolic = True
             else:
-                leftExpr = self.executeNode(nodeInst.leftTerm)
+                leftExpr = self.executeNode(nodeInst.leftTerm, executionContext)
 
             rightExpr = None
             isRightSymbolic = False
-            if nodeInst.rightTerm.isAnySymbolicVar():
-                rightExpr = self.getSymbolicExpressionFromNode(nodeInst.rightTerm)
+            if nodeInst.rightTerm.isAnySymbolicVar(contextDataStore):
+                rightExpr = self.getSymbolicExpressionFromNode(nodeInst.rightTerm, executionContext)
                 isRightSymbolic = True
             else:
-                rightExpr = self.executeNode(nodeInst.rightTerm)
+                rightExpr = self.executeNode(nodeInst.rightTerm, executionContext)
 
             symbolicExprRes = None
             if nodeInst.type == ASTFuzzerNodeType.COMPARE:
-                compStr = ASTFuzzerComparatorToStr(nodeInst.comparatorClassNode.comparatorClass)
+                compStr = ASTFuzzerComparatorToStr(nodeInst.comparatorClassNode.comparatorClass, executionContext)
                 symbolicExprRes = f"{leftExpr} {compStr} {rightExpr}"
                 return symbolicExprRes
 
@@ -367,16 +372,16 @@ class ASTFuzzerNodeExecutor:
                 return None
 
         elif nodeInst.type in [ASTFuzzerNodeType.VARIABLE, ASTFuzzerNodeType.NAME]: # Get an access to SMT variable in the store
-            symbolicExprRes = "self.DS.SymbolicValues["+"\"" + nodeInst.name  + "\"" + "]"
+            symbolicExprRes = "contextDataStore.SymbolicValues["+"\"" + nodeInst.name  + "\"" + "]"
             return symbolicExprRes
         elif nodeInst.type in [ASTFuzzerNodeType.ATTRIBUTE]:
             if nodeInst.subscript is not None:
-                return self.getSymbolicExpressionFromNode(nodeInst.subscript)
+                return self.getSymbolicExpressionFromNode(nodeInst.subscript, executionContext)
             else:
                 raise NotImplementedError()
         elif nodeInst.type in [ASTFuzzerNodeType.SUBSCRIPT]:
-            symbolicFromValue = self.getSymbolicExpressionFromNode(nodeInst.valueNode)
-            symbolicFromSlice = self.getSymbolicExpressionFromNode(nodeInst.sliceNode)
+            symbolicFromValue = self.getSymbolicExpressionFromNode(nodeInst.valueNode, executionContext)
+            symbolicFromSlice = self.getSymbolicExpressionFromNode(nodeInst.sliceNode, executionContext)
 
             numSymbolicNodes = (1 if symbolicFromSlice is not None else 0) + (1 if symbolicFromValue is not None else 0)
             assert numSymbolicNodes < 2, "Only one of the items should be not none in a symbolic expression, at the moment !"
@@ -391,12 +396,12 @@ class ASTFuzzerNodeExecutor:
         elif nodeInst.type == ASTFuzzerNodeType.CALL_FUNC:
             # Add here all function calls that are targeted towards symbolic execution
             # Currently we have a single candidate
-            symbolicVariableInvoked = self.DS.getSymbolicVariableValue(nodeInst.attributes[-1].name)
+            symbolicVariableInvoked = contextDataStore.getSymbolicVariableValue(nodeInst.attributes[-1].name)
             if symbolicVariableInvoked and (nodeInst.funcCallName in ["GetElementAt"]):
                 # Get the slice index
                 assert len(nodeInst.args) == 1, "Where is the index parameter ?"
-                arg_sliceValue = self.executeNode(nodeInst.args[0])
-                expr_res = "self.DS.SymbolicValues[" + "\"" + nodeInst.attributes[-1].name + "\"" + "][" + str(arg_sliceValue) +"]"
+                arg_sliceValue = self.executeNode(nodeInst.args[0], executionContext)
+                expr_res = "contextDataStore.SymbolicValues[" + "\"" + nodeInst.attributes[-1].name + "\"" + "][" + str(arg_sliceValue) +"]"
                 return expr_res
 
             return None

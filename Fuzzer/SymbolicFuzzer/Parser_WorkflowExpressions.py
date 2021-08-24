@@ -35,8 +35,8 @@ class AttributeData:
             self.name = validName
 
     # returns true if there is any symbolic variabile inside the node
-    def isAnySymbolicVar(self) -> bool:
-        return self.node.isAnySymbolicVar() or (self.subscript != None and self.subscript.isAnySymbolicVar())
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
+        return self.node.isAnySymbolicVar(contextDataStore) or (self.subscript != None and self.subscript.isAnySymbolicVar(contextDataStore))
 
     def __str__(self):
         res = str(self.subscript) if self.subscript is not None else self.name
@@ -152,7 +152,7 @@ class ASTFuzzerNode_Marker(ASTFuzzerNode):
         super().__init__(ASTFuzzerNodeType.MARKER)
         self.id = id # The id of the marker
 
-    def isAnySymbolicVar(self) -> bool:
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
         raise NotImplementedError() # Not needed
 
 class ASTFuzzerNode_Name(ASTFuzzerNode):
@@ -161,8 +161,8 @@ class ASTFuzzerNode_Name(ASTFuzzerNode):
         self.name : str = None # A simple string name expected for something...
 
     # returns true if there is any symbolic variabile inside the node
-    def isAnySymbolicVar(self) -> bool:
-        return ASTFuzzerNode.dataStore.isVariableSymbolic(self.name)
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
+        return contextDataStore.isVariableSymbolic(self.name)
 
 class ASTFuzzerNode_Attribute(ASTFuzzerNode):
     def __init__(self):
@@ -183,9 +183,9 @@ class ASTFuzzerNode_Attribute(ASTFuzzerNode):
         else:
             assert False
 
-    def isAnySymbolicVar(self) -> bool:
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
         for x in self.listOfAttributesData:
-            if x.isAnySymbolicVar():
+            if x.isAnySymbolicVar(contextDataStore):
                 return True
         return False
 
@@ -197,37 +197,14 @@ class ASTFuzzerNode_Attribute(ASTFuzzerNode):
                 res += "."
         return res
 
-class ASTFuzzerNode_Assignment(ASTFuzzerNode):
-    def __init__(self):
-        super().__init__(ASTFuzzerNodeType.ASSIGNMENT)
-        self.leftTerm: ASTFuzzerNode = None
-        self.rightTerm: ASTFuzzerNode = None
-
-    def __str__(self):
-        if isinstance(self.rightTerm, (List, Set)):
-            res = f"{self.leftTerm} = ["
-            numItems = len(self.rightTerm)
-            for rightIndex, rightVal in enumerate(self.rightTerm):
-                res += str(rightVal)
-                if rightIndex < numItems - 1:
-                    res += ", "
-                else:
-                    res += "]"
-        else:
-            res = f"{self.leftTerm} = {self.rightTerm}"
-        return res
-
-    def isAnySymbolicVar(self) -> bool:
-        return self.leftTerm.isAnySymbolicVar() or self.rightTerm.isAnySymbolicVar()
-
 class ASTFuzzerNode_KeywordParam(ASTFuzzerNode):
     def __init__(self):
         super().__init__(ASTFuzzerNodeType.KEYWORD_PARAM)
         self.paramName : Union[None, str] = None
         self.paramNode: Union[None, ASTFuzzerNode] = None
 
-    def isAnySymbolicVar(self) -> bool:
-        return self.paramNode.isAnySymbolicVar()
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
+        return self.paramNode.isAnySymbolicVar(contextDataStore)
 
 class ASTFuzzerNode_MathUnary(ASTFuzzerNode):
     def __init__(self):
@@ -245,8 +222,8 @@ class ASTFuzzerNode_MathBinary(ASTFuzzerNode):
         res = f"{self.leftTerm} {self.op} {self.rightTerm}"
         return res
 
-    def isAnySymbolicVar(self) -> bool:
-        return self.leftTerm.isAnySymbolicVar() or self.rightTerm.isAnySymbolicVar()
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
+        return self.leftTerm.isAnySymbolicVar(contextDataStore) or self.rightTerm.isAnySymbolicVar(contextDataStore)
 
 class ASTFuzzerNode_LogicUnary(ASTFuzzerNode):
     def __init__(self):
@@ -264,8 +241,8 @@ class ASTFuzzerNode_LogicBinary(ASTFuzzerNode):
         res = f"{self.leftTerm} {self.op} {self.rightTerm}"
         return res
 
-    def isAnySymbolicVar(self) -> bool:
-        return self.leftTerm.isAnySymbolicVar() or self.rightTerm.isAnySymbolicVar()
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
+        return self.leftTerm.isAnySymbolicVar(contextDataStore) or self.rightTerm.isAnySymbolicVar(contextDataStore)
 
 class ASTFuzzerNode_Variable(ASTFuzzerNode):
     def __init__(self, variableName : str):
@@ -275,8 +252,8 @@ class ASTFuzzerNode_Variable(ASTFuzzerNode):
     def __str__(self):
         return str(self.name)
 
-    def isAnySymbolicVar(self) -> bool:
-        return ASTFuzzerNode.dataStore.isVariableSymbolic(self.name)
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
+        return contextDataStore.isVariableSymbolic(self.name)
 
 class ASTFuzzerNode_ConstantInt(ASTFuzzerNode):
     def __init__(self, value : str):
@@ -286,7 +263,7 @@ class ASTFuzzerNode_ConstantInt(ASTFuzzerNode):
     def __str__(self):
         return str(self.value)
 
-    def isAnySymbolicVar(self) -> bool:
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
         return False
 
 class ASTFuzzerNode_ConstantBool(ASTFuzzerNode):
@@ -297,7 +274,7 @@ class ASTFuzzerNode_ConstantBool(ASTFuzzerNode):
     def __str__(self):
         return str(self.value)
 
-    def isAnySymbolicVar(self) -> bool:
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
         return False
 
 class ASTFuzzerNode_ConstantReal(ASTFuzzerNode):
@@ -308,7 +285,7 @@ class ASTFuzzerNode_ConstantReal(ASTFuzzerNode):
     def __str__(self):
         return str(self.value)
 
-    def isAnySymbolicVar(self) -> bool:
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
         return False
 
 class ASTFuzzerNode_ConstantString(ASTFuzzerNode):
@@ -319,7 +296,7 @@ class ASTFuzzerNode_ConstantString(ASTFuzzerNode):
     def __str__(self):
         return str(self.value)
 
-    def isAnySymbolicVar(self) -> bool:
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
         return False
 
 class ASTFuzzerNode_Dict(ASTFuzzerNode):
@@ -330,7 +307,7 @@ class ASTFuzzerNode_Dict(ASTFuzzerNode):
     def __str__(self):
         return str(self.value)
 
-    def isAnySymbolicVar(self) -> bool:
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
         return False
 
 class ASTFuzzerNode_Comparator(ASTFuzzerNode):
@@ -356,7 +333,7 @@ class ASTFuzzerNode_Comparator(ASTFuzzerNode):
     def __str__(self):
         return ASTFuzzerComparatorToStr(self.comparatorClass)
 
-    def isAnySymbolicVar(self) -> bool:
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
         return False
 
 
@@ -372,8 +349,8 @@ class ASTFuzzerNode_Compare(ASTFuzzerNode):
         res = f"{self.leftTerm} {self.comparatorClassNode} {self.rightTerm}"
         return res
 
-    def isAnySymbolicVar(self) -> bool:
-        return self.leftTerm.isAnySymbolicVar() or self.rightTerm.isAnySymbolicVar()
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
+        return self.leftTerm.isAnySymbolicVar(contextDataStore) or self.rightTerm.isAnySymbolicVar(contextDataStore)
 
 class ASTFuzzerNode_Subscript(ASTFuzzerNode):
     def __init__(self):
@@ -386,8 +363,8 @@ class ASTFuzzerNode_Subscript(ASTFuzzerNode):
         res = f"{self.valueNode}[{self.sliceNode}]"
         return res
 
-    def isAnySymbolicVar(self) -> bool:
-        return self.valueNode.isAnySymbolicVar() or self.sliceNode.isAnySymbolicVar()
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
+        return self.valueNode.isAnySymbolicVar(contextDataStore) or self.sliceNode.isAnySymbolicVar(contextDataStore)
 
 
 class ASTFuzzerNode_Call(ASTFuzzerNode):
@@ -418,9 +395,9 @@ class ASTFuzzerNode_Call(ASTFuzzerNode):
 
         return res
 
-    def isAnySymbolicVar(self) -> bool:
+    def isAnySymbolicVar(self, contextDataStore) -> bool:
         for argIndex, argValue in enumerate(self.args):
-            if argValue.isAnySymbolicVar():
+            if argValue.isAnySymbolicVar(contextDataStore):
                 return True
 
         return True

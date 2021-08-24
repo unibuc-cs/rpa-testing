@@ -71,9 +71,4 @@ class DataStore:
         newObj = type(self)()
         newObj.__dict__.update(self.__dict__)
         newObj.Values = copy.deepcopy(self.Values)
-
-        # TEST - DELETE AFTER FIST
-        self.Values[self.Values.keys()[0]] = -1000
-        print(newObj.Values[self.Values.keys()[0]])
-        raise NotImplementedError()
         return newObj
