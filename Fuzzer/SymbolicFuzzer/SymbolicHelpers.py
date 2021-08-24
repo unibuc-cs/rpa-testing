@@ -4,6 +4,7 @@ import z3
 from z3 import *
 import heapq
 from typing import List, Dict, Set, Tuple
+from Parser_ASTNodes import *
 from WorkflowGraphBaseNode import BaseSymGraphNode, SymGraphNodeFlow
 
 # TODO: interface / Z3 only ?
@@ -80,6 +81,112 @@ class SymbolicExecutionHelpers:
             raise NotImplementedError()
 
         return res
+
+
+class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
+    """ E.g.
+    "local_number_retries": {
+        "Type": "Int32",
+        "Default": "0"
+    },
+    """
+
+    # Given the type of the variable as a string and the expression containing the default value, get the default object value
+    @staticmethod
+    def getDefaultValueFromExpression(varTypeName: str, defaultExpression: str) -> any:
+        res = None
+        if varTypeName == "Int32":
+            res = 0 if defaultExpression is None else int(defaultExpression)
+        elif varTypeName == 'Boolean':
+            res = False if (defaultExpression == None or defaultExpression == 'false' or defaultExpression == 'False'
+                  or int(defaultExpression) == 0) else True
+        else:
+            raise NotImplementedError("Do it yourself !!")
+
+        return res
+
+
+    # Will put the variabile in the datastore
+    def __init__(self, varName : str, typeName : str, **kwargs):
+        super().__init__(ASTFuzzerNodeType.VARIABLE_DECL)
+        self.typeName = typeName
+        self.defaultValue = kwargs['defaultValue'] if 'defaultValue' in kwargs else None
+        self.varName = varName
+
+        # self.value represents the CURRENT concrete value, while self.symbolicValue represents the Z3 symbolic value associated with it
+        self.symbolicValue = None
+        self.value = None
+
+        # Fill the annotations
+        self.annotation = VarAnnotation()
+        annotationTag = kwargs.get('annotation')
+        if annotationTag is not None:
+            if 'bounds' in annotationTag:
+                self.annotation.bounds = int(annotationTag['bounds'])
+            if 'min' in annotationTag:
+                self.annotation.min = int(annotationTag['min'])
+            if 'max' in annotationTag:
+                self.annotation.max = int(annotationTag['max'])
+            if 'pattern' in annotationTag:
+                self.annotation.pattern = str(annotationTag['pattern'])
+            if 'userInput' in annotationTag:
+                valSpec = annotationTag['userInput']
+                self.annotation.isFromUserInput = 1 if (valSpec == 'True' or valSpec == '1' or valSpec == 'true') else 0
+                if self.annotation.isFromUserInput == 1:
+                    assert self.defaultValue == None, "In the case of variables coming as inputs you can't put a default value !"
+
+        # Build the variabile symbolic and default value depending on its type
+        if typeName == "Int32":
+            self.value = ASTFuzzerNode_VariableDecl.getDefaultValueFromExpression(varTypeName=typeName,
+                                                                                  defaultExpression=self.defaultValue)
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
+
+        elif typeName == 'Int32[]':
+            self.value = FuzzerArray.CreateArray('Int32', annotation=self.annotation, defaultValue=self.defaultValue)
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
+        elif typeName == 'String[]':
+            self.value = FuzzerArray.CreateArray('String', annotation=self.annotation, defaultValue=self.defaultValue)
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
+        elif typeName == "List":
+            assert self.annotation is None or self.annotation.isFromUserInput is False, \
+                "List type is not supported for symbolic execution since its element could be anything !!. So no annotation please that involves symbolic"
+
+            self.value = FuzzerList.Create(annotation=self.annotation, defaultValue=self.defaultValue)
+
+        elif typeName == 'Boolean':
+            self.value = ASTFuzzerNode_VariableDecl.getDefaultValueFromExpression(varTypeName=typeName,
+                                                                                  defaultExpression=self.defaultValue)
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
+        elif typeName == "DataTable":
+            lazyLoad = True if 'lazyLoad' not in kwargs else kwargs['lazyLoad']
+            path = self.defaultValue
+            self.value = DataTable(path=path, lazyLoad=lazyLoad)
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
+
+        elif typeName == "DataTable_iterator":
+            assert self.defaultValue, "You must specify a default value in this case"
+
+            self.value = self.defaultValue
+        elif typeName == "String":
+            self.value = str(self.defaultValue) if self.defaultValue == None else ""
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
+        elif typeName == "Float":
+            raise NotImplementedError("Not yet")
+        else:
+            raise  NotImplementedError(f"Unknown decl type {typeName}")
+
 
 class SMTPath:
     def __init__(self, conditions_z3, dataStore, start_node : BaseSymGraphNode):
