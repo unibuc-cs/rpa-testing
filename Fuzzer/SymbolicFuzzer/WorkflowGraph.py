@@ -380,21 +380,41 @@ class WorkflowGraph:
                     isFalseSolvable = currPath.isNewConditionSolvable(symbolicExpressionForNode_false_inZ3)
                     isFalseSolvable = isFalseSolvable != None and isFalseSolvable != z3.unsat
 
+                    # TODO Ciprian decisions: expose the strategies used in this code for continuation and prioritization
+                    nextNodeOnFalseBranch : BaseSymGraphNode = currNode.getNextNodeOnBranchResult('False')
+                    nextNodeOnTrueBranch : BaseSymGraphNode = currNode.getNextNodeOnBranchResult('True')
 
-                    # TODO Ciprian: expose the strategies used in this code for continuation and prioritization
                     if isTrueSolvable and isFalseSolvable:
                         # Both are solvable ! Decide which to follow, which to add to the queue for later
                         # For the one in the queue, decide its priority also
-                        pass
+
+                        # Default: continue on true
+                        currPath.addNewBranchLevel(newConditionInZ3=symbolicExpressionForNode_true_inZ3,
+                                                   executNewConditionToo=True)
+
+                        # FALSE branch
+                        # Clone and add the false branch condition to the queue
+                        newPath = copy.deepcopy(currPath)
+                        newPath.addNewBranchLevel(symbolicExpressionForNode_false_inZ3,
+                                                  executeNewConditionToo=False)
+                        newPath.setStartingNodeId(nextNodeOnFalseBranch.id)
+                        worklist.addPath(newPath)
                     else:
                         if isTrueSolvable:
                             # Only the true branch is solvable
+                            # TODO Ciprian decisions: there is alwasy the option to put this in the worklist and take another one from the worklist (BFS , IDFS ?)
+                            currPath.addNewBranchLevel(symbolicExpressionForNode_true_inZ3,
+                                                       executNewConditionToo=True)
                             pass
                         elif isFalseSolvable:
                             # Only the false branch is solvable
+                            # TODO Ciprian decisions: there is alwasy the option to put this in the worklist and take another one from the worklist (BFS , IDFS ?)
+                            currPath.addNewBranchLevel(symbolicExpressionForNode_false_inZ3,
+                                                       executNewConditionToo=True)
                             pass
                         else:
                             # No branch is solvable
+                            currPath.forceFinish()
                             pass
 
                     # DEBUG HELPER CODE
@@ -404,7 +424,9 @@ class WorkflowGraph:
                         a +=1
                         symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
                     """
-
+    # Giving a node id in this workflow, return the node instance
+    def getNodeInstanceById(self, nodeId):
+        return self.nodeIdsToInstances[self.entryTestNodeId]
 
     # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file
     def solveSymbolically(self, outputCsvFile=None, debugLogging=False, astFuzzerNodeExecutor=None):
@@ -420,21 +442,23 @@ class WorkflowGraph:
             csv_stream = csv.DictWriter(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, fieldnames=fieldNamesList)
             csv_stream.writeheader()
 
-        nodeIdsToInstances = self.graphInst.graph['nodeIdToInstance']
+        self.nodeIdsToInstances = self.graphInst.graph['nodeIdToInstance']
 
         # Get the start nodes list
-        start_nodes = [nodeIdsToInstances[self.entryTestNodeId]]
+        start_nodes = [self.entryTestNodeId]
 
         # Add all starting nodes with equal priority
         statesQueue = SMTWorklist()
-        for start_node in start_nodes:
-            assert isinstance(start_node, SymGraphNodeFlow), "We were expecting first node to be a flow node, but if " \
+        for start_nodeId in start_nodes:
+            assert isinstance(self.getNodeInstanceById(start_nodeId), SymGraphNodeFlow), "We were expecting first node to be a flow node, but if " \
                                                              "you really need it as a branch node, just put its condition " \
                                                              "in the starting list below.."
-            newPathForNode = SMTPath(conditions_z3=[],
+
+            newPathForNode = SMTPath(parentWorkflowGraph=self,
+                                     conditions_z3=[],
                                      dataStore=copy.deepcopy(self.dataStoreTemplate),
-                                     start_node = start_node)
-            newPathForNode.priority = 0
+                                     start_nodeId=start_nodeId)
+            newPathForNode.priority = 0 # TODO Ciprian decisions: start node priority ?
             statesQueue.addPath(newPathForNode)
 
         # Do a DFS with queue from here

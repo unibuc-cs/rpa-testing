@@ -1,4 +1,5 @@
 # TODO Ciprian multiprocessing: https://stackoverflow.com/questions/8533318/multiprocessing-pool-when-to-use-apply-apply-async-or-map
+import copy
 
 import z3
 from z3 import *
@@ -189,7 +190,14 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
 
 
 class SMTPath:
-    def __init__(self, conditions_z3, dataStore, start_node : BaseSymGraphNode):
+    def __init__(self,
+                 parentWorkflowGraph,
+                 conditions_z3 : List[any],
+                 dataStore,
+                 start_nodeId):
+        # The parent workflow graph that this path is working on
+        self.parentWorkflowGraph = parentWorkflowGraph
+
         # The conditions in the Z3 format needed for this path
         self.conditions_z3 : List[str] = conditions_z3
 
@@ -202,12 +210,22 @@ class SMTPath:
         # Current SMT solver, could be none for paths that are not actually used yet
         self.currentSolver : Solver = None
 
+        # This is the starting node of this path.
+        self.startNode_Id : BaseSymGraphNode = start_nodeId
+
         # This is the current node iterating in in the workflow
-        self.currNode : BaseSymGraphNode = start_node
+        self.currNode : BaseSymGraphNode = None
+
+        # This is the level of this path in the branching tree
+        self.levelInBranchTree = 0
 
     # Init the execution context
     # TODO Ciprian: init a context solver from existing one maybe ?
     def initExecutionContext(self):
+        # Set the instance of the current node that this path is continue working on
+        self.currNode = self.parentWorkflowGraph.getNodeInstanceById(self.startNode_Id)
+        assert self.currNode != None, "Current node couldn't be solved !!!"
+
         # Initialize the solve, put all the assertions in
         self.currentSolver = Solver()
         for z3Cond in self.conditions_z3:
@@ -231,6 +249,12 @@ class SMTPath:
             assert isinstance(self.currNode, SymGraphNodeFlow)
             self.currNode = self.currNode.nextNodeInst
 
+    # Knowing the current node executing, return what is the next node instance based on a given branch result
+    def getNextNodeOnBranchResult(self, branchToFollowNext : str = None) -> BaseSymGraphNode:
+        assert self.currNode != None and isinstance(self.currNode, SymGraphNodeBranch), "Incorrect current node setup"
+        assert branchToFollowNext in self.currNode.valuesAndNextInst, f"The result is not in the list of branch decisions {str(branchToFollowNext)}!"
+        return self.currNode.valuesAndNextInst[str(branchToFollowNext)]
+
     # Checks if the model is solvable with a new condition added in
     def isNewConditionSolvable(self, newConditionInZ3) -> bool:
         assert self.currentSolver, "Solver was not initialized ! Is this expected ??"
@@ -239,6 +263,46 @@ class SMTPath:
         res = self.currentSolver.check()
         self.currentSolver.pop()
         return res
+
+    # Add a new condition to this path: we expect it to be feasible in general for optimal results, but not necessarily
+    def addNewBranchLevel(self, newConditionInZ3, executNewConditionToo):
+        self.conditions_z3.append(newConditionInZ3)
+
+        # Add the new conditions to the solver
+        if executNewConditionToo == True:
+            self.currentSolver.add(newConditionInZ3)
+
+        # Increase also the level in the branch tree evaluation
+        self.levelInBranchTree += 1
+
+    def setStartingNodeId(self, startingNodeId):
+        self.startNode_Id = startingNodeId
+
+    # Forcing the "isFinished" to return true starting now...
+    # Normally this function is called when the path is not feasible anymore
+    def forceFinish(self):
+        self.currNode = None
+
+    def __copy__(self):
+        # For now, just create a new type and move dictionaries...
+        newObj = type(self)(self.parentWorkflowGraph, self.conditions_z3, self.dataStore, self.startNode_Id)
+        newObj.__dict__.update(self.__dict__)
+        return newObj
+
+    def __deepcopy__(self, memodict={}):
+        # First, take all values from the other..
+        newObj = type(self)(self.parentWorkflowGraph, [], None, None)
+        newObj.__dict__.update(self.__dict__)
+
+        # Then invalidate solver, current node
+        newObj.currentSolver = None
+        newObj.currNode = None
+        newObj.startNode_Id = None
+
+        # Duplicate the conditions
+        newObj.conditions_z3 = copy.deepcopy(self.conditions_z3)
+        newObj.dataStore = copy.deepcopy(self.dataStore)
+        return newObj
 
     def __lt__(self, other):
         return self.priority > other.priority
