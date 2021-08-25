@@ -5,7 +5,7 @@ from z3 import *
 import heapq
 from typing import List, Dict, Set, Tuple
 from Parser_ASTNodes import *
-from WorkflowGraphBaseNode import BaseSymGraphNode, SymGraphNodeFlow
+from WorkflowGraphBaseNode import BaseSymGraphNode, SymGraphNodeFlow, SymGraphNodeBranch
 
 # TODO: interface / Z3 only ?
 class SymbolicExecutionHelpers:
@@ -223,12 +223,22 @@ class SMTPath:
     # Advance the node towards the next one in the workflow operation
     def advance(self, branchToFollowNext : str = None):
         if branchToFollowNext != None:
+            assert isinstance(self.currNode, SymGraphNodeBranch)
             assert isinstance(branchToFollowNext, str)
             assert branchToFollowNext in self.currNode.valuesAndNextInst, f"The result is not in the list of branch decisions {str(branchToFollowNext)}!"
             self.currNode = self.currNode.valuesAndNextInst[str(branchToFollowNext)]
         else:
             assert isinstance(self.currNode, SymGraphNodeFlow)
             self.currNode = self.currNode.nextNodeInst
+
+    # Checks if the model is solvable with a new condition added in
+    def isNewConditionSolvable(self, newConditionInZ3) -> bool:
+        assert self.currentSolver, "Solver was not initialized ! Is this expected ??"
+        self.currentSolver.push()
+        self.currentSolver.add(newConditionInZ3)
+        res = self.currentSolver.check()
+        self.currentSolver.pop()
+        return res
 
     def __lt__(self, other):
         return self.priority > other.priority

@@ -34,7 +34,7 @@ def runTest(args):
     if args.loggingEnabled:
         workflowsTester.debugFullGraph(outputGraphFile=workflowsTester.getDebugGraphFilePath(args.outputGraphFile))
 
-    if True:
+    if args.solveAllPaths:
         workflowsTester.solveOfflineStaticGraph(outputResultsFile=workflowsTester.getSolutionsOutputFilePath(args.outputResultsFile),
                                                  loggingEnabled=args.loggingEnabled)
     else:
@@ -48,6 +48,7 @@ if __name__ == "__main__":
     parser.add_argument('-workflowsSpecInput', type=str, help='Path to the config file', required=True)
     parser.add_argument('-outputGraphFile', type=str, default="debugGraph.png", help='Path to the output debug graph file', required=True)
     parser.add_argument('-loggingEnabled', type=int, default=1, help='Verbose everything ?', required=True)
+    parser.add_argument('-solveAllPaths', type=int, default=1, help='Solve all paths/nodes', required=False)
     parser.add_argument('-outputResultsFile', type=str, default="generatedests.csv", help='Path to write the output CSV file', required=True)
     args = parser.parse_args()
     args.loggingEnabled = False if args.loggingEnabled == 0 else True

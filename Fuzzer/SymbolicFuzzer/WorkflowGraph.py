@@ -355,14 +355,56 @@ class WorkflowGraph:
                 # This is a SOFT requirement, could be changed, left it here for optimization purposes
                 if currNode.expression.isAnySymbolicVar(currPath.dataStore) == False:
                     # Just execute the node and exit !
-
-                    # TODO Ciprian: we get a fixed result. Move currNode towrds it
-                    # self._executeFlowNode(executor=self.astFuzzerNodeExecutor, nodeInst=currNode)
+                    # We get a fixed result. Move currNode towards it
                     result = self.astFuzzerNodeExecutor.executeNode(currNode.expression, executionContext=currPath)
                     assert result is not None
                     currPath.advance(str(result))
                 else:
-                    raise NotImplementedError()
+                    assert isinstance(currNode, SymGraphNodeBranch)
+                    # Check each result branch
+                    # Those feasible will be added to the queue, the current execution path will follow on a single of them
+                    assert ('False' in currNode.valuesAndNextInst and 'True' in currNode.valuesAndNextInst), "We are expecting both branches to be there currently"
+
+                    # Get both the True and False branches
+                    symbolicExpressionForNode_true = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression, executionContext=currPath)
+                    symbolicExpressionForNode_false = self.astFuzzerNodeExecutor.getInverseOfSymbolicExpresion(symbolicExpressionForNode_true)
+
+                    symbolicExpressionForNode_true_inZ3 = self.astFuzzerNodeExecutor.convertStringExpressionTOZ3(symbolicExpressionForNode_true,
+                                                                                                                 contextDataStore=currPath.dataStore)
+                    symbolicExpressionForNode_false_inZ3 = self.astFuzzerNodeExecutor.convertStringExpressionTOZ3(symbolicExpressionForNode_false,
+                                                                                                                  contextDataStore=currPath.dataStore)
+
+                    # Now check which of them are solvable
+                    isTrueSolvable = currPath.isNewConditionSolvable(symbolicExpressionForNode_true_inZ3)
+                    isTrueSolvable = isTrueSolvable != None and isTrueSolvable != z3.unsat
+                    isFalseSolvable = currPath.isNewConditionSolvable(symbolicExpressionForNode_false_inZ3)
+                    isFalseSolvable = isFalseSolvable != None and isFalseSolvable != z3.unsat
+
+
+                    # TODO Ciprian: expose the strategies used in this code for continuation and prioritization
+                    if isTrueSolvable and isFalseSolvable:
+                        # Both are solvable ! Decide which to follow, which to add to the queue for later
+                        # For the one in the queue, decide its priority also
+                        pass
+                    else:
+                        if isTrueSolvable:
+                            # Only the true branch is solvable
+                            pass
+                        elif isFalseSolvable:
+                            # Only the false branch is solvable
+                            pass
+                        else:
+                            # No branch is solvable
+                            pass
+
+                    # DEBUG HELPER CODE
+                    """
+                    if "5" in symbolicExpressionForNode:
+                        a = 3
+                        a +=1
+                        symbolicExpressionForNode = self.astFuzzerNodeExecutor.getSymbolicExpressionFromNode(currNode.expression)
+                    """
+
 
     # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file
     def solveSymbolically(self, outputCsvFile=None, debugLogging=False, astFuzzerNodeExecutor=None):
