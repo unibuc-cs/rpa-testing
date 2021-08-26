@@ -83,6 +83,18 @@ class SymbolicExecutionHelpers:
 
         return res
 
+    # Gets the NOT expression out of an initial condition to solve
+    @staticmethod
+    def getInverseOfSymbolicExpresion(condToSolve):
+        condToSolve = 'Not(' + condToSolve + ')'
+        return condToSolve
+
+    # Converts a string expression (Z3 kind of) to a Z3 full node expression
+    @staticmethod
+    def convertStringExpressionTOZ3(condToSolve, contextDataStore):
+        cond = eval(condToSolve)
+        return cond
+
 
 class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
     """ E.g.
@@ -113,6 +125,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
         self.typeName = typeName
         self.defaultValue = kwargs['defaultValue'] if 'defaultValue' in kwargs else None
         self.varName = varName
+
 
         # self.value represents the CURRENT concrete value, while self.symbolicValue represents the Z3 symbolic value associated with it
         self.symbolicValue = None
@@ -261,15 +274,22 @@ class SMTPath:
         self.currentSolver.push()
         self.currentSolver.add(newConditionInZ3)
         res = self.currentSolver.check()
+
+        # DEBUG CODE DO NOT ENABLE !!
+        if res != None and res != z3.unsat:
+            m = self.currentSolver.model()
+            for d in m.decls():
+                print(f"{d.name()}={m[d]}")
+
         self.currentSolver.pop()
         return res
 
     # Add a new condition to this path: we expect it to be feasible in general for optimal results, but not necessarily
-    def addNewBranchLevel(self, newConditionInZ3, executNewConditionToo):
+    def addNewBranchLevel(self, newConditionInZ3, executeNewConditionToo):
         self.conditions_z3.append(newConditionInZ3)
 
         # Add the new conditions to the solver
-        if executNewConditionToo == True:
+        if executeNewConditionToo == True:
             self.currentSolver.add(newConditionInZ3)
 
         # Increase also the level in the branch tree evaluation

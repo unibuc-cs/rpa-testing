@@ -60,6 +60,43 @@ class DataStore:
         res = self.getSymbolicVariableValue(varName)
         return res is not None
 
+
+    # Gets the SMT conditions based on variables annotations
+    def getVariablesSMTConditions(self) -> List[any]:
+        res : List[any] = []
+
+        # Iterate over all symbolic values and take each one annotation conditions
+        for varName, varZ3Ref in self.SymbolicValues.items():
+            if varZ3Ref == None:
+                continue
+
+
+            varType : str = self.Types[varName]
+            varAnnotation : VarAnnotation = self.Annotations[varName]
+
+            # Why do we put contextDataStore.SymbolicValues ? this will be called later when evaluating the conditions using z3.eval
+            # It needs to know where to take the values from and this is the parameter link if you follow the code (func call)
+            varNameInContextSpace = f"contextDataStore.SymbolicValues[\"{varName}\"]"
+
+            if varType == "Int32" or varType == "Int" or varType == "Float":
+                if varAnnotation.min is not None:
+                    symbolicExpr = f"{varNameInContextSpace} >= {varAnnotation.min}"
+                    symbolicExpr_inZ3 = SymbolicExecutionHelpers.convertStringExpressionTOZ3(
+                                                            condToSolve=symbolicExpr,
+                                                            contextDataStore=self)
+                    res.append(symbolicExpr_inZ3)
+                if varAnnotation.max is not None:
+                    symbolicExpr = f"{varNameInContextSpace} <= {varAnnotation.max}"
+                    symbolicExpr_inZ3 = SymbolicExecutionHelpers.convertStringExpressionTOZ3(
+                        condToSolve=symbolicExpr,
+                        contextDataStore=self)
+                    res.append(symbolicExpr_inZ3)
+            elif varType == "Int32[]" or varType == "Int[]" or varType == "Float[]":
+                pass
+
+        return res
+
+
     def __copy__(self):
         # For now, just create a new type and move dictionaries...
         newObj = type(self)()
