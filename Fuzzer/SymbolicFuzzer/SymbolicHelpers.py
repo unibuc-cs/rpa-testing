@@ -7,6 +7,8 @@ import heapq
 from typing import List, Dict, Set, Tuple
 from Parser_ASTNodes import *
 from WorkflowGraphBaseNode import BaseSymGraphNode, SymGraphNodeFlow, SymGraphNodeBranch
+from SymbolicHelpers import *
+import csv
 
 # TODO: interface / Z3 only ?
 class SymbolicExecutionHelpers:
@@ -275,11 +277,13 @@ class SMTPath:
         self.currentSolver.add(newConditionInZ3)
         res = self.currentSolver.check()
 
-        # DEBUG CODE DO NOT ENABLE !!
+        # DEBUG CODE DO NOT ENABLE ON RELEASE !!
+        """
         if res != None and res != z3.unsat:
             m = self.currentSolver.model()
             for d in m.decls():
                 print(f"{d.name()}={m[d]}")
+        """
 
         self.currentSolver.pop()
         return res
@@ -292,8 +296,30 @@ class SMTPath:
         if executeNewConditionToo == True:
             self.currentSolver.add(newConditionInZ3)
 
+        # DEBUG code vor simpplification methods. DO NOT ENABLE ON RELEASE
+        """
+        if (len(self.conditions_z3) == 3):
+            fullAndExpr = And(self.conditions_z3[0], self.conditions_z3[1], self.conditions_z3[2])
+        exprSimpl = z3.simplify(fullAndExpr, elim_and=True)
+
+        x = Int('x')
+        y = Int('y')
+        print(simplify(x + y + 2 * x + 3))
+        print(simplify(x < y + x + 2))
+        print(simplify(And(x + 1 >= 3, x ** 2 + x ** 2 + y ** 2 + 2 >= 5), elim_and=True))
+
+        g = Goal()
+        g.add(And(x >= 3, x >= 10))
+        print(g)
+
+        t1 = Tactic('simplify')
+        print(t1(g))
+        t2 = Repeat(t1)
+        print(t2(g))
+
         # Increase also the level in the branch tree evaluation
         self.levelInBranchTree += 1
+        #"""
 
     def setStartingNodeId(self, startingNodeId):
         self.startNode_Id = startingNodeId

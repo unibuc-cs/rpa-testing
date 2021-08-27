@@ -10,7 +10,7 @@ from enum import Enum
 import json
 
 from Parser_WorkflowMainParser import *
-
+from SymbolicSolverStrategies import *
 
 
 # A symbolic workflow testing assistant starting from a given workflow graph in JSon format and the variables names and their types
@@ -45,7 +45,9 @@ from Parser_WorkflowMainParser import *
 # ----------
 
 class SymbolicWorflowsTester:
-    def __init__(self, testSpecFile):
+    def __init__(self,
+                 testSpecFile : str,
+                 strategyToUse : SymbolicSolversStrategiesTypes):
         self.baseFolderModel = os.path.dirname(testSpecFile)
 
         # Create Workflow parser and all its dependencies
@@ -60,6 +62,9 @@ class SymbolicWorflowsTester:
                                                                     baseOutPath=self.baseFolderModel,
                                                                     astFuzzerNodeExecutor=self.astFuzzerNodeExecutor,
                                                                     dataStoreTemplate=self.dataStoreTemplate)
+        self.symbolicSolverStrategy = None
+        if strategyToUse == SymbolicSolversStrategiesTypes.STRATEGY_DFS:
+            self.symbolicSolverStrategy = DFSSymbolicSolverStrategy(self.workflowGraph)
 
 
     def getSolutionsOutputFilePath(self, fileName):
@@ -72,7 +77,8 @@ class SymbolicWorflowsTester:
         self.workflowGraph.debugGraph(outputGraphFile=outputGraphFile)
 
     def solveOfflineStaticGraph(self, outputResultsFile, loggingEnabled):
-        self.workflowGraph.solveOfflineStaticGraph(outputCsvFile=outputResultsFile, debugLogging=loggingEnabled)
+        self.workflowGraph.solve(outputCsvFile=outputResultsFile, debugLogging=loggingEnabled)
 
-    def solveSymbolically(self, outputResultsFile, loggingEnabled):
-        self.workflowGraph.solveSymbolically(outputCsvFile=outputResultsFile, debugLogging=loggingEnabled)
+    def doTests(self, outputResultsFile, loggingEnabled):
+        assert self.symbolicSolverStrategy != None, "There is no symbolic strategy instantiated ! Check your options and doc!"
+        self.symbolicSolverStrategy.solve(outputCsvFile=outputResultsFile, debugLogging=loggingEnabled)
