@@ -65,6 +65,10 @@ class SymbolicWorflowsTester:
         self.symbolicSolverStrategy = None
         if strategyToUse == SymbolicSolversStrategiesTypes.STRATEGY_DFS:
             self.symbolicSolverStrategy = DFSSymbolicSolverStrategy(self.workflowGraph)
+        elif strategyToUse == SymbolicSolversStrategiesTypes.STRATEGY_OFFLINE_ALL:
+            self.symbolicSolverStrategy = AllStatesOnesSolver(self.workflowGraph)
+        else:
+            raise NotImplementedError()
 
 
     def getSolutionsOutputFilePath(self, fileName):

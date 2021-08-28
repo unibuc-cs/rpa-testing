@@ -54,7 +54,8 @@
       ]
     },
     "RepetitiveTest_1:Write_Line_8": {
-      "transitions": []
+      "transitions": [],
+      "expression" : "PrettyPrint(\"Final iter is: \", it)"
     }
   },
   "startNode": "RepetitiveTest_1:RepetitiveTest_1"

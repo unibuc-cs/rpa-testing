@@ -3,7 +3,7 @@ from Executor_SymbolicWorkflowsTester import *
 # ---------------------------------------------------------------------------------
 # How to run this script ?
 """
-For a description of parameters run: python Main.py - h
+For a description of parameters run: python Main.py - h, or check the arguments below
 """
 
 # ---------------------------------------------------------------------------------

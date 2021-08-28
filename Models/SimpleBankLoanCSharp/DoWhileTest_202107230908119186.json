@@ -8,7 +8,9 @@
 
           "Annotation":
           {
-            "userInput": "True"
+            "userInput": "True",
+            "min": 0,
+            "max": 20,
           }
         },
 

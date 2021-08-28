@@ -28,7 +28,7 @@ class WorkflowGraph:
 
     # A function to collect all paths in the graph. For loops it just consider one iteration case as long as every branch is covered
     # For infinite graphs we'll consider IDA approach
-    def __getAllPaths(self):
+    def getAllPaths(self):
         # We are now getting a parameter for the entry node for testing so the code below is not used anymore
         if False:
             # Get all the starting nodes (in degree = 0)
@@ -122,20 +122,20 @@ class WorkflowGraph:
             node = nodeIdToInstance[node]
         return node
 
-    def __debugPrintSinglePath(self, path):
+    def debugPrintSinglePath(self, path):
         pathStr = ""
         for node in path:
             node = self.__fixNodeInstance(node)
             pathStr += str(node.id) + " ; "
         return pathStr
 
-    def __debugPrintPaths(self, paths):
+    def debugPrintPaths(self, paths):
         for index, P in enumerate(paths):
             print("--- Path ", index, ": ")
-            pathStr = self.__debugPrintSinglePath(P)
+            pathStr = self.debugPrintSinglePath(P)
             print(pathStr)
 
-    def __debugInspectGraph(self):
+    def debugInspectGraph(self):
         print("Graph nodes: ")
         for node in self.graphInst.nodes:
             print(node)
@@ -159,18 +159,18 @@ class WorkflowGraph:
         A.draw(outputGraphFile)
 
         # Let's inspect the graph...
-        self.__debugInspectGraph()
+        self.debugInspectGraph()
 
         print("Checking all paths inside the graph !")
-        allpaths = self.__getAllPaths()
-        self.__debugPrintPaths(allpaths)
+        allpaths = self.getAllPaths()
+        self.debugPrintPaths(allpaths)
 
         print("\n\nGetting all used variables inside branches ")
         print("== Symbolic variables: \n", self.dataStoreTemplate.SymbolicValues.keys())  # print(getAllVariables(graph))
         print("== All variables: \n", self.dataStoreTemplate.Values.keys())  # print(getAllVariables(graph))
 
     # TODO: the two functions below need to be refactored !!
-    def __getPathConditions(self, path, executionContext : SMTPath):
+    def getPathConditions(self, path, executionContext : SMTPath):
         assert isinstance(path, list) and len(path) > 0 #and isinstance(path[0], SymGraphNodeBranch)
         pathLen = len(path)
         outCOnditions = []

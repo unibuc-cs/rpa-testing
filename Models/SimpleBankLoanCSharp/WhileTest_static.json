@@ -1,0 +1,61 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "it": {
+          "Type": "Int32"
+        }
+      },
+      "inputArguments": [],
+      "displayName": "RepetitiveTest_1",
+      "fullPath": "C:\\UiPath\\rpa-testing\\Models\\SimpleBankLoanCSharp\\WhileTest.xaml",
+      "invokedBy": "",
+      "startNode": "RepetitiveTest_1:RepetitiveTest_1"
+    }
+  ],
+  "graph": {
+    "RepetitiveTest_1:RepetitiveTest_1": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "RepetitiveTest_1:Assign_2"
+        }
+      ]
+    },
+    "RepetitiveTest_1:Assign_2": {
+      "expression": "it = 0",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "RepetitiveTest_1:While_3"
+        }
+      ]
+    },
+    "RepetitiveTest_1:While_3": {
+      "expression": "it < 20",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "RepetitiveTest_1:Assign_6"
+        },
+        {
+          "value": "False",
+          "destination": "RepetitiveTest_1:Write_Line_8"
+        }
+      ]
+    },
+    "RepetitiveTest_1:Assign_6": {
+      "expression": "it = it + 1",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "RepetitiveTest_1:While_3"
+        }
+      ]
+    },
+    "RepetitiveTest_1:Write_Line_8": {
+      "transitions": []
+    }
+  },
+  "startNode": "RepetitiveTest_1:RepetitiveTest_1"
+}

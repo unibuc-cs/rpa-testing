@@ -8,7 +8,9 @@
 
           "Annotation":
           {
-            "userInput": "True"
+            "userInput": "True",
+            "min": 0,
+            "max": 3
           }
         },
 
@@ -64,7 +66,8 @@
       ]
     },
     "RepetitiveTest_1:Write_Line_8": {
-      "transitions": []
+      "transitions": [],
+      "expression": "PrettyPrint(\"Final iter is: \", it)"
     }
   },
   "startNode": "RepetitiveTest_1:RepetitiveTest_1"
