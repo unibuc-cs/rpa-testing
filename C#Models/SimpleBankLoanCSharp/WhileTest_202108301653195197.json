@@ -8,7 +8,7 @@
       },
       "inputArguments": [],
       "displayName": "RepetitiveTest_1",
-      "fullPath": "C:\\UiPath\\rpa-testing\\Models\\SimpleBankLoanCSharp\\WhileTest.xaml",
+      "fullPath": "C:\\Personal\\University\\rpa-testing\\C#Models\\SimpleBankLoanCSharp\\WhileTest.xaml",
       "invokedBy": "",
       "startNode": "RepetitiveTest_1:RepetitiveTest_1"
     }
@@ -54,8 +54,10 @@
       ]
     },
     "RepetitiveTest_1:Write_Line_8": {
-      "transitions": [],
-      "expression" : "PrettyPrint(\"Final iter is: \", it)"
+      "Annotation": {
+        "expression": "PrettyPrint(\"Final iter is: \", it)"
+      },
+      "transitions": []
     }
   },
   "startNode": "RepetitiveTest_1:RepetitiveTest_1"

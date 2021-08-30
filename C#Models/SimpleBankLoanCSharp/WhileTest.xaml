@@ -114,7 +114,7 @@
         <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_2">it &lt; 20</mca:CSharpValue>
       </ui:InterruptibleWhile.Condition>
     </ui:InterruptibleWhile>
-    <WriteLine sap2010:Annotation.AnnotationText="" DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="340,123.6" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="End">
+    <WriteLine sap2010:Annotation.AnnotationText="@Expression&#xD;&#xA;{&quot;expression&quot;:&quot;PrettyPrint(\&quot;Final iter is: \&quot;, it)&quot;}" DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="340,123.6" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="End">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
