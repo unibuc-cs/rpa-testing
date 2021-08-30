@@ -211,10 +211,11 @@ class WorkflowGraph:
 
         return outCOnditions
 
-    def _executeFlowNode(self, nodeInst: SymGraphNodeFlow, executionContext : SMTPath):
-        assert isinstance(nodeInst, SymGraphNodeFlow)
+    def _executeAsFlowNode(self, nodeInst: SymGraphNodeFlow, executionContext : SMTPath):
+        #assert isinstance(nodeInst, SymGraphNodeFlow)
         if nodeInst.expression:
-            self.astFuzzerNodeExecutor.executeNode(nodeInst.expression, executionContext=executionContext)
+            return self.astFuzzerNodeExecutor.executeNode(nodeInst.expression, executionContext=executionContext)
+        return None
 
     def _getSymbolicExpressionFromNode(self, nodeInst : SymGraphNodeBranch, executionContext : SMTPath):
         assert isinstance(nodeInst, SymGraphNodeBranch)
@@ -224,5 +225,5 @@ class WorkflowGraph:
 
     # Giving a node id in this workflow, return the node instance
     def getNodeInstanceById(self, nodeId):
-        return self.graphInst.graph['nodeIdToInstance'][self.entryTestNodeId]
+        return self.graphInst.graph['nodeIdToInstance'][nodeId]
 

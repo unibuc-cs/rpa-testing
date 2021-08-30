@@ -146,9 +146,11 @@ class AllStatesOnesSolver(BaseSymbolicSolverStrategy):
         for index, P in enumerate(allpaths):
             # Reset the datastore variables to default variables before each running case
             newPath = SMTPath(parentWorkflowGraph=self,
-                              conditions_z3=self.dataStoreTemplate.getVariablesSMTConditions(),
+                              initial_conditions_smt=self.dataStoreTemplate.getVariablesSMTConditions(),
                               dataStore=copy.deepcopy(self.dataStoreTemplate),
-                              start_nodeId=self.workflowGraph.entryTestNodeId)
+                              start_nodeId=self.workflowGraph.entryTestNodeId,
+                              debugFullPathEnabled=debugLogging,
+                              debugNodesHistoryExplored=debugLogging)
 
             conditions_str = self.workflowGraph.getPathConditions(path = allpaths[index], executionContext=newPath)
 
@@ -197,7 +199,7 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
             # Is this a flow node ? Execute it to persist its sate
             currNode = currPath.getNode()
             if currNode.nodeType != NodeTypes.BRANCH_NODE:  #
-                self.workflowGraph._executeFlowNode(nodeInst=currNode, executionContext=currPath)
+                self.workflowGraph._executeAsFlowNode(nodeInst=currNode, executionContext=currPath)
                 currPath.advance()
 
             # Branch node.. hard decisions :)
@@ -207,7 +209,7 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
                 if currNode.expression.isAnySymbolicVar(currPath.dataStore) == False:
                     # Just execute the node and exit !
                     # We get a fixed result. Move currNode towards it
-                    result = self.workflowGraph._executeFlowNode(nodeInst=currNode, executionContext=currPath)
+                    result = self.workflowGraph._executeAsFlowNode(nodeInst=currNode, executionContext=currPath)
                     assert result is not None
                     currPath.advance(str(result))
 
@@ -254,7 +256,7 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
 
                         newPath.addNewBranchLevel(symbolicExpressionForNode_false_inZ3,
                                                   executeNewConditionToo=False)
-                        newPath.setStartingNodeId(nextNodeOnFalseBranch.id)
+                        newPath.setStartingNodeId(nextNodeOnFalseBranch.id, isQueuedPathNode=True)
                         worklist.addPath(newPath)
                     else:
                         if isTrueSolvable or isFalseSolvable:
@@ -263,7 +265,7 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
                                 # DECISION MAKING EXTENSION: there is alwasy the option to put this in the worklist and take another one from the worklist (BFS , IDFS ?)
                                 currPath.addNewBranchLevel(symbolicExpressionForNode_true_inZ3,
                                                            executeNewConditionToo=True)
-                                currPath.setStartingNodeId(nextNodeOnTrueBranch.id)
+                                currPath.setStartingNodeId(nextNodeOnTrueBranch.id, isQueuedPathNode=False)
 
                                 # DECISION MAKING EXTENSION:  this is needed only on a DFS pure strategy !
                                 currPath.advance('True')
@@ -274,28 +276,29 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
                                 currPath.addNewBranchLevel(symbolicExpressionForNode_false_inZ3,
                                                            executeNewConditionToo=True)
 
-                                currPath.setStartingNodeId(nextNodeOnFalseBranch.id)
+                                currPath.setStartingNodeId(nextNodeOnFalseBranch.id, isQueuedPathNode=False)
 
                                 # DECISION MAKING EXTENSION:  this is needed only on a DFS pure strategy !
                                 currPath.advance('False')
                         else:
                             # No branch is solvable
-                            currPath.forceFinish()
+                            currPath.forceFinish(withFail=True)
 
+        if not currPath.failed:
+            modelResult = currPath.getSolvedModel()
+            m = currPath.currentSolver.model()
+            self.streamOutModel(modelResult=modelResult,
+                                pathResult=currPath.debugNodesExplored,
+                                debugLoggingEnabled=self.debugLogging,
+                                debugPathIndex=currPath.debugNumPathsSolvableFound)
+            currPath.debugNumPathsSolvableFound += 1
 
     # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file
     def solve(self, outputCsvFile=None, debugLogging=False):
         # Setup the output files stuff
-        fieldNamesList = [key for key in self.dataStoreTemplate.Values.keys()]
-        if debugLogging:
-            fieldNamesList.append("GraphPath")
-        self.set_fieldNamesList = set(fieldNamesList)
-
-        csv_stream = None
-        if outputCsvFile != None:
-            csv_file = open(outputCsvFile, mode='w')
-            csv_stream = csv.DictWriter(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, fieldnames=fieldNamesList)
-            csv_stream.writeheader()
+        self.init_outputStream(outputCsvFile, debugLogging)
+        self.outputCsvFile = outputCsvFile
+        self.debugLogging = debugLogging
 
         # Get the start nodes list
         start_nodes = [self.workflowGraph.entryTestNodeId]
@@ -303,14 +306,18 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
         # Add all starting nodes with equal priority
         statesQueue = SMTWorklist()
         for start_nodeId in start_nodes:
+            """
             assert isinstance(self.workflowGraph.getNodeInstanceById(start_nodeId), SymGraphNodeFlow), "We were expecting first node to be a flow node, but if " \
                                                              "you really need it as a branch node, just put its condition " \
                                                              "in the starting list below.."
+            """
 
             newPathForNode = SMTPath(parentWorkflowGraph=self.workflowGraph,
-                                     conditions_z3=self.dataStoreTemplate.getVariablesSMTConditions(),
+                                     initial_conditions_smt=self.dataStoreTemplate.getVariablesSMTConditions(),
                                      dataStore=copy.deepcopy(self.dataStoreTemplate),
-                                     start_nodeId=start_nodeId)
+                                     start_nodeId=start_nodeId,
+                                     debugFullPathEnabled=debugLogging,
+                                     debugNodesHistoryExplored=[])
             newPathForNode.priority = 0 # TODO Ciprian decisions: start node priority ?
             statesQueue.addPath(newPathForNode)
 

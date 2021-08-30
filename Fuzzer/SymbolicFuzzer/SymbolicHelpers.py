@@ -203,18 +203,20 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
         else:
             raise  NotImplementedError(f"Unknown decl type {typeName}")
 
-
 class SMTPath:
     def __init__(self,
                  parentWorkflowGraph,
-                 conditions_z3 : List[any],
+                 initial_conditions_smt : List[any], # The initial set of conditions for the state of the path when being created
                  dataStore,
-                 start_nodeId):
+                 start_nodeId,              # The starting node id to consider expanding the path
+                 debugFullPathEnabled : bool, # If full path debugging is supported
+                 debugNodesHistoryExplored: List[str]): # The nodes considered as explored by the path already, when this is created (note could be new or from a BRANCHING effect !)
+
         # The parent workflow graph that this path is working on
         self.parentWorkflowGraph = parentWorkflowGraph
 
         # The conditions in the Z3 format needed for this path
-        self.conditions_z3 : List[str] = conditions_z3
+        self.initial_conditions_smt : List[str] = initial_conditions_smt
 
         # The dataStore this object is iterating on
         self.dataStore = dataStore
@@ -234,6 +236,18 @@ class SMTPath:
         # This is the level of this path in the branching tree
         self.levelInBranchTree = 0
 
+        # Will be set to true if this branch is considered as faild
+        self.failed = False
+
+        # If enabled, it will store/output the entire path found.
+        # Could be very costly especially for a long run !!
+        self.debugFullPathEnabled : bool = debugFullPathEnabled
+
+        # If debugFullPathEnabled, this will keep the ordered set of nodes explored by the path
+        self.debugNodesExplored : List[str] = []
+
+        self.debugNumPathsSolvableFound = 0
+
     # Init the execution context
     # TODO Ciprian: init a context solver from existing one maybe ?
     def initExecutionContext(self):
@@ -243,7 +257,7 @@ class SMTPath:
 
         # Initialize the solve, put all the assertions in
         self.currentSolver = Solver()
-        for z3Cond in self.conditions_z3:
+        for z3Cond in self.initial_conditions_smt:
             self.currentSolver.add(z3Cond)
 
     # Get the current node iterating in in the workflow
@@ -263,6 +277,9 @@ class SMTPath:
         else:
             assert isinstance(self.currNode, SymGraphNodeFlow)
             self.currNode = self.currNode.nextNodeInst
+
+        if self.currNode and self.debugFullPathEnabled:
+            self.debugNodesExplored.append(self.currNode.id)
 
     # Knowing the current node executing, return what is the next node instance based on a given branch result
     def getNextNodeOnBranchResult(self, branchToFollowNext : str = None) -> BaseSymGraphNode:
@@ -290,7 +307,7 @@ class SMTPath:
 
     # Add a new condition to this path: we expect it to be feasible in general for optimal results, but not necessarily
     def addNewBranchLevel(self, newConditionInZ3, executeNewConditionToo):
-        self.conditions_z3.append(newConditionInZ3)
+        self.initial_conditions_smt.append(newConditionInZ3)
 
         # Add the new conditions to the solver
         if executeNewConditionToo == True:
@@ -321,23 +338,39 @@ class SMTPath:
         self.levelInBranchTree += 1
         #"""
 
-    def setStartingNodeId(self, startingNodeId):
+    # startingNodeId - THe next starting node to run this path from
+    # isQueuedNode - Just a hint to know if this path has been put on a delayed queue for later execution or it is starting executing now
+    def setStartingNodeId(self, startingNodeId, isQueuedPathNode : bool):
         self.startNode_Id = startingNodeId
 
+        # Add the starting node
+        if self.debugFullPathEnabled and isQueuedPathNode:
+            self.debugNodesExplored.append(self.startNode_Id)
+
     # Forcing the "isFinished" to return true starting now...
-    # Normally this function is called when the path is not feasible anymore
-    def forceFinish(self):
+    # Normally this function is called when the path is not feasible anymore or it is feasibile or we want it to end (fill result in)
+    def forceFinish(self, withFail : bool):
         self.currNode = None
+        self.failed = withFail
+
+    # Based on the current solver and set of conditions added to it, get the SMT model with all declarations
+    # If not feasibile it returns None
+    def getSolvedModel(self):
+        if not self.currentSolver.check():
+            return None
+        return self.currentSolver.model()
 
     def __copy__(self):
         # For now, just create a new type and move dictionaries...
-        newObj = type(self)(self.parentWorkflowGraph, self.conditions_z3, self.dataStore, self.startNode_Id)
+        newObj = type(self)(self.parentWorkflowGraph, self.conditions_z3, self.dataStore,
+                            self.startNode_Id,
+                            self.debugFullPathEnabled, self.debugNodesExplored)
         newObj.__dict__.update(self.__dict__)
         return newObj
 
     def __deepcopy__(self, memodict={}):
         # First, take all values from the other..
-        newObj = type(self)(self.parentWorkflowGraph, [], None, None)
+        newObj = type(self)(self.parentWorkflowGraph, [], None, None, False, [])
         newObj.__dict__.update(self.__dict__)
 
         # Then invalidate solver, current node
@@ -346,8 +379,9 @@ class SMTPath:
         newObj.startNode_Id = None
 
         # Duplicate the conditions
-        newObj.conditions_z3 = copy.deepcopy(self.conditions_z3)
+        newObj.initial_conditions_smt = copy.deepcopy(self.initial_conditions_smt)
         newObj.dataStore = copy.deepcopy(self.dataStore)
+        newObj.debugNodesExplored = copy.deepcopy(self.debugNodesExplored)
         return newObj
 
     def __lt__(self, other):
