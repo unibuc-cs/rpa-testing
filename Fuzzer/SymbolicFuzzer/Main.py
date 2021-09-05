@@ -27,7 +27,7 @@ def runTest(args):
 
         # PROTO work in progress
         workflowsTester.doTests(outputResultsFile=workflowsTester.getSolutionsOutputFilePath(args.outputResultsFile),
-                                loggingEnabled=args.loggingEnabled)
+                                loggingEnabled=args.loggingEnabled, otherArgs=args)
 
 
 if __name__ == "__main__":
@@ -37,6 +37,9 @@ if __name__ == "__main__":
     parser.add_argument('-loggingEnabled', type=int, default=1, help='Verbose everything ?', required=True)
     parser.add_argument('-outputResultsFile', type=str, default="generatedests.csv", help='Path to write the output CSV file', required=True)
     parser.add_argument('-solverStrategy', type=str, default="STRATEGY_DFS", required=True) # STRATEGY_OFFLINE_ALL
+
+    parser.add_argument('-seedsFile', type=str, default="inputSeeds.csv", required=False)
+    parser.add_argument('-numRandomGeneratedSeeds', type=int, default=0, required=False)
 
     # Arguments processing
     args = parser.parse_args()

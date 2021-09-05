@@ -215,8 +215,12 @@ class SMTPath:
         # The parent workflow graph that this path is working on
         self.parentWorkflowGraph = parentWorkflowGraph
 
-        # The conditions in the Z3 format needed for this path
-        self.initial_conditions_smt : List[str] = initial_conditions_smt
+        # The conditions in the Z3 format needed for this path (all not only initial !)
+        self.conditions_smt : List[str] = initial_conditions_smt
+
+        # Only valid for concolic exection, A dict from the index of the condition in self.conditions_smt to a boolean
+        # value representing True if the branch was taken in the execution path or false otherwise.
+        self.concolicBranchTaken : Dict[int, bool] = {} # index from condition_smt to {True/False}
 
         # The dataStore this object is iterating on
         self.dataStore = dataStore
@@ -236,7 +240,7 @@ class SMTPath:
         # This is the level of this path in the branching tree
         self.levelInBranchTree = 0
 
-        # Will be set to true if this branch is considered as faild
+        # Will be set to true if this branch is considered as failed
         self.failed = False
 
         # If enabled, it will store/output the entire path found.
@@ -248,6 +252,7 @@ class SMTPath:
 
         self.debugNumPathsSolvableFound = 0
 
+
     # Init the execution context
     # TODO Ciprian: init a context solver from existing one maybe ?
     def initExecutionContext(self):
@@ -257,7 +262,7 @@ class SMTPath:
 
         # Initialize the solve, put all the assertions in
         self.currentSolver = Solver()
-        for z3Cond in self.initial_conditions_smt:
+        for z3Cond in self.conditions_smt:
             self.currentSolver.add(z3Cond)
 
     # Get the current node iterating in in the workflow
@@ -306,8 +311,16 @@ class SMTPath:
         return res
 
     # Add a new condition to this path: we expect it to be feasible in general for optimal results, but not necessarily
-    def addNewBranchLevel(self, newConditionInZ3, executeNewConditionToo):
-        self.initial_conditions_smt.append(newConditionInZ3)
+    def addNewBranchLevel(self, newConditionInZ3, executeNewConditionToo, concolicEval=None):
+        self.conditions_smt.append(newConditionInZ3)
+
+        # IF we add a concolic branch, and we have a taken evaluation that is can be subject to change,
+        # concolicEval will be not None (or should be !)
+        # In this case we store in the dictionary the value taken
+        if concolicEval is not None:
+            assert isinstance(concolicEval, bool), "If given, we are expecting either a True or False take branch"
+            indexOfCondition = len(self.conditions_smt) - 1
+            self.concolicBranchTaken[indexOfCondition] = concolicEval
 
         # Add the new conditions to the solver
         if executeNewConditionToo == True:
@@ -379,9 +392,10 @@ class SMTPath:
         newObj.startNode_Id = None
 
         # Duplicate the conditions
-        newObj.initial_conditions_smt = copy.deepcopy(self.initial_conditions_smt)
+        newObj.conditions_smt = copy.deepcopy(self.conditions_smt)
         newObj.dataStore = copy.deepcopy(self.dataStore)
         newObj.debugNodesExplored = copy.deepcopy(self.debugNodesExplored)
+        newObj.concolicBranchTaken = copy.deepcopy(self.concolicBranchTaken)
         return newObj
 
     def __lt__(self, other):

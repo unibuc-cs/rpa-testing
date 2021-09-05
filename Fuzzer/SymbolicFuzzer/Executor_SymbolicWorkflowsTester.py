@@ -11,6 +11,7 @@ import json
 
 from Parser_WorkflowMainParser import *
 from SymbolicSolverStrategies import *
+from SymbolicSolverStrategies_concolic import *
 
 
 # A symbolic workflow testing assistant starting from a given workflow graph in JSon format and the variables names and their types
@@ -63,10 +64,12 @@ class SymbolicWorflowsTester:
                                                                     astFuzzerNodeExecutor=self.astFuzzerNodeExecutor,
                                                                     dataStoreTemplate=self.dataStoreTemplate)
         self.symbolicSolverStrategy = None
-        if strategyToUse == SymbolicSolversStrategiesTypes.STRATEGY_DFS:
+        if strategyToUse == SymbolicSolversStrategiesTypes.STRATEGY_SYMBOLIC_DFS:
             self.symbolicSolverStrategy = DFSSymbolicSolverStrategy(self.workflowGraph)
         elif strategyToUse == SymbolicSolversStrategiesTypes.STRATEGY_OFFLINE_ALL:
             self.symbolicSolverStrategy = AllStatesOnesSolver(self.workflowGraph)
+        elif strategyToUse == SymbolicSolversStrategiesTypes.STRATEGY_CONCOLIC:
+            self.symbolicSolverStrategy = ConcolicSolverStrategy(self.workflowGraph)
         else:
             raise NotImplementedError()
 
@@ -83,6 +86,6 @@ class SymbolicWorflowsTester:
     def solveOfflineStaticGraph(self, outputResultsFile, loggingEnabled):
         self.workflowGraph.solve(outputCsvFile=outputResultsFile, debugLogging=loggingEnabled)
 
-    def doTests(self, outputResultsFile, loggingEnabled):
+    def doTests(self, outputResultsFile, loggingEnabled, otherArgs = None):
         assert self.symbolicSolverStrategy != None, "There is no symbolic strategy instantiated ! Check your options and doc!"
-        self.symbolicSolverStrategy.solve(outputCsvFile=outputResultsFile, debugLogging=loggingEnabled)
+        self.symbolicSolverStrategy.solve(outputCsvFile=outputResultsFile, debugLogging=loggingEnabled, otherArgs=otherArgs)

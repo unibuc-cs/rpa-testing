@@ -58,6 +58,7 @@ class VarAnnotation:
         self.min = None
         self.max = None
         self.bounds = None
+        self.defaultValue = None
 
 class ObjectValue:
     def __init__(self, value):

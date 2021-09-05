@@ -6,14 +6,17 @@ from WorkflowGraphBaseNode import *
 class SymbolicSolversStrategiesTypes(Enum):
     STRATEGY_NONE = 0
     STRATEGY_OFFLINE_ALL = 1,
-    STRATEGY_DFS = 2
+    STRATEGY_SYMBOLIC_DFS = 2,
+    STRATEGY_CONCOLIC = 3
 
     @staticmethod
     def from_str(strategyName : str):
         if strategyName  == "STRATEGY_DFS":
-            return SymbolicSolversStrategiesTypes.STRATEGY_DFS
+            return SymbolicSolversStrategiesTypes.STRATEGY_SYMBOLIC_DFS
         elif strategyName == "STRATEGY_OFFLINE_ALL":
             return SymbolicSolversStrategiesTypes.STRATEGY_OFFLINE_ALL
+        elif strategyName == "STRATEGY_CONCOLIC":
+            return SymbolicSolversStrategiesTypes.STRATEGY_CONCOLIC
         else:
             raise NotImplementedError()
         return None
@@ -127,7 +130,7 @@ class BaseSymbolicSolverStrategy(ABC):
 
     # Solve the given graph
     @abstractmethod
-    def solve(self, outputCsvFile=None, debugLogging=False):
+    def solve(self, outputCsvFile=None, debugLogging=False, otherArgs=None):
         pass
 
 class AllStatesOnesSolver(BaseSymbolicSolverStrategy):
@@ -136,7 +139,7 @@ class AllStatesOnesSolver(BaseSymbolicSolverStrategy):
         super().__init__(SymbolicSolversStrategiesTypes.STRATEGY_OFFLINE_ALL, workflowGraph)
 
     # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file
-    def solve(self, outputCsvFile=None, debugLogging=False):
+    def solve(self, outputCsvFile=None, debugLogging=False, otherArgs=None):
         self.init_outputStream(outputCsvFile, debugLogging)
 
         #condA = 'V["loan"] < 1000' # Just a dummy test to evaluate a simple condition...
@@ -187,11 +190,11 @@ class AllStatesOnesSolver(BaseSymbolicSolverStrategy):
 class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
 
     def __init__(self, workflowGraph):
-        super().__init__(SymbolicSolversStrategiesTypes.STRATEGY_DFS, workflowGraph)
+        super().__init__(SymbolicSolversStrategiesTypes.STRATEGY_SYMBOLIC_DFS, workflowGraph)
 
     # Given an smt path in progress (or at begining) this will execute it until finish using DFS and different strategies
     # Will also put new states on the priority queue
-    def continuePathExecution(self, currPath : SMTPath, worklist : SMTWorklist ): # SMTPath
+    def continuePathExecution(self, currPath : SMTPath, worklist : SMTWorklist, concolicStrategy=False): # SMTPath
         assert currPath != None
         currPath.initExecutionContext()
 
@@ -232,57 +235,73 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
                         symbolicExpressionForNode_false,
                         contextDataStore=currPath.dataStore)
 
-                    # Now check which of them are solvable
-                    isTrueSolvable = currPath.isNewConditionSolvable(symbolicExpressionForNode_true_inZ3)
-                    isTrueSolvable = isTrueSolvable != None and isTrueSolvable != z3.unsat
-                    isFalseSolvable = currPath.isNewConditionSolvable(symbolicExpressionForNode_false_inZ3)
-                    isFalseSolvable = isFalseSolvable != None and isFalseSolvable != z3.unsat
+                    # In a concolic strategy, just gather the conditions encountered on the path but advance always by
+                    # using the actual value of variables in the datastore
+                    if concolicStrategy is True:
+                        # Take the concrete value of the branch using the current input
+                        evalResult = self.workflowGraph._executeAsFlowNode(nodeInst=currNode, executionContext=currPath)
+                        assert evalResult is not None and isinstance(evalResult, bool)
 
-                    # DECISION MAKING EXTENSION: you can expose the strategies used in this code for continuation and prioritization
-                    nextNodeOnFalseBranch: BaseSymGraphNode = currPath.getNextNodeOnBranchResult('False')
-                    nextNodeOnTrueBranch: BaseSymGraphNode = currPath.getNextNodeOnBranchResult('True')
-
-                    if isTrueSolvable and isFalseSolvable:
-                        # Both are solvable ! Decide which to follow, which to add to the queue for later
-                        # For the one in the queue, decide its priority also
-                        newPath = copy.deepcopy(currPath)
-
-                        # Default: continue on true
+                        # Add the expression to the current path (true means that the branch will be taken if condition is valid)
                         currPath.addNewBranchLevel(newConditionInZ3=symbolicExpressionForNode_true_inZ3,
-                                                   executeNewConditionToo=True)
+                                                   executeNewConditionToo=False, concolicEval=evalResult)
 
-                        # FALSE branch
-                        # Clone and add the false branch condition to the queue
+                        currPath.advance(str(evalResult))
 
-                        newPath.addNewBranchLevel(symbolicExpressionForNode_false_inZ3,
-                                                  executeNewConditionToo=False)
-                        newPath.setStartingNodeId(nextNodeOnFalseBranch.id, isQueuedPathNode=True)
-                        worklist.addPath(newPath)
+
+                    # In a symbolic strategy, we split the path at this point in to SMT paths, live.
                     else:
-                        if isTrueSolvable or isFalseSolvable:
-                            if isTrueSolvable:
-                                # Only the true branch is solvable
-                                # DECISION MAKING EXTENSION: there is alwasy the option to put this in the worklist and take another one from the worklist (BFS , IDFS ?)
-                                currPath.addNewBranchLevel(symbolicExpressionForNode_true_inZ3,
-                                                           executeNewConditionToo=True)
-                                currPath.setStartingNodeId(nextNodeOnTrueBranch.id, isQueuedPathNode=False)
+                        # Now check which of them are solvable
+                        isTrueSolvable = currPath.isNewConditionSolvable(symbolicExpressionForNode_true_inZ3)
+                        isTrueSolvable = isTrueSolvable != None and isTrueSolvable != z3.unsat
+                        isFalseSolvable = currPath.isNewConditionSolvable(symbolicExpressionForNode_false_inZ3)
+                        isFalseSolvable = isFalseSolvable != None and isFalseSolvable != z3.unsat
 
-                                # DECISION MAKING EXTENSION:  this is needed only on a DFS pure strategy !
-                                currPath.advance('True')
+                        # DECISION MAKING EXTENSION: you can expose the strategies used in this code for continuation and prioritization
+                        nextNodeOnFalseBranch: BaseSymGraphNode = currPath.getNextNodeOnBranchResult('False')
+                        nextNodeOnTrueBranch: BaseSymGraphNode = currPath.getNextNodeOnBranchResult('True')
 
-                            elif isFalseSolvable:
-                                # Only the false branch is solvable
-                                # DECISION MAKING EXTENSION: there is alwasy the option to put this in the worklist and take another one from the worklist (BFS , IDFS ?)
-                                currPath.addNewBranchLevel(symbolicExpressionForNode_false_inZ3,
-                                                           executeNewConditionToo=True)
+                        if isTrueSolvable and isFalseSolvable:
+                            # Both are solvable ! Decide which to follow, which to add to the queue for later
+                            # For the one in the queue, decide its priority also
+                            newPath = copy.deepcopy(currPath)
 
-                                currPath.setStartingNodeId(nextNodeOnFalseBranch.id, isQueuedPathNode=False)
+                            # Default: continue on true
+                            currPath.addNewBranchLevel(newConditionInZ3=symbolicExpressionForNode_true_inZ3,
+                                                       executeNewConditionToo=True)
 
-                                # DECISION MAKING EXTENSION:  this is needed only on a DFS pure strategy !
-                                currPath.advance('False')
+                            # FALSE branch
+                            # Clone and add the false branch condition to the queue
+
+                            newPath.addNewBranchLevel(symbolicExpressionForNode_false_inZ3,
+                                                      executeNewConditionToo=False)
+                            newPath.setStartingNodeId(nextNodeOnFalseBranch.id, isQueuedPathNode=True)
+                            worklist.addPath(newPath)
                         else:
-                            # No branch is solvable
-                            currPath.forceFinish(withFail=True)
+                            if isTrueSolvable or isFalseSolvable:
+                                if isTrueSolvable:
+                                    # Only the true branch is solvable
+                                    # DECISION MAKING EXTENSION: there is alwasy the option to put this in the worklist and take another one from the worklist (BFS , IDFS ?)
+                                    currPath.addNewBranchLevel(symbolicExpressionForNode_true_inZ3,
+                                                               executeNewConditionToo=True)
+                                    currPath.setStartingNodeId(nextNodeOnTrueBranch.id, isQueuedPathNode=False)
+
+                                    # DECISION MAKING EXTENSION:  this is needed only on a DFS pure strategy !
+                                    currPath.advance('True')
+
+                                elif isFalseSolvable:
+                                    # Only the false branch is solvable
+                                    # DECISION MAKING EXTENSION: there is alwasy the option to put this in the worklist and take another one from the worklist (BFS , IDFS ?)
+                                    currPath.addNewBranchLevel(symbolicExpressionForNode_false_inZ3,
+                                                               executeNewConditionToo=True)
+
+                                    currPath.setStartingNodeId(nextNodeOnFalseBranch.id, isQueuedPathNode=False)
+
+                                    # DECISION MAKING EXTENSION:  this is needed only on a DFS pure strategy !
+                                    currPath.advance('False')
+                            else:
+                                # No branch is solvable
+                                currPath.forceFinish(withFail=True)
 
         if not currPath.failed:
             modelResult = currPath.getSolvedModel()
@@ -294,7 +313,7 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
             currPath.debugNumPathsSolvableFound += 1
 
     # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file
-    def solve(self, outputCsvFile=None, debugLogging=False):
+    def solve(self, outputCsvFile=None, debugLogging=False, otherArgs=None):
         # Setup the output files stuff
         self.init_outputStream(outputCsvFile, debugLogging)
         self.outputCsvFile = outputCsvFile
@@ -328,4 +347,3 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
 
             # Execute the path continuation in a new context setup (possibly new process)
             self.continuePathExecution(currPath, statesQueue)
-

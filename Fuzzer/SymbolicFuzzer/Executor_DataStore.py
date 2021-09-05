@@ -15,15 +15,16 @@ class DataStore:
         assert varName in self.Values
         self.Values[varName] = value
 
+    def getDefaultValueForVar(self, varName):
+        defaultExpr = self.DefaultValueExpr.get(varName, None)
+        defaultValue = ASTFuzzerNode_VariableDecl.getDefaultValueFromExpression(varTypeName=self.Types[varName],
+                                                                                        defaultExpression=
+                                                                                        self.DefaultValueExpr[varName])
+        return defaultValue
 
     def resetToDefaultValues(self):
         for varName in self.DefaultValueExpr:
-            defaultExpr = self.DefaultValueExpr[varName]
-            if defaultExpr is None or defaultExpr == "":
-                continue
-
-            self.Values[varName] = ASTFuzzerNode_VariableDecl.getDefaultValueFromExpression(varTypeName=self.Types[varName],
-                                                                                            defaultExpression=self.DefaultValueExpr[varName])
+            self.Values[varName] = self.getDefaultValueForVar(varName)
 
     # ADds a variabile
     def addVariable(self, varDecl : ASTFuzzerNode_VariableDecl):
@@ -60,6 +61,12 @@ class DataStore:
         res = self.getSymbolicVariableValue(varName)
         return res is not None
 
+    def getUserInputVariables(self) -> List[str]:
+        res : List[str] = []
+        for varName, varAnnotation in self.Annotations.items():
+            if varAnnotation.isFromUserInput:
+                res.append(varName)
+        return res
 
     # Gets the SMT conditions based on variables annotations
     def getVariablesSMTConditions(self) -> List[any]:
