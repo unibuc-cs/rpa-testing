@@ -120,7 +120,6 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
 
         return res
 
-
     # Will put the variabile in the datastore
     def __init__(self, varName : str, typeName : str, **kwargs):
         super().__init__(ASTFuzzerNodeType.VARIABLE_DECL)
@@ -210,7 +209,8 @@ class SMTPath:
                  dataStore,
                  start_nodeId,              # The starting node id to consider expanding the path
                  debugFullPathEnabled : bool, # If full path debugging is supported
-                 debugNodesHistoryExplored: List[str]): # The nodes considered as explored by the path already, when this is created (note could be new or from a BRANCHING effect !)
+                 debugNodesHistoryExplored: List[str],
+                 priority=None): # The nodes considered as explored by the path already, when this is created (note could be new or from a BRANCHING effect !)
 
         # The parent workflow graph that this path is working on
         self.parentWorkflowGraph = parentWorkflowGraph
@@ -226,7 +226,7 @@ class SMTPath:
         self.dataStore = dataStore
 
         # The priority of this path..
-        self.priority = None
+        self.priority = priority
 
         # Current SMT solver, could be none for paths that are not actually used yet
         self.currentSolver : Solver = None

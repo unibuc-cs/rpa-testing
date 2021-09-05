@@ -16,7 +16,7 @@ class WorkflowParser:
         self.workflowExpressionParser = workflowExpressionParser
 
     def parseVariable(self, workflowName : str, varName : str, varData, dataStoreTemplate : DataStore):
-        annotation = varData.get("Annotation", default={})
+        annotation = varData.get("Annotation")
 
         varType = varData["Type"]
         if annotation is not None and "Type" in annotation:

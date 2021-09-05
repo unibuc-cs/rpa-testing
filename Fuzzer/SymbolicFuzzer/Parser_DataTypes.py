@@ -29,7 +29,14 @@ Check the more complex examples below and in your manual
 
 import sys
 import pandas as pd
+from typing import Dict
 
+# Each entry is a dict from variable name to its value
+class ConcolicInputSeed():
+    DEFAULT_PRIORITY = 0
+    def __init__(self):
+        self.inputSeed : Dict[str, any] = {}
+        self.priority : int = 0
 
 def removeNamespacesFromName(nameToParse):
     splitByNamespaces = nameToParse.split(":")

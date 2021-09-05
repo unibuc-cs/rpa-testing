@@ -34,16 +34,6 @@ from SymbolicSolverStrategies_concolic import *
 # !!! this is a TODO task for Ciprian
 
 
-# Functionalities
-# ============
-# Init this object by giving the json config with the symbolic graph and variables
-# Then you can run the following public functions to get things out of it:
-# 0. debugGraph - show the content of the graph visually and in text format for debug purposes
-# 1. solveOfflineStaticGraph - no interaction nodes, this will be offline evaluated, the algorithm tries to find all feasible paths
-# and output them to a CSV
-# 2. solveOfflineDynamicSymbolic - pure symbolic, with interaction nodes that requires feedback from robot
-# 3. solveOnlineDynamicSymbolic - concolic, with interaction nodes that requires feedback from robot
-# ----------
 
 class SymbolicWorflowsTester:
     def __init__(self,
