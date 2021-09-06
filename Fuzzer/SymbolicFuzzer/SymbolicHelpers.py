@@ -75,6 +75,7 @@ class SymbolicExecutionHelpers:
 
                 indexSort = SymbolicExecutionHelpers.__fromStrSortToZ3Sort(indexSort)
                 valuesSort = SymbolicExecutionHelpers.__fromStrSortToZ3Sort(valuesSort)
+                res = z3.Array(varName, indexSort, valuesSort)
         elif typeName == "DataTable":
             raise NotImplementedError("Not supported yet but soon..")
         elif typeName == 'Function':

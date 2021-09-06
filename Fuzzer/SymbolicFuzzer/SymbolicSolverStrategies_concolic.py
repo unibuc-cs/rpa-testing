@@ -40,7 +40,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
         for index, row in inputSeedsDf.iterrows():
             inputSeedContent = {}
             for varName in userInputVariables:
-                inputSeedContent['varName'] = row['varName']
+                inputSeedContent[varName] = row[varName]
 
             inpSeed : ConcolicInputSeed = ConcolicInputSeed()
             inpSeed.inputSeed = inputSeedContent

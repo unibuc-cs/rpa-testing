@@ -127,7 +127,11 @@ class DataStore:
                         contextDataStore=self)
                     res.append(symbolicExpr_inZ3)
             elif varType == "Int32[]" or varType == "Int[]" or varType == "Float[]":
-                pass
+                # If the array is bounded, put the condition on each element
+                if varAnnotation.bounds:
+                    pass
+                else:
+                    pass
 
         if forceInputSeed is not None:
             raise NotImplementedError()
