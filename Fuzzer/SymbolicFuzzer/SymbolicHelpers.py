@@ -116,6 +116,9 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
         elif varTypeName == 'Boolean':
             res = False if (defaultExpression == None or defaultExpression == 'false' or defaultExpression == 'False'
                   or int(defaultExpression) == 0) else True
+        elif varTypeName == "Int32[]":
+            res = [] if defaultExpression is None else ast.literal_eval(defaultExpression)
+            assert isinstance(res, list), " The element given as default in this case must be a list !!!"
         else:
             raise NotImplementedError("Do it yourself !!")
 
@@ -131,6 +134,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
 
         # self.value represents the CURRENT concrete value, while self.symbolicValue represents the Z3 symbolic value associated with it
         self.symbolicValue = None
+        self.symbolicGenericIndexVar = None # If generic array theory used this will be not none and can be used to put generic conditions on array indices
         self.value = None
 
         # Fill the annotations
@@ -164,11 +168,17 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
 
             if self.annotation.isFromUserInput:
                 self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
+                if self.annotation.bounds is None:
+                    self.symbolicGenericIndexVar = z3.Int(varName)
+
         elif typeName == 'String[]':
             self.value = FuzzerArray.CreateArray('String', annotation=self.annotation, defaultValue=self.defaultValue)
 
             if self.annotation.isFromUserInput:
                 self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
+                if self.annotation.bounds is None:
+                    self.symbolicGenericIndexVar = z3.Int(varName)
+
         elif typeName == "List":
             assert self.annotation is None or self.annotation.isFromUserInput is False, \
                 "List type is not supported for symbolic execution since its element could be anything !!. So no annotation please that involves symbolic"

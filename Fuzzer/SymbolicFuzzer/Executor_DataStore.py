@@ -12,6 +12,10 @@ class DataStore:
         self.Annotations : Dict[str, any] = {}
         self.DefaultValueExpr : Dict[str, any] = {}
 
+    @staticmethod
+    def getIterNameForTheoryArray(nameOfArray):
+        return nameOfArray+"_iter"
+
     # Sets an existing variable value
     def setVariableValue(self, varName, value):
         assert varName in self.Values
@@ -21,7 +25,8 @@ class DataStore:
     # If one was specified in the workflow, that one is used, otherwise we initialize it by default of type (e.g. int is 0 , float is 0.0, False for boolean)
     def getDefaultValueForVar(self, varName : str):
         defaultExpr = self.DefaultValueExpr.get(varName, None)
-        defaultValue = ASTFuzzerNode_VariableDecl.getDefaultValueFromExpression(varTypeName = self.Types[varName],  defaultExpression = self.DefaultValueExpr[varName])
+        defaultValue = ASTFuzzerNode_VariableDecl.getDefaultValueFromExpression(varTypeName = self.Types[varName],
+                                                                                defaultExpression = self.DefaultValueExpr[varName])
         return defaultValue
 
     def getRandomValueForVar(self, varName: str):
@@ -30,8 +35,8 @@ class DataStore:
 
         # Get the annotation boundaries first if any
         varAnnotation : Tuple[VarAnnotation, None] = None
-        if varName in self.dataStoreTemplate.Annotations:
-            varAnnotation = self.dataStoreTemplate.Annotations.get(varName)
+        if varName in self.Annotations:
+            varAnnotation = self.Annotations.get(varName)
 
         res = None
         if varTypeName == "Int32":
@@ -48,6 +53,14 @@ class DataStore:
                 res = False
             else:
                 raise NotImplementedError("Do it yourself !!")
+        elif varTypeName == "Int32[]":
+            if varAnnotation.bounds is not None and (varAnnotation.min is not None or varAnnotation.max is not None):
+                # Generate a list withing bounds if any specified
+                min_boundary = varAnnotation.min if varAnnotation.min is not None else -sys.maxsize
+                max_boundary = varAnnotation.max if varAnnotation.max is not None else sys.maxsize
+                res = []
+                for i in range(int(varAnnotation.bounds)):
+                    res.append(random.randint(min_boundary, max_boundary))
 
         return res
 
@@ -63,6 +76,11 @@ class DataStore:
 
         if varDecl.annotation and varDecl.annotation.isFromUserInput:
             self.SymbolicValues[varDecl.varName] = varDecl.symbolicValue
+
+            # Add the array iterator variable if one was specified
+            if varDecl.symbolicGenericIndexVar is not None:
+                iterVarName = DataStore.getIterNameForTheoryArray(varDecl.varName)
+                self.SymbolicValues[iterVarName] = varDecl.symbolicGenericIndexVar
 
         self.Annotations[varDecl.varName] = varDecl.annotation
         self.DefaultValueExpr[varDecl.varName] = varDecl.defaultValue
@@ -127,11 +145,32 @@ class DataStore:
                         contextDataStore=self)
                     res.append(symbolicExpr_inZ3)
             elif varType == "Int32[]" or varType == "Int[]" or varType == "Float[]":
-                # If the array is bounded, put the condition on each element
-                if varAnnotation.bounds:
-                    pass
-                else:
-                    pass
+                # If we have at least one condition for the variables inside arrays
+                if (varAnnotation.min != None or varAnnotation.max != None):
+                    # If the array is bounded, put the condition on each element
+                    if varAnnotation.bounds:
+                        for i in range(varAnnotation.bounds):
+                            fullIndexVarInContextSpace = f"{varNameInContextSpace}[{i}]"
+
+                            if varAnnotation.min is not None:
+                                symbolicExpr = f"{fullIndexVarInContextSpace} >= {varAnnotation.min}"
+                                symbolicExpr_inZ3 = SymbolicExecutionHelpers.convertStringExpressionTOZ3(condToSolve=symbolicExpr,
+                                                                                                         contextDataStore=self)
+
+                                res.append(symbolicExpr_inZ3)
+                            if varAnnotation.max is not None:
+                                symbolicExpr = f"{fullIndexVarInContextSpace} <= {varAnnotation.max}"
+                                symbolicExpr_inZ3 = SymbolicExecutionHelpers.convertStringExpressionTOZ3(condToSolve=symbolicExpr,
+                                                                                                         contextDataStore=self)
+                                res.append(symbolicExpr_inZ3)
+
+                    # If not, put a generic condition on
+                    else:
+                        symbolicIteratorName = f"contextDataStore.SymbolicValues[\"{DataStore.getIterNameForTheoryArray(varName)}\"]"
+                        self.symbolicExpr = f"ForAll({symbolicIteratorName}, {varNameInContextSpace}[x] >= {varAnnotation.min}, {varNameInContextSpace}[x] <= {varAnnotation.max}))"
+                        symbolicExpr_inZ3 = SymbolicExecutionHelpers.convertStringExpressionTOZ3(condToSolve=symbolicExpr,
+                                                                             contextDataStore=self)
+                        res.append(symbolicExpr_inZ3)
 
         if forceInputSeed is not None:
             raise NotImplementedError()

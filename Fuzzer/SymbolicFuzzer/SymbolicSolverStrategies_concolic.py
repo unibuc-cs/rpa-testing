@@ -54,7 +54,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
             for varName in userInputVariables:
                 # Start with the default value, either specified or type default value
                 varValue = self.dataStoreTemplate.getDefaultValueForVar(varName)
-                assert varValue, "Default value can't be retrived !"
+                assert varValue is not None, "Default value can't be retrived !"
 
                 # Try to get a better value from annotation if they exist
                 varRandomValue = self.dataStoreTemplate.getRandomValueForVar(varName)
