@@ -1,5 +1,7 @@
 from typing import Dict
 from Parser_WorkflowExpressions import *
+import random
+from Parser_DataTypes import ConcolicInputSeed
 
 # Data store to handle variables management, either static, dynamic, symbolic, etc
 class DataStore:
@@ -15,12 +17,39 @@ class DataStore:
         assert varName in self.Values
         self.Values[varName] = value
 
-    def getDefaultValueForVar(self, varName):
+    # Gets the default value of a variable.
+    # If one was specified in the workflow, that one is used, otherwise we initialize it by default of type (e.g. int is 0 , float is 0.0, False for boolean)
+    def getDefaultValueForVar(self, varName : str):
         defaultExpr = self.DefaultValueExpr.get(varName, None)
-        defaultValue = ASTFuzzerNode_VariableDecl.getDefaultValueFromExpression(varTypeName=self.Types[varName],
-                                                                                        defaultExpression=
-                                                                                        self.DefaultValueExpr[varName])
+        defaultValue = ASTFuzzerNode_VariableDecl.getDefaultValueFromExpression(varTypeName = self.Types[varName],  defaultExpression = self.DefaultValueExpr[varName])
         return defaultValue
+
+    def getRandomValueForVar(self, varName: str):
+        assert (varName in self.Types), f"Unknown variable given"
+        varTypeName = self.Types[varName]
+
+        # Get the annotation boundaries first if any
+        varAnnotation : Tuple[VarAnnotation, None] = None
+        if varName in self.dataStoreTemplate.Annotations:
+            varAnnotation = self.dataStoreTemplate.Annotations.get(varName)
+
+        res = None
+        if varTypeName == "Int32":
+            if varAnnotation:
+                # Generate a random value according to ranges put
+                if varAnnotation.min is not None and varAnnotation.max is not None:
+                    res = random.randint(int(varAnnotation.min), int(varAnnotation.max))
+                elif varAnnotation.min is not None:
+                    res = random.randint(int(varAnnotation.min), sys.maxsize)
+                elif varAnnotation.max is not None:
+                    res = random.randint(-sys.maxsize, int(varAnnotation.max))
+            elif varTypeName == 'Boolean':
+                # You can either put a default value or nothing here...
+                res = False
+            else:
+                raise NotImplementedError("Do it yourself !!")
+
+        return res
 
     def resetToDefaultValues(self):
         for varName in self.DefaultValueExpr:
@@ -69,14 +98,13 @@ class DataStore:
         return res
 
     # Gets the SMT conditions based on variables annotations
-    def getVariablesSMTConditions(self) -> List[any]:
+    def getVariablesSMTConditions(self, forceInputSeed : ConcolicInputSeed = None) -> List[any]:
         res : List[any] = []
 
         # Iterate over all symbolic values and take each one annotation conditions
         for varName, varZ3Ref in self.SymbolicValues.items():
             if varZ3Ref == None:
                 continue
-
 
             varType : str = self.Types[varName]
             varAnnotation : VarAnnotation = self.Annotations[varName]
@@ -99,7 +127,14 @@ class DataStore:
                         contextDataStore=self)
                     res.append(symbolicExpr_inZ3)
             elif varType == "Int32[]" or varType == "Int[]" or varType == "Float[]":
-                pass
+                # If the array is bounded, put the condition on each element
+                if varAnnotation.bounds:
+                    pass
+                else:
+                    pass
+
+        if forceInputSeed is not None:
+            raise NotImplementedError()
 
         return res
 
