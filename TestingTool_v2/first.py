@@ -20,15 +20,16 @@ subprocess.call([exe_path,"/z3ReducedGraph",xaml_path])
 os.chdir("../../")
 
 #path to json
-json_path = "Applications/C#Models/SimpleBankLoanCSharp/outputXamlParser.json"
+json_path = "../../../Applications/C#Models/SimpleBankLoanCSharp/outputXamlParser.json"
 
 
-fuzzer_path = "Applications/Fuzzer/SymbolicFuzzer/Main.py"
+fuzzer_path = "Main.py"
 
+graph_path = "../../C#Models/SimpleBankLoanCSharp/debugGraph.png"
 
-graph_path = "debugGraph.png"
+results_path = "../../C#Models/SimpleBankLoanCSharp/generatedTests.csv"
 
-results_path = "generatedTests.csv"
+os.chdir("Applications/Fuzzer/SymbolicFuzzer/")
 
 #call fuzzer
 os.system("python "+fuzzer_path+" -workflowsSpecInput "+ json_path+" -outputGraphFile "+graph_path+" -outputResultsFile "+results_path+" -loggingEnabled 1")

@@ -53,8 +53,9 @@ def unitTest3():
     astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(dataStore, externalFunctionsDict)
     ourMainWorkflowParser = WorkflowExpressionsParser()
 
+    path = "../../Fuzzer/SymbolicFuzzer/pin_mocked_data.csv"
     # Declare a variable
-    varDecl1 = ASTFuzzerNode_VariableDecl(varName="local_test_data", typeName='DataTable', lazyLoad=False, defaultPath="pin_mocked_data.csv")
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName="local_test_data", typeName='DataTable', lazyLoad=False, defaultPath=path)
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Call a simple print function registered externally
@@ -76,7 +77,7 @@ def unitTest4():
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Call a simple print function registered externally
-    code_block = "local_test_data = LoadCSV(\"pin_mocked_data.csv\")"
+    code_block = "local_test_data = LoadCSV(\"path\")"
     result: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block)
     astFuzzerNodeExecutor.executeNode(result)
 
