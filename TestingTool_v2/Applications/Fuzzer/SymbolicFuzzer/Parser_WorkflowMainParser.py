@@ -31,10 +31,11 @@ class WorkflowParser:
 
     def parseWorkflows(self, inputPath : str, baseOutPath : str, astFuzzerNodeExecutor : ASTFuzzerNodeExecutor) -> WorkflowGraph:
         workflowGraph : WorkflowGraph = WorkflowGraph(dataStore=self.astFuzzerNodeExecutor.DS, astFuzzerNodeExecutor=self.astFuzzerNodeExecutor)
-
+        print("baseOutPath:",baseOutPath)
+        print("inputPath:", inputPath)
         with open(inputPath) as json_file:
             dataAll = json.load(json_file)
-
+            print("DATA ALL:",dataAll)
             workflowsDataSpec = dataAll['workflows']
             graph = dataAll['graph']
             startNode = dataAll['startNode']
