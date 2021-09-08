@@ -101,6 +101,10 @@ class DataStore:
     def getVariableType(self, varName)-> str:
         return self.Types[varName]
 
+    # Tests if the given variable name is stored behind as a list
+    def isVariableOfTypeList(self, varName) -> bool:
+        return "[]" in self.Types[varName]
+
     def hasVariable(self, varName) -> bool:
         return varName in self.Values
 
@@ -114,6 +118,7 @@ class DataStore:
             if varAnnotation.isFromUserInput:
                 res.append(varName)
         return res
+
 
     # Gets the SMT conditions based on variables annotations
     def getVariablesSMTConditions(self, forceInputSeed : ConcolicInputSeed = None) -> List[any]:

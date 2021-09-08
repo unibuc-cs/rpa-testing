@@ -1,8 +1,10 @@
+import random
+
 from SymbolicSolverStrategies import *
 import pandas as pd
 from typing import Dict, List
 from Parser_DataTypes import ConcolicInputSeed
-
+import numpy as np
 # Ideas:
 """
 
@@ -26,7 +28,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
         # Read from the inputs seeds file
         userInputVariables : List[str] = self.dataStoreTemplate.getUserInputVariables()
 
-        inputSeedsDf = pd.read_csv(inputSeedsFile)
+        inputSeedsDf = pd.read_csv(inputSeedsFile).fillna('')
         list_of_column_names = list(inputSeedsDf.columns)
         assert PRIORITY_COLUMN_NAME in list_of_column_names, "priority column is missing from your seeds csv file !!"
         list_of_column_names.remove(PRIORITY_COLUMN_NAME)
@@ -37,14 +39,25 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
                 assert False, "not all input variables are defined by the inputs seeds file. Or too many ! THey must match "''
 
         outRes : List[Dict[str,str]] = []
+        prioritiesUsedInSeedFile = [ConcolicInputSeed.DEFAULT_PRIORITY] # The list of priorities to be used later
         for index, row in inputSeedsDf.iterrows():
             inputSeedContent = {}
             for varName in userInputVariables:
-                inputSeedContent[varName] = row[varName]
+                assert varName in row, "sanity check on top of above"
+                # Checking for nan values
+                if isinstance(row[varName], str) and row[varName].strip() == '':
+                    assert False, f"Variable {varName} is nan !!! Please fill in the value"
+
+                if self.dataStoreTemplate.isVariableOfTypeList(varName):
+                    inputSeedContent[varName] = ast.literal_eval(row[varName])
+                else:
+                    inputSeedContent[varName] = row[varName]
+
 
             inpSeed : ConcolicInputSeed = ConcolicInputSeed()
             inpSeed.inputSeed = inputSeedContent
-            inpSeed.priority = ConcolicInputSeed.DEFAULT_PRIORITY
+            inpSeed.priority = int(row[PRIORITY_COLUMN_NAME])
+            prioritiesUsedInSeedFile.append(inpSeed.priority)
             outRes.append(inpSeed)
             outRes.append(inputSeedContent)
 
@@ -62,11 +75,11 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
                     varValue = varRandomValue
 
                 assert varValue is not None, f"Couldn't create seed value for variable {varName}"
-                inputSeedContent[varName] = inputSeedsDf[PRIORITY_COLUMN_NAME]
+                inputSeedContent[varName] = varRandomValue
 
             inpSeed : ConcolicInputSeed = ConcolicInputSeed()
             inpSeed.inputSeed = inputSeedContent
-            inpSeed.priority = ConcolicInputSeed.DEFAULT_PRIORITY
+            inpSeed.priority = random.choice(prioritiesUsedInSeedFile) # Chose a priority among the one already used !
             outRes.append(inpSeed)
 
         return outRes
@@ -75,7 +88,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
         for inputSeed in allInputSeeds:
             # Create a datastore from template and put the input seed on it
             dataStoreInst = copy.deepcopy(self.dataStoreTemplate)
-            dataStoreInst.setInputSeed(dataStoreInst)
+            dataStoreInst.setInputSeed(inputSeed)
 
             # Create the initial set of conditions (boundaries, assumtpions initial) and force variables
             # set by by seed value
