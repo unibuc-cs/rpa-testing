@@ -2,9 +2,6 @@
   "workflows": [
     {
       "variables": {
-        "out_pin_check_successful": {
-          "Type": "Boolean"
-        },
         "local_number_retries": {
           "Type": "Int32",
           "Default": "0",
@@ -39,6 +36,9 @@
           "Annotation": {
             "path": "pin_real_data.csv"
           }
+        },
+        "out_pin_check_successful": {
+          "Type": "Boolean"
         }
       },
       "inputArguments": [],
@@ -49,12 +49,6 @@
     },
     {
       "variables": {
-        "loan": {
-          "Type": "Int32"
-        },
-        "term": {
-          "Type": "Int32"
-        },
         "loan_type": {
           "Type": "String"
         },
@@ -69,6 +63,18 @@
         },
         "pin_check_successful": {
           "Type": "Boolean"
+        },
+        "loan": {
+          "Type": "Int32",
+          "Annotation": {
+            "userInput": "True"
+          }
+        },
+        "term": {
+          "Type": "Int32",
+          "Annotation": {
+            "userInput": "True"
+          }
         }
       },
       "inputArguments": [

@@ -2,60 +2,6 @@
   "Packages": [
     {
       "Package": {
-        "Id": "UiPath.Excel.Activities",
-        "Version": "2.10.4"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\closedxml/0.87.1\\lib/net40/ClosedXML.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\csvhelper/16.0.0\\lib/net45/CsvHelper.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\documentformat.openxml/2.5.0\\lib/DocumentFormat.OpenXml.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.visualstudio.ole.interop/16.7.30328.74\\lib/net45/Microsoft.VisualStudio.OLE.Interop.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OOXML.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OpenXml4Net.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OpenXmlFormats.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\sharpziplib/1.2.0\\lib/net45/ICSharpCode.SharpZipLib.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.4\\lib/net461/UiPath.Excel.Activities.Design.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.4\\lib/net461/UiPath.Excel.Activities.Package.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.4\\lib/net461/UiPath.Excel.Activities.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.10.4\\lib/net461/UiPath.Excel.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.10.4"
-    },
-    {
-      "Package": {
-        "Id": "UiPath.Mail.Activities",
-        "Version": "1.10.5"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis/1.43.0\\lib/net45/Google.Apis.PlatformServices.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis/1.43.0\\lib/net45/Google.Apis.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.auth/1.43.0\\lib/net45/Google.Apis.Auth.PlatformServices.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.auth/1.43.0\\lib/net45/Google.Apis.Auth.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.calendar.v3/1.43.0.1872\\lib/net45/Google.Apis.Calendar.v3.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.core/1.43.0\\lib/net45/Google.Apis.Core.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.gmail.v1/1.43.0.1859\\lib/net45/Google.Apis.Gmail.v1.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.peopleservice.v1/1.43.0.1876\\lib/net45/Google.Apis.PeopleService.v1.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\mailkit/2.10.0\\lib/net46/MailKit.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.exchange.webservices/2.2.0\\lib/40/Microsoft.Exchange.WebServices.Auth.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.exchange.webservices/2.2.0\\lib/40/Microsoft.Exchange.WebServices.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.filesystemglobbing/5.0.0\\lib/net461/Microsoft.Extensions.FileSystemGlobbing.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.identity.client/4.14.0\\lib/net45/Microsoft.Identity.Client.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\mimekit/2.10.0\\lib/net46/MimeKit.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json/11.0.2\\lib/net45/Newtonsoft.Json.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\portable.bouncycastle/1.8.8\\lib/net40/BouncyCastle.Crypto.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\system.buffers/4.5.1\\lib/net461/System.Buffers.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.mail.activities/1.10.5\\lib/net461/UiPath.Mail.Activities.Design.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.mail.activities/1.10.5\\lib/net461/UiPath.Mail.Activities.Package.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.mail.activities/1.10.5\\lib/net461/UiPath.Mail.Activities.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.mail.activities/1.10.5\\lib/net461/UiPath.Mail.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.mail.activities\\1.10.5"
-    },
-    {
-      "Package": {
         "Id": "UiPath.System.Activities",
         "Version": "21.4.1"
       },
@@ -81,7 +27,7 @@
         "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.options/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Options.dll",
         "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.primitives/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Primitives.dll",
         "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.rest.clientruntime/2.3.21\\lib/net461/Microsoft.Rest.ClientRuntime.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json/11.0.2\\lib/net45/Newtonsoft.Json.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json/12.0.3\\lib/net45/Newtonsoft.Json.dll",
         "C:\\Users\\adelinas\\.nuget\\packages\\sharpziplib/1.2.0\\lib/net45/ICSharpCode.SharpZipLib.dll",
         "C:\\Users\\adelinas\\.nuget\\packages\\system.buffers/4.5.1\\lib/net461/System.Buffers.dll",
         "C:\\Users\\adelinas\\.nuget\\packages\\system.componentmodel.annotations/4.7.0\\lib/net461/System.ComponentModel.Annotations.dll",
@@ -107,11 +53,35 @@
     },
     {
       "Package": {
+        "Id": "UiPath.Testing.Activities",
+        "Version": "1.3.3"
+      },
+      "Assemblies": [
+        "C:\\Users\\adelinas\\.nuget\\packages\\automapper/9.0.0\\lib/net461/AutoMapper.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.rest.clientruntime/2.3.21\\lib/net461/Microsoft.Rest.ClientRuntime.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.xaml.behaviors.wpf/1.1.3\\lib/net45/Microsoft.Xaml.Behaviors.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json/12.0.3\\lib/net45/Newtonsoft.Json.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.io.abstractions/3.0.10\\lib/net40/System.IO.Abstractions.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.threading.tasks.dataflow/5.0.0\\lib/net461/System.Threading.Tasks.Dataflow.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.platform/21.4.0\\lib/net461/UiPath.Platform.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.telemetry.client/1.3.18\\lib/net461/TelemetryClient.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.testing.activities/1.3.3\\lib/net461/UiPath.Orchestrator.Client.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.testing.activities/1.3.3\\lib/net461/UiPath.Testing.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.testing.activities/1.3.3\\lib/net461/UiPath.Testing.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.testing.activities/1.3.3\\lib/net461/UiPath.Testing.RulesLibrary.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.testing.activities/1.3.3\\lib/net461/UiPath.Testing.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.testing.activities/1.3.3\\lib/net461/UiPath.Web.Client.dll"
+      ],
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.testing.activities\\1.3.3"
+    },
+    {
+      "Package": {
         "Id": "UiPath.UIAutomation.Activities",
         "Version": "21.4.4"
       },
       "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json/11.0.2\\lib/net45/Newtonsoft.Json.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json/12.0.3\\lib/net45/Newtonsoft.Json.dll",
         "C:\\Users\\adelinas\\.nuget\\packages\\system.io.abstractions/3.0.10\\lib/net40/System.IO.Abstractions.dll",
         "C:\\Users\\adelinas\\.nuget\\packages\\system.threading.tasks.dataflow/5.0.0\\lib/net461/System.Threading.Tasks.Dataflow.dll",
         "C:\\Users\\adelinas\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
@@ -144,6 +114,29 @@
     },
     {
       "Package": {
+        "Id": "UiPath.Excel.Activities",
+        "Version": "2.11.1-preview"
+      },
+      "Assemblies": [
+        "C:\\Users\\adelinas\\.nuget\\packages\\closedxml/0.87.1\\lib/net40/ClosedXML.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\csvhelper/16.0.0\\lib/net45/CsvHelper.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\documentformat.openxml/2.5.0\\lib/DocumentFormat.OpenXml.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.visualstudio.ole.interop/16.7.30328.74\\lib/net45/Microsoft.VisualStudio.OLE.Interop.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OOXML.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OpenXml4Net.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.OpenXmlFormats.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\npoi/2.4.1\\lib/net45/NPOI.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\sharpziplib/1.2.0\\lib/net45/ICSharpCode.SharpZipLib.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.11.1-preview\\lib/net461/UiPath.Excel.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.11.1-preview\\lib/net461/UiPath.Excel.Activities.Package.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.11.1-preview\\lib/net461/UiPath.Excel.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities/2.11.1-preview\\lib/net461/UiPath.Excel.dll"
+      ],
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.11.1-preview"
+    },
+    {
+      "Package": {
         "Id": "UiPath.Python.Activities",
         "Version": "1.4.1"
       },
@@ -157,6 +150,11 @@
   ],
   "Conflicts": [],
   "ResolvedDependencies": {
+    "AutoMapper": {
+      "Id": "AutoMapper",
+      "Version": "9.0.0",
+      "Dependencies": []
+    },
     "ClosedXML": {
       "Id": "ClosedXML",
       "Version": "0.87.1",
@@ -185,96 +183,6 @@
       "Id": "DocumentFormat.OpenXml",
       "Version": "2.5.0",
       "Dependencies": []
-    },
-    "Google.Apis": {
-      "Id": "Google.Apis",
-      "Version": "1.43.0",
-      "Dependencies": [
-        {
-          "Item1": "Google.Apis.Core",
-          "Item2": "[1.43.0, )"
-        },
-        {
-          "Item1": "Newtonsoft.Json",
-          "Item2": "[10.0.2, )"
-        }
-      ]
-    },
-    "Google.Apis.Auth": {
-      "Id": "Google.Apis.Auth",
-      "Version": "1.43.0",
-      "Dependencies": [
-        {
-          "Item1": "Google.Apis.Core",
-          "Item2": "[1.43.0, )"
-        },
-        {
-          "Item1": "Google.Apis",
-          "Item2": "[1.43.0, )"
-        }
-      ]
-    },
-    "Google.Apis.Calendar.v3": {
-      "Id": "Google.Apis.Calendar.v3",
-      "Version": "1.43.0.1872",
-      "Dependencies": [
-        {
-          "Item1": "Google.Apis",
-          "Item2": "[1.43.0, )"
-        },
-        {
-          "Item1": "Google.Apis.Auth",
-          "Item2": "[1.43.0, )"
-        }
-      ]
-    },
-    "Google.Apis.Core": {
-      "Id": "Google.Apis.Core",
-      "Version": "1.43.0",
-      "Dependencies": [
-        {
-          "Item1": "Newtonsoft.Json",
-          "Item2": "[10.0.2, )"
-        }
-      ]
-    },
-    "Google.Apis.Gmail.v1": {
-      "Id": "Google.Apis.Gmail.v1",
-      "Version": "1.43.0.1859",
-      "Dependencies": [
-        {
-          "Item1": "Google.Apis",
-          "Item2": "[1.43.0, )"
-        },
-        {
-          "Item1": "Google.Apis.Auth",
-          "Item2": "[1.43.0, )"
-        }
-      ]
-    },
-    "Google.Apis.PeopleService.v1": {
-      "Id": "Google.Apis.PeopleService.v1",
-      "Version": "1.43.0.1876",
-      "Dependencies": [
-        {
-          "Item1": "Google.Apis",
-          "Item2": "[1.43.0, )"
-        },
-        {
-          "Item1": "Google.Apis.Auth",
-          "Item2": "[1.43.0, )"
-        }
-      ]
-    },
-    "MailKit": {
-      "Id": "MailKit",
-      "Version": "2.10.0",
-      "Dependencies": [
-        {
-          "Item1": "MimeKit",
-          "Item2": "[2.10.0, )"
-        }
-      ]
     },
     "Microsoft.AspNet.SignalR.Client": {
       "Id": "Microsoft.AspNet.SignalR.Client",
@@ -437,11 +345,6 @@
       "Version": "4.5.0",
       "Dependencies": []
     },
-    "Microsoft.Exchange.WebServices": {
-      "Id": "Microsoft.Exchange.WebServices",
-      "Version": "2.2.0",
-      "Dependencies": []
-    },
     "Microsoft.Extensions.Configuration": {
       "Id": "Microsoft.Extensions.Configuration",
       "Version": "3.1.6",
@@ -489,11 +392,6 @@
     "Microsoft.Extensions.DependencyInjection.Abstractions": {
       "Id": "Microsoft.Extensions.DependencyInjection.Abstractions",
       "Version": "3.1.6",
-      "Dependencies": []
-    },
-    "Microsoft.Extensions.FileSystemGlobbing": {
-      "Id": "Microsoft.Extensions.FileSystemGlobbing",
-      "Version": "5.0.0",
       "Dependencies": []
     },
     "Microsoft.Extensions.Logging": {
@@ -555,11 +453,6 @@
         }
       ]
     },
-    "Microsoft.Identity.Client": {
-      "Id": "Microsoft.Identity.Client",
-      "Version": "4.14.0",
-      "Dependencies": []
-    },
     "Microsoft.Rest.ClientRuntime": {
       "Id": "Microsoft.Rest.ClientRuntime",
       "Version": "2.3.21",
@@ -575,27 +468,14 @@
       "Version": "16.7.30328.74",
       "Dependencies": []
     },
-    "MimeKit": {
-      "Id": "MimeKit",
-      "Version": "2.10.0",
-      "Dependencies": [
-        {
-          "Item1": "System.Data.DataSetExtensions",
-          "Item2": "[4.5.0, )"
-        },
-        {
-          "Item1": "System.Buffers",
-          "Item2": "[4.5.1, )"
-        },
-        {
-          "Item1": "Portable.BouncyCastle",
-          "Item2": "[1.8.8, )"
-        }
-      ]
+    "Microsoft.Xaml.Behaviors.Wpf": {
+      "Id": "Microsoft.Xaml.Behaviors.Wpf",
+      "Version": "1.1.3",
+      "Dependencies": []
     },
     "Newtonsoft.Json": {
       "Id": "Newtonsoft.Json",
-      "Version": "11.0.2",
+      "Version": "12.0.3",
       "Dependencies": []
     },
     "NPOI": {
@@ -607,11 +487,6 @@
           "Item2": "[1.0.0, )"
         }
       ]
-    },
-    "Portable.BouncyCastle": {
-      "Id": "Portable.BouncyCastle",
-      "Version": "1.8.8",
-      "Dependencies": []
     },
     "SharpZipLib": {
       "Id": "SharpZipLib",
@@ -626,11 +501,6 @@
     "System.ComponentModel.Annotations": {
       "Id": "System.ComponentModel.Annotations",
       "Version": "4.7.0",
-      "Dependencies": []
-    },
-    "System.Data.DataSetExtensions": {
-      "Id": "System.Data.DataSetExtensions",
-      "Version": "4.5.0",
       "Dependencies": []
     },
     "System.IO.Abstractions": {
@@ -774,7 +644,7 @@
     },
     "UiPath.Excel.Activities": {
       "Id": "UiPath.Excel.Activities",
-      "Version": "2.10.4",
+      "Version": "2.11.1-preview",
       "Dependencies": [
         {
           "Item1": "ClosedXML",
@@ -795,52 +665,6 @@
         {
           "Item1": "NPOI",
           "Item2": "[2.4.1, )"
-        },
-        {
-          "Item1": "SharpZipLib",
-          "Item2": "[1.0.0, )"
-        }
-      ]
-    },
-    "UiPath.Mail.Activities": {
-      "Id": "UiPath.Mail.Activities",
-      "Version": "1.10.5",
-      "Dependencies": [
-        {
-          "Item1": "Google.Apis.Calendar.v3",
-          "Item2": "[1.43.0.1872, )"
-        },
-        {
-          "Item1": "Google.Apis.Gmail.v1",
-          "Item2": "[1.43.0.1859, )"
-        },
-        {
-          "Item1": "Google.Apis.PeopleService.v1",
-          "Item2": "[1.43.0.1876, )"
-        },
-        {
-          "Item1": "MailKit",
-          "Item2": "[2.10.0, )"
-        },
-        {
-          "Item1": "Microsoft.Exchange.WebServices",
-          "Item2": "[2.2.0, )"
-        },
-        {
-          "Item1": "Microsoft.Extensions.FileSystemGlobbing",
-          "Item2": "[5.0.0, )"
-        },
-        {
-          "Item1": "Microsoft.Identity.Client",
-          "Item2": "[4.14.0, )"
-        },
-        {
-          "Item1": "Newtonsoft.Json",
-          "Item2": "[11.0.1, )"
-        },
-        {
-          "Item1": "System.ValueTuple",
-          "Item2": "[4.5.0, )"
         }
       ]
     },
@@ -938,6 +762,36 @@
         }
       ]
     },
+    "UiPath.Testing.Activities": {
+      "Id": "UiPath.Testing.Activities",
+      "Version": "1.3.3",
+      "Dependencies": [
+        {
+          "Item1": "AutoMapper",
+          "Item2": "[9.0.0, )"
+        },
+        {
+          "Item1": "Microsoft.Rest.ClientRuntime",
+          "Item2": "[2.3.21, )"
+        },
+        {
+          "Item1": "Microsoft.Xaml.Behaviors.Wpf",
+          "Item2": "[1.1.3, )"
+        },
+        {
+          "Item1": "Newtonsoft.Json",
+          "Item2": "[12.0.3, )"
+        },
+        {
+          "Item1": "UiPath.Platform",
+          "Item2": "[21.4.0, )"
+        },
+        {
+          "Item1": "UiPath.Telemetry.Client",
+          "Item2": "[1.3.18, )"
+        }
+      ]
+    },
     "UiPath.UIAutomation.Activities": {
       "Id": "UiPath.UIAutomation.Activities",
       "Version": "21.4.4",
@@ -990,6 +844,16 @@
   "AllPackages": [
     {
       "Package": {
+        "Id": "AutoMapper",
+        "Version": "9.0.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\adelinas\\.nuget\\packages\\automapper\\9.0.0\\lib\\net461\\AutoMapper.dll"
+      ],
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\automapper\\9.0.0"
+    },
+    {
+      "Package": {
         "Id": "ClosedXML",
         "Version": "0.87.1"
       },
@@ -1017,78 +881,6 @@
         "C:\\Users\\adelinas\\.nuget\\packages\\documentformat.openxml\\2.5.0\\lib\\DocumentFormat.OpenXml.dll"
       ],
       "Path": "C:\\Users\\adelinas\\.nuget\\packages\\documentformat.openxml\\2.5.0"
-    },
-    {
-      "Package": {
-        "Id": "Google.Apis",
-        "Version": "1.43.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis\\1.43.0\\lib\\net45\\Google.Apis.PlatformServices.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis\\1.43.0\\lib\\net45\\Google.Apis.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\google.apis\\1.43.0"
-    },
-    {
-      "Package": {
-        "Id": "Google.Apis.Auth",
-        "Version": "1.43.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.auth\\1.43.0\\lib\\net45\\Google.Apis.Auth.PlatformServices.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.auth\\1.43.0\\lib\\net45\\Google.Apis.Auth.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.auth\\1.43.0"
-    },
-    {
-      "Package": {
-        "Id": "Google.Apis.Calendar.v3",
-        "Version": "1.43.0.1872"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.calendar.v3\\1.43.0.1872\\lib\\net45\\Google.Apis.Calendar.v3.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.calendar.v3\\1.43.0.1872"
-    },
-    {
-      "Package": {
-        "Id": "Google.Apis.Core",
-        "Version": "1.43.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.core\\1.43.0\\lib\\net45\\Google.Apis.Core.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.core\\1.43.0"
-    },
-    {
-      "Package": {
-        "Id": "Google.Apis.Gmail.v1",
-        "Version": "1.43.0.1859"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.gmail.v1\\1.43.0.1859\\lib\\net45\\Google.Apis.Gmail.v1.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.gmail.v1\\1.43.0.1859"
-    },
-    {
-      "Package": {
-        "Id": "Google.Apis.PeopleService.v1",
-        "Version": "1.43.0.1876"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.peopleservice.v1\\1.43.0.1876\\lib\\net45\\Google.Apis.PeopleService.v1.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\google.apis.peopleservice.v1\\1.43.0.1876"
-    },
-    {
-      "Package": {
-        "Id": "MailKit",
-        "Version": "2.10.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\mailkit\\2.10.0\\lib\\net46\\MailKit.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\mailkit\\2.10.0"
     },
     {
       "Package": {
@@ -1202,17 +994,6 @@
     },
     {
       "Package": {
-        "Id": "Microsoft.Exchange.WebServices",
-        "Version": "2.2.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.exchange.webservices\\2.2.0\\lib\\40\\Microsoft.Exchange.WebServices.Auth.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.exchange.webservices\\2.2.0\\lib\\40\\Microsoft.Exchange.WebServices.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.exchange.webservices\\2.2.0"
-    },
-    {
-      "Package": {
         "Id": "Microsoft.Extensions.Configuration",
         "Version": "3.1.6"
       },
@@ -1263,16 +1044,6 @@
     },
     {
       "Package": {
-        "Id": "Microsoft.Extensions.FileSystemGlobbing",
-        "Version": "5.0.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\5.0.0\\lib\\net461\\Microsoft.Extensions.FileSystemGlobbing.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\5.0.0"
-    },
-    {
-      "Package": {
         "Id": "Microsoft.Extensions.Logging",
         "Version": "3.1.6"
       },
@@ -1313,16 +1084,6 @@
     },
     {
       "Package": {
-        "Id": "Microsoft.Identity.Client",
-        "Version": "4.14.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.identity.client\\4.14.0\\lib\\net45\\Microsoft.Identity.Client.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.identity.client\\4.14.0"
-    },
-    {
-      "Package": {
         "Id": "Microsoft.Rest.ClientRuntime",
         "Version": "2.3.21"
       },
@@ -1343,23 +1104,23 @@
     },
     {
       "Package": {
-        "Id": "MimeKit",
-        "Version": "2.10.0"
+        "Id": "Microsoft.Xaml.Behaviors.Wpf",
+        "Version": "1.1.3"
       },
       "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\mimekit\\2.10.0\\lib\\net46\\MimeKit.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.3\\lib\\net45\\Microsoft.Xaml.Behaviors.dll"
       ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\mimekit\\2.10.0"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.3"
     },
     {
       "Package": {
         "Id": "Newtonsoft.Json",
-        "Version": "11.0.2"
+        "Version": "12.0.3"
       },
       "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json\\11.0.2\\lib\\net45\\Newtonsoft.Json.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json\\12.0.3\\lib\\net45\\Newtonsoft.Json.dll"
       ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json\\11.0.2"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\newtonsoft.json\\12.0.3"
     },
     {
       "Package": {
@@ -1373,16 +1134,6 @@
         "C:\\Users\\adelinas\\.nuget\\packages\\npoi\\2.4.1\\lib\\net45\\NPOI.dll"
       ],
       "Path": "C:\\Users\\adelinas\\.nuget\\packages\\npoi\\2.4.1"
-    },
-    {
-      "Package": {
-        "Id": "Portable.BouncyCastle",
-        "Version": "1.8.8"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\portable.bouncycastle\\1.8.8\\lib\\net40\\BouncyCastle.Crypto.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\portable.bouncycastle\\1.8.8"
     },
     {
       "Package": {
@@ -1413,16 +1164,6 @@
         "C:\\Users\\adelinas\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\lib\\net461\\System.ComponentModel.Annotations.dll"
       ],
       "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0"
-    },
-    {
-      "Package": {
-        "Id": "System.Data.DataSetExtensions",
-        "Version": "4.5.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\lib\\net45\\_._"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\system.data.datasetextensions\\4.5.0"
     },
     {
       "Package": {
@@ -1557,28 +1298,15 @@
     {
       "Package": {
         "Id": "UiPath.Excel.Activities",
-        "Version": "2.10.4"
+        "Version": "2.11.1-preview"
       },
       "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.10.4\\lib\\net461\\UiPath.Excel.Activities.Design.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.10.4\\lib\\net461\\UiPath.Excel.Activities.Package.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.10.4\\lib\\net461\\UiPath.Excel.Activities.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.10.4\\lib\\net461\\UiPath.Excel.dll"
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.11.1-preview\\lib\\net461\\UiPath.Excel.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.11.1-preview\\lib\\net461\\UiPath.Excel.Activities.Package.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.11.1-preview\\lib\\net461\\UiPath.Excel.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.11.1-preview\\lib\\net461\\UiPath.Excel.dll"
       ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.10.4"
-    },
-    {
-      "Package": {
-        "Id": "UiPath.Mail.Activities",
-        "Version": "1.10.5"
-      },
-      "Assemblies": [
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.mail.activities\\1.10.5\\lib\\net461\\UiPath.Mail.Activities.Design.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.mail.activities\\1.10.5\\lib\\net461\\UiPath.Mail.Activities.Package.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.mail.activities\\1.10.5\\lib\\net461\\UiPath.Mail.Activities.dll",
-        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.mail.activities\\1.10.5\\lib\\net461\\UiPath.Mail.dll"
-      ],
-      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.mail.activities\\1.10.5"
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.excel.activities\\2.11.1-preview"
     },
     {
       "Package": {
@@ -1645,6 +1373,21 @@
         "C:\\Users\\adelinas\\.nuget\\packages\\uipath.telemetry.client\\1.3.18\\lib\\net461\\TelemetryClient.dll"
       ],
       "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.telemetry.client\\1.3.18"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.Testing.Activities",
+        "Version": "1.3.3"
+      },
+      "Assemblies": [
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.testing.activities\\1.3.3\\lib\\net461\\UiPath.Orchestrator.Client.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.testing.activities\\1.3.3\\lib\\net461\\UiPath.Testing.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.testing.activities\\1.3.3\\lib\\net461\\UiPath.Testing.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.testing.activities\\1.3.3\\lib\\net461\\UiPath.Testing.RulesLibrary.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.testing.activities\\1.3.3\\lib\\net461\\UiPath.Testing.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.testing.activities\\1.3.3\\lib\\net461\\UiPath.Web.Client.dll"
+      ],
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.testing.activities\\1.3.3"
     },
     {
       "Package": {

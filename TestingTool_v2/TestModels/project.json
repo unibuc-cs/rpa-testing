@@ -1,12 +1,12 @@
 {
-  "name": "Main",
-  "description": "Create Loan Process",
+  "name": "TestModels",
+  "description": "Test Automation Project",
   "main": "Main.xaml",
   "dependencies": {
-    "UiPath.Excel.Activities": "[2.10.4]",
-    "UiPath.Mail.Activities": "[1.10.5]",
+    "UiPath.Excel.Activities": "[2.11.1-preview]",
     "UiPath.Python.Activities": "[1.4.1]",
     "UiPath.System.Activities": "[21.4.1]",
+    "UiPath.Testing.Activities": "[1.3.3]",
     "UiPath.UIAutomation.Activities": "[21.4.4]"
   },
   "webServices": [],
@@ -29,7 +29,7 @@
   },
   "designOptions": {
     "projectProfile": "Developement",
-    "outputType": "Process",
+    "outputType": "Tests",
     "libraryOptions": {
       "includeOriginalXaml": false,
       "privateWorkflows": []
@@ -40,21 +40,13 @@
     "fileInfoCollection": [
       {
         "editingStatus": "InProgress",
-        "testCaseId": "d5540f11-050f-4858-8e3c-13c957d51f9a",
+        "testCaseId": "6d3ab8c0-86b6-4b10-96c5-6451d2b8f1ff",
         "fileName": "TestCase.xaml"
       }
     ],
     "modernBehavior": false
   },
   "expressionLanguage": "CSharp",
-  "entryPoints": [
-    {
-      "filePath": "Main.xaml",
-      "uniqueId": "fbd9e045-3907-456b-b048-39061095207b",
-      "input": [],
-      "output": []
-    }
-  ],
   "isTemplate": false,
   "templateProjectData": {},
   "publishData": {},
