@@ -50,10 +50,9 @@ namespace XMLParsing.Services.Serializers
             }
         }
 
-        private IDictionary<string, object> GetWorkflowDataVariables(WorkflowData workflowData)
+        private void AddWorkflowDataVariables(WorkflowData workflowData, IDictionary<string, object> variables)
         {
-            IDictionary<string, object> variables = GetWorkflowArguments(workflowData);
-
+            
             foreach (var variable in workflowData.Variables)
             {
                 IDictionary<string, object> variableData = new Dictionary<string, object>();
@@ -72,12 +71,10 @@ namespace XMLParsing.Services.Serializers
                 variables.Add(variable.Name, variableData);
             }
 
-            return variables;
         }
 
-        private IDictionary<string, object> GetWorkflowArguments(WorkflowData workflowData)
+        private void AddWorkflowDataArguments(WorkflowData workflowData, IDictionary<string, object> variables)
         {
-            IDictionary<string, object> arguments = new Dictionary<string, object>();
             foreach (var dynamicActivityProperty in workflowData.Arguments)
             {
                 var name = dynamicActivityProperty.Name;
@@ -94,10 +91,15 @@ namespace XMLParsing.Services.Serializers
                     argumentData.Add("Default", ExpressionUtils.TryParseExpression(dynamicActivityProperty.Value));
                 }
 
-                arguments.Add(name, argumentData);
+                var argumentAnnotation = TryGetVariableAnnotationFrom(name, workflowData.VariablesAnnotation);
+                if (argumentAnnotation != null)
+                {
+                    argumentData.Add("Annotation", argumentAnnotation);
+                }
+
+                variables.Add(name, argumentData);
 
             }
-            return arguments;
         }
 
         private string[] GetWorkflowInputArgumentsArray(WorkflowData workflowData)
@@ -118,7 +120,11 @@ namespace XMLParsing.Services.Serializers
         {
             IDictionary<string, object> workflowDataMap = new Dictionary<string, object>();
 
-            workflowDataMap.Add("variables", GetWorkflowDataVariables(workflowData));
+            IDictionary<string, object> variables = new Dictionary<string, object>();
+            AddWorkflowDataVariables(workflowData, variables);
+            AddWorkflowDataArguments(workflowData, variables);
+            workflowDataMap.Add("variables", variables);
+
             workflowDataMap.Add("inputArguments", GetWorkflowInputArgumentsArray(workflowData));
             workflowDataMap.Add("displayName", workflowData.DisplayName);
             workflowDataMap.Add("fullPath", workflowData.FullPath);
