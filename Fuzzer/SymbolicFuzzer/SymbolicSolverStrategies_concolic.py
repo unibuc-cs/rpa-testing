@@ -3,7 +3,7 @@ import random
 from SymbolicSolverStrategies import *
 import pandas as pd
 from typing import Dict, List
-from Parser_DataTypes import ConcolicInputSeed
+from Parser_DataTypes import InputSeed
 import numpy as np
 # Ideas:
 """
@@ -22,7 +22,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
 
     # Given an input seeds file and a number of seeds to generate randomly (according to certain specs) additionally,
     # returns a list of inputs considered as seeds
-    def getInputSeeds(self, inputSeedsFile : str, numSeedsToGenerate : int) -> List[ConcolicInputSeed]:
+    def getInputSeeds(self, inputSeedsFile : str, numSeedsToGenerate : int) -> List[InputSeed]:
         PRIORITY_COLUMN_NAME = 'priority'
 
         # Read from the inputs seeds file
@@ -39,7 +39,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
                 assert False, "not all input variables are defined by the inputs seeds file. Or too many ! THey must match "''
 
         outRes : List[Dict[str,str]] = []
-        prioritiesUsedInSeedFile = [ConcolicInputSeed.DEFAULT_PRIORITY] # The list of priorities to be used later
+        prioritiesUsedInSeedFile = [InputSeed.DEFAULT_PRIORITY] # The list of priorities to be used later
         for index, row in inputSeedsDf.iterrows():
             inputSeedContent = {}
             for varName in userInputVariables:
@@ -54,12 +54,11 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
                     inputSeedContent[varName] = row[varName]
 
 
-            inpSeed : ConcolicInputSeed = ConcolicInputSeed()
-            inpSeed.inputSeed = inputSeedContent
+            inpSeed : InputSeed = InputSeed()
+            inpSeed.content = inputSeedContent
             inpSeed.priority = int(row[PRIORITY_COLUMN_NAME])
             prioritiesUsedInSeedFile.append(inpSeed.priority)
             outRes.append(inpSeed)
-            outRes.append(inputSeedContent)
 
         # Generate random the number of requested seeds
         for indexRandomSeed in range(numSeedsToGenerate):
@@ -77,14 +76,14 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
                 assert varValue is not None, f"Couldn't create seed value for variable {varName}"
                 inputSeedContent[varName] = varRandomValue
 
-            inpSeed : ConcolicInputSeed = ConcolicInputSeed()
-            inpSeed.inputSeed = inputSeedContent
+            inpSeed : InputSeed = InputSeed()
+            inpSeed.content = inputSeedContent
             inpSeed.priority = random.choice(prioritiesUsedInSeedFile) # Chose a priority among the one already used !
             outRes.append(inpSeed)
 
         return outRes
 
-    def addInputSeedsToWorkList(self, allInputSeeds : List[ConcolicInputSeed], worklist : SMTWorklist):
+    def addInputSeedsToWorkList(self, allInputSeeds : List[InputSeed], worklist : SMTWorklist):
         for inputSeed in allInputSeeds:
             # Create a datastore from template and put the input seed on it
             dataStoreInst = copy.deepcopy(self.dataStoreTemplate)
@@ -92,7 +91,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
 
             # Create the initial set of conditions (boundaries, assumtpions initial) and force variables
             # set by by seed value
-            initialSMTConditions = self.dataStoreTemplate.getVariablesSMTConditions(forceInputSeed=inputSeed.input),
+            initialSMTConditions = self.dataStoreTemplate.getVariablesSMTConditions(forceInputSeed=inputSeed.content),
 
             # Create the SMT path
             newPathForNode = SMTPath(parentWorkflowGraph=self.workflowGraph,

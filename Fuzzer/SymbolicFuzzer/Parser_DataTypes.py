@@ -26,16 +26,16 @@ myVar.func2()
 
 Check the more complex examples below and in your manual
 """
-
+import copy
 import sys
 import pandas as pd
 from typing import Dict
 
 # Each entry is a dict from variable name to its value
-class ConcolicInputSeed():
+class InputSeed():
     DEFAULT_PRIORITY = 0
     def __init__(self):
-        self.inputSeed : Dict[str, any] = {}
+        self.content : Dict[str, any] = {}
         self.priority : int = 0
 
 def removeNamespacesFromName(nameToParse):
@@ -351,6 +351,9 @@ class FuzzerArray:
     def setVal(self, index, val):
         self.internalValue[index] = val
 
+    def setValAsList(self, listVal):
+        self.internalValue = copy.deepcopy(listVal)
+
     def getVal(self, index):
         return self.internalValue[index]
 
@@ -393,6 +396,9 @@ class FuzzerList:
 
     def setVal(self, index, val):
         self.internalValue[index] = val
+
+    def setValAsList(self, listVal):
+        self.internalValue = copy.deepcopy(listVal)
 
     def getVal(self, index):
         return self.internalValue[index]

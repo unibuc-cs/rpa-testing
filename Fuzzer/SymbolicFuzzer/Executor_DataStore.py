@@ -1,7 +1,7 @@
 from typing import Dict
 from Parser_WorkflowExpressions import *
 import random
-from Parser_DataTypes import ConcolicInputSeed
+from Parser_DataTypes import InputSeed
 
 # Data store to handle variables management, either static, dynamic, symbolic, etc
 class DataStore:
@@ -119,9 +119,21 @@ class DataStore:
                 res.append(varName)
         return res
 
+    def setInputSeed(self, inputSeed:InputSeed):
+        for varName, varValue in inputSeed.content.items():
+            contentToSet = inputSeed.content[varName]
+
+            # Check if receiving object is indeed a list / array behind
+            if isinstance(self.Values[varName], (FuzzerArray, FuzzerList)):
+                assert isinstance(contentToSet, List), "The expected content in this case is a list of items !"
+                self.Values[varName].setValAsList(contentToSet)
+            # Normal path...if this runs on exception => add a branch for your kind of type too
+            # Python doesn't support operator= overload, except for attributes inside the object
+            else:
+                self.Values[varName] = varValue
 
     # Gets the SMT conditions based on variables annotations
-    def getVariablesSMTConditions(self, forceInputSeed : ConcolicInputSeed = None) -> List[any]:
+    def getVariablesSMTConditions(self, forceInputSeed : InputSeed = None) -> List[any]:
         res : List[any] = []
 
         # Iterate over all symbolic values and take each one annotation conditions
@@ -177,8 +189,11 @@ class DataStore:
                                                                              contextDataStore=self)
                         res.append(symbolicExpr_inZ3)
 
+        # TODO Ciprian think about this well
         if forceInputSeed is not None:
-            raise NotImplementedError()
+            #raise NotImplementedError()
+            pass
+
 
         return res
 
