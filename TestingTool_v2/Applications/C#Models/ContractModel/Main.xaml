@@ -1,4 +1,13 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap:VirtualizedContainerService.HintSize="1368,940" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="Amount" Type="InArgument(x:Int32)" />
+  </x:Members>
+  <this:Main.Amount>
+    <InArgument x:TypeArguments="x:Int32" />
+  </this:Main.Amount>
+  <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
+  <sap:VirtualizedContainerService.HintSize>1368,940</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -68,12 +77,10 @@
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Flowchart sap2010:Annotation.AnnotationText="@Variables&#xA;{ &quot;Amount&quot;:{&quot;userInput&quot;:&quot;True&quot;}, &quot;LoanApproved&quot;:{&quot;userInput&quot;: &quot;True&quot;}, &quot;Message&quot;:{&quot;userInput&quot;:&quot;True&quot;}}" DisplayName="My Process" sap:VirtualizedContainerService.HintSize="1378.4,775.2" sap2010:WorkflowViewState.IdRef="Flowchart_1">
     <Flowchart.Variables>
-      <Variable x:TypeArguments="x:Int32" Name="Amount" />
       <Variable x:TypeArguments="x:Boolean" Name="LoanApproved" />
       <Variable x:TypeArguments="x:String" Name="Message" />
     </Flowchart.Variables>
@@ -368,13 +375,70 @@
                           <av:PointCollection x:Key="ConnectorLocation">550,280 390,280 390,386.4</av:PointCollection>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <Sequence DisplayName="Approve order" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                      <Sequence DisplayName="Approve order" sap:VirtualizedContainerService.HintSize="652,764" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="x:Int32" Name="check">
+                            <Variable.Default>
+                              <Literal x:TypeArguments="x:Int32" Value="1" />
+                            </Variable.Default>
+                          </Variable>
+                        </Sequence.Variables>
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <If sap:VirtualizedContainerService.HintSize="568.8,219.2" sap2010:WorkflowViewState.IdRef="If_2">
+                        <If sap:VirtualizedContainerService.HintSize="610.4,412" sap2010:WorkflowViewState.IdRef="If_3">
+                          <If.Condition>
+                            <InArgument x:TypeArguments="x:Boolean">
+                              <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_20">check &lt; 2</mca:CSharpValue>
+                            </InArgument>
+                          </If.Condition>
+                          <If.Then>
+                            <Sequence sap:VirtualizedContainerService.HintSize="304,252.8" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:Int32">
+                                    <mca:CSharpReference x:TypeArguments="x:Int32" sap2010:WorkflowViewState.IdRef="CSharpReference`1_6">check</mca:CSharpReference>
+                                  </OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:Int32">
+                                    <mca:CSharpValue x:TypeArguments="x:Int32" sap2010:WorkflowViewState.IdRef="CSharpValue`1_18">check+1</mca:CSharpValue>
+                                  </InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:String">
+                                    <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_7">Message</mca:CSharpReference>
+                                  </OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:String">Approved</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                            </Sequence>
+                          </If.Then>
+                          <If.Else>
+                            <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">
+                                  <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_8">Message</mca:CSharpReference>
+                                </OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">Not approved</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </If.Else>
+                        </If>
+                        <If sap:VirtualizedContainerService.HintSize="610.4,219.2" sap2010:WorkflowViewState.IdRef="If_2">
                           <If.Condition>
                             <InArgument x:TypeArguments="x:Boolean">
                               <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_17">Message.Contains("Approved")</mca:CSharpValue>

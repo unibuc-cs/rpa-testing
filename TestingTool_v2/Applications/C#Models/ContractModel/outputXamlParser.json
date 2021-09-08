@@ -2,12 +2,6 @@
   "workflows": [
     {
       "variables": {
-        "Amount": {
-          "Type": "Int32",
-          "Annotation": {
-            "userInput": "True"
-          }
-        },
         "LoanApproved": {
           "Type": "Boolean",
           "Annotation": {
@@ -35,9 +29,22 @@
         "Age": {
           "Type": "Int32",
           "Default": "0"
+        },
+        "check": {
+          "Type": "Int32",
+          "Default": "0"
+        },
+        "Amount": {
+          "Type": "Int32",
+          "Default": "",
+          "Annotation": {
+            "userInput": "True"
+          }
         }
       },
-      "inputArguments": [],
+      "inputArguments": [
+        "Amount"
+      ],
       "displayName": "Main_1",
       "fullPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v2\\Applications\\C#Models\\ContractModel\\Main.xaml",
       "invokedBy": "",
@@ -62,55 +69,95 @@
         },
         {
           "value": "False",
-          "destination": "Main_1:Virtual_Flowchart_End_25"
+          "destination": "Main_1:Virtual_Flowchart_End_31"
         }
       ]
     },
     "Main_1:If_16": {
-      "expression": "Message.Contains(\"Approved\")",
+      "expression": "check < 2",
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:Assign_18"
+          "destination": "Main_1:Assign_19"
         },
         {
           "value": "False",
-          "destination": "Main_1:Assign_19"
-        }
-      ]
-    },
-    "Main_1:Assign_18": {
-      "expression": "LoanApproved = True",
-      "transitions": [
-        {
-          "value": "True",
-          "destination": "Main_1:Order_approved_22"
+          "destination": "Main_1:Assign_21"
         }
       ]
     },
     "Main_1:Assign_19": {
+      "expression": "check = check+1",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_20"
+        }
+      ]
+    },
+    "Main_1:Assign_20": {
+      "expression": "Message = \"Approved\"",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:If_22"
+        }
+      ]
+    },
+    "Main_1:Assign_21": {
+      "expression": "Message = \"Not approved\"",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:If_22"
+        }
+      ]
+    },
+    "Main_1:If_22": {
+      "expression": "Message.Contains(\"Approved\")",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_24"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Assign_25"
+        }
+      ]
+    },
+    "Main_1:Assign_24": {
+      "expression": "LoanApproved = True",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Order_approved_28"
+        }
+      ]
+    },
+    "Main_1:Assign_25": {
       "expression": "LoanApproved = False",
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:Order_approved_22"
+          "destination": "Main_1:Order_approved_28"
         }
       ]
     },
-    "Main_1:Order_approved_22": {
+    "Main_1:Order_approved_28": {
       "expression": "LoanApproved",
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:Virtual_Flowchart_End_25"
+          "destination": "Main_1:Virtual_Flowchart_End_31"
         },
         {
           "value": "False",
-          "destination": "Main_1:Virtual_Flowchart_End_25"
+          "destination": "Main_1:Virtual_Flowchart_End_31"
         }
       ]
     },
-    "Main_1:Virtual_Flowchart_End_25": {
+    "Main_1:Virtual_Flowchart_End_31": {
       "transitions": []
     }
   },
