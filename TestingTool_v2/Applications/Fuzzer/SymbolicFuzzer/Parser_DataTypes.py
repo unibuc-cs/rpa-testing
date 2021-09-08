@@ -101,6 +101,9 @@ class String:
 	def ToLower(self):
 		return str(self.value).lower()
 
+	def Contains(self):
+		return True #de test
+
 
 
 #Dictionary mock string int

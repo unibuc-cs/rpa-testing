@@ -5020,9 +5020,9 @@
     "restore": {
       "projectUniqueName": "ContractModel",
       "projectName": "ContractModel",
-      "projectPath": "C:\\GithubPhD\\rpa-testing\\C#Models\\ContractModel\\.local",
+      "projectPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v2\\Applications\\C#Models\\ContractModel\\.local",
       "packagesPath": "C:\\Users\\adelinas\\.nuget\\packages\\",
-      "outputPath": "C:\\GithubPhD\\rpa-testing\\C#Models\\ContractModel\\.local"
+      "outputPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v2\\Applications\\C#Models\\ContractModel\\.local"
     },
     "frameworks": {
       "net461": {
