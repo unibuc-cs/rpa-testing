@@ -31,6 +31,9 @@ namespace XMLParsing.Services
 
             System.Windows.Media.PointCollection pc = new System.Windows.Media.PointCollection();
             Assembly.LoadFrom(pc.GetType().Assembly.Location);
+
+            OpenBrowser openBrowser = new OpenBrowser();
+            Assembly.LoadFrom(openBrowser.GetType().Assembly.Location);
         }
 
         public static WorkflowParser Instance

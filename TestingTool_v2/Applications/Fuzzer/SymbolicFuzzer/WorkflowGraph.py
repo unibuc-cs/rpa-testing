@@ -310,7 +310,7 @@ class WorkflowGraph:
                 for d in m.decls():
                     if debugLogging:
                         print(f"{d.name()}={m[d]}")
-
+                print(m)
 
                 # Get one output row for csv extract
                 # Hold a temporary list of arrays being filled
@@ -386,9 +386,10 @@ class WorkflowGraph:
         if debugLogging:
             fieldNamesList.append("GraphPath")
         set_fieldNamesList = set(fieldNamesList)
-
+        print("ASTA E CSV", outputCsvFile)
         csv_stream = None
         if outputCsvFile != None:
+            print("ASTA E CSV 22222222222222222222222", outputCsvFile)
             csv_file = open(outputCsvFile, mode='w')
             csv_stream = csv.DictWriter(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, fieldnames=fieldNamesList)
             csv_stream.writeheader()
@@ -400,7 +401,7 @@ class WorkflowGraph:
         # Get the start nodes list
         start_nodes = [nodeIdsToInstances[self.entryTestNodeId]]
 
-
+        print("ASTA E CSV 22222222222222222222222", outputCsvFile)
         # Do a DFS with queue from here
         for start_node in start_nodes:
             statesQueue = SMTWorklist()
