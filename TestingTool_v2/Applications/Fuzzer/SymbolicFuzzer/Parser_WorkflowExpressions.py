@@ -130,6 +130,8 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
             res = Dictionary()
         elif varTypeName == 'String':
             res = str(defaultExpression)
+        elif varTypeName == 'Dictionary`2':
+            res = Dictionary()
         else:
             raise NotImplementedError("Do it yourself !!")
 
@@ -215,6 +217,8 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
         elif typeName == "Float":
             raise NotImplementedError("Not yet")
         elif typeName == "Dictionary<string,int32>":
+            self.value = Dictionary()
+        elif typeName == "Dictionary`2":
             self.value = Dictionary()
         else:
             raise  NotImplementedError(f"Unknown decl type {typeName}")

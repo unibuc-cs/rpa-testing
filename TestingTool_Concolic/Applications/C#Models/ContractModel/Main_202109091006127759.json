@@ -1,0 +1,134 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "LoanApproved": {
+          "Type": "Boolean",
+          "Annotation": {
+            "userInput": "False"
+          }
+        },
+        "Message": {
+          "Type": "String",
+          "Annotation": {
+            "userInput": "False"
+          }
+        },
+        "Income": {
+          "Type": "Int32",
+          "Default": "0"
+        },
+        "Term": {
+          "Type": "String",
+          "Default": "10"
+        },
+        "Email": {
+          "Type": "String",
+          "Default": "test@test.com"
+        },
+        "Age": {
+          "Type": "Int32",
+          "Default": "0"
+        },
+        "check": {
+          "Type": "Int32",
+          "Default": "0"
+        },
+        "Amount": {
+          "Type": "Int32",
+          "Default": "",
+          "Annotation": {
+            "userInput": "True"
+          }
+        }
+      },
+      "inputArguments": [
+        "Amount"
+      ],
+      "displayName": "Main_1",
+      "fullPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_Concolic\\Applications\\C#Models\\ContractModel\\Main.xaml",
+      "invokedBy": "",
+      "startNode": "Main_1:Enter_Sales_data_into_app_1"
+    }
+  ],
+  "graph": {
+    "Main_1:Enter_Sales_data_into_app_1": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Order_amount_14"
+        }
+      ]
+    },
+    "Main_1:Order_amount_14": {
+      "expression": "Amount < 20000",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_16"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Virtual_Flowchart_End_26"
+        }
+      ]
+    },
+    "Main_1:Assign_16": {
+      "expression": "Message = \"Approved\"",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:If_17"
+        }
+      ]
+    },
+    "Main_1:If_17": {
+      "expression": "Message.Contains(\"Approved\")",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_19"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Assign_20"
+        }
+      ]
+    },
+    "Main_1:Assign_19": {
+      "expression": "LoanApproved = True",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Order_approved_23"
+        }
+      ]
+    },
+    "Main_1:Assign_20": {
+      "expression": "LoanApproved = False",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Order_approved_23"
+        }
+      ]
+    },
+    "Main_1:Order_approved_23": {
+      "expression": "LoanApproved",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Virtual_Flowchart_End_26"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Virtual_Flowchart_End_26"
+        }
+      ]
+    },
+    "Main_1:Virtual_Flowchart_End_26": {
+      "transitions": []
+    }
+  },
+  "startNode": "Main_1:Enter_Sales_data_into_app_1"
+}

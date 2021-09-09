@@ -1,0 +1,1 @@
+{"ProjectBreakpoints":"{\"Value\":{\"TestCase.xaml\":[{\"ConditionalExpression\":null,\"ActionExpression\":null,\"ExpectedHitCounter\":null,\"ShouldContinueAfterAction\":false,\"IsEnabled\":true,\"ActivityIdRef\":\"ReadCsvFile_1\",\"ActivityId\":\"1.24\",\"ActivityName\":\"Read CSV\"}]}}","ProjectWatches":"{\"Value\":[]}","OpenedDocuments":"[\"Main.xaml\",\"TestCase.xaml\"]"}

@@ -1,0 +1,352 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "local_number_retries": {
+          "Type": "Int32",
+          "Default": "0",
+          "Annotation": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "local_pin_test": {
+          "Type": "Boolean"
+        },
+        "expected_pin": {
+          "Type": "Int32"
+        },
+        "actual_pin_values": {
+          "Type": "Int32[]",
+          "Annotation": {
+            "bounds": 10,
+            "min": 0,
+            "max": 9999,
+            "userInput": "True"
+          }
+        },
+        "local_test_data_expected": {
+          "Type": "DataTable",
+          "Annotation": {
+            "path": "pin_mocked_data.csv"
+          }
+        },
+        "local_test_data_actual": {
+          "Type": "DataTable",
+          "Annotation": {
+            "path": "pin_real_data.csv"
+          }
+        },
+        "out_pin_check_successful": {
+          "Type": "Boolean"
+        }
+      },
+      "inputArguments": [],
+      "displayName": "Pin_1",
+      "fullPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_Concolic\\Applications\\C#Models\\SimpleBankLoanCSharp\\Pin.xaml",
+      "invokedBy": "Main_1",
+      "startNode": "Pin_1:Get_expected_pin_value_20"
+    },
+    {
+      "variables": {
+        "loan_type": {
+          "Type": "String"
+        },
+        "term_type": {
+          "Type": "String"
+        },
+        "obtained_result": {
+          "Type": "String",
+          "Annotation": {
+            "pattern": "[A-Z][a-Z]*"
+          }
+        },
+        "pin_check_successful": {
+          "Type": "Boolean"
+        },
+        "loan": {
+          "Type": "Int32",
+          "Annotation": {
+            "userInput": "True"
+          }
+        },
+        "term": {
+          "Type": "Int32",
+          "Annotation": {
+            "userInput": "True"
+          }
+        }
+      },
+      "inputArguments": [
+        "loan",
+        "term"
+      ],
+      "displayName": "Main_1",
+      "fullPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_Concolic\\Applications\\C#Models\\SimpleBankLoanCSharp\\Main.xaml",
+      "invokedBy": "",
+      "startNode": "Main_1:Node_loanTest0_1"
+    }
+  ],
+  "graph": {
+    "Main_1:Node_loanTest0_1": {
+      "expression": "loan < 1000",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_4"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Node_loanTest1_5"
+        }
+      ]
+    },
+    "Main_1:Assign_4": {
+      "expression": "loan_type = \"Low-Volume Loan\"",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:_Term_test0__12"
+        }
+      ]
+    },
+    "Main_1:Node_loanTest1_5": {
+      "expression": "loan >= 1000 && loan < 100000",
+      "Annotation": {
+        "expression": "loan >= 1000 and loan < 100000"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_8"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Assign_11"
+        }
+      ]
+    },
+    "Main_1:Assign_8": {
+      "expression": "loan_type = \"Mid-Volume Loan\"",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:_Term_test0__12"
+        }
+      ]
+    },
+    "Main_1:Assign_11": {
+      "expression": "loan_type = \"High-Volume Loan\"",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Invoke_Pin_Check_25"
+        }
+      ]
+    },
+    "Main_1:_Term_test0__12": {
+      "expression": "term < 5",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_15"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Assign_18"
+        }
+      ]
+    },
+    "Main_1:Assign_15": {
+      "expression": "term_type = \"Short-Term\"",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_21"
+        }
+      ]
+    },
+    "Main_1:Assign_18": {
+      "expression": "term_type = \"Long-Term\"",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_21"
+        }
+      ]
+    },
+    "Main_1:Assign_21": {
+      "expression": "obtained_result = loan_type + \" \" + term_type",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Virtual_Flowchart_End_26"
+        }
+      ]
+    },
+    "Main_1:CheckedPin_24": {
+      "expression": "pin_check_successful == true",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:_Term_test0__12"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Virtual_Flowchart_End_26"
+        }
+      ]
+    },
+    "Main_1:Invoke_Pin_Check_25": {
+      "invokedWorkflow": "Pin.xaml",
+      "invokedWorkflowDisplayName": "Pin_1",
+      "variableMappings": [
+        {
+          "destinationWfArg": "out_pin_check_successful",
+          "argumentType": "Out",
+          "sourceWfValue": "pin_check_successful"
+        }
+      ],
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Get_expected_pin_value_20"
+        }
+      ]
+    },
+    "Pin_1:Assign_3": {
+      "expression": "out_pin_check_successful = False",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Virtual_Flowchart_End_26"
+        }
+      ]
+    },
+    "Pin_1:CheckRetryTest_4": {
+      "expression": "local_number_retries < 3",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:If_14"
+        },
+        {
+          "value": "False",
+          "destination": "Pin_1:Assign_3"
+        }
+      ]
+    },
+    "Pin_1:Assign_7": {
+      "expression": "local_number_retries = local_number_retries + 1",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:CheckRetryTest_4"
+        }
+      ]
+    },
+    "Pin_1:Assign_10": {
+      "expression": "out_pin_check_successful = True",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Virtual_Flowchart_End_26"
+        }
+      ]
+    },
+    "Pin_1:pinTest0_11": {
+      "expression": "local_pin_test == true",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Assign_10"
+        },
+        {
+          "value": "False",
+          "destination": "Pin_1:Assign_7"
+        }
+      ]
+    },
+    "Pin_1:If_14": {
+      "expression": "actual_pin_values.ElementAt(local_number_retries) == expected_pin",
+      "Annotation": {
+        "expression": "actual_pin_values.GetElementAt(local_number_retries) == expected_pin"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Assign_16"
+        },
+        {
+          "value": "False",
+          "destination": "Pin_1:Assign_17"
+        }
+      ]
+    },
+    "Pin_1:Assign_16": {
+      "expression": "local_pin_test = True",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:pinTest0_11"
+        }
+      ]
+    },
+    "Pin_1:Assign_17": {
+      "expression": "local_pin_test = False",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:pinTest0_11"
+        }
+      ]
+    },
+    "Pin_1:Get_expected_pin_value_20": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Read_CSV_21"
+        }
+      ]
+    },
+    "Pin_1:Read_CSV_21": {
+      "expression": "local_test_data_expected = LoadCSV(\"pin_mocked_data.csv\")",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Set_expected_pin_22"
+        }
+      ]
+    },
+    "Pin_1:Set_expected_pin_22": {
+      "expression": "expected_pin = Int32.Parse(local_test_data_expected.Rows[0][\"Pin:expected_pin\"].ToString())",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:Read_CSV_24"
+        }
+      ]
+    },
+    "Pin_1:Read_CSV_24": {
+      "expression": "local_test_data_actual = LoadCSV(\"pin_real_data.csv\")",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Pin_1:If_14"
+        }
+      ]
+    },
+    "Pin_1:Virtual_Flowchart_End_26": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:CheckedPin_24"
+        }
+      ]
+    },
+    "Main_1:Virtual_Flowchart_End_26": {
+      "transitions": []
+    }
+  },
+  "startNode": "Main_1:Node_loanTest0_1"
+}

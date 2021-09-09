@@ -141,6 +141,18 @@
         "C:\\Users\\adelinas\\.nuget\\packages\\uipath.vision/3.0.1\\lib/net461/UiPath.Vision.dll"
       ],
       "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.uiautomation.activities\\21.4.4"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.Python.Activities",
+        "Version": "1.4.1"
+      },
+      "Assemblies": [
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.python.activities/1.4.1\\lib/net461/UiPath.Python.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.python.activities/1.4.1\\lib/net461/UiPath.Python.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.python.activities/1.4.1\\lib/net461/UiPath.Python.dll"
+      ],
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.python.activities\\1.4.1"
     }
   ],
   "Conflicts": [],
@@ -864,6 +876,11 @@
           "Item2": "[4.5.0, )"
         }
       ]
+    },
+    "UiPath.Python.Activities": {
+      "Id": "UiPath.Python.Activities",
+      "Version": "1.4.1",
+      "Dependencies": []
     },
     "UiPath.System.Activities": {
       "Id": "UiPath.System.Activities",
@@ -1594,6 +1611,18 @@
         "C:\\Users\\adelinas\\.nuget\\packages\\uipath.platform\\21.4.0\\lib\\net461\\UiPath.Platform.dll"
       ],
       "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.platform\\21.4.0"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.Python.Activities",
+        "Version": "1.4.1"
+      },
+      "Assemblies": [
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.python.activities\\1.4.1\\lib\\net461\\UiPath.Python.Activities.Design.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.python.activities\\1.4.1\\lib\\net461\\UiPath.Python.Activities.dll",
+        "C:\\Users\\adelinas\\.nuget\\packages\\uipath.python.activities\\1.4.1\\lib\\net461\\UiPath.Python.dll"
+      ],
+      "Path": "C:\\Users\\adelinas\\.nuget\\packages\\uipath.python.activities\\1.4.1"
     },
     {
       "Package": {

@@ -20,7 +20,7 @@ subprocess.call([exe_path,"/z3ReducedGraph",xaml_path])
 os.chdir("../../")
 
 #path to json
-json_path = "../../C#Models/SimpleBankLoanCSharp/Main_202109072243419799.json"
+json_path = "../../C#Models/SimpleBankLoanCSharp/outputXamlParser.json"
 print("Current Working Directory " , os.getcwd())
 print("JSON PATH",json_path)
 

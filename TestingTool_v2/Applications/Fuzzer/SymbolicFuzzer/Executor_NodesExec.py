@@ -310,6 +310,18 @@ class ASTFuzzerNodeExecutor:
             # Object in C# for exemple. Could be in the future, but doesn't make sense now for performance
             if funcName == "ToString": # add some other Object API functions too if needed
                 result = str(currObject)
+            elif funcName == "Contains":
+                if currObject not in funcAttrs:
+                    result = False
+                else:
+                    result = True
+            elif funcName == "Equals":
+                if currObject in funcAttrs:
+                    result = True
+                else:
+                    result = False
+
+
             else:
                 # Retrieve the function attribute and call it
                 funcToCallOnObject = getattr(currObject, funcName)

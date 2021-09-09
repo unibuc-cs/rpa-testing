@@ -37,10 +37,12 @@ class SymbolicExecutionHelpers:
             res =  z3.Int(varName)
         elif typeName == "String":
             res = z3.String(varName)
-            raise NotImplementedError("Pattern support is not yet implemented. DO IT DO NOW FORGET !")
+          #  raise NotImplementedError("Pattern support is not yet implemented. DO IT DO NOW FORGET !")
         elif typeName == "Float":
             res = z3.Real(varName)
         elif typeName == 'Bool':
+            res = z3.Bool(varName)
+        elif typeName == 'Boolean':
             res = z3.Bool(varName)
         elif typeName in ('Int32[]', 'Float[]', 'Bool[]'):
             res = None
