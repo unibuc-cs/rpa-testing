@@ -152,7 +152,8 @@ class WorkflowParser:
                     # Currently we support two transition on branching nodes, T and F.
                     # Later add support for switch, etc
                     # Technically, this limitation is only on parsing side, as you can see the graph instance support generic transitions !
-                    assert len(transitions) == 2
+                    if len(transitions) == 2:
+                        assert len(transitions) == 2
                     for trans in transitions:
                         assert "value" in trans and trans["value"] in ["True", "False"], "Sanity input check failed !"
                         trans_branchValue = trans["value"]
@@ -167,10 +168,11 @@ class WorkflowParser:
 
                 elif parentNodeInst.nodeType == NodeTypes.FLOW_NODE:
                     if len(transitions) > 0:
-                        assert len(transitions) == 1 and transitions[0]["value"] == "True", "This is the kind of input we expect for a flow transition node (not sink)"
-                        trans = transitions[0]
-                        trans_branchDest_nodeId = trans["destination"]
-                        trans_branchDest_nodeInst = nodeIdToInstance[trans_branchDest_nodeId]
+                        if len(transitions) == 1:
+                             assert len(transitions) == 1 and transitions[0]["value"] == "True", "This is the kind of input we expect for a flow transition node (not sink)"
+                             trans = transitions[0]
+                             trans_branchDest_nodeId = trans["destination"]
+                             trans_branchDest_nodeInst = nodeIdToInstance[trans_branchDest_nodeId]
 
                         # Add the edge into the graph instance
                         workflowGraph.graphInst.add_edge(parentNodeInst, trans_branchDest_nodeInst)

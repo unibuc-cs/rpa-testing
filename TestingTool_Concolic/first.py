@@ -34,4 +34,5 @@ results_path = "generatedTests.csv"
 os.chdir("Applications/Fuzzer/SymbolicFuzzer/")
 print("Current Working Directory " , os.getcwd())
 #call fuzzer
-os.system("python "+fuzzer_path+" -workflowsSpecInput "+ json_path+" -outputGraphFile "+graph_path+" -outputResultsFile "+results_path+" -loggingEnabled 1")
+os.system("python "+fuzzer_path+" -workflowsSpecInput "+ json_path+" -outputGraphFile "+graph_path+" -loggingEnabled 1"+" -outputResultsFile "+results_path+" -solverStrategy STRATEGY_DFS")
+
