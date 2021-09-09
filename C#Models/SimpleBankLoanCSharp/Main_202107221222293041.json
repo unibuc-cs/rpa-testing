@@ -23,7 +23,7 @@
           "Type": "Int32[]",
           "Annotation": {
             "bounds": 10,
-            "min": 0,
+            "min": 1111,
             "max": 9999,
             "userInput": "True"
           }
@@ -56,7 +56,7 @@
           "Type": "Int32",
           "Annotation": {
             "userInput": "True",
-            "min": 0,
+            "min": 1,
             "max": 35
           }
 
