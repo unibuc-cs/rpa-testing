@@ -36,8 +36,6 @@
           "Type": "Int32",
           "Default": "",
           "Annotation": {
-            "min": 10000,
-            "max": 23000,
             "userInput": "True"
           }
         }
@@ -56,86 +54,95 @@
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:Assign_7"
+          "destination": "Main_1:Assign_6"
         }
       ]
     },
-    "Main_1:Assign_7": {
+    "Main_1:Assign_6": {
+      "expression": "Amount = 1000",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_8"
+        }
+      ]
+    },
+    "Main_1:Assign_8": {
       "expression": "Term = \"5\"",
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:Order_amount_15"
+          "destination": "Main_1:Order_amount_16"
         }
       ]
     },
-    "Main_1:Order_amount_15": {
+    "Main_1:Order_amount_16": {
       "expression": "Amount < 20000",
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:Assign_17"
+          "destination": "Main_1:Assign_18"
         },
         {
           "value": "False",
-          "destination": "Main_1:Virtual_Flowchart_End_27"
+          "destination": "Main_1:Virtual_Flowchart_End_28"
         }
       ]
     },
-    "Main_1:Assign_17": {
+    "Main_1:Assign_18": {
       "expression": "Message = \"Approved\"",
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:If_18"
+          "destination": "Main_1:If_19"
         }
       ]
     },
-    "Main_1:If_18": {
+    "Main_1:If_19": {
       "expression": "Message.Contains(\"Approved\")",
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:Assign_20"
+          "destination": "Main_1:Assign_21"
         },
         {
           "value": "False",
-          "destination": "Main_1:Assign_21"
-        }
-      ]
-    },
-    "Main_1:Assign_20": {
-      "expression": "LoanApproved = True",
-      "transitions": [
-        {
-          "value": "True",
-          "destination": "Main_1:Order_approved_24"
+          "destination": "Main_1:Assign_22"
         }
       ]
     },
     "Main_1:Assign_21": {
+      "expression": "LoanApproved = True",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Order_approved_25"
+        }
+      ]
+    },
+    "Main_1:Assign_22": {
       "expression": "LoanApproved = False",
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:Order_approved_24"
+          "destination": "Main_1:Order_approved_25"
         }
       ]
     },
-    "Main_1:Order_approved_24": {
+    "Main_1:Order_approved_25": {
       "expression": "LoanApproved",
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:Virtual_Flowchart_End_27"
+          "destination": "Main_1:Virtual_Flowchart_End_28"
         },
         {
           "value": "False",
-          "destination": "Main_1:Virtual_Flowchart_End_27"
+          "destination": "Main_1:Virtual_Flowchart_End_28"
         }
       ]
     },
-    "Main_1:Virtual_Flowchart_End_27": {
+    "Main_1:Virtual_Flowchart_End_28": {
       "transitions": []
     }
   },

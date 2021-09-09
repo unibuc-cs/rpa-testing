@@ -36,8 +36,6 @@
           "Type": "Int32",
           "Default": "",
           "Annotation": {
-            "min": 10000,
-            "max": 23000,
             "userInput": "True"
           }
         }

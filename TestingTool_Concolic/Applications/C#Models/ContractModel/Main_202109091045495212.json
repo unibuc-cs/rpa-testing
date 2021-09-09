@@ -37,7 +37,7 @@
           "Default": "",
           "Annotation": {
             "min": 10000,
-            "max": 23000,
+            "max": 25000,
             "userInput": "True"
           }
         }

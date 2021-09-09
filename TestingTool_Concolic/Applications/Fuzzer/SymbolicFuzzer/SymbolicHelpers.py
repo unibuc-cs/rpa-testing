@@ -44,10 +44,12 @@ class SymbolicExecutionHelpers:
             res =  z3.Int(varName)
         elif typeName == "String":
             res = z3.String(varName)
-            raise NotImplementedError("Pattern support is not yet implemented. DO IT DO NOW FORGET !")
+            #raise NotImplementedError("Pattern support is not yet implemented. DO IT DO NOW FORGET !")
         elif typeName == "Float":
             res = z3.Real(varName)
         elif typeName == 'Bool':
+            res = z3.Bool(varName)
+        elif typeName == 'Boolean':
             res = z3.Bool(varName)
         elif typeName in ('Int32[]', 'Float[]', 'Bool[]'):
             res = None
@@ -111,7 +113,9 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
     def getDefaultValueFromExpression(varTypeName: str, defaultExpression: str) -> any:
         res = None
         if varTypeName == "Int32":
-            res = 0 if defaultExpression is None else int(defaultExpression)
+            if (defaultExpression is None or defaultExpression == ''):
+                res = 0
+            else: int(defaultExpression)
         elif varTypeName == 'Boolean':
             res = False if (defaultExpression == None or defaultExpression == 'false' or defaultExpression == 'False'
                   or int(defaultExpression) == 0) else True
@@ -149,7 +153,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
                 valSpec = annotationTag['userInput']
                 self.annotation.isFromUserInput = 1 if (valSpec == 'True' or valSpec == '1' or valSpec == 'true') else 0
                 if self.annotation.isFromUserInput == 1:
-                    assert self.defaultValue == None, "In the case of variables coming as inputs you can't put a default value !"
+                    assert (self.defaultValue == None or self.defaultValue == ''), "In the case of variables coming as inputs you can't put a default value !"
 
         # Build the variabile symbolic and default value depending on its type
         if typeName == "Int32":

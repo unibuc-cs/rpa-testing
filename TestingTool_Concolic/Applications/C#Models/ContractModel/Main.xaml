@@ -81,7 +81,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Flowchart sap2010:Annotation.AnnotationText="@Variables&#xA;{ &quot;Amount&quot;:{&quot;userInput&quot;:&quot;True&quot;}, &quot;LoanApproved&quot;:{&quot;userInput&quot;: &quot;True&quot;}, &quot;Message&quot;:{&quot;userInput&quot;:&quot;True&quot;}}" DisplayName="My Process" sap:VirtualizedContainerService.HintSize="1378.4,775.2" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+  <Flowchart sap2010:Annotation.AnnotationText="@Variables&#xA;{ &quot;Amount&quot;:{&quot;min&quot;:10000,&quot;max&quot;:23000,&quot;userInput&quot;:&quot;True&quot;}, &quot;LoanApproved&quot;:{&quot;userInput&quot;: &quot;False&quot;}, &quot;Message&quot;:{&quot;userInput&quot;:&quot;False&quot;}}" DisplayName="My Process" sap:VirtualizedContainerService.HintSize="1378.4,775.2" sap2010:WorkflowViewState.IdRef="Flowchart_1">
     <Flowchart.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="LoanApproved" />
       <Variable x:TypeArguments="x:String" Name="Message" />
@@ -111,8 +111,8 @@
       </sap:WorkflowViewStateService.ViewState>
       <Sequence DisplayName="Enter Sales data into app" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
         <Sequence.Variables>
-          <Variable x:TypeArguments="x:Int32" Default="10000" Name="Income" />
-          <Variable x:TypeArguments="x:String" Default="10" Name="Term" />
+          <Variable x:TypeArguments="x:Int32" Name="Income" />
+          <Variable x:TypeArguments="x:String" Name="Term" />
         </Sequence.Variables>
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -219,6 +219,16 @@
             </InArgument>
           </ui:TypeInto.Text>
         </ui:TypeInto>
+        <Assign sap:VirtualizedContainerService.HintSize="466.4,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">
+              <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_11">Term</mca:CSharpReference>
+            </OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">5</InArgument>
+          </Assign.Value>
+        </Assign>
         <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item Loan Term" sap:VirtualizedContainerService.HintSize="466.4,135.2" sap2010:WorkflowViewState.IdRef="SelectItem_1">
           <ui:SelectItem.Item>
             <InArgument x:TypeArguments="x:String">
@@ -377,7 +387,7 @@
                           <av:PointCollection x:Key="ConnectorLocation">550,280 390,280 390,386.4</av:PointCollection>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <Sequence DisplayName="Approve order" sap:VirtualizedContainerService.HintSize="610.4,412" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                      <Sequence DisplayName="Approve order" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_4">
                         <Sequence.Variables>
                           <Variable x:TypeArguments="x:Int32" Default="1" Name="check" />
                         </Sequence.Variables>
