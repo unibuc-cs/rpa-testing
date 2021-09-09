@@ -1,0 +1,85 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "data": {
+          "Type": "List`1",
+          "Annotation": {
+            "Type": "List"
+          }
+        },
+        "arr_data": {
+          "Type": "String[]"
+        },
+        "x": {
+          "Type": "String"
+        }
+      },
+      "inputArguments": [],
+      "displayName": "ForEach_1",
+      "fullPath": "C:\\UiPath\\rpa-testing\\Models\\SimpleBankLoanCSharp\\ForEach.xaml",
+      "invokedBy": "",
+      "startNode": "ForEach_1:ForEach_1"
+    }
+  ],
+  "graph": {
+    "ForEach_1:ForEach_1": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ForEach_1:Assign_2"
+        }
+      ]
+    },
+    "ForEach_1:Assign_2": {
+      "Annotation": {
+        "expression": "arr_data = [\"item1\", \"item2\", \"item3\", \"item4\"]"
+      },
+      "expression": "arr_data = new string[] {\"item1\", \"item2\", \"item3\", \"item4\"}",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ForEach_1:Assign_3"
+        }
+      ]
+    },
+    "ForEach_1:Assign_3": {
+      "Annotation": {
+        "expression": "data = arr_data"
+      },
+      "expression": "data = new List<string>(arr_data)",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ForEach_1:For_Each_4"
+        }
+      ]
+    },
+    "ForEach_1:For_Each_4": {
+      "expression": "for item in data",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ForEach_1:Assign_6"
+        },
+        {
+          "value": "False",
+          "destination": "ForEach_1:Virtual_ForEach_End_8"
+        }
+      ]
+    },
+    "ForEach_1:Assign_6": {
+      "expression": "x = \"abc\"",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ForEach_1:For_Each_4"
+        }
+      ]
+    },
+    "ForEach_1:Virtual_ForEach_End_8": {
+      "transitions": []
+    }
+  },
+  "startNode": "ForEach_1:ForEach_1"
+}
