@@ -33,13 +33,7 @@
           "Annotation": {
             "path": "pin_mocked_data.csv"
           }
-        },
-        "local_test_data_actual": {
-          "Type": "DataTable",
-          "Annotation": {
-            "path": "pin_real_data.csv"
-          }
-        }
+        }        
       },
       "inputArguments": [],
       "displayName": "Pin_1",
@@ -53,13 +47,17 @@
           "Type": "Int32",
 
           "Annotation": {
-            "userInput": "True"
+            "userInput": "True",
+            "min": 0,
+            "max": 1000000000
           }
         },
         "term": {
           "Type": "Int32",
           "Annotation": {
-            "userInput": "True"
+            "userInput": "True",
+            "min": 0,
+            "max": 35
           }
 
         },
@@ -322,15 +320,6 @@
     },
     "Pin_1:Set_expected_pin_22": {
       "expression": "expected_pin = Int32.Parse(local_test_data_expected.Rows[0][\"Pin:expected_pin\"].ToString())",
-      "transitions": [
-        {
-          "value": "True",
-          "destination": "Pin_1:Read_CSV_24"
-        }
-      ]
-    },
-    "Pin_1:Read_CSV_24": {
-      "expression": "local_test_data_actual = LoadCSV(\"pin_real_data.csv\")",
       "transitions": [
         {
           "value": "True",

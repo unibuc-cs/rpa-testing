@@ -31,7 +31,6 @@ class WorkflowParser:
 
     def parseWorkflows(self, dataStoreTemplate,
                        inputPath : str,
-                       baseOutPath : str,
                        astFuzzerNodeExecutor : ASTFuzzerNodeExecutor) -> WorkflowGraph:
 
         workflowGraph : WorkflowGraph = WorkflowGraph(dataStoreTemplate=dataStoreTemplate,

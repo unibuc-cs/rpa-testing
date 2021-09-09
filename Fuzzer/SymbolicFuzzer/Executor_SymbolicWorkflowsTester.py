@@ -37,20 +37,22 @@ from SymbolicSolverStrategies_concolic import *
 
 class SymbolicWorflowsTester:
     def __init__(self,
+                 baseModelPath : str,
                  testSpecFile : str,
                  strategyToUse : SymbolicSolversStrategiesTypes):
-        self.baseFolderModel = os.path.dirname(testSpecFile)
-
         # Create Workflow parser and all its dependencies
         self.dataStoreTemplate = DataStore() # This is the template of the data store that will be split/duplicated/reused by multiple execution branches
         self.externalFunctionsDict = DictionaryOfExternalCalls()
         self.astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(self.externalFunctionsDict)
         self.workflowExpressionParser = WorkflowExpressionsParser()
 
+        # Change working directory to the base model path
+        self.modelBasePath = baseModelPath
+        os.chdir(self.modelBasePath)
+
         # Parse the workflow spec input and create a workflow graph instance
         self.WP = WorkflowParser(self.astFuzzerNodeExecutor, self.workflowExpressionParser)
         self.workflowGraph : WorkflowGraph = self.WP.parseWorkflows(inputPath=testSpecFile,
-                                                                    baseOutPath=self.baseFolderModel,
                                                                     astFuzzerNodeExecutor=self.astFuzzerNodeExecutor,
                                                                     dataStoreTemplate=self.dataStoreTemplate)
         self.symbolicSolverStrategy = None
@@ -79,3 +81,4 @@ class SymbolicWorflowsTester:
     def doTests(self, outputResultsFile, loggingEnabled, otherArgs = None):
         assert self.symbolicSolverStrategy != None, "There is no symbolic strategy instantiated ! Check your options and doc!"
         self.symbolicSolverStrategy.solve(outputCsvFile=outputResultsFile, debugLogging=loggingEnabled, otherArgs=otherArgs)
+

@@ -10,7 +10,7 @@
     <option name="ADD_SOURCE_ROOTS" value="true" />
     <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
     <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Main.py" />
-    <option name="PARAMETERS" value="-workflowsSpecInput &quot;../../C#Models/SimpleBankLoanCSharp/Main_202108080942210529.json&quot; -outputGraphFile &quot;debugGraph.png&quot; -outputResultsFile &quot;generatedests.csv&quot; -loggingEnabled 1 -solverStrategy STRATEGY_DFS" />
+    <option name="PARAMETERS" value="-modelBasePath &quot;../../C#Models/SimpleBankLoanCSharp/&quot; -workflowsSpecInput &quot;Main_202108080942210529.json&quot; -outputGraphFile &quot;debugGraph.png&quot; -outputResultsFile &quot;generatedTests.csv&quot; -loggingEnabled 1 -solverStrategy STRATEGY_DFS" />
     <option name="SHOW_COMMAND_LINE" value="true" />
     <option name="EMULATE_TERMINAL" value="false" />
     <option name="MODULE_MODE" value="false" />

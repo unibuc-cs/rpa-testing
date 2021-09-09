@@ -275,6 +275,13 @@ class DataTable:
         assert self.existingIter is not None
         self.existingIter = None
 
+    def __str__(self):
+        if self.data is None:
+            return ""
+
+        #return self.data.to_string()
+        return str(self.data.values.tolist())
+
 class FuzzerArray_iterator:
     def __init__(self, parentArray):
         self.parentArray = parentArray
@@ -357,6 +364,10 @@ class FuzzerArray:
     def getVal(self, index):
         return self.internalValue[index]
 
+    # Returns a list with all content stored
+    def getAllContent(self):
+        return self.internalValue
+
     # Creates a persistent iterator on
     def getIterator(self) -> FuzzerArray_iterator:
         assert self.existingIter is None
@@ -371,6 +382,11 @@ class FuzzerArray:
     def clearIterator(self):
         assert self.existingIter is not None
         self.existingIter = None
+
+    def __str__(self):
+        if self.internalValue is None:
+            return ""
+        return str(self.internalValue)
 
 class FuzzerList:
     def __init__(self, annotation : VarAnnotation, defaultValue = None):
@@ -403,6 +419,10 @@ class FuzzerList:
     def getVal(self, index):
         return self.internalValue[index]
 
+    # Returns a list with all content stored
+    def getAllContent(self):
+        return self.internalValue
+
     # Creates a persistent iterator on
     def getIterator(self) -> FuzzerArray_iterator:
         assert self.existingIter is None
@@ -420,6 +440,11 @@ class FuzzerList:
 
     def Add(self, item):
         self.internalValue.append(item)
+
+    def __str__(self):
+        if self.internalValue is None:
+            return ""
+        return str(self.internalValue)
 
 """"
 if __name__ == "__main__":

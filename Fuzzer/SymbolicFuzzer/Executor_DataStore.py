@@ -48,11 +48,13 @@ class DataStore:
                     res = random.randint(int(varAnnotation.min), sys.maxsize)
                 elif varAnnotation.max is not None:
                     res = random.randint(-sys.maxsize, int(varAnnotation.max))
-            elif varTypeName == 'Boolean':
-                # You can either put a default value or nothing here...
-                res = False
+                else:
+                    res = random.randint(-sys.maxsize, sys.maxsize)
             else:
-                raise NotImplementedError("Do it yourself !!")
+                res = random.randint(-sys.maxsize, sys.maxsize)
+        elif varTypeName == 'Boolean':
+            # You can either put a default value or nothing here...
+            res = False
         elif varTypeName == "Int32[]":
             if varAnnotation.bounds is not None and (varAnnotation.min is not None or varAnnotation.max is not None):
                 # Generate a list withing bounds if any specified
@@ -61,7 +63,8 @@ class DataStore:
                 res = []
                 for i in range(int(varAnnotation.bounds)):
                     res.append(random.randint(min_boundary, max_boundary))
-
+        else:
+            raise NotImplementedError("Do it yourself !!")
         return res
 
     def resetToDefaultValues(self):
@@ -102,7 +105,7 @@ class DataStore:
         return self.Types[varName]
 
     # Tests if the given variable name is stored behind as a list
-    def isVariableOfTypeList(self, varName) -> bool:
+    def isVariableRepresentedAsList(self, varName) -> bool:
         return "[]" in self.Types[varName]
 
     def hasVariable(self, varName) -> bool:
@@ -194,9 +197,12 @@ class DataStore:
             #raise NotImplementedError()
             pass
 
-
         return res
 
+    # Print all the current values in the datastore
+    def printDebugValues(self):
+        for varName, varValue in self.Values.items():
+            print(f"{varName}={varValue}")
 
     def __copy__(self):
         # For now, just create a new type and move dictionaries...

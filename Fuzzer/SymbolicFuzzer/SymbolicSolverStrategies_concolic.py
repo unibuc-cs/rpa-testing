@@ -48,7 +48,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
                 if isinstance(row[varName], str) and row[varName].strip() == '':
                     assert False, f"Variable {varName} is nan !!! Please fill in the value"
 
-                if self.dataStoreTemplate.isVariableOfTypeList(varName):
+                if self.dataStoreTemplate.isVariableRepresentedAsList(varName):
                     inputSeedContent[varName] = ast.literal_eval(row[varName])
                 else:
                     inputSeedContent[varName] = row[varName]
@@ -74,7 +74,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
                     varValue = varRandomValue
 
                 assert varValue is not None, f"Couldn't create seed value for variable {varName}"
-                inputSeedContent[varName] = varRandomValue
+                inputSeedContent[varName] = varValue
 
             inpSeed : InputSeed = InputSeed()
             inpSeed.content = inputSeedContent
@@ -91,13 +91,13 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
 
             # Create the initial set of conditions (boundaries, assumtpions initial) and force variables
             # set by by seed value
-            initialSMTConditions = self.dataStoreTemplate.getVariablesSMTConditions(forceInputSeed=inputSeed.content),
+            initialSMTConditions = self.dataStoreTemplate.getVariablesSMTConditions(forceInputSeed=inputSeed.content)
 
             # Create the SMT path
             newPathForNode = SMTPath(parentWorkflowGraph=self.workflowGraph,
                                      initial_conditions_smt=initialSMTConditions,
                                      dataStore=dataStoreInst,
-                                     start_nodeId=self.workflowGraph.graphInst,
+                                     start_nodeId=self.workflowGraph.entryTestNodeId,
                                      debugFullPathEnabled=self.debugLogging,
                                      debugNodesHistoryExplored=[],
                                      priority=inputSeed.priority)
@@ -127,7 +127,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
             currPath = statesQueue.extractPath()
 
             # Execute the path continuation in a new context setup (possibly new process)
-            self.continuePathExecution(currPath, statesQueue)
+            self.continuePathExecution(currPath, statesQueue, concolicStrategy=True)
 
         print("Finished concolic !")
 
