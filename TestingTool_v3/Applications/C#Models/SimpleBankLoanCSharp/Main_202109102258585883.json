@@ -20,7 +20,7 @@
           "Type": "Int32[]",
           "Annotation": {
             "bounds": 10,
-            "min": 0,
+            "min": 1111,
             "max": 9999,
             "userInput": "True"
           }
@@ -43,7 +43,7 @@
       },
       "inputArguments": [],
       "displayName": "Pin_1",
-      "fullPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v2\\Applications\\C#Models\\SimpleBankLoanCSharp\\Pin.xaml",
+      "fullPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v3\\Applications\\C#Models\\SimpleBankLoanCSharp\\Pin.xaml",
       "invokedBy": "Main_1",
       "startNode": "Pin_1:Get_expected_pin_value_20"
     },
@@ -67,13 +67,17 @@
         "loan": {
           "Type": "Int32",
           "Annotation": {
-            "userInput": "True"
+            "userInput": "True",
+            "min": 0,
+            "max": 1000000000
           }
         },
         "term": {
           "Type": "Int32",
           "Annotation": {
-            "userInput": "True"
+            "userInput": "True",
+            "min": 1,
+            "max": 35
           }
         }
       },
@@ -82,7 +86,7 @@
         "term"
       ],
       "displayName": "Main_1",
-      "fullPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v2\\Applications\\C#Models\\SimpleBankLoanCSharp\\Main.xaml",
+      "fullPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v3\\Applications\\C#Models\\SimpleBankLoanCSharp\\Main.xaml",
       "invokedBy": "",
       "startNode": "Main_1:Node_loanTest0_1"
     }
