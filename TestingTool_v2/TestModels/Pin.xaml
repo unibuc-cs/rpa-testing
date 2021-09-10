@@ -360,7 +360,7 @@
               <av:PointCollection x:Key="ConnectorLocation">190,255.8 190,327</av:PointCollection>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Sequence DisplayName="Get actual pin values" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence DisplayName="Get actual pin values" sap:VirtualizedContainerService.HintSize="376,497.2" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <Sequence.Variables>
               <Variable x:TypeArguments="sd:DataTable" Name="local_test_data_actual" />
             </Sequence.Variables>
@@ -369,7 +369,7 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:ReadCsvFile Encoding="{x:Null}" sap2010:Annotation.AnnotationText="@This is an anotation&#xA;Actually a text label" Delimitator="Comma" DisplayName="Read CSV" FilePath="pin_real_data.csv" sap:VirtualizedContainerService.HintSize="334,194" sap2010:WorkflowViewState.IdRef="ReadCsvFile_2">
+            <ui:ReadCsvFile Encoding="{x:Null}" sap2010:Annotation.AnnotationText="@This is an anotation&#xA;Actually a text label" Delimitator="Comma" DisplayName="Read CSV" FilePath="pin_real_data.csv" sap:VirtualizedContainerService.HintSize="334,201.2" sap2010:WorkflowViewState.IdRef="ReadCsvFile_2">
               <ui:ReadCsvFile.DataTable>
                 <OutArgument x:TypeArguments="sd:DataTable">
                   <mca:CSharpReference x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpReference`1_3">local_test_data_actual</mca:CSharpReference>
@@ -381,7 +381,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </ui:ReadCsvFile>
-            <ui:InvokeCode ContinueOnError="{x:Null}" Code="var tempArr = local_test_data.Rows[0][&quot;Pin:actual_pin_values&quot;].ToString().Split(&quot;_&quot;.ElementAt(0));&#xA;List&lt;Int32&gt; intList = new List&lt;Int32&gt;();&#xA;foreach(var val in tempArr) {&#xA;&#x9;intList.Add(Int32.Parse(val));&#xA;}&#xA;actual_pin_values = intList.ToArray();" DisplayName="Set actual values" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
+            <ui:InvokeCode ContinueOnError="{x:Null}" Code="var tempArr = local_test_data.Rows[0][&quot;Pin:actual_pin_values&quot;].ToString().Split(&quot;;&quot;.ElementAt(0));&#xD;&#xA;List&lt;Int32&gt; intList = new List&lt;Int32&gt;();&#xD;&#xA;foreach(var val in tempArr) {&#xD;&#xA;&#x9;intList.Add(Int32.Parse(val));&#xD;&#xA;}&#xD;&#xA;actual_pin_values = intList.ToArray();" DisplayName="Set actual values" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
               <ui:InvokeCode.Arguments>
                 <InOutArgument x:TypeArguments="s:Int32[]" x:Key="actual_pin_values">
                   <mca:CSharpReference x:TypeArguments="s:Int32[]" sap2010:WorkflowViewState.IdRef="CSharpReference`1_4">actual_pin_values</mca:CSharpReference>
