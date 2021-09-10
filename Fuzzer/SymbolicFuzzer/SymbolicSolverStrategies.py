@@ -334,7 +334,11 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
                                 # No branch is solvable
                                 currPath.forceFinish(withFail=True)
 
-        if not currPath.failed:
+        # If we end here and the path was not forced to fail along run, consider it succesfull
+        if currPath.finishStatus != SMTPathState.PATH_FINISHED_FAIL:
+            currPath.finishStatus = SMTPathState.PATH_FINISHED_SUCCED
+
+        if currPath.finishStatus == SMTPathState.PATH_FINISHED_SUCCED:
             modelResult = currPath.getSolvedModel() if concolicStrategy is False else None
             self.streamOutModel(modelResult=modelResult,
                                 pathResult=currPath.debugNodesExplored,

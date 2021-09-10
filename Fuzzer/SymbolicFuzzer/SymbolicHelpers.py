@@ -8,6 +8,7 @@ from typing import List, Dict, Set, Tuple
 from Parser_ASTNodes import *
 from WorkflowGraphBaseNode import BaseSymGraphNode, SymGraphNodeFlow, SymGraphNodeBranch
 from SymbolicHelpers import *
+from enum import Enum
 import csv
 
 # TODO: interface / Z3 only ?
@@ -96,6 +97,7 @@ class SymbolicExecutionHelpers:
     @staticmethod
     def convertStringExpressionTOZ3(condToSolve, contextDataStore):
         cond = eval(condToSolve)
+        cond_str = str(cond)
         return cond
 
 
@@ -213,6 +215,12 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
         else:
             raise  NotImplementedError(f"Unknown decl type {typeName}")
 
+
+class SMTPathState(Enum):
+    PATH_NOT_FINISHED = 0
+    PATH_FINISHED_SUCCED = 1
+    PATH_FINISHED_FAIL = 2
+
 class SMTPath:
     def __init__(self,
                  parentWorkflowGraph,
@@ -231,7 +239,13 @@ class SMTPath:
 
         # Only valid for concolic exection, A dict from the index of the condition in self.conditions_smt to a boolean
         # value representing True if the branch was taken in the execution path or false otherwise.
+        # If a condition exists above but is not in this dictionary this means that it is not important for the process
+        # (e.g. think about a boundary condition that exists but is not actually linked to the model branches at all)
         self.concolicBranchTaken : Dict[int, bool] = {} # index from condition_smt to {True/False}
+
+        # What is the condition index before that we are not allowed to do any changes ?
+        # This serves as in the classical whitebox fuzzing method, SAGE from Microsoft, to avoid recursion in concolic execution
+        self.concolicBoundaryIndex : int = 0
 
         # The dataStore this object is iterating on
         self.dataStore = dataStore
@@ -251,8 +265,9 @@ class SMTPath:
         # This is the level of this path in the branching tree
         self.levelInBranchTree = 0
 
-        # Will be set to true if this branch is considered as failed
-        self.failed = False
+        # Will be set to true if this branch is considered as success, false otherwise, None if not terminated
+        # Should I use enum ? :)
+        self.finishStatus = SMTPathState.PATH_NOT_FINISHED
 
         # If enabled, it will store/output the entire path found.
         # Could be very costly especially for a long run !!
@@ -262,6 +277,8 @@ class SMTPath:
         self.debugNodesExplored : List[str] = []
 
         self.debugNumPathsSolvableFound = 0
+
+
 
 
     # Init the execution context
@@ -375,7 +392,7 @@ class SMTPath:
     # Normally this function is called when the path is not feasible anymore or it is feasibile or we want it to end (fill result in)
     def forceFinish(self, withFail : bool):
         self.currNode = None
-        self.failed = withFail
+        self.finishStatus = SMTPathState.PATH_FINISHED_FAIL if withFail is True else SMTPathState.PATH_FINISHED_SUCCED
 
     # Based on the current solver and set of conditions added to it, get the SMT model with all declarations
     # If not feasibile it returns None
