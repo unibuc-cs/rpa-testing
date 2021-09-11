@@ -107,7 +107,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
             # Add to the worklist
             worklist.addPath(newPathForNode)
 
-    def generateNewInputs(self, pathExecuted : SMTPath, statesQueue : SMTWorklist) -> List[SMTPath]:
+    def generateNewInputs(self, pathExecuted : SMTPath, workList : SMTWorklist):
         assert pathExecuted.finishStatus == SMTPathState.PATH_FINISHED_SUCCED, "Path given was not succesffully finish. Do not call this in this case"
 
         boundaryIndex : int = pathExecuted.concolicBoundaryIndex
@@ -120,11 +120,11 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
         iter_origCondition = 0
         iter_concolicCondition = boundaryIndex
 
-        newInputsBuilt : List[SMTPath] = []
+        newInputsBuilt : List[InputSeed] = []
 
-        while (iter_origCondition < numOriginalConditions) and (iter_concolicCondition < numConcolicConditions):
+        while (iter_origCondition < numOriginalConditions): #and (iter_concolicCondition < numConcolicConditions):
             # Store the next index of a concolic decision branch
-            next_concolicBranchIndexCondition = allConcolicDecisionIndices[iter_concolicCondition]
+            next_concolicBranchIndexCondition = allConcolicDecisionIndices[iter_concolicCondition] if iter_concolicCondition < numConcolicConditions else sys.maxsize
 
             # If we are behind, add the next base condition
             if iter_origCondition < next_concolicBranchIndexCondition:
@@ -147,16 +147,19 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
 
                 # If the model has a solution, then build the new input
                 if localSolver.check() != z3.unsat:
-                    # TODO: build a new SMTPath here
-                    #SMTPath()
+                    # TODO
                     # and add to newInputsBuilt
                     # score priority for the new input
-                    # add it to the worklist
+                    # We can compute the score here since we have the FULL GRAPH ! Very important since SAGE problem. We know which paths are rare, the depth in the tree, etc.
                     pass
+
+                iter_origCondition += 1
+                iter_concolicCondition += 1
             else:
                 assert False, "This case shouldn't happen. We always have to check if they are the same indices, put the right assertion in the model, and increase both iterators"
 
-        return newInputsBuilt
+        assert iter_concolicCondition == numConcolicConditions, "We didn't get to the end of the concolic conditions list !! Something is going on!"
+        self.addInputSeedsToWorkList(newInputsBuilt, worklist=workList)
 
     # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file
     def solve(self, outputCsvFile=None, debugLogging=False, otherArgs=None):
