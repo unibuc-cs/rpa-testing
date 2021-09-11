@@ -5439,9 +5439,9 @@
     "restore": {
       "projectUniqueName": "Main",
       "projectName": "Main",
-      "projectPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v2\\Applications\\C#Models\\SimpleBankLoanCSharp\\.local",
+      "projectPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v3\\Applications\\C#Models\\SimpleBankLoanCSharp\\.local",
       "packagesPath": "C:\\Users\\adelinas\\.nuget\\packages\\",
-      "outputPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v2\\Applications\\C#Models\\SimpleBankLoanCSharp\\.local"
+      "outputPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v3\\Applications\\C#Models\\SimpleBankLoanCSharp\\.local"
     },
     "frameworks": {
       "net461": {

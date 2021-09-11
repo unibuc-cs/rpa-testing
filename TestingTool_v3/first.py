@@ -21,7 +21,7 @@ os.chdir("../../")
 
 #path to json
 json_path = "../../C#Models/SimpleBankLoanCSharp/"
-json_name = "Main_202108080942210529.json"
+json_name = "outputXamlParser.json"
 print("Current Working Directory " , os.getcwd())
 print("JSON PATH",json_path)
 
