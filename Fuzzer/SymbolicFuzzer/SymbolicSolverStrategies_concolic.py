@@ -113,7 +113,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
         boundaryIndex : int = pathExecuted.concolicBoundaryIndex
         allOriginalConditions : List[any] = pathExecuted.conditions_smt
         numOriginalConditions = len(allOriginalConditions)
-        allConcolicTakenDecisions : Dict[int, bool] = pathExecuted.concolicBranchTaken
+        allConcolicTakenDecisions : Dict[int, ConcolicDecisionInfo] = pathExecuted.concolicBranchTaken
         allConcolicDecisionIndices = list(allConcolicTakenDecisions.keys())
         numConcolicConditions = len(allConcolicDecisionIndices)
 
@@ -132,7 +132,8 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
 
             # This means we are on the same index, and we should do something to reverse it in the new input !
             elif iter_origCondition == next_concolicBranchIndexCondition:
-                changedExpr = SymbolicExecutionHelpers.getInverseOfSymbolicExpresion(allOriginalConditions[iter_origCondition])
+                #changedExpr = SymbolicExecutionHelpers.getInverseOfSymbolicExpresion(allOriginalConditions[iter_origCondition])
+                changedExpr = allConcolicTakenDecisions[next_concolicBranchIndexCondition].otherBranchZ3Condition
 
                 # Check if the solver has a solution with all previous conditions enabled but with this condition changed
                 # -----------------

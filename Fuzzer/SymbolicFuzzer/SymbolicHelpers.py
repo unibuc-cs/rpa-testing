@@ -97,7 +97,6 @@ class SymbolicExecutionHelpers:
     @staticmethod
     def convertStringExpressionTOZ3(condToSolve, contextDataStore):
         cond = eval(condToSolve)
-        cond_str = str(cond)
         return cond
 
 
@@ -215,6 +214,10 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
         else:
             raise  NotImplementedError(f"Unknown decl type {typeName}")
 
+class ConcolicDecisionInfo:
+    def __init__(self):
+        self.wasTaken : Union[None, bool] = None
+        self.otherBranchZ3Condition = None
 
 class SMTPathState(Enum):
     PATH_NOT_FINISHED = 0
@@ -241,7 +244,7 @@ class SMTPath:
         # value representing True if the branch was taken in the execution path or false otherwise.
         # If a condition exists above but is not in this dictionary this means that it is not important for the process
         # (e.g. think about a boundary condition that exists but is not actually linked to the model branches at all)
-        self.concolicBranchTaken : Dict[int, bool] = {} # index from condition_smt to {True/False}
+        self.concolicBranchTaken : Dict[int, ConcolicDecisionInfo] = {} # index from condition_smt to {True/False if taken and alternative
 
         # What is the condition index before that we are not allowed to do any changes ?
         # This serves as in the classical whitebox fuzzing method, SAGE from Microsoft, to avoid recursion in concolic execution
@@ -339,7 +342,9 @@ class SMTPath:
         return res
 
     # Add a new condition to this path: we expect it to be feasible in general for optimal results, but not necessarily
-    def addNewBranchLevel(self, newConditionInZ3, executeNewConditionToo, concolicEval=None):
+    # When a concolic decision branch is given, we send the result of evaluation - taken or not, and the other branch - to avoid later recomputation
+    def addNewBranchLevel(self, newConditionInZ3, executeNewConditionToo,
+                          concolicEval : bool =None, concolicAlternativeBranchZ3Condition=None):
         self.conditions_smt.append(newConditionInZ3)
 
         # IF we add a concolic branch, and we have a taken evaluation that is can be subject to change,
@@ -347,8 +352,11 @@ class SMTPath:
         # In this case we store in the dictionary the value taken
         if concolicEval is not None:
             assert isinstance(concolicEval, bool), "If given, we are expecting either a True or False take branch"
+            assert concolicAlternativeBranchZ3Condition is not None, "You must give the other condition too"
             indexOfCondition = len(self.conditions_smt) - 1
-            self.concolicBranchTaken[indexOfCondition] = concolicEval
+            self.concolicBranchTaken[indexOfCondition] = ConcolicDecisionInfo()
+            self.concolicBranchTaken[indexOfCondition].wasTaken = concolicEval
+            self.concolicBranchTaken[indexOfCondition].otherBranchZ3Condition = concolicAlternativeBranchZ3Condition
 
         # Add the new conditions to the solver
         if executeNewConditionToo == True:

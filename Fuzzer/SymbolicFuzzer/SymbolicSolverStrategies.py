@@ -274,8 +274,19 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
                         assert evalResult is not None and isinstance(evalResult, bool)
 
                         # Add the expression to the current path (true means that the branch will be taken if condition is valid)
-                        currPath.addNewBranchLevel(newConditionInZ3=symbolicExpressionForNode_true_inZ3,
-                                                   executeNewConditionToo=False, concolicEval=evalResult)
+                        takenZ3Condition = None
+                        alternativeZ3Condition = None
+                        if evalResult is True:
+                            takenZ3Condition = symbolicExpressionForNode_true_inZ3
+                            alternativeZ3Condition = symbolicExpressionForNode_false_inZ3
+                        else:
+                            takenZ3Condition = symbolicExpressionForNode_false_inZ3
+                            alternativeZ3Condition = symbolicExpressionForNode_true_inZ3
+
+                        currPath.addNewBranchLevel(newConditionInZ3=takenZ3Condition,
+                                                   executeNewConditionToo=False,
+                                                   concolicEval=evalResult,
+                                                   concolicAlternativeBranchZ3Condition=alternativeZ3Condition)
 
                         currPath.advance(str(evalResult))
 
