@@ -93,9 +93,33 @@ class BaseSymbolicSolverStrategy(ABC):
         arraysFilledBySMT: Dict[str, Dict[int, any]] = {}  # arrayName ->  {index -> value}
 
         generatedInput = {}
-        # For each variabile in the model, output its storage
 
+        # Step 1: Use the dataStore to fill out first
+        for varName, varValue in dataStoreContext.Values.items():
+            isVariableNeededForOutput = varName in self.output_fieldNamesList
+            if not isVariableNeededForOutput:
+                continue
+
+            isArrayBeingFilled = dataStoreContext.isVariableRepresentedAsList(varName)
+
+            # Simple variable case
+            if isArrayBeingFilled is False:
+                generatedInput[varName] = varValue  # Output the variable value directly
+            else:
+                # Array filled by SMT, cache the values there, they will be outputed later
+                arrayName = varName
+                if arrayName not in arraysFilledBySMT:
+                    arraysFilledBySMT[arrayName] = {}
+
+                varInternalContent: List[any] = varValue.getAllContent()
+
+                for varInternalContent_index, varInternalContent_value in enumerate(varInternalContent):
+                    arraysFilledBySMT[arrayName][varInternalContent_index] = varInternalContent_value
+
+        # Step 2: Then, if a model is used - for each variabile in the model, output from its storage and override previous values
         if modelResult is not None:
+            arraysFilledBySMT: Dict[str, Dict[int, any]] = {}  # arrayName ->  {index -> value}
+
             for decl in modelResult.decls():
                 # Get the value of declaration from the model
                 # --------------------------------
@@ -130,28 +154,6 @@ class BaseSymbolicSolverStrategy(ABC):
 
                 if isModelVariableNeededForOutput and (isArrayBeingFilled is False):
                     generatedInput[declAsString] = valueOfDecl  # Output the variable value directly
-        else:
-            # Use the dataStore to fill out !
-            for varName, varValue in dataStoreContext.Values.items():
-                isVariableNeededForOutput = varName in self.output_fieldNamesList
-                if not isVariableNeededForOutput:
-                    continue
-
-                isArrayBeingFilled = dataStoreContext.isVariableRepresentedAsList(varName)
-
-                # Simple variable case
-                if isArrayBeingFilled is False:
-                    generatedInput[varName] = varValue  # Output the variable value directly
-                else:
-                    # Array filled by SMT, cache the values there, they will be outputed later
-                    arrayName = varName
-                    if arrayName not in arraysFilledBySMT:
-                        arraysFilledBySMT[arrayName] = {}
-
-                    varInternalContent: List[any] = varValue.getAllContent()
-
-                    for varInternalContent_index, varInternalContent_value in enumerate(varInternalContent):
-                        arraysFilledBySMT[arrayName][varInternalContent_index] = varInternalContent_value
 
         # In the end, add the arrays to the content
         for arrayFilled_key, arrayFilled_value in arraysFilledBySMT.items():
@@ -282,7 +284,8 @@ class AllStatesOnesSolver(BaseSymbolicSolverStrategy):
                 self.streamOutModel(modelResult=modelResult,
                                     priorityUsedForPath=InputSeed.DEFAULT_PRIORITY,
                                     pathResult=P,
-                                    debugPathIndex=index)
+                                    debugPathIndex=index,
+                                    dataStoreContext=newPath.dataStore)
 
             else:
                 if self.debuggingOptions.debug_consoleOutput:
