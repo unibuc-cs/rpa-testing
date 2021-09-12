@@ -29,6 +29,8 @@ class BaseSymbolicSolverStrategy(ABC):
     def __init__(self, typeid: SymbolicSolversStrategiesTypes, workflowGraph):
         self.workflowGraph = workflowGraph
         self.typeid = typeid
+        self.debuggingOptions : DebuggingOptions = None
+        self.args = None
 
         self.nodeIdsToInstances = self.workflowGraph.graphInst.graph['nodeIdToInstance']
         self.dataStoreTemplate = self.workflowGraph.dataStoreTemplate
@@ -36,29 +38,55 @@ class BaseSymbolicSolverStrategy(ABC):
         # Output support
         self.output_fieldNamesList = None
         self.output_set_fieldNamesList = None
-        self.output_csv_stream = None
+
+
+        self.current_csv_streamHandle = None # Current csv stream where tests are outputed
+        self.current_csv_streamIndex = -1 # Current csv index stream where tests are outputed
+        self.current_csv_numItemsWritten = sys.maxsize # The number of tests written to the current stream
 
         super().__init__()
 
-    # Initializes an output csv file at the given file name and current working dir
+    def getNewInputStream(self):
+        self.current_csv_streamIndex += 1
+        self.current_csv_numItemsWritten = 0 # The number of tests written to the current stream
+
+        newStreamName = f"{self.args.outputTests_PrefixFile}_{self.current_csv_streamIndex}.csv"
+        newCsvFileStream = open(newStreamName, mode='w', newline='')
+
+        self.current_csv_streamHandle = csv.DictWriter(newCsvFileStream, delimiter=',', quotechar='"',
+                                                           quoting=csv.QUOTE_MINIMAL,
+                                                        fieldnames=self.output_fieldNamesList)
+        self.current_csv_streamHandle.writeheader()
+
+    # Initializes some parameters for generated tests output streams
     # With this support and two below functions, the strategy will output the varibles values found and their corresponding solutions
-    def init_outputStream(self, outputCsvFile, debugLogging):
-        self.output_fieldNamesList = [key for key in self.dataStoreTemplate.Values.keys()]
+    def init_outputStreamsParams(self):
+        self.output_fieldNamesList = []
+
+        if self.debuggingOptions.debug_tests_fullVariablesContent is True:
+            self.output_fieldNamesList = [key for key in self.dataStoreTemplate.Values.keys()]
+        else:
+            for varName, varAnnotation in self.dataStoreTemplate.Annotations.items():
+                assert isinstance(varAnnotation, VarAnnotation)
+                if varAnnotation.isFromUserInput:
+                    self.output_fieldNamesList.append(varName)
+
         self.output_fieldNamesList.append("priority")
-        if debugLogging:
+        if self.debuggingOptions.debug_tests_fullPaths:
             self.output_fieldNamesList.append("GraphPath")
         self.output_set_fieldNamesList = set(self.output_fieldNamesList)
 
-        self.output_csv_stream = None
-        if outputCsvFile != None:
-            csv_file = open(outputCsvFile, mode='w', newline='')
-            self.output_csv_stream = csv.DictWriter(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL,
-                                                    fieldnames=self.output_fieldNamesList)
-            self.output_csv_stream.writeheader()
+        # TODO: add mandatory field and link to the option here
+
+        self.current_csv_streamHandle = None # Current csv stream where tests are outputed
+        self.current_csv_streamIndex = -1 # Current csv index stream where tests are outputed
+        self.current_csv_numItemsWritten = sys.maxsize # The number of tests written to the current stream
+
 
     def getModelOutput(self, modelResult, pathResult : List[str],
                        dataStoreContext, resultIsTextual : bool,
-                       debugLoggingEnabled : bool, debugPathIndex : int):
+                       debugFullPaths : bool,
+                       debugPathIndex : int):
         # Get one output row for csv extract
         # Hold a temporary list of arrays being filled
         # Note that we need those to be constructed one by one indices...as indices are interpreted as individual parameters inside SMT solver
@@ -156,45 +184,45 @@ class BaseSymbolicSolverStrategy(ABC):
             generatedInput[arrayFilled_key] = outputArrayResult
 
         # Fill in the path for this node if requested
-        if debugLoggingEnabled != None and debugLoggingEnabled != False:
+        if debugFullPaths != False and debugFullPaths != None:
             generatedInput["GraphPath"] = self.workflowGraph.debugPrintSinglePath(pathResult)
 
         return generatedInput
 
     # Outputs the results from a model after the output stream was initialized with the function above
-    def streamOutModel(self, modelResult, priorityUsedForPath : int, pathResult : List[any],
-                       debugLoggingEnabled, debugPathIndex = None, dataStoreContext=None):
+    def streamOutModel(self, modelResult, priorityUsedForPath : int, pathResult : List[str],
+                       debugPathIndex = None, dataStoreContext=None):
         # Print debug all declarations
         # Use the model declarations if exists
         if modelResult is not None:
             for d in modelResult.decls():
-                if debugLoggingEnabled:
+                if self.debuggingOptions.debug_consoleOutput:
                     print(f"{d.name()}={modelResult[d]}")
         # Use the datastore values (used for example in the concolic case)
         else:
             assert dataStoreContext is not None, "Both model and data store are none ?? What are you trying to stream out ?!"
-            dataStoreContext.printDebugValues()
+
+            if self.debuggingOptions.debug_consoleOutput:
+                dataStoreContext.printDebugValues()
 
         rowContent = self.getModelOutput(modelResult=modelResult, pathResult=pathResult,
                             dataStoreContext=dataStoreContext, resultIsTextual=True,
-                            debugLoggingEnabled=debugLoggingEnabled, debugPathIndex=debugPathIndex)
+                            debugFullPaths=self.debuggingOptions.debug_tests_fullPaths,
+                            debugPathIndex=debugPathIndex)
         rowContent[PRIORITY_COLUMN_NAME] = priorityUsedForPath
-        # Get one output row for csv extract
-        # Hold a temporary list of arrays being filled
-        # Note that we need those to be constructed one by one indices...as indices are interpreted as individual parameters inside SMT solver
-        arraysFilledBySMT: Dict[str, Dict[int, any]] = {}  # arrayName ->  {index -> value}
 
+        if self.debuggingOptions.debug_consoleOutput:
+            pathStr = self.workflowGraph.debugPrintSinglePath(pathResult)
+            print(f"Generated path {debugPathIndex}: [{pathStr}]")
+            print("-------------------------")
 
-        if self.output_csv_stream != None:
-            if debugLoggingEnabled:
-                pathStr = self.workflowGraph.debugPrintSinglePath(pathResult)
-                print(f"Generated path {debugPathIndex}: [{pathStr}]")
-                print("-------------------------")
+        # Do we need to get a new stream handle ?
+        if self.current_csv_numItemsWritten >= self.args.outputTests_MaxTestPerFile:
+            self.getNewInputStream() # Now we have a new current stream. Go go go !
 
-            if self.output_csv_stream:
-                self.output_csv_stream.writerow(rowContent)
-
-
+        assert self.current_csv_streamHandle is not None
+        self.current_csv_streamHandle.writerow(rowContent)
+        self.current_csv_numItemsWritten += 1
 
     # Solve the given graph
     @abstractmethod
@@ -207,8 +235,13 @@ class AllStatesOnesSolver(BaseSymbolicSolverStrategy):
         super().__init__(SymbolicSolversStrategiesTypes.STRATEGY_OFFLINE_ALL, workflowGraph)
 
     # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file
-    def solve(self, outputCsvFile=None, debugLogging=False, otherArgs=None):
-        self.init_outputStream(outputCsvFile, debugLogging)
+    def solve(self, args):
+        self.args = args
+        self.outputTests_PrefixFile = args.outputTests_PrefixFile
+        self.debuggingOptions = args.debuggingOptions
+
+        # Setup the output files stuff
+        self.init_outputStreamsParams(self.outputTests_PrefixFile)
 
         #condA = 'V["loan"] < 1000' # Just a dummy test to evaluate a simple condition...
         #eval(condA)
@@ -220,8 +253,8 @@ class AllStatesOnesSolver(BaseSymbolicSolverStrategy):
                               initial_conditions_smt=self.dataStoreTemplate.getVariablesSMTConditions(),
                               dataStore=copy.deepcopy(self.dataStoreTemplate),
                               start_nodeId=self.workflowGraph.entryTestNodeId,
-                              debugFullPathEnabled=debugLogging,
-                              debugNodesHistoryExplored=debugLogging)
+                              debugFullPathEnabled=self.debuggingOptions.debug_tests_fullPaths,
+                              debugNodesHistoryExplored=self.debuggingOptions.debug_tests_fullPaths)
 
             conditions_str = self.workflowGraph.getPathConditions(path = allpaths[index], executionContext=newPath)
 
@@ -243,17 +276,16 @@ class AllStatesOnesSolver(BaseSymbolicSolverStrategy):
             isSolution = solver.check()
             # print(isSolution)
             if isSolution and isSolution != z3.unsat:
-                if debugLogging:
+                if self.debuggingOptions.debug_consoleOutput:
                     print("Found a solution")
                 modelResult = solver.model()
                 self.streamOutModel(modelResult=modelResult,
                                     priorityUsedForPath=InputSeed.DEFAULT_PRIORITY,
                                     pathResult=P,
-                                    debugLoggingEnabled=debugLogging,
                                     debugPathIndex=index)
 
             else:
-                if debugLogging:
+                if self.debuggingOptions.debug_consoleOutput:
                     print("No solution exists for this path")
 
 class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
@@ -393,9 +425,8 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
             self.streamOutModel(modelResult=modelResult,
                                 priorityUsedForPath=currPath.priority,
                                 pathResult=currPath.debugNodesExplored,
-                                debugLoggingEnabled=self.debugLogging,
                                 debugPathIndex=currPath.debugNumPathsSolvableFound,
-                                dataStoreContext=currPath.dataStore,)
+                                dataStoreContext=currPath.dataStore)
             currPath.debugNumPathsSolvableFound += 1
 
 
@@ -410,11 +441,14 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
         return priority
 
     # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file
-    def solve(self, outputCsvFile=None, debugLogging=False, otherArgs=None):
+    def solve(self,args):
         # Setup the output files stuff
-        self.init_outputStream(outputCsvFile, debugLogging)
-        self.outputCsvFile = outputCsvFile
-        self.debugLogging = debugLogging
+        self.args = args
+        self.outputTests_PrefixFile = args.outputTests_PrefixFile
+        self.debuggingOptions = args.debuggingOptions
+
+        # Setup the output files stuff
+        self.init_outputStreamsParams()
 
         # Get the start nodes list
         start_nodes = [self.workflowGraph.entryTestNodeId]

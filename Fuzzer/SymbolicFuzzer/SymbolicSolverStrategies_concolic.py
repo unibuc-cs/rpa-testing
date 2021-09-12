@@ -99,7 +99,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
                                      initial_conditions_smt=initialSMTConditions,
                                      dataStore=dataStoreInst,
                                      start_nodeId=self.workflowGraph.entryTestNodeId,
-                                     debugFullPathEnabled=self.debugLogging,
+                                     debugFullPathEnabled=self.debuggingOptions.debug_tests_fullPaths,
                                      debugNodesHistoryExplored=[],
                                      priority=inputSeed.priority,
                                      concolicBoundaryIndex=inputSeed.concolicBoundaryIndex)
@@ -167,7 +167,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
                     modelResult = localSolver.model()
                     newinputDataGenerated = self.getModelOutput(modelResult=modelResult, pathResult=None,
                                         dataStoreContext=pathExecuted.dataStore, resultIsTextual=False,
-                                       debugLoggingEnabled=False, debugPathIndex=None)
+                                       debugFullPaths=False, debugPathIndex=None)
                     newinputPriority = self.scoreNewConcolicInput(pathExecuted, newinputDataGenerated, iter_origCondition)
                     # and add to newInputsBuilt
                     # score priority for the new input
@@ -187,15 +187,17 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
         self.addInputSeedsToWorkList(newInputsBuilt, worklist=workList)
 
     # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file
-    def solve(self, outputCsvFile=None, debugLogging=False, otherArgs=None):
+    def solve(self, args):
+        self.args = args
+        self.outputTests_PrefixFile = args.outputTests_PrefixFile
+        self.debuggingOptions = args.debuggingOptions
+
         # Setup the output files stuff
-        self.init_outputStream(outputCsvFile, debugLogging)
-        self.outputCsvFile = outputCsvFile
-        self.debugLogging = debugLogging
-        self.otherArgs = otherArgs
+        self.init_outputStreamsParams()
 
         # Get the input seeds
-        inputSeeds = self.getInputSeeds(inputSeedsFile=self.otherArgs.seedsFile, numSeedsToGenerate=self.otherArgs.numRandomGeneratedSeeds) # [self.workflowGraph.entryTestNodeId]
+        inputSeeds = self.getInputSeeds(inputSeedsFile=self.args.seedsFile,
+                                        numSeedsToGenerate=self.args.numRandomGeneratedSeeds)
 
         # Transform the inputSeeds to SMTPaths and add them to the working list
         statesQueue = SMTWorklist()
@@ -214,5 +216,6 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
             if currPath.finishStatus == SMTPathState.PATH_FINISHED_SUCCED:
                 self.generateNewInputs(currPath, statesQueue)
 
-        print("Finished concolic !")
+        if self.debuggingOptions.debug_consoleOutput:
+            print("Finished concolic !")
 

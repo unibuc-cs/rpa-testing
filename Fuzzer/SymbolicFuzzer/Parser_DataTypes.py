@@ -31,6 +31,22 @@ import sys
 import pandas as pd
 from typing import Dict
 
+# Configuration debugging
+class DebuggingOptions():
+    def __init__(self):
+        self.debug_outputGraphFile : str = None
+        self.debug_consoleOutput = False
+        self.debug_tests_fullPaths = False
+        self.debug_tests_fullVariablesContent = False
+
+    # Parse from arguments func
+    def parseFromArgs(self, args):
+        outputGraphFilePath = args.debug_outputGraphFile.strip()
+        self.debug_outputGraphFile = outputGraphFilePath if len(outputGraphFilePath) > 0 else None
+        self.debug_consoleOutput = args.debug_consoleOutput == 1
+        self.debug_tests_fullPaths = args.debug_tests_fullPaths == 1
+        self.debug_tests_fullVariablesContent = args.debug_tests_fullVariablesContent == 1
+
 # Each entry is a dict from variable name to its value
 class InputSeed():
     DEFAULT_PRIORITY = 0    # Default and highest priority

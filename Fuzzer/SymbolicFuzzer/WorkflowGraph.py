@@ -150,24 +150,31 @@ class WorkflowGraph:
         print("Out Degrees: ", self.graphInst.out_degree([node for node in self.graphInst.nodes]))
 
     # Debugging the graph...
-    def debugGraph(self, outputGraphFile=None):
-        print("Drawing and showing the graph")
+    def debugGraph(self, debuggingOptions : DebuggingOptions):
         # nx.draw_networkx(self.graph)
         # plt.pyplot.show()
-        A = to_agraph(self.graphInst)
-        A.layout('dot')
-        A.draw(outputGraphFile)
+
+        if debuggingOptions.debug_outputGraphFile is not None:
+            if debuggingOptions.debug_consoleOutput:
+                print("Drawing and showing the graph")
+
+            A = to_agraph(self.graphInst)
+            A.layout('dot')
+            A.draw(debuggingOptions.debug_outputGraphFile)
 
         # Let's inspect the graph...
-        self.debugInspectGraph()
+        if debuggingOptions.debug_consoleOutput is True:
+            self.debugInspectGraph()
 
-        print("Checking all paths inside the graph !")
-        allpaths = self.getAllPaths()
-        self.debugPrintPaths(allpaths)
+        if debuggingOptions.debug_consoleOutput and debuggingOptions.debug_tests_fullPaths:
+            print("Checking all paths inside the graph !")
+            allpaths = self.getAllPaths()
+            self.debugPrintPaths(allpaths)
 
-        print("\n\nGetting all used variables inside branches ")
-        print("== Symbolic variables: \n", self.dataStoreTemplate.SymbolicValues.keys())  # print(getAllVariables(graph))
-        print("== All variables: \n", self.dataStoreTemplate.Values.keys())  # print(getAllVariables(graph))
+        if debuggingOptions.debug_consoleOutput:
+            print("\n\nGetting all used variables inside branches ")
+            print("== Symbolic variables: \n", self.dataStoreTemplate.SymbolicValues.keys())  # print(getAllVariables(graph))
+            print("== All variables: \n", self.dataStoreTemplate.Values.keys())  # print(getAllVariables(graph))
 
     # TODO: the two functions below need to be refactored !!
     def getPathConditions(self, path, executionContext : SMTPath):

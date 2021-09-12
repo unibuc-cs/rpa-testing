@@ -72,13 +72,18 @@ class SymbolicWorflowsTester:
     def getDebugGraphFilePath(self, fileName):
         return None if fileName is None else os.path.join(self.baseFolderModel, fileName)
 
-    def debugFullGraph(self, outputGraphFile): #= "debugGraph.png"): # Could be none
-        self.workflowGraph.debugGraph(outputGraphFile=outputGraphFile)
+    def debugGraph(self, debuggingOptions : DebuggingOptions): #= "debugGraph.png"): # Could be none
+        self.workflowGraph.debugGraph(debuggingOptions)
 
     def solveOfflineStaticGraph(self, outputResultsFile, loggingEnabled):
         self.workflowGraph.solve(outputCsvFile=outputResultsFile, debugLogging=loggingEnabled)
 
-    def doTests(self, outputResultsFile, loggingEnabled, otherArgs = None):
+    def doTests(self, args):
+        # First some debugging if enabled
+        self.debuggingOptions = args.debuggingOptions
+        self.debugGraph(self.debuggingOptions)
+
+        # Then invoke the strategy instance to do testing
         assert self.symbolicSolverStrategy != None, "There is no symbolic strategy instantiated ! Check your options and doc!"
-        self.symbolicSolverStrategy.solve(outputCsvFile=outputResultsFile, debugLogging=loggingEnabled, otherArgs=otherArgs)
+        self.symbolicSolverStrategy.solve(args)
 
