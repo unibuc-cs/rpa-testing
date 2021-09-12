@@ -232,7 +232,8 @@ class SMTPath:
                  start_nodeId,              # The starting node id to consider expanding the path
                  debugFullPathEnabled : bool, # If full path debugging is supported
                  debugNodesHistoryExplored: List[str],
-                 priority=None): # The nodes considered as explored by the path already, when this is created (note could be new or from a BRANCHING effect !)
+                 priority=None,
+                 concolicBoundaryIndex : int = None): # The nodes considered as explored by the path already, when this is created (note could be new or from a BRANCHING effect !)
 
         # The parent workflow graph that this path is working on
         self.parentWorkflowGraph = parentWorkflowGraph
@@ -248,7 +249,7 @@ class SMTPath:
 
         # What is the condition index before that we are not allowed to do any changes ?
         # This serves as in the classical whitebox fuzzing method, SAGE from Microsoft, to avoid recursion in concolic execution
-        self.concolicBoundaryIndex : int = 0
+        self.concolicBoundaryIndex : int = concolicBoundaryIndex
 
         # The dataStore this object is iterating on
         self.dataStore = dataStore
@@ -362,6 +363,9 @@ class SMTPath:
         if executeNewConditionToo == True:
             self.currentSolver.add(newConditionInZ3)
 
+        # Increase also the level in the branch tree evaluation
+        self.levelInBranchTree += 1
+
         # DEBUG code vor simpplification methods. DO NOT ENABLE ON RELEASE
         """
         if (len(self.conditions_z3) == 3):
@@ -382,10 +386,9 @@ class SMTPath:
         print(t1(g))
         t2 = Repeat(t1)
         print(t2(g))
-
-        # Increase also the level in the branch tree evaluation
-        self.levelInBranchTree += 1
         #"""
+
+
 
     # startingNodeId - THe next starting node to run this path from
     # isQueuedNode - Just a hint to know if this path has been put on a delayed queue for later execution or it is starting executing now

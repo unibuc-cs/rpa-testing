@@ -3,6 +3,8 @@ from enum import Enum
 from SymbolicHelpers import *
 from WorkflowGraphBaseNode import *
 
+PRIORITY_COLUMN_NAME = 'priority'
+
 class SymbolicSolversStrategiesTypes(Enum):
     STRATEGY_NONE = 0
     STRATEGY_OFFLINE_ALL = 1,
@@ -42,6 +44,7 @@ class BaseSymbolicSolverStrategy(ABC):
     # With this support and two below functions, the strategy will output the varibles values found and their corresponding solutions
     def init_outputStream(self, outputCsvFile, debugLogging):
         self.output_fieldNamesList = [key for key in self.dataStoreTemplate.Values.keys()]
+        self.output_fieldNamesList.append("priority")
         if debugLogging:
             self.output_fieldNamesList.append("GraphPath")
         self.output_set_fieldNamesList = set(self.output_fieldNamesList)
@@ -53,8 +56,113 @@ class BaseSymbolicSolverStrategy(ABC):
                                                     fieldnames=self.output_fieldNamesList)
             self.output_csv_stream.writeheader()
 
+    def getModelOutput(self, modelResult, pathResult : List[str],
+                       dataStoreContext, resultIsTextual : bool,
+                       debugLoggingEnabled : bool, debugPathIndex : int):
+        # Get one output row for csv extract
+        # Hold a temporary list of arrays being filled
+        # Note that we need those to be constructed one by one indices...as indices are interpreted as individual parameters inside SMT solver
+        arraysFilledBySMT: Dict[str, Dict[int, any]] = {}  # arrayName ->  {index -> value}
+
+        generatedInput = {}
+        # For each variabile in the model, output its storage
+
+        if modelResult is not None:
+            for decl in modelResult.decls():
+                # Get the value of declaration from the model
+                # --------------------------------
+                valueOfDecl = modelResult[decl]
+                if z3.is_int_value(valueOfDecl):
+                    valueOfDecl = valueOfDecl.as_long()
+                elif z3.is_real(valueOfDecl):
+                    valueOfDecl = float(valueOfDecl.as_decimal(prec=2))
+
+                elif z3.is_bool(valueOfDecl):
+                    valueOfDecl = True if z3.is_true(valueOfDecl) else False
+
+                # If needed, fill in the variable inside our output variables list
+                # ----------------------------------
+                declAsString = str(decl)
+                isModelVariableNeededForOutput = declAsString in self.output_fieldNamesList
+                isArrayBeingFilled = False
+                if isModelVariableNeededForOutput is False:
+                    # Check the array indices too
+                    if "__" in declAsString:
+                        splitByIndexAddressing = declAsString.split("__")
+                        try:
+                            index = int(splitByIndexAddressing[-1])
+                            arrayName = "".join(splitByIndexAddressing[:-1])
+                            if arrayName in self.output_set_fieldNamesList:
+                                isArrayBeingFilled = True
+                                if arrayName not in arraysFilledBySMT:
+                                    arraysFilledBySMT[arrayName] = {}
+                                arraysFilledBySMT[arrayName][index] = valueOfDecl
+                        except e:
+                            pass
+
+                if isModelVariableNeededForOutput and (isArrayBeingFilled is False):
+                    generatedInput[declAsString] = valueOfDecl  # Output the variable value directly
+        else:
+            # Use the dataStore to fill out !
+            for varName, varValue in dataStoreContext.Values.items():
+                isVariableNeededForOutput = varName in self.output_fieldNamesList
+                if not isVariableNeededForOutput:
+                    continue
+
+                isArrayBeingFilled = dataStoreContext.isVariableRepresentedAsList(varName)
+
+                # Simple variable case
+                if isArrayBeingFilled is False:
+                    generatedInput[varName] = varValue  # Output the variable value directly
+                else:
+                    # Array filled by SMT, cache the values there, they will be outputed later
+                    arrayName = varName
+                    if arrayName not in arraysFilledBySMT:
+                        arraysFilledBySMT[arrayName] = {}
+
+                    varInternalContent: List[any] = varValue.getAllContent()
+
+                    for varInternalContent_index, varInternalContent_value in enumerate(varInternalContent):
+                        arraysFilledBySMT[arrayName][varInternalContent_index] = varInternalContent_value
+
+        # In the end, add the arrays to the content
+        for arrayFilled_key, arrayFilled_value in arraysFilledBySMT.items():
+            assert arrayFilled_key in self.output_fieldNamesList, "Did I filled an unnedeed array ??"
+            assert len(arrayFilled_key) > 0, " Array registered for filling but emtpy ??"
+
+            # On textual result, display the array as a string with each index used and its value
+            if resultIsTextual is True:
+                outputArrayResult = ""
+                for arrIndex, arrValue in arrayFilled_value.items():
+                    outputArrayResult += f"[{arrIndex}]={arrValue} ; "
+            else:
+                # Non textual output, generate the array as a list - take the boundary from annotation or from the indices used
+                assert arrayFilled_key in dataStoreContext.Annotations
+                arrayAnnotation = dataStoreContext.Annotations[arrayFilled_key]
+                targetArraySize = None
+                if arrayAnnotation is not None and arrayAnnotation.bounds is not None:
+                    targetArraySize = int(arrayAnnotation.bounds)
+
+                allIndicesUsedByArray = list(arrayFilled_value.keys())
+                allIndicesUsedByArray = [int(x) for x in allIndicesUsedByArray]
+                maxIndexUsedByArray = 0 if len(allIndicesUsedByArray) == 0 else max(allIndicesUsedByArray)
+
+                targetArraySize = max(maxIndexUsedByArray + 1, targetArraySize)
+                outputArrayResult = [sys.maxsize for i in range(targetArraySize)]
+
+                for arrIndex, arrValue in arrayFilled_value.items():
+                    outputArrayResult[arrIndex] = arrValue
+
+            generatedInput[arrayFilled_key] = outputArrayResult
+
+        # Fill in the path for this node if requested
+        if debugLoggingEnabled != None and debugLoggingEnabled != False:
+            generatedInput["GraphPath"] = self.workflowGraph.debugPrintSinglePath(pathResult)
+
+        return generatedInput
+
     # Outputs the results from a model after the output stream was initialized with the function above
-    def streamOutModel(self, modelResult, pathResult : List[any],
+    def streamOutModel(self, modelResult, priorityUsedForPath : int, pathResult : List[any],
                        debugLoggingEnabled, debugPathIndex = None, dataStoreContext=None):
         # Print debug all declarations
         # Use the model declarations if exists
@@ -67,92 +175,21 @@ class BaseSymbolicSolverStrategy(ABC):
             assert dataStoreContext is not None, "Both model and data store are none ?? What are you trying to stream out ?!"
             dataStoreContext.printDebugValues()
 
+        rowContent = self.getModelOutput(modelResult=modelResult, pathResult=pathResult,
+                            dataStoreContext=dataStoreContext, resultIsTextual=True,
+                            debugLoggingEnabled=debugLoggingEnabled, debugPathIndex=debugPathIndex)
+        rowContent[PRIORITY_COLUMN_NAME] = priorityUsedForPath
         # Get one output row for csv extract
         # Hold a temporary list of arrays being filled
         # Note that we need those to be constructed one by one indices...as indices are interpreted as individual parameters inside SMT solver
         arraysFilledBySMT: Dict[str, Dict[int, any]] = {}  # arrayName ->  {index -> value}
 
+
         if self.output_csv_stream != None:
-            rowContent = {}
-            # For each variabile in the model, output its storage
-
-            if modelResult is not None:
-                for decl in modelResult.decls():
-                    # Get the value of declaration from the model
-                    # --------------------------------
-                    valueOfDecl = modelResult[decl]
-                    if z3.is_int_value(valueOfDecl):
-                        valueOfDecl = valueOfDecl.as_long()
-                    elif z3.is_real(valueOfDecl):
-                        valueOfDecl = float(valueOfDecl.as_decimal(prec=2))
-
-                    elif z3.is_bool(valueOfDecl):
-                        valueOfDecl = True if z3.is_true(valueOfDecl) else False
-
-                    # If needed, fill in the variable inside our output variables list
-                    # ----------------------------------
-                    declAsString = str(decl)
-                    isModelVariableNeededForOutput = declAsString in self.output_fieldNamesList
-                    isArrayBeingFilled = False
-                    if isModelVariableNeededForOutput is False:
-                        # Check the array indices too
-                        if "__" in declAsString:
-                            splitByIndexAddressing = declAsString.split("__")
-                            try:
-                                index = int(splitByIndexAddressing[-1])
-                                arrayName = "".join(splitByIndexAddressing[:-1])
-                                if arrayName in self.output_set_fieldNamesList:
-                                    isArrayBeingFilled = True
-                                    if arrayName not in arraysFilledBySMT:
-                                        arraysFilledBySMT[arrayName] = {}
-                                    arraysFilledBySMT[arrayName][index] = valueOfDecl
-                            except e:
-                                pass
-
-                    if isModelVariableNeededForOutput and (isArrayBeingFilled is False):
-                        rowContent[declAsString] = valueOfDecl  # Output the variable value directly
-            else:
-                # Use the dataStore to fill out !
-                for varName, varValue in dataStoreContext.Values.items():
-                    isVariableNeededForOutput = varName in self.output_fieldNamesList
-                    if not isVariableNeededForOutput:
-                        continue
-
-                    isArrayBeingFilled = dataStoreContext.isVariableRepresentedAsList(varName)
-
-                    # Simple variable case
-                    if isArrayBeingFilled is False:
-                        rowContent[varName] = varValue  # Output the variable value directly
-                    else:
-                        # Array filled by SMT, cache the values there, they will be outputed later
-                        arrayName = varName
-                        if arrayName not in arraysFilledBySMT:
-                            arraysFilledBySMT[arrayName] = {}
-
-                        varInternalContent : List[any] = varValue.getAllContent()
-
-                        for varInternalContent_index, varInternalContent_value in enumerate(varInternalContent):
-                            arraysFilledBySMT[arrayName][varInternalContent_index] = varInternalContent_value
-
-            # In the end, add the arrays to the content
-            for arrayFilled_key, arrayFilled_value in arraysFilledBySMT.items():
-                assert arrayFilled_key in self.output_fieldNamesList, "Did I filled an unnedeed array ??"
-                assert len(arrayFilled_key) > 0, " Array registered for filling but emtpy ??"
-                strOutForArray = ""
-                for arrIndex, arrValue in arrayFilled_value.items():
-                    strOutForArray += f"[{arrIndex}]={arrValue} ; "
-                rowContent[arrayFilled_key] = strOutForArray
-
-            # Fill in the path for this node if requested
-            pathStr = None
             if debugLoggingEnabled:
                 pathStr = self.workflowGraph.debugPrintSinglePath(pathResult)
-                print(f"Analyzing path {debugPathIndex}: [{pathStr}]")
+                print(f"Generated path {debugPathIndex}: [{pathStr}]")
                 print("-------------------------")
-
-            if pathStr != None:
-                rowContent["GraphPath"] = pathStr
-
 
             if self.output_csv_stream:
                 self.output_csv_stream.writerow(rowContent)
@@ -210,6 +247,7 @@ class AllStatesOnesSolver(BaseSymbolicSolverStrategy):
                     print("Found a solution")
                 modelResult = solver.model()
                 self.streamOutModel(modelResult=modelResult,
+                                    priorityUsedForPath=InputSeed.DEFAULT_PRIORITY,
                                     pathResult=P,
                                     debugLoggingEnabled=debugLogging,
                                     debugPathIndex=index)
@@ -318,6 +356,7 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
                             newPath.addNewBranchLevel(symbolicExpressionForNode_false_inZ3,
                                                       executeNewConditionToo=False)
                             newPath.setStartingNodeId(nextNodeOnFalseBranch.id, isQueuedPathNode=True)
+                            newPath.priority = self.scoreNewSymbolicPath(currPath, newPath)
                             worklist.addPath(newPath)
                         else:
                             if isTrueSolvable or isFalseSolvable:
@@ -352,11 +391,23 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
         if currPath.finishStatus == SMTPathState.PATH_FINISHED_SUCCED:
             modelResult = currPath.getSolvedModel() if concolicStrategy is False else None
             self.streamOutModel(modelResult=modelResult,
+                                priorityUsedForPath=currPath.priority,
                                 pathResult=currPath.debugNodesExplored,
                                 debugLoggingEnabled=self.debugLogging,
                                 debugPathIndex=currPath.debugNumPathsSolvableFound,
-                                dataStoreContext=currPath.dataStore)
+                                dataStoreContext=currPath.dataStore,)
             currPath.debugNumPathsSolvableFound += 1
+
+
+    # This is the scoring function that should be overridden in the symbolic case case.
+    # You have access to the path previously executed, and the new one.
+    # Feel free to add more context, but please be sure that you can't reconstruct things from pathExecuted and these
+    # parameters already !
+    def scoreNewSymbolicPath(self, prevPath : SMTPath,
+                             newPath : SMTPath):
+        # Basic impl, that takes as priority the level in the tree where the branching occurred
+        priority = prevPath.levelInBranchTree
+        return priority
 
     # Solve all feasible paths inside the graph and produce optionally a csv output inside a given csv file
     def solve(self, outputCsvFile=None, debugLogging=False, otherArgs=None):
@@ -383,7 +434,7 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
                                      start_nodeId=start_nodeId,
                                      debugFullPathEnabled=debugLogging,
                                      debugNodesHistoryExplored=[])
-            newPathForNode.priority = 0 # TODO Ciprian decisions: start node priority ?
+            newPathForNode.priority = InputSeed.DEFAULT_PRIORITY # This is the start priority.....highest
             statesQueue.addPath(newPathForNode)
 
         # Do a DFS with queue from here

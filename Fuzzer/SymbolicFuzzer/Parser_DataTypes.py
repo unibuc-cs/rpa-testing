@@ -33,10 +33,11 @@ from typing import Dict
 
 # Each entry is a dict from variable name to its value
 class InputSeed():
-    DEFAULT_PRIORITY = 0
+    DEFAULT_PRIORITY = 0    # Default and highest priority
     def __init__(self):
         self.content : Dict[str, any] = {}
         self.priority : int = 0
+        self.concolicBoundaryIndex : int = 0
 
 def removeNamespacesFromName(nameToParse):
     splitByNamespaces = nameToParse.split(":")

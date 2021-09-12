@@ -25,8 +25,6 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
     # Given an input seeds file and a number of seeds to generate randomly (according to certain specs) additionally,
     # returns a list of inputs considered as seeds
     def getInputSeeds(self, inputSeedsFile : str, numSeedsToGenerate : int) -> List[InputSeed]:
-        PRIORITY_COLUMN_NAME = 'priority'
-
         # Read from the inputs seeds file
         self.userInputVariables : List[str] = self.dataStoreTemplate.getUserInputVariables()
 
@@ -59,6 +57,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
             inpSeed : InputSeed = InputSeed()
             inpSeed.content = inputSeedContent
             inpSeed.priority = int(row[PRIORITY_COLUMN_NAME])
+            inpSeed.concolicBoundaryIndex = 0
             prioritiesUsedInSeedFile.append(inpSeed.priority)
             outRes.append(inpSeed)
 
@@ -102,10 +101,24 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
                                      start_nodeId=self.workflowGraph.entryTestNodeId,
                                      debugFullPathEnabled=self.debugLogging,
                                      debugNodesHistoryExplored=[],
-                                     priority=inputSeed.priority)
+                                     priority=inputSeed.priority,
+                                     concolicBoundaryIndex=inputSeed.concolicBoundaryIndex)
 
             # Add to the worklist
             worklist.addPath(newPathForNode)
+
+    # This is the scoring function that should be overridden in the concolic case.
+    # You have access to the path previously executed, the condition index that was reversed from this and the
+    # new input data that was generated based on the change (varName to value)
+    # Feel free to add more context, but please be sure that you can't reconstruct things from pathExecuted and these
+    # parameters already !
+    def scoreNewConcolicInput(self, pathExecuted : SMTPath,
+                              newinputDataGenerated : Dict[str, any],
+                              conditionIndexReversed : int):
+        # Basic implementation now, level of the change...promote higher level in the tree
+        # There are many other interesting things to do since we know the model apriori
+        priority = conditionIndexReversed
+        return priority
 
     def generateNewInputs(self, pathExecuted : SMTPath, workList : SMTWorklist):
         assert pathExecuted.finishStatus == SMTPathState.PATH_FINISHED_SUCCED, "Path given was not succesffully finish. Do not call this in this case"
@@ -138,20 +151,32 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
                 # Check if the solver has a solution with all previous conditions enabled but with this condition changed
                 # -----------------
                 localSolver = z3.Solver()
+                numChanged = 0
                 for origCond_index, origCond_value in enumerate(allOriginalConditions):
                     # Ignore only this iterated condition, and append instead the changed one
                     if origCond_index != iter_origCondition:
                         localSolver.add(origCond_value)
                     else:
                         localSolver.add(changedExpr)
+                        numChanged += 1
+
+                assert numChanged == 1, "Sanity check failed, we changed more than 1 condition or 0!!! the algorithm is wrong, i should have modified a single one"
 
                 # If the model has a solution, then build the new input
                 if localSolver.check() != z3.unsat:
-                    # TODO
+                    modelResult = localSolver.model()
+                    newinputDataGenerated = self.getModelOutput(modelResult=modelResult, pathResult=None,
+                                        dataStoreContext=pathExecuted.dataStore, resultIsTextual=False,
+                                       debugLoggingEnabled=False, debugPathIndex=None)
+                    newinputPriority = self.scoreNewConcolicInput(pathExecuted, newinputDataGenerated, iter_origCondition)
                     # and add to newInputsBuilt
                     # score priority for the new input
                     # We can compute the score here since we have the FULL GRAPH ! Very important since SAGE problem. We know which paths are rare, the depth in the tree, etc.
-                    pass
+                    newInputSeed = InputSeed()
+                    newInputSeed.content = newinputDataGenerated
+                    newInputSeed.priority = newinputPriority
+                    newInputSeed.concolicBoundaryIndex = pathExecuted.concolicBoundaryIndex + 1 # Advance the boundary index to avoid recursion
+                    newInputsBuilt.append(newInputSeed)
 
                 iter_origCondition += 1
                 iter_concolicCondition += 1
