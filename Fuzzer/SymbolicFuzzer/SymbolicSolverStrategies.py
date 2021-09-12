@@ -241,7 +241,7 @@ class AllStatesOnesSolver(BaseSymbolicSolverStrategy):
         self.debuggingOptions = args.debuggingOptions
 
         # Setup the output files stuff
-        self.init_outputStreamsParams(self.outputTests_PrefixFile)
+        self.init_outputStreamsParams()
 
         #condA = 'V["loan"] < 1000' # Just a dummy test to evaluate a simple condition...
         #eval(condA)
@@ -466,7 +466,7 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
                                      initial_conditions_smt=self.dataStoreTemplate.getVariablesSMTConditions(),
                                      dataStore=copy.deepcopy(self.dataStoreTemplate),
                                      start_nodeId=start_nodeId,
-                                     debugFullPathEnabled=debugLogging,
+                                     debugFullPathEnabled=self.debuggingOptions.debug_tests_fullPaths,
                                      debugNodesHistoryExplored=[])
             newPathForNode.priority = InputSeed.DEFAULT_PRIORITY # This is the start priority.....highest
             statesQueue.addPath(newPathForNode)
