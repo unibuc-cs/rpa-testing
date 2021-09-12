@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="TestCase" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap:VirtualizedContainerService.HintSize="911.2,2612.8" sap2010:WorkflowViewState.IdRef="TestCase_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities" xmlns:p="http://schemas.uipath.com/workflow/activities/python" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="TestCase" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap:VirtualizedContainerService.HintSize="921.333333333333,2720.66666666667" sap2010:WorkflowViewState.IdRef="TestCase_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities" xmlns:p="http://schemas.uipath.com/workflow/activities/python" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -78,19 +78,22 @@
       <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
       <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="TestCase" sap:VirtualizedContainerService.HintSize="533.6,2448" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="TestCase" sap:VirtualizedContainerService.HintSize="536,2556" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="generatedTestsDT" />
+      <Variable x:TypeArguments="s:DateTime" Name="startTime" />
+      <Variable x:TypeArguments="s:DateTime" Name="endTime" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:Comment sap:VirtualizedContainerService.HintSize="492,75.2" sap2010:WorkflowViewState.IdRef="Comment_1" Text="// Flow used to test the Bank Loan with pin model" />
-    <Sequence DisplayName="... Given" sap:VirtualizedContainerService.HintSize="492,1162.4" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <ui:Comment sap:VirtualizedContainerService.HintSize="494,74.6666666666667" sap2010:WorkflowViewState.IdRef="Comment_1" Text="// Flow used to test the Bank Loan with pin model" />
+    <Sequence DisplayName="... Given" sap:VirtualizedContainerService.HintSize="494,1270" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <Sequence.Variables>
         <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="Config" />
       </Sequence.Variables>
@@ -99,14 +102,26 @@
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="408.8,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info">
+      <Assign sap:VirtualizedContainerService.HintSize="410,62" sap2010:WorkflowViewState.IdRef="Assign_1">
+        <Assign.To>
+          <OutArgument x:TypeArguments="s:DateTime">
+            <mca:CSharpReference x:TypeArguments="s:DateTime" sap2010:WorkflowViewState.IdRef="CSharpReference`1_4">startTime</mca:CSharpReference>
+          </OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="s:DateTime">
+            <mca:CSharpValue x:TypeArguments="s:DateTime" sap2010:WorkflowViewState.IdRef="CSharpValue`1_15">DateTime.Now</mca:CSharpValue>
+          </InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="410,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info">
         <ui:LogMessage.Message>
           <InArgument x:TypeArguments="x:Object">
             <mca:CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_3">"Initializing workflow... Reading configuration file..."</mca:CSharpValue>
           </InArgument>
         </ui:LogMessage.Message>
       </ui:LogMessage>
-      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke InitAllSettings workflow" sap:VirtualizedContainerService.HintSize="408.8,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Settings\\InitAllSettings.xaml">
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke InitAllSettings workflow" sap:VirtualizedContainerService.HintSize="410,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Settings\\InitAllSettings.xaml">
         <ui:InvokeWorkflowFile.Arguments>
           <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_Config">
             <mca:CSharpReference x:TypeArguments="scg:Dictionary(x:String, x:Object)" sap2010:WorkflowViewState.IdRef="CSharpReference`1_1">Config</mca:CSharpReference>
@@ -117,26 +132,26 @@
           <InArgument x:TypeArguments="x:String" x:Key="in_configFile">ConfigurationFile\Config.xlsx</InArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="408.8,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info">
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="410,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info">
         <ui:LogMessage.Message>
           <InArgument x:TypeArguments="x:Object">
             <mca:CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_5">"Configuration file has been read. Executing python script..."</mca:CSharpValue>
           </InArgument>
         </ui:LogMessage.Message>
       </ui:LogMessage>
-      <p:PythonScope OperationTimeout="{x:Null}" DisplayName="Python Scope" sap:VirtualizedContainerService.HintSize="408.8,189.6" sap2010:WorkflowViewState.IdRef="PythonScope_1" TargetPlatform="x64" Version="Python 3.8">
+      <p:PythonScope OperationTimeout="{x:Null}" DisplayName="Python Scope" sap:VirtualizedContainerService.HintSize="410,186.666666666667" sap2010:WorkflowViewState.IdRef="PythonScope_1" TargetPlatform="x64" Version="Python 3.8">
         <p:PythonScope.Body>
           <ActivityAction x:TypeArguments="x:Object">
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="x:Object" Name="PythonEngineSessionProperty" />
             </ActivityAction.Argument>
-            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="375.2,152.8" sap2010:WorkflowViewState.IdRef="Sequence_5">
+            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,150.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_5">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <p:RunScript Code="{x:Null}" DisplayName="Run Python Script" sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="RunScript_1">
+              <p:RunScript Code="{x:Null}" DisplayName="Run Python Script" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="RunScript_1">
                 <p:RunScript.ScriptFile>
                   <InArgument x:TypeArguments="x:String">
                     <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_8">Config["ScriptFullPath"].ToString()</mca:CSharpValue>
@@ -157,14 +172,14 @@
           </InArgument>
         </p:PythonScope.WorkingFolder>
       </p:PythonScope>
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="408.8,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info">
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="410,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info">
         <ui:LogMessage.Message>
           <InArgument x:TypeArguments="x:Object">
             <mca:CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_9">"Python script execution ended. Reading exported test data..."</mca:CSharpValue>
           </InArgument>
         </ui:LogMessage.Message>
       </ui:LogMessage>
-      <ui:ReadCsvFile Encoding="{x:Null}" Delimitator="Comma" DisplayName="Read CSV" sap:VirtualizedContainerService.HintSize="408.8,155.2" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1">
+      <ui:ReadCsvFile Encoding="{x:Null}" Delimitator="Comma" DisplayName="Read CSV" sap:VirtualizedContainerService.HintSize="410,156.666666666667" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1">
         <ui:ReadCsvFile.DataTable>
           <OutArgument x:TypeArguments="sd:DataTable">
             <mca:CSharpReference x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpReference`1_2">generatedTestsDT</mca:CSharpReference>
@@ -176,7 +191,7 @@
           </InArgument>
         </ui:ReadCsvFile.FilePath>
       </ui:ReadCsvFile>
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="408.8,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info">
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="410,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info">
         <ui:LogMessage.Message>
           <InArgument x:TypeArguments="x:Object">
             <mca:CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_11">"Exported test data have been read. Total number of test cases is "+generatedTestsDT.Rows.Count.ToString()</mca:CSharpValue>
@@ -184,25 +199,25 @@
         </ui:LogMessage.Message>
       </ui:LogMessage>
     </Sequence>
-    <Sequence DisplayName="... When" sap:VirtualizedContainerService.HintSize="492,912.8" sap2010:WorkflowViewState.IdRef="Sequence_3">
+    <Sequence DisplayName="... When" sap:VirtualizedContainerService.HintSize="494,914.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_3">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="450.4,820" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+      <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="452,822.666666666667" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
         <ui:ForEachRow.Body>
           <ActivityAction x:TypeArguments="sd:DataRow">
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
             </ActivityAction.Argument>
-            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="416.8,699.2" sap2010:WorkflowViewState.IdRef="Sequence_6">
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="418,698.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_6">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <Sequence DisplayName="Try to write in pin_real_data " sap:VirtualizedContainerService.HintSize="375.2,452.8" sap2010:WorkflowViewState.IdRef="Sequence_7">
+              <Sequence DisplayName="Try to write in pin_real_data " sap:VirtualizedContainerService.HintSize="376,452.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_7">
                 <Sequence.Variables>
                   <Variable x:TypeArguments="sd:DataTable" Name="pin_real_data" />
                 </Sequence.Variables>
@@ -211,7 +226,7 @@
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <ui:InvokeCode ContinueOnError="{x:Null}" Code="pin_real_data = new DataTable();&#xA;&#xA;string colName = &quot;Pin:actual_pin_values&quot;;&#xA;&#xA;DataColumn column = new DataColumn();&#xA;column.DataType = System.Type.GetType(&quot;System.String&quot;);&#xA;column.ColumnName = colName;&#xA;pin_real_data.Columns.Add(column);&#xA;&#xA;string concatenatedData = &quot;&quot;;&#xA;string[] elements = CurrentRow[&quot;Pin_1:actual_pin_values&quot;].ToString().Split(';');&#xA;&#xA;var convertedValues = new Dictionary&lt;int, string&gt;();&#xA;&#xA;int maxIndex = 0;&#xA;&#xA;for(int i = 0; i &lt; elements.Length; i++) {&#xA;&#x9;var current = elements[i];&#xA;&#x9;current = current.Trim();&#xA;&#x9;if(current == &quot;&quot;) {&#xA;&#x9;&#x9;continue;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;// First position is [&#xA;&#x9;var closedBracketPos = current.IndexOf(']');&#xA;&#x9;var indexVal = current.Substring(1, closedBracketPos - 1);&#xA;&#x9;var dataVal = current.Substring(closedBracketPos + 2);&#xA;&#x9;&#xA;&#x9;var indexAsNum = Int32.Parse(indexVal);&#xA;&#x9;convertedValues.Add(indexAsNum, dataVal);&#xA;&#x9;&#xA;&#x9;if(indexAsNum &gt; maxIndex) {&#xA;&#x9;&#x9;maxIndex = indexAsNum;&#xA;&#x9;}&#xA;}&#xA;&#xA;string[] values = new string[maxIndex + 1];&#xA;foreach(var item in convertedValues) {&#xA;&#x9;values[item.Key] = item.Value;&#xA;}&#xA;&#xA;string val = String.Join(&quot;;&quot;, values);&#xA;&#xA;DataRow row = pin_real_data.NewRow();&#xA;row[colName] = val;&#xA;pin_real_data.Rows.Add(row);&#xA;&#xA;&#xA;// System.Console.WriteLine(CurrentRow[&quot;Pin_1:actual_pin_values&quot;]);&#xA;// System.Console.WriteLine(val);" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="333.6,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
+                <ui:InvokeCode ContinueOnError="{x:Null}" Code="pin_real_data = new DataTable();&#xA;&#xA;string colName = &quot;Pin:actual_pin_values&quot;;&#xA;&#xA;DataColumn column = new DataColumn();&#xA;column.DataType = System.Type.GetType(&quot;System.String&quot;);&#xA;column.ColumnName = colName;&#xA;pin_real_data.Columns.Add(column);&#xA;&#xA;string concatenatedData = &quot;&quot;;&#xA;string[] elements = CurrentRow[&quot;Pin_1:actual_pin_values&quot;].ToString().Split(';');&#xA;&#xA;var convertedValues = new Dictionary&lt;int, string&gt;();&#xA;&#xA;int maxIndex = 0;&#xA;&#xA;for(int i = 0; i &lt; elements.Length; i++) {&#xA;&#x9;var current = elements[i];&#xA;&#x9;current = current.Trim();&#xA;&#x9;if(current == &quot;&quot;) {&#xA;&#x9;&#x9;continue;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;// First position is [&#xA;&#x9;var closedBracketPos = current.IndexOf(']');&#xA;&#x9;var indexVal = current.Substring(1, closedBracketPos - 1);&#xA;&#x9;var dataVal = current.Substring(closedBracketPos + 2);&#xA;&#x9;&#xA;&#x9;var indexAsNum = Int32.Parse(indexVal);&#xA;&#x9;convertedValues.Add(indexAsNum, dataVal);&#xA;&#x9;&#xA;&#x9;if(indexAsNum &gt; maxIndex) {&#xA;&#x9;&#x9;maxIndex = indexAsNum;&#xA;&#x9;}&#xA;}&#xA;&#xA;string[] values = new string[maxIndex + 1];&#xA;foreach(var item in convertedValues) {&#xA;&#x9;values[item.Key] = item.Value;&#xA;}&#xA;&#xA;string val = String.Join(&quot;;&quot;, values);&#xA;&#xA;DataRow row = pin_real_data.NewRow();&#xA;row[colName] = val;&#xA;pin_real_data.Rows.Add(row);&#xA;&#xA;&#xA;// System.Console.WriteLine(CurrentRow[&quot;Pin_1:actual_pin_values&quot;]);&#xA;// System.Console.WriteLine(val);" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
                   <ui:InvokeCode.Arguments>
                     <InOutArgument x:TypeArguments="sd:DataTable" x:Key="pin_real_data">
                       <mca:CSharpReference x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpReference`1_3">pin_real_data</mca:CSharpReference>
@@ -221,7 +236,7 @@
                     </InArgument>
                   </ui:InvokeCode.Arguments>
                 </ui:InvokeCode>
-                <ui:WriteCsvFile Encoding="{x:Null}" AddHeaders="True" Delimitator="Comma" DisplayName="Write CSV" FilePath="pin_real_data.csv" sap:VirtualizedContainerService.HintSize="333.6,155.2" sap2010:WorkflowViewState.IdRef="WriteCsvFile_1">
+                <ui:WriteCsvFile Encoding="{x:Null}" AddHeaders="True" Delimitator="Comma" DisplayName="Write CSV" FilePath="pin_real_data.csv" sap:VirtualizedContainerService.HintSize="334,156.666666666667" sap2010:WorkflowViewState.IdRef="WriteCsvFile_1">
                   <ui:WriteCsvFile.DataTable>
                     <InArgument x:TypeArguments="sd:DataTable">
                       <mca:CSharpValue x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpValue`1_14">pin_real_data</mca:CSharpValue>
@@ -229,7 +244,7 @@
                   </ui:WriteCsvFile.DataTable>
                 </ui:WriteCsvFile>
               </Sequence>
-              <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Main workflow" sap:VirtualizedContainerService.HintSize="375.2,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Main.xaml">
+              <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Main workflow" sap:VirtualizedContainerService.HintSize="376,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Main.xaml">
                 <ui:InvokeWorkflowFile.Arguments>
                   <InArgument x:TypeArguments="x:Int32" x:Key="loan">
                     <mca:CSharpValue x:TypeArguments="x:Int32" sap2010:WorkflowViewState.IdRef="CSharpValue`1_2">string.IsNullOrEmpty(CurrentRow["Main_1:loan"].ToString()) ? 0 : Convert.ToInt32(CurrentRow["Main_1:loan"].ToString())</mca:CSharpValue>
@@ -249,12 +264,44 @@
         </ui:ForEachRow.DataTable>
       </ui:ForEachRow>
     </Sequence>
-    <Sequence DisplayName="... Then" sap:VirtualizedContainerService.HintSize="492,84.8" sap2010:WorkflowViewState.IdRef="Sequence_4">
+    <Sequence DisplayName="... Then" sap:VirtualizedContainerService.HintSize="304,358.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_4">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:TimeSpan" Name="executionTime" />
+      </Sequence.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
+      <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign.To>
+          <OutArgument x:TypeArguments="s:DateTime">
+            <mca:CSharpReference x:TypeArguments="s:DateTime" sap2010:WorkflowViewState.IdRef="CSharpReference`1_5">endTime</mca:CSharpReference>
+          </OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="s:DateTime">
+            <mca:CSharpValue x:TypeArguments="s:DateTime" sap2010:WorkflowViewState.IdRef="CSharpValue`1_16">DateTime.Now</mca:CSharpValue>
+          </InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_3">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:TimeSpan">
+            <mca:CSharpReference x:TypeArguments="x:TimeSpan" sap2010:WorkflowViewState.IdRef="CSharpReference`1_6">executionTime</mca:CSharpReference>
+          </OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:TimeSpan">
+            <mca:CSharpValue x:TypeArguments="x:TimeSpan" sap2010:WorkflowViewState.IdRef="CSharpValue`1_18">endTime.Subtract(startTime)</mca:CSharpValue>
+          </InArgument>
+        </Assign.Value>
+      </Assign>
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="262,62.6666666666667" sap2010:WorkflowViewState.IdRef="WriteLine_1">
+        <InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_19">"Execution time is: " + executionTime.ToString()</mca:CSharpValue>
+        </InArgument>
+      </WriteLine>
     </Sequence>
   </Sequence>
 </Activity>

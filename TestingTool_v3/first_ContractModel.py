@@ -20,7 +20,8 @@ subprocess.call([exe_path,"/z3ReducedGraph",xaml_path])
 os.chdir("../../")
 
 #path to json
-json_path = "../../C#Models/ContractModel/outputXamlParser.json"
+json_path = "../../C#Models/ContractModel/"
+json_name = "outputXamlParser.json"
 print("Current Working Directory " , os.getcwd())
 print("JSON PATH",json_path)
 
@@ -34,4 +35,4 @@ results_path = "generatedTests.csv"
 os.chdir("Applications/Fuzzer/SymbolicFuzzer/")
 print("Current Working Directory " , os.getcwd())
 #call fuzzer
-os.system("python "+fuzzer_path+" -workflowsSpecInput "+ json_path+" -outputGraphFile "+graph_path+" -outputResultsFile "+results_path+" -loggingEnabled 1")
+os.system("python "+fuzzer_path+" -modelBasePath "+json_path+" -workflowsSpecInput "+ json_name+" -outputGraphFile "+graph_path+" -outputResultsFile "+results_path+" -loggingEnabled 1"+" -solverStrategy STRATEGY_DFS")
