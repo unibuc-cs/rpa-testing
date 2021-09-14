@@ -1,5 +1,0 @@
-Pin_1:out_pin_check_successful,Pin_1:local_number_retries,Pin_1:local_pin_test,Pin_1:expected_pin,Pin_1:actual_pin_values,Pin_1:local_test_data_expected,Main_1:loan,Main_1:term,Main_1:loan_type,Main_1:term_type,Main_1:obtained_result,Main_1:pin_check_successful,priority
-False,4,False,1234,[0]=1111 ; [1]=1111 ; [2]=1111 ; [3]=1111 ; [4]=1111 ; [5]=1111 ; [6]=1111 ; [7]=1111 ; [8]=1111 ; [9]=1111 ; ,[[1234]],100000,1,High-Volume Loan,Short-Term,Mid-Volume Loan Short-Term,False,25
-False,5,False,1234,[0]=1111 ; [1]=1111 ; [2]=1111 ; [3]=1234 ; [4]=1111 ; [5]=1111 ; [6]=1111 ; [7]=1111 ; [8]=1111 ; [9]=1111 ; ,[[1234]],100000,1,High-Volume Loan,Short-Term,Mid-Volume Loan Short-Term,False,26
-False,3,False,1234,[0]=1111 ; [1]=1111 ; [2]=1111 ; [3]=1111 ; [4]=1111 ; [5]=1111 ; [6]=1111 ; [7]=1111 ; [8]=1111 ; [9]=1111 ; ,[[1234]],0,1,Low-Volume Loan,Short-Term,Low-Volume Loan Short-Term,False,24
-False,3,False,1234,[0]=1111 ; [1]=1111 ; [2]=1111 ; [3]=1111 ; [4]=1111 ; [5]=1111 ; [6]=1111 ; [7]=1111 ; [8]=1111 ; [9]=1111 ; ,[[1234]],0,5,Low-Volume Loan,Long-Term,Low-Volume Loan Long-Term,False,25
