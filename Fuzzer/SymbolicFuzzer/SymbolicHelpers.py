@@ -9,6 +9,7 @@ from Parser_ASTNodes import *
 from WorkflowGraphBaseNode import BaseSymGraphNode, SymGraphNodeFlow, SymGraphNodeBranch
 from SymbolicHelpers import *
 from enum import Enum
+from Parser_DataTypes import *
 import csv
 
 # TODO: interface / Z3 only ?
@@ -108,23 +109,6 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
     },
     """
 
-    # Given the type of the variable as a string and the expression containing the default value, get the default object value
-    @staticmethod
-    def getDefaultValueFromExpression(varTypeName: str, defaultExpression: str) -> any:
-        res = None
-        if varTypeName == "Int32":
-            res = 0 if defaultExpression is None else int(defaultExpression)
-        elif varTypeName == 'Boolean':
-            res = False if (defaultExpression == None or defaultExpression == 'false' or defaultExpression == 'False'
-                  or int(defaultExpression) == 0) else True
-        elif varTypeName == "Int32[]":
-            res = [] if defaultExpression is None else ast.literal_eval(defaultExpression)
-            assert isinstance(res, list), " The element given as default in this case must be a list !!!"
-        else:
-            raise NotImplementedError("Do it yourself !!")
-
-        return res
-
     # Will put the variabile in the datastore
     def __init__(self, varName : str, typeName : str, **kwargs):
         super().__init__(ASTFuzzerNodeType.VARIABLE_DECL)
@@ -158,7 +142,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
 
         # Build the variabile symbolic and default value depending on its type
         if typeName == "Int32":
-            self.value = ASTFuzzerNode_VariableDecl.getDefaultValueFromExpression(varTypeName=typeName,
+            self.value = getDefaultValueFromExpression(varTypeName=typeName,
                                                                                   defaultExpression=self.defaultValue)
 
             if self.annotation.isFromUserInput:
@@ -187,7 +171,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
             self.value = FuzzerList.Create(annotation=self.annotation, defaultValue=self.defaultValue)
 
         elif typeName == 'Boolean':
-            self.value = ASTFuzzerNode_VariableDecl.getDefaultValueFromExpression(varTypeName=typeName,
+            self.value = getDefaultValueFromExpression(varTypeName=typeName,
                                                                                   defaultExpression=self.defaultValue)
 
             if self.annotation.isFromUserInput:

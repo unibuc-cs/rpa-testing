@@ -30,6 +30,7 @@ import copy
 import sys
 import pandas as pd
 from typing import Dict
+import ast
 
 # Configuration debugging
 class DebuggingOptions():
@@ -71,6 +72,22 @@ def str2Class(str):
         else:
             return None
     return None
+
+# Given the type of the variable as a string and the expression containing the default value, get the default object value
+def getDefaultValueFromExpression(varTypeName: str, defaultExpression: str) -> any:
+    res = None
+    if varTypeName == "Int32":
+        res = 0 if defaultExpression is None else int(defaultExpression)
+    elif varTypeName == 'Boolean':
+        res = False if (defaultExpression == None or defaultExpression == 'false' or defaultExpression == 'False'
+              or int(defaultExpression) == 0) else True
+    elif varTypeName == "Int32[]":
+        res = [] if defaultExpression is None else ast.literal_eval(defaultExpression)
+        assert isinstance(res, list), " The element given as default in this case must be a list !!!"
+    else:
+        raise NotImplementedError("Do it yourself !!")
+
+    return res
 
 # An Object kind of thing that has a value and can be converted to values
 # Purpose to call obj.ToString() and some others
@@ -376,7 +393,17 @@ class FuzzerArray:
         self.internalValue[index] = val
 
     def setValAsList(self, listVal):
-        self.internalValue = copy.deepcopy(listVal)
+        # Get the bounds of the array
+        internalValueLength = int(self.annotation.bounds) if self.annotation.bounds is not None else 0
+        internalValueLength = max(internalValueLength, len(listVal))
+
+        # Get the default value by internal type and allocate an initial data vector with that value.
+        defaultValuePerType = getDefaultValueFromExpression(self.internalDataType, defaultExpression=None)
+        self.internalValue = [defaultValuePerType]*internalValueLength
+
+        # Now get all the values in the given list and fill the internal value
+        for itemIndex, itemValue in enumerate(listVal):
+            self.internalValue[itemIndex] = itemValue
 
     def getVal(self, index):
         return self.internalValue[index]

@@ -1,7 +1,7 @@
 from typing import Dict
 from Parser_WorkflowExpressions import *
 import random
-from Parser_DataTypes import InputSeed
+from Parser_DataTypes import InputSeed, getDefaultValueFromExpression
 
 # Data store to handle variables management, either static, dynamic, symbolic, etc
 class DataStore:
@@ -25,7 +25,7 @@ class DataStore:
     # If one was specified in the workflow, that one is used, otherwise we initialize it by default of type (e.g. int is 0 , float is 0.0, False for boolean)
     def getDefaultValueForVar(self, varName : str):
         defaultExpr = self.DefaultValueExpr.get(varName, None)
-        defaultValue = ASTFuzzerNode_VariableDecl.getDefaultValueFromExpression(varTypeName = self.Types[varName],
+        defaultValue = getDefaultValueFromExpression(varTypeName = self.Types[varName],
                                                                                 defaultExpression = self.DefaultValueExpr[varName])
         return defaultValue
 
@@ -115,6 +115,13 @@ class DataStore:
         res = self.getSymbolicVariableValue(varName)
         return res is not None
 
+    def isVariableFromUserInput(self, varName) -> bool:
+        if varName not in self.Annotations:
+            assert False, f"Given variable {varName} is not in the datastore"
+            return False
+
+        return self.Annotations[varName].isFromUserInput
+
     def getUserInputVariables(self) -> List[str]:
         res : List[str] = []
         for varName, varAnnotation in self.Annotations.items():
@@ -122,9 +129,14 @@ class DataStore:
                 res.append(varName)
         return res
 
-    def setInputSeed(self, inputSeed:InputSeed):
+    # Given an input seed and an option if only the user input annotation should be filled in
+    # Override the existing current values in the datastore
+    def setInputSeed(self, inputSeed:InputSeed, onlyUserInput):
         for varName, varValue in inputSeed.content.items():
             contentToSet = inputSeed.content[varName]
+
+            if onlyUserInput is True and not self.isVariableFromUserInput(varName):
+                continue
 
             # Check if receiving object is indeed a list / array behind
             if isinstance(self.Values[varName], (FuzzerArray, FuzzerList)):

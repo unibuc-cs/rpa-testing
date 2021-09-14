@@ -88,7 +88,7 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
         for inputSeed in allInputSeeds:
             # Create a datastore from template and put the input seed on it
             dataStoreInst = copy.deepcopy(self.dataStoreTemplate)
-            dataStoreInst.setInputSeed(inputSeed)
+            dataStoreInst.setInputSeed(inputSeed, onlyUserInput=True)
 
             # Create the initial set of conditions (boundaries, assumtpions initial) and force variables
             # set by by seed value
@@ -135,48 +135,59 @@ class ConcolicSolverStrategy(DFSSymbolicSolverStrategy):
 
         newInputsBuilt : List[InputSeed] = []
 
+        localSolver = z3.Solver()
         while (iter_origCondition < numOriginalConditions): #and (iter_concolicCondition < numConcolicConditions):
             # Store the next index of a concolic decision branch
             next_concolicBranchIndexCondition = allConcolicDecisionIndices[iter_concolicCondition] if iter_concolicCondition < numConcolicConditions else sys.maxsize
 
             # If we are behind, add the next base condition
             if iter_origCondition < next_concolicBranchIndexCondition:
+                # Add the condition since it will be needed for sure for the rest
+                localSolver.add(allOriginalConditions[iter_origCondition])
                 iter_origCondition += 1
 
+
             # This means we are on the same index, and we should do something to reverse it in the new input !
+            # Check if the solver has a solution with all previous conditions up to this point enabled, but with this condition index changed
             elif iter_origCondition == next_concolicBranchIndexCondition:
-                #changedExpr = SymbolicExecutionHelpers.getInverseOfSymbolicExpresion(allOriginalConditions[iter_origCondition])
                 changedExpr = allConcolicTakenDecisions[next_concolicBranchIndexCondition].otherBranchZ3Condition
 
-                # Check if the solver has a solution with all previous conditions enabled but with this condition changed
-                # -----------------
-                localSolver = z3.Solver()
-                numChanged = 0
-                for origCond_index, origCond_value in enumerate(allOriginalConditions):
-                    # Ignore only this iterated condition, and append instead the changed one
-                    if origCond_index != iter_origCondition:
-                        localSolver.add(origCond_value)
-                    else:
-                        localSolver.add(changedExpr)
-                        numChanged += 1
-
-                assert numChanged == 1, "Sanity check failed, we changed more than 1 condition or 0!!! the algorithm is wrong, i should have modified a single one"
+                localSolver.push()
+                localSolver.add(changedExpr)
 
                 # If the model has a solution, then build the new input
-                if localSolver.check() != z3.unsat:
+                if localSolver.check() != z3.unsat: #localSolver.check(changedExpr) != z3.unsat:
+
+
+                    #print(f"S: {localSolver.assertions()[-4:]}")
+
+                    #localSolver.push()
+
+                    # Push the changed expression
+                    #localSolver.add(changedExpr)
+
+                    # Get the model and build the new input
                     modelResult = localSolver.model()
+
                     newinputDataGenerated = self.getModelOutput(modelResult=modelResult, pathResult=None,
                                         dataStoreContext=pathExecuted.dataStore, resultIsTextual=False,
                                        debugFullPaths=False, debugPathIndex=None)
                     newinputPriority = self.scoreNewConcolicInput(pathExecuted, newinputDataGenerated, iter_origCondition)
                     # and add to newInputsBuilt
                     # score priority for the new input
+                    # NOTE for optimization in our case:
                     # We can compute the score here since we have the FULL GRAPH ! Very important since SAGE problem. We know which paths are rare, the depth in the tree, etc.
                     newInputSeed = InputSeed()
                     newInputSeed.content = newinputDataGenerated
                     newInputSeed.priority = newinputPriority
                     newInputSeed.concolicBoundaryIndex = pathExecuted.concolicBoundaryIndex + 1 # Advance the boundary index to avoid recursion
                     newInputsBuilt.append(newInputSeed)
+
+                # Now pop back to the previous state without this changed expression
+                localSolver.pop()
+
+                # And add the original condition back in to continue correctly !
+                localSolver.add(allOriginalConditions[iter_origCondition])
 
                 iter_origCondition += 1
                 iter_concolicCondition += 1
