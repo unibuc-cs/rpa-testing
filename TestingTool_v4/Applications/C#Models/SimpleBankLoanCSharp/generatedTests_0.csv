@@ -1,0 +1,11 @@
+Pin_1:local_number_retries,Pin_1:local_pin_test,Pin_1:expected_pin,Pin_1:actual_pin_values,Pin_1:local_test_data_expected,Pin_1:local_test_data_actual,Pin_1:out_pin_check_successful,Main_1:loan_type,Main_1:term_type,Main_1:obtained_result,Main_1:pin_check_successful,Main_1:loan,Main_1:term,priority
+0,False,0,[0]=0 ; [1]=0 ; [2]=0 ; [3]=0 ; [4]=0 ; [5]=0 ; [6]=0 ; [7]=0 ; [8]=0 ; [9]=0 ; ,,,False,Low-Volume Loan,Long-Term,Low-Volume Loan Long-Term,False,100,5,1
+0,False,0,[0]=1111 ; [1]=1111 ; [2]=1111 ; [3]=1111 ; [4]=1111 ; [5]=1111 ; [6]=1111 ; [7]=1111 ; [8]=1111 ; [9]=1111 ; ,,,False,Low-Volume Loan,Short-Term,Low-Volume Loan Short-Term,False,999,1,25
+0,False,0,[0]=1111 ; [1]=1111 ; [2]=1111 ; [3]=1111 ; [4]=1111 ; [5]=1111 ; [6]=1111 ; [7]=1111 ; [8]=1111 ; [9]=1111 ; ,,,False,Low-Volume Loan,Long-Term,Low-Volume Loan Long-Term,False,0,5,25
+0,False,0,[0]=1111 ; [1]=1111 ; [2]=1111 ; [3]=1111 ; [4]=1111 ; [5]=1111 ; [6]=1111 ; [7]=1111 ; [8]=1111 ; [9]=1111 ; ,,,False,Mid-Volume Loan,Short-Term,Mid-Volume Loan Short-Term,False,1000,1,24
+0,False,0,[0]=1111 ; [1]=1111 ; [2]=1111 ; [3]=1111 ; [4]=1111 ; [5]=1111 ; [6]=1111 ; [7]=1111 ; [8]=1111 ; [9]=1111 ; ,,,False,Mid-Volume Loan,Long-Term,Mid-Volume Loan Long-Term,False,99999,5,26
+0,False,0,[0]=1111 ; [1]=1111 ; [2]=1111 ; [3]=1111 ; [4]=1111 ; [5]=1111 ; [6]=1111 ; [7]=1111 ; [8]=1111 ; [9]=1111 ; ,,,False,Mid-Volume Loan,Short-Term,Mid-Volume Loan Short-Term,False,1000,1,26
+3,False,1234,[0]=1111 ; [1]=1111 ; [2]=1111 ; [3]=1111 ; [4]=1111 ; [5]=1111 ; [6]=1111 ; [7]=1111 ; [8]=1111 ; [9]=1111 ; ,[[1234]],[[1235]],False,High-Volume Loan,None,None,False,100000,1,25
+2,True,1234,[0]=1233 ; [1]=1233 ; [2]=1234 ; [3]=1111 ; [4]=1111 ; [5]=1111 ; [6]=1111 ; [7]=1111 ; [8]=1111 ; [9]=1111 ; ,[[1234]],[[1235]],True,High-Volume Loan,None,None,False,100000,1,28
+3,False,1234,[0]=1111 ; [1]=1233 ; [2]=1111 ; [3]=1111 ; [4]=1111 ; [5]=1111 ; [6]=1111 ; [7]=1111 ; [8]=1111 ; [9]=1111 ; ,[[1234]],[[1235]],False,High-Volume Loan,None,None,False,100000,1,28
+2,True,1234,[0]=1111 ; [1]=1111 ; [2]=1234 ; [3]=1111 ; [4]=1111 ; [5]=1111 ; [6]=1111 ; [7]=1111 ; [8]=1111 ; [9]=1111 ; ,[[1234]],[[1235]],True,High-Volume Loan,None,None,False,100000,1,28

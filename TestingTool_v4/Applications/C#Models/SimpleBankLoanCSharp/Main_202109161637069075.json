@@ -229,9 +229,6 @@
     },
     "Pin_1:CheckRetryTest_4": {
       "expression": "local_number_retries < actual_pin_values.Count()",
-      "Annotation": {
-        "expression": "local_number_retries < 3"
-      },
       "transitions": [
         {
           "value": "True",
