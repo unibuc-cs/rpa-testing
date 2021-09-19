@@ -3,7 +3,6 @@
   "description": "Create Loan Process",
   "main": "Main.xaml",
   "dependencies": {
-    "ActivitiesCustomSerializer": "[3.0.0]",
     "UiPath.Excel.Activities": "[2.10.4]",
     "UiPath.Mail.Activities": "[1.10.5]",
     "UiPath.Python.Activities": "[1.4.1]",

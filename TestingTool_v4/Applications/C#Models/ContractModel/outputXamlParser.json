@@ -5,13 +5,15 @@
         "LoanApproved": {
           "Type": "Boolean",
           "Annotation": {
-            "userInput": "Falae"
+            "userInput": "False"
           }
         },
         "Message": {
-          "Type": "String",
+          "Type": "Int32",
           "Annotation": {
-            "userInput": "False"
+            "userInput": "True",
+            "min": 0,
+            "max": 1
           }
         },
         "Income": {
@@ -34,9 +36,14 @@
           "Type": "Int32",
           "Default": "0"
         },
+        "ContractModelDataDT": {
+          "Type": "DataTable",
+          "Annotation": {
+            "path": "ContractModelData.csv"
+          }
+        },
         "Amount": {
           "Type": "Int32",
-          "Default": "",
           "Annotation": {
             "userInput": "True"
           }
@@ -65,68 +72,77 @@
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:Assign_16"
+          "destination": "Main_1:Read_CSV_16"
         },
         {
           "value": "False",
-          "destination": "Main_1:Virtual_Flowchart_End_26"
+          "destination": "Main_1:Virtual_Flowchart_End_27"
         }
       ]
     },
-    "Main_1:Assign_16": {
-      "expression": "Message = \"Approved\"",
+    "Main_1:Read_CSV_16": {
+      "expression": "ContractModelDataDT = LoadCSV(\"ContractModelData.csv\")",
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:If_17"
+          "destination": "Main_1:Assign_17"
         }
       ]
     },
-    "Main_1:If_17": {
-      "expression": "Message.Contains(\"Approved\")",
+    "Main_1:Assign_17": {
+      "expression": "Message = Int32.Parse(ContractModelDataDT.Rows[0][\"Main_1:Message\"].ToString())",
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:Assign_19"
-        },
+          "destination": "Main_1:If_18"
+        }
+      ]
+    },
+    "Main_1:If_18": {
+      "expression": "Message == 1",
+      "transitions": [
         {
-          "value": "False",
+          "value": "True",
           "destination": "Main_1:Assign_20"
-        }
-      ]
-    },
-    "Main_1:Assign_19": {
-      "expression": "LoanApproved = True",
-      "transitions": [
+        },
         {
-          "value": "True",
-          "destination": "Main_1:Order_approved_23"
+          "value": "False",
+          "destination": "Main_1:Assign_21"
         }
       ]
     },
     "Main_1:Assign_20": {
+      "expression": "LoanApproved = True",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Order_approved_24"
+        }
+      ]
+    },
+    "Main_1:Assign_21": {
       "expression": "LoanApproved = False",
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:Order_approved_23"
+          "destination": "Main_1:Order_approved_24"
         }
       ]
     },
-    "Main_1:Order_approved_23": {
-      "expression": "LoanApproved",
+    "Main_1:Order_approved_24": {
+      "expression": "LoanApproved == true",
       "transitions": [
         {
           "value": "True",
-          "destination": "Main_1:Virtual_Flowchart_End_26"
+          "destination": "Main_1:Virtual_Flowchart_End_27"
         },
         {
           "value": "False",
-          "destination": "Main_1:Virtual_Flowchart_End_26"
+          "destination": "Main_1:Virtual_Flowchart_End_27"
         }
       ]
     },
-    "Main_1:Virtual_Flowchart_End_26": {
+    "Main_1:Virtual_Flowchart_End_27": {
       "transitions": []
     }
   },
