@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="TestCase" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap:VirtualizedContainerService.HintSize="1364.8,6152.8" sap2010:WorkflowViewState.IdRef="TestCase_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities" xmlns:p="http://schemas.uipath.com/workflow/activities/python" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sc="clr-namespace:System.Collections;assembly=mscorlib" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="TestCase" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap:VirtualizedContainerService.HintSize="803.2,2096.8" sap2010:WorkflowViewState.IdRef="TestCase_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sc="clr-namespace:System.Collections;assembly=mscorlib" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -83,7 +83,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="TestCase" sap:VirtualizedContainerService.HintSize="610.4,5988" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="TestCase" sap:VirtualizedContainerService.HintSize="610.4,1932" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="generatedTestsDT" />
       <Variable x:TypeArguments="s:DateTime" Name="startTime" />
@@ -104,220 +104,19 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence DisplayName="... Given" sap:VirtualizedContainerService.HintSize="568.8,4262.4" sap2010:WorkflowViewState.IdRef="Sequence_2">
-      <Sequence.Variables>
-        <Variable x:TypeArguments="x:String" Name="modelBasePath" />
-        <Variable x:TypeArguments="x:String" Name="outputTests_MaxTestsPerFile" />
-        <Variable x:TypeArguments="x:String" Name="debug_tests_fullPaths" />
-        <Variable x:TypeArguments="x:String" Name="debug_consoleOutput" />
-        <Variable x:TypeArguments="x:String" Name="debug_tests_fullVariablesContents" />
-      </Sequence.Variables>
+    <Sequence DisplayName="...Given" sap:VirtualizedContainerService.HintSize="568.8,206.4" sap2010:WorkflowViewState.IdRef="Sequence_22">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="483.2,60" sap2010:WorkflowViewState.IdRef="MessageBox_1">
-        <ui:MessageBox.Text>
-          <InArgument x:TypeArguments="x:Object">
-            <mca:CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_79">Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(),@"../../../userInput.json"))</mca:CSharpValue>
-          </InArgument>
-        </ui:MessageBox.Text>
-      </ui:MessageBox>
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="483.2,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info">
-        <ui:LogMessage.Message>
-          <InArgument x:TypeArguments="x:Object">
-            <mca:CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_3">"Initializing workflow... Reading configuration file..."</mca:CSharpValue>
-          </InArgument>
-        </ui:LogMessage.Message>
-      </ui:LogMessage>
-      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke InitAllSettings workflow" sap:VirtualizedContainerService.HintSize="483.2,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Settings\\InitAllSettings.xaml">
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke GenerateTestData workflow" sap:VirtualizedContainerService.HintSize="333.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="GenerateTestData.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_Config">
-            <mca:CSharpReference x:TypeArguments="scg:Dictionary(x:String, x:Object)" sap2010:WorkflowViewState.IdRef="CSharpReference`1_1">Config</mca:CSharpReference>
+          <OutArgument x:TypeArguments="s:String[]" x:Key="out_generatedTestsFilesArray">
+            <mca:CSharpReference x:TypeArguments="s:String[]" sap2010:WorkflowViewState.IdRef="CSharpReference`1_36">generatedTestsFilesArray</mca:CSharpReference>
           </OutArgument>
-          <InArgument x:TypeArguments="s:String[]" x:Key="in_configSheets">
-            <mca:CSharpValue x:TypeArguments="s:String[]" sap2010:WorkflowViewState.IdRef="CSharpValue`1_4">new string[]{"Settings", "Constants"};</mca:CSharpValue>
-          </InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_configFile">Configuration\Config.xlsx</InArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="483.2,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info">
-        <ui:LogMessage.Message>
-          <InArgument x:TypeArguments="x:Object">
-            <mca:CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_5">"Configuration file has been read. Executing python script..."</mca:CSharpValue>
-          </InArgument>
-        </ui:LogMessage.Message>
-      </ui:LogMessage>
-      <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input - modelBasePath" sap:VirtualizedContainerService.HintSize="483.2,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_12" IsPassword="False" Label="Name of the xaml file under test" Title="Configuration:">
-        <ui:InputDialog.Result>
-          <OutArgument x:TypeArguments="x:String">
-            <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_34">testedXamlName</mca:CSharpReference>
-          </OutArgument>
-        </ui:InputDialog.Result>
-      </ui:InputDialog>
-      <ui:InputDialog Options="{x:Null}" DisplayName="Input - modelBasePath" sap:VirtualizedContainerService.HintSize="483.2,295.2" sap2010:WorkflowViewState.IdRef="InputDialog_2" IsPassword="False" Label="Model base path" OptionsString="../../C#Models/SimpleBankLoanCSharp/;../../C#Models/ContractModel/;../../C#Models/CSharpLoans_Consumer/" Title="Configuration:">
-        <ui:InputDialog.Result>
-          <OutArgument x:TypeArguments="x:String">
-            <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_16">modelBasePath</mca:CSharpReference>
-          </OutArgument>
-        </ui:InputDialog.Result>
-      </ui:InputDialog>
-      <ui:InputDialog Options="{x:Null}" DisplayName="Input - solverStrategy" sap:VirtualizedContainerService.HintSize="483.2,295.2" sap2010:WorkflowViewState.IdRef="InputDialog_3" IsPassword="False" Label="Solver strategy" OptionsString="STRATEGY_CONCOLIC;STRATEGY_DFS;STRATEGY_OFFLINE_ALL" Title="Configuration:">
-        <ui:InputDialog.Result>
-          <OutArgument x:TypeArguments="x:String">
-            <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_18">SolverStrategy</mca:CSharpReference>
-          </OutArgument>
-        </ui:InputDialog.Result>
-      </ui:InputDialog>
-      <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input - outputTests_MaxTestsPerFile" sap:VirtualizedContainerService.HintSize="483.2,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_4" IsPassword="False" Label="Output tests, maximum number of tests per file" Title="Configuration:">
-        <ui:InputDialog.Result>
-          <OutArgument x:TypeArguments="x:String">
-            <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_19">outputTests_MaxTestsPerFile</mca:CSharpReference>
-          </OutArgument>
-        </ui:InputDialog.Result>
-      </ui:InputDialog>
-      <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input - debug_tests_fullPaths" sap:VirtualizedContainerService.HintSize="483.2,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_5" IsPassword="False" Label="Debug, tests full paths" Title="Configuration:">
-        <ui:InputDialog.Result>
-          <OutArgument x:TypeArguments="x:String">
-            <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_20">debug_tests_fullPaths</mca:CSharpReference>
-          </OutArgument>
-        </ui:InputDialog.Result>
-      </ui:InputDialog>
-      <ui:InputDialog Options="{x:Null}" DisplayName="Input - debug_consoleOutput" sap:VirtualizedContainerService.HintSize="483.2,295.2" sap2010:WorkflowViewState.IdRef="InputDialog_6" IsPassword="False" Label="Debug console output. 0 for disable, 1 for enable" OptionsString="0;1" Title="Configuration:">
-        <ui:InputDialog.Result>
-          <OutArgument x:TypeArguments="x:String">
-            <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_22">debug_consoleOutput</mca:CSharpReference>
-          </OutArgument>
-        </ui:InputDialog.Result>
-      </ui:InputDialog>
-      <ui:InputDialog Options="{x:Null}" DisplayName="Input - sdebug_tests_fullVariablesContents" sap:VirtualizedContainerService.HintSize="483.2,295.2" sap2010:WorkflowViewState.IdRef="InputDialog_7" IsPassword="False" Label="Debug tests full variables contents. 0 for disable, 1 for enable." OptionsString="0;1" Title="Configuration:">
-        <ui:InputDialog.Result>
-          <OutArgument x:TypeArguments="x:String">
-            <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_24">debug_tests_fullVariablesContents</mca:CSharpReference>
-          </OutArgument>
-        </ui:InputDialog.Result>
-      </ui:InputDialog>
-      <If sap:VirtualizedContainerService.HintSize="483.2,848.8" sap2010:WorkflowViewState.IdRef="If_1">
-        <If.Condition>
-          <InArgument x:TypeArguments="x:Boolean">
-            <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_74">SolverStrategy.Equals("STRATEGY_CONCOLIC")</mca:CSharpValue>
-          </InArgument>
-        </If.Condition>
-        <If.Then>
-          <Sequence sap:VirtualizedContainerService.HintSize="375.2,669.6" sap2010:WorkflowViewState.IdRef="Sequence_20">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <ui:InputDialog Options="{x:Null}" DisplayName="Input - seedsFile.csv" sap:VirtualizedContainerService.HintSize="333.6,295.2" sap2010:WorkflowViewState.IdRef="InputDialog_10" IsPassword="False" Label="Seeds file path" OptionsString="inputSeeds.csv;None" Title="Configuration:">
-              <ui:InputDialog.Result>
-                <OutArgument x:TypeArguments="x:String">
-                  <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_31">SeedsFile</mca:CSharpReference>
-                </OutArgument>
-              </ui:InputDialog.Result>
-            </ui:InputDialog>
-            <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input - numRandomGeneratedSeeds" sap:VirtualizedContainerService.HintSize="333.6,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_11" IsPassword="False" Label="Number of random generated seeds" Title="Configuration:">
-              <ui:InputDialog.Result>
-                <OutArgument x:TypeArguments="x:String">
-                  <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_32">numRandomGeneratedSeeds</mca:CSharpReference>
-                </OutArgument>
-              </ui:InputDialog.Result>
-            </ui:InputDialog>
-          </Sequence>
-        </If.Then>
-      </If>
-      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke WriteUserInputInJsonFile workflow" sap:VirtualizedContainerService.HintSize="483.2,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Configuration\\WriteUserInputInJsonFile.xaml">
-        <ui:InvokeWorkflowFile.Arguments>
-          <InArgument x:TypeArguments="x:String" x:Key="in_modelBasePath">
-            <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_64">modelBasePath</mca:CSharpValue>
-          </InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_solverStrategy">
-            <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_63">SolverStrategy</mca:CSharpValue>
-          </InArgument>
-          <InArgument x:TypeArguments="x:Int32" x:Key="in_outputTests_MaxTestPerFile">
-            <mca:CSharpValue x:TypeArguments="x:Int32" sap2010:WorkflowViewState.IdRef="CSharpValue`1_62">Convert.ToInt32(outputTests_MaxTestsPerFile)</mca:CSharpValue>
-          </InArgument>
-          <InArgument x:TypeArguments="x:Int32" x:Key="in_debug_tests_fullPaths">
-            <mca:CSharpValue x:TypeArguments="x:Int32" sap2010:WorkflowViewState.IdRef="CSharpValue`1_61">Convert.ToInt32(debug_tests_fullPaths)</mca:CSharpValue>
-          </InArgument>
-          <InArgument x:TypeArguments="x:Int32" x:Key="in_debug_consoleOutput">
-            <mca:CSharpValue x:TypeArguments="x:Int32" sap2010:WorkflowViewState.IdRef="CSharpValue`1_60">Convert.ToInt32(debug_consoleOutput)</mca:CSharpValue>
-          </InArgument>
-          <InArgument x:TypeArguments="x:Int32" x:Key="in_debug_tests_fullVariablesContent">
-            <mca:CSharpValue x:TypeArguments="x:Int32" sap2010:WorkflowViewState.IdRef="CSharpValue`1_59">Convert.ToInt32(debug_tests_fullVariablesContents)</mca:CSharpValue>
-          </InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_seedsFile">
-            <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_58">SeedsFile</mca:CSharpValue>
-          </InArgument>
-          <InArgument x:TypeArguments="x:Int32" x:Key="in_numRandomGeneratedSeeds">
-            <mca:CSharpValue x:TypeArguments="x:Int32" sap2010:WorkflowViewState.IdRef="CSharpValue`1_57">Convert.ToInt32(numRandomGeneratedSeeds)</mca:CSharpValue>
-          </InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_jsonPath">
-            <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_80">Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(),@"../../../userInput.json"))</mca:CSharpValue>
-          </InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_xamlPath">
-            <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_76">modelBasePath.Remove(modelBasePath.IndexOf("../"), "../".Length).Insert(modelBasePath.IndexOf("../"),"")+testedXamlName</mca:CSharpValue>
-          </InArgument>
-        </ui:InvokeWorkflowFile.Arguments>
-      </ui:InvokeWorkflowFile>
-      <p:PythonScope OperationTimeout="{x:Null}" DisplayName="Python Scope" sap:VirtualizedContainerService.HintSize="483.2,189.6" sap2010:WorkflowViewState.IdRef="PythonScope_5" TargetPlatform="x64" Version="Python 3.8">
-        <p:PythonScope.Body>
-          <ActivityAction x:TypeArguments="x:Object">
-            <ActivityAction.Argument>
-              <DelegateInArgument x:TypeArguments="x:Object" Name="PythonEngineSessionProperty" />
-            </ActivityAction.Argument>
-            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="375.2,152.8" sap2010:WorkflowViewState.IdRef="Sequence_19">
-              <Sequence.Variables>
-                <Variable x:TypeArguments="x:String" Name="SeedsFile" />
-                <Variable x:TypeArguments="x:String" Name="numRandomGeneratedSeeds" />
-              </Sequence.Variables>
-              <sap:WorkflowViewStateService.ViewState>
-                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                </scg:Dictionary>
-              </sap:WorkflowViewStateService.ViewState>
-              <p:RunScript Code="{x:Null}" DisplayName="Run Python Script" sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="RunScript_5">
-                <p:RunScript.ScriptFile>
-                  <InArgument x:TypeArguments="x:String">
-                    <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_72">Config["IntegrationScriptFullPath"].ToString()</mca:CSharpValue>
-                  </InArgument>
-                </p:RunScript.ScriptFile>
-              </p:RunScript>
-            </Sequence>
-          </ActivityAction>
-        </p:PythonScope.Body>
-        <p:PythonScope.Path>
-          <InArgument x:TypeArguments="x:String">
-            <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_70">Config["PyhtonHomePath"].ToString()</mca:CSharpValue>
-          </InArgument>
-        </p:PythonScope.Path>
-        <p:PythonScope.WorkingFolder>
-          <InArgument x:TypeArguments="x:String">
-            <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_71">Config["ScriptWorkingFolder"].ToString()</mca:CSharpValue>
-          </InArgument>
-        </p:PythonScope.WorkingFolder>
-      </p:PythonScope>
-      <Assign sap:VirtualizedContainerService.HintSize="483.2,60" sap2010:WorkflowViewState.IdRef="Assign_7">
-        <Assign.To>
-          <OutArgument x:TypeArguments="s:String[]">
-            <mca:CSharpReference x:TypeArguments="s:String[]" sap2010:WorkflowViewState.IdRef="CSharpReference`1_28">generatedTestsFilesArray</mca:CSharpReference>
-          </OutArgument>
-        </Assign.To>
-        <Assign.Value>
-          <InArgument x:TypeArguments="s:String[]">
-            <mca:CSharpValue x:TypeArguments="s:String[]" sap2010:WorkflowViewState.IdRef="CSharpValue`1_73">Directory.GetFiles(Directory.GetCurrentDirectory(),"generatedTests_*")</mca:CSharpValue>
-          </InArgument>
-        </Assign.Value>
-      </Assign>
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="483.2,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info">
-        <ui:LogMessage.Message>
-          <InArgument x:TypeArguments="x:Object">
-            <mca:CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_9">"Python script execution ended. Reading exported test data..."</mca:CSharpValue>
-          </InArgument>
-        </ui:LogMessage.Message>
-      </ui:LogMessage>
     </Sequence>
     <Sequence DisplayName="... When" sap:VirtualizedContainerService.HintSize="568.8,1468" sap2010:WorkflowViewState.IdRef="Sequence_18">
       <sap:WorkflowViewStateService.ViewState>
@@ -377,7 +176,7 @@
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <ui:InvokeCode ContinueOnError="{x:Null}" Code="pin_real_data = new DataTable();&#xA;&#xA;string colName = &quot;Pin:actual_pin_values&quot;;&#xA;&#xA;DataColumn column = new DataColumn();&#xA;column.DataType = System.Type.GetType(&quot;System.String&quot;);&#xA;column.ColumnName = colName;&#xA;pin_real_data.Columns.Add(column);&#xA;&#xA;string concatenatedData = &quot;&quot;;&#xA;string[] elements = CurrentRow[&quot;Pin_1:actual_pin_values&quot;].ToString().Split(';');&#xA;&#xA;var convertedValues = new Dictionary&lt;int, string&gt;();&#xA;&#xA;int maxIndex = 0;&#xA;&#xA;for(int i = 0; i &lt; elements.Length; i++) {&#xA;&#x9;var current = elements[i];&#xA;&#x9;current = current.Trim();&#xA;&#x9;if(current == &quot;&quot;) {&#xA;&#x9;&#x9;continue;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;// First position is [&#xA;&#x9;var closedBracketPos = current.IndexOf(']');&#xA;&#x9;var indexVal = current.Substring(1, closedBracketPos - 1);&#xA;&#x9;var dataVal = current.Substring(closedBracketPos + 2);&#xA;&#x9;&#xA;&#x9;var indexAsNum = Int32.Parse(indexVal);&#xA;&#x9;convertedValues.Add(indexAsNum, dataVal);&#xA;&#x9;&#xA;&#x9;if(indexAsNum &gt; maxIndex) {&#xA;&#x9;&#x9;maxIndex = indexAsNum;&#xA;&#x9;}&#xA;}&#xA;&#xA;string[] values = new string[maxIndex + 1];&#xA;foreach(var item in convertedValues) {&#xA;&#x9;values[item.Key] = item.Value;&#xA;}&#xA;&#xA;string val = String.Join(&quot;;&quot;, values);&#xA;&#xA;DataRow row = pin_real_data.NewRow();&#xA;row[colName] = val;&#xA;pin_real_data.Rows.Add(row);&#xA;&#xA;&#xA;// System.Console.WriteLine(CurrentRow[&quot;Pin_1:actual_pin_values&quot;]);&#xA;// System.Console.WriteLine(val);" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="333.6,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_2" Language="CSharp">
+                        <ui:InvokeCode ContinueOnError="{x:Null}" Code="pin_real_data = new DataTable();&#xD;&#xA;&#xD;&#xA;string colName = &quot;Pin:actual_pin_values&quot;;&#xD;&#xA;&#xD;&#xA;DataColumn column = new DataColumn();&#xD;&#xA;column.DataType = System.Type.GetType(&quot;System.String&quot;);&#xD;&#xA;column.ColumnName = colName;&#xD;&#xA;pin_real_data.Columns.Add(column);&#xD;&#xA;&#xD;&#xA;string concatenatedData = &quot;&quot;;&#xD;&#xA;string[] elements = CurrentRow[&quot;Pin_1:actual_pin_values&quot;].ToString().Split(';');&#xD;&#xA;&#xD;&#xA;var convertedValues = new Dictionary&lt;int, string&gt;();&#xD;&#xA;&#xD;&#xA;int maxIndex = 0;&#xD;&#xA;&#xD;&#xA;for(int i = 0; i &lt; elements.Length; i++) {&#xD;&#xA;&#x9;var current = elements[i];&#xD;&#xA;&#x9;current = current.Trim();&#xD;&#xA;&#x9;if(current == &quot;&quot;) {&#xD;&#xA;&#x9;&#x9;continue;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;// First position is [&#xD;&#xA;&#x9;var closedBracketPos = current.IndexOf(']');&#xD;&#xA;&#x9;var indexVal = current.Substring(1, closedBracketPos - 1);&#xD;&#xA;&#x9;var dataVal = current.Substring(closedBracketPos + 2);&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;var indexAsNum = Int32.Parse(indexVal);&#xD;&#xA;&#x9;convertedValues.Add(indexAsNum, dataVal);&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;if(indexAsNum &gt; maxIndex) {&#xD;&#xA;&#x9;&#x9;maxIndex = indexAsNum;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;string[] values = new string[maxIndex + 1];&#xD;&#xA;foreach(var item in convertedValues) {&#xD;&#xA;&#x9;values[item.Key] = item.Value;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;string val = String.Join(&quot;;&quot;, values);&#xD;&#xA;&#xD;&#xA;DataRow row = pin_real_data.NewRow();&#xD;&#xA;row[colName] = val;&#xD;&#xA;pin_real_data.Rows.Add(row);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;// System.Console.WriteLine(CurrentRow[&quot;Pin_1:actual_pin_values&quot;]);&#xD;&#xA;// System.Console.WriteLine(val);" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="333.6,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_2" Language="CSharp">
                           <ui:InvokeCode.Arguments>
                             <InOutArgument x:TypeArguments="sd:DataTable" x:Key="pin_real_data">
                               <mca:CSharpReference x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpReference`1_15">pin_real_data</mca:CSharpReference>
