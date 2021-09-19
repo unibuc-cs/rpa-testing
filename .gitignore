@@ -69,7 +69,6 @@ NuGet.exe
 _[Ss]cripts
 *.exe
 *.dll
-*.nupkg
 *.ncrunchsolution
 *.dot[Cc]over
 *.pyc
