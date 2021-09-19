@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.6.1": {
+      "ActivitiesCustomSerializer/3.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/_._": {}
+        },
+        "runtime": {
+          "lib/Serializer.dll": {}
+        }
+      },
       "ClosedXML/0.87.1": {
         "type": "package",
         "dependencies": {
@@ -1688,6 +1697,15 @@
       }
     },
     ".NETFramework,Version=v4.6.1/win7-x86": {
+      "ActivitiesCustomSerializer/3.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/_._": {}
+        },
+        "runtime": {
+          "lib/Serializer.dll": {}
+        }
+      },
       "ClosedXML/0.87.1": {
         "type": "package",
         "dependencies": {
@@ -3375,6 +3393,17 @@
     }
   },
   "libraries": {
+    "ActivitiesCustomSerializer/3.0.0": {
+      "sha512": "sy6V6fE5zwiyG4cXvrFKt85N7RBgd/QfpsHz2D6Iv9a6H7/p77NBB2AbqJnu2/RXpoKcCvcUu7TKYnaHDC5ssQ==",
+      "type": "package",
+      "path": "activitiescustomserializer/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        "activitiescustomserializer.3.0.0.nupkg.sha512",
+        "activitiescustomserializer.nuspec",
+        "lib/Serializer.dll"
+      ]
+    },
     "ClosedXML/0.87.1": {
       "sha512": "2LC0T8bu2G2kt34C4Ig87uZfrRO4MwMVI54e2To7m3DvwAs2Z2Ir86WQuUoW8Txo1uNGSfmu3DpfpQhSX0bIww==",
       "type": "package",
@@ -5425,6 +5454,7 @@
   "projectFileDependencyGroups": {
     "": [],
     ".NETFramework,Version=v4.6.1": [
+      "ActivitiesCustomSerializer >= 3.0.0 <= 3.0.0",
       "UiPath.Excel.Activities >= 2.10.4 <= 2.10.4",
       "UiPath.Mail.Activities >= 1.10.5 <= 1.10.5",
       "UiPath.Python.Activities >= 1.4.1 <= 1.4.1",
@@ -5446,6 +5476,11 @@
     "frameworks": {
       "net461": {
         "dependencies": {
+          "ActivitiesCustomSerializer": {
+            "include": "Runtime",
+            "target": "Package",
+            "version": "[3.0.0, 3.0.0]"
+          },
           "UiPath.Excel.Activities": {
             "include": "Runtime",
             "target": "Package",

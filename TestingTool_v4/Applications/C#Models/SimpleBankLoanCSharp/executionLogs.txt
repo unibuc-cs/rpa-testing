@@ -1,5 +1,12 @@
-Execution time fuzzer concolic 2.118513 seconds
-Execution time fuzzer concolic 2.097401 seconds
-Execution time fuzzer concolic 3.488946 seconds
-Execution time fuzzer concolic 2.955901 seconds
-Execution time fuzzer concolic 3.002965 seconds
+Execution time fuzzer offline all paths 1.055692 seconds
+Execution time fuzzer offline all paths 0.889319 seconds
+Execution time fuzzer offline all paths 1.104206 seconds
+Execution time fuzzer offline all paths 1.524829 seconds
+Execution time fuzzer offline all paths 1.285977 seconds
+Execution time fuzzer offline all paths 1.857351 seconds
+Execution time fuzzer offline all paths 1.654730 seconds
+Execution time fuzzer offline all paths 1.539619 seconds
+Execution time fuzzer offline all paths 2.271644 seconds
+Execution time fuzzer offline all paths 2.668281 seconds
+Execution time fuzzer STRATEGY_OFFLINE_ALL, 2.161192 seconds
+Fuzzer strategy ---- STRATEGY_OFFLINE_ALL, execution time ----2.398125 seconds
