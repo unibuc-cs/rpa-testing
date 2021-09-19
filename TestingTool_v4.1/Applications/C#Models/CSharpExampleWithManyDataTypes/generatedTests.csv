@@ -1,2 +1,0 @@
-ReadEmployeesDT_1:out_employeesDT,ReadEmployeesDT_1:CSVPath,Main_1:employeesDT,Main_1:userType,Main_1:number_of_graduates,Main_1:projects,GraphPath
-,,,,,,Main_1:Invoke_ReadEmployeesDT_workflow_1 ; ReadEmployeesDT_1:ReadEmployeesDT_1 ; ReadEmployeesDT_1:Read_CSV_2 ; Main_1:Assign_42 ; Main_1:Assign_43 ; Main_1:User_is_admin?_2 ; 
