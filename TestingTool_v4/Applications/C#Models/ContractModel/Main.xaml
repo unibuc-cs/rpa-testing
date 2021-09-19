@@ -3,7 +3,7 @@
     <x:Property Name="Amount" Type="InArgument(x:Int32)" />
   </x:Members>
   <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
-  <sap:VirtualizedContainerService.HintSize>1368,940</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1443.2,940</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -81,7 +81,6 @@
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.Python</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Flowchart sap2010:Annotation.AnnotationText="@Variables&#xA;{ &quot;Amount&quot;:{&quot;userInput&quot;:&quot;True&quot;}, &quot;LoanApproved&quot;:{&quot;userInput&quot;: &quot;False&quot;}, &quot;Message&quot;:{&quot;userInput&quot;:&quot;True&quot;,&quot;min&quot;:0,&quot;max&quot;:1}, &quot;ContractModelDataDT&quot;:{&quot;path&quot;:&quot;ContractModelData.csv&quot;}}" DisplayName="My Process" sap:VirtualizedContainerService.HintSize="1378.4,775.2" sap2010:WorkflowViewState.IdRef="Flowchart_1">
@@ -95,7 +94,7 @@
         <x:Boolean x:Key="IsPinned">False</x:Boolean>
         <av:Point x:Key="ShapeLocation">0,82.4</av:Point>
         <av:Size x:Key="ShapeSize">60,75.2</av:Size>
-        <av:PointCollection x:Key="ConnectorLocation">60,120 130,120</av:PointCollection>
+        <av:PointCollection x:Key="ConnectorLocation">60,120 90,120</av:PointCollection>
         <x:Double x:Key="Width">1344.8000000000004</x:Double>
         <x:Double x:Key="Height">694.4799999999999</x:Double>
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -107,9 +106,9 @@
     <FlowStep x:Name="__ReferenceID8">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <av:Point x:Key="ShapeLocation">130,85.6</av:Point>
+          <av:Point x:Key="ShapeLocation">90,85.6</av:Point>
           <av:Size x:Key="ShapeSize">200,68.8</av:Size>
-          <av:PointCollection x:Key="ConnectorLocation">330,120 370,120</av:PointCollection>
+          <av:PointCollection x:Key="ConnectorLocation">290,120 320,120</av:PointCollection>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <Sequence DisplayName="Enter Sales data into app" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -269,9 +268,9 @@
         <FlowStep x:Name="__ReferenceID1">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <av:Point x:Key="ShapeLocation">370,85.6</av:Point>
+              <av:Point x:Key="ShapeLocation">320,85.6</av:Point>
               <av:Size x:Key="ShapeSize">200,68.8</av:Size>
-              <av:PointCollection x:Key="ConnectorLocation">570,120 600,120 600,120.44 620,120.44</av:PointCollection>
+              <av:PointCollection x:Key="ConnectorLocation">520,120 550,120 550,120.44</av:PointCollection>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
           <Sequence DisplayName="Enter customer data" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_2">
@@ -323,9 +322,9 @@
             <FlowStep x:Name="__ReferenceID2">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <av:Point x:Key="ShapeLocation">620,86.04</av:Point>
+                  <av:Point x:Key="ShapeLocation">550,86.04</av:Point>
                   <av:Size x:Key="ShapeSize">200,68.8</av:Size>
-                  <av:PointCollection x:Key="ConnectorLocation">820,120.44 1000,120.44 1000,196.4</av:PointCollection>
+                  <av:PointCollection x:Key="ConnectorLocation">750,120.44 766.4,120.44 766.4,156.4</av:PointCollection>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <Sequence DisplayName="Create loan" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_3">
@@ -358,29 +357,29 @@
                 </ui:Click>
               </Sequence>
               <FlowStep.Next>
-                <FlowDecision x:Name="__ReferenceID3" DisplayName="Order amount" sap:VirtualizedContainerService.HintSize="80,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
+                <FlowDecision x:Name="__ReferenceID3" DisplayName="Loan amount" sap:VirtualizedContainerService.HintSize="75.2,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
                   <FlowDecision.Condition>
                     <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_10">Amount &lt; 20000</mca:CSharpValue>
                   </FlowDecision.Condition>
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                      <av:Point x:Key="ShapeLocation">940,196.4</av:Point>
-                      <av:Size x:Key="ShapeSize">80,87.2</av:Size>
-                      <av:PointCollection x:Key="TrueConnector">940,240 910,240 910,280 750,280</av:PointCollection>
-                      <av:PointCollection x:Key="FalseConnector">1020,240 1040.4,240 1040.4,365.6 650.4,365.6 650.4,395.6</av:PointCollection>
+                      <av:Point x:Key="ShapeLocation">710,156.4</av:Point>
+                      <av:Size x:Key="ShapeSize">75.2,87.2</av:Size>
+                      <av:PointCollection x:Key="TrueConnector">710,200 650,200</av:PointCollection>
+                      <av:PointCollection x:Key="FalseConnector">785.2,200 820.4,200 820.4,255.6</av:PointCollection>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                   <FlowDecision.True>
                     <FlowStep x:Name="__ReferenceID4">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <av:Point x:Key="ShapeLocation">550,245.6</av:Point>
+                          <av:Point x:Key="ShapeLocation">450,165.6</av:Point>
                           <av:Size x:Key="ShapeSize">200,68.8</av:Size>
-                          <av:PointCollection x:Key="ConnectorLocation">550,280 390,280 390,386.4</av:PointCollection>
+                          <av:PointCollection x:Key="ConnectorLocation">450,200 387.2,200 387.2,236.4</av:PointCollection>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <Sequence DisplayName="Approve order" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                      <Sequence DisplayName="Approve loan" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_4">
                         <Sequence.Variables>
                           <Variable x:TypeArguments="x:Int32" Default="1" Name="check" />
                           <Variable x:TypeArguments="sd:DataTable" Name="ContractModelDataDT" />
@@ -442,24 +441,24 @@
                         </If>
                       </Sequence>
                       <FlowStep.Next>
-                        <FlowDecision x:Name="__ReferenceID5" DisplayName="Order approved" sap:VirtualizedContainerService.HintSize="90.4,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
+                        <FlowDecision x:Name="__ReferenceID5" DisplayName="Loan approved" sap:VirtualizedContainerService.HintSize="84.8,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
                           <FlowDecision.Condition>
                             <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_28">LoanApproved == true</mca:CSharpValue>
                           </FlowDecision.Condition>
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                              <av:Point x:Key="ShapeLocation">344.8,386.4</av:Point>
-                              <av:Size x:Key="ShapeSize">90.4,87.2</av:Size>
-                              <av:PointCollection x:Key="FalseConnector">435.2,430 550.4,430</av:PointCollection>
-                              <av:PointCollection x:Key="TrueConnector">344.8,430 220,430 220,525.6</av:PointCollection>
+                              <av:Point x:Key="ShapeLocation">344.8,236.4</av:Point>
+                              <av:Size x:Key="ShapeSize">84.8,87.2</av:Size>
+                              <av:PointCollection x:Key="FalseConnector">429.6,280 459.6,280 459.6,290 720.4,290</av:PointCollection>
+                              <av:PointCollection x:Key="TrueConnector">344.8,280 220,280 220,335.6</av:PointCollection>
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
                           <FlowDecision.True>
                             <FlowStep x:Name="__ReferenceID6">
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                  <av:Point x:Key="ShapeLocation">120,525.6</av:Point>
+                                  <av:Point x:Key="ShapeLocation">120,335.6</av:Point>
                                   <av:Size x:Key="ShapeSize">200,68.8</av:Size>
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
@@ -476,12 +475,12 @@
                             <FlowStep x:Name="__ReferenceID0">
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                  <av:Point x:Key="ShapeLocation">550.4,395.6</av:Point>
+                                  <av:Point x:Key="ShapeLocation">720.4,255.6</av:Point>
                                   <av:Size x:Key="ShapeSize">200,68.8</av:Size>
-                                  <av:PointCollection x:Key="ConnectorLocation">750.4,430 840,430 840,515.6</av:PointCollection>
+                                  <av:PointCollection x:Key="ConnectorLocation">920.4,290 950,290 950,335.6</av:PointCollection>
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
-                              <Sequence DisplayName="Process Order" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                              <Sequence DisplayName="Process Loan" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_5">
                                 <sap:WorkflowViewStateService.ViewState>
                                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -499,7 +498,7 @@
                                 <FlowStep x:Name="__ReferenceID7">
                                   <sap:WorkflowViewStateService.ViewState>
                                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                      <av:Point x:Key="ShapeLocation">740,515.6</av:Point>
+                                      <av:Point x:Key="ShapeLocation">850,335.6</av:Point>
                                       <av:Size x:Key="ShapeSize">200,68.8</av:Size>
                                     </scg:Dictionary>
                                   </sap:WorkflowViewStateService.ViewState>

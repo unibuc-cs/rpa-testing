@@ -1,8 +1,4 @@
-Fuzzer strategy ---- STRATEGY_DFS, Execution time ----1.979741 seconds
-Fuzzer strategy ---- STRATEGY_DFS, Execution time ----2.220057 seconds
-Fuzzer strategy ---- STRATEGY_DFS, Execution time ----1.715384 seconds
-Fuzzer strategy ---- STRATEGY_DFS, Execution time ----1.542347 seconds
-Fuzzer strategy ---- STRATEGY_DFS, Execution time ----2.584499 seconds
-Fuzzer strategy ---- STRATEGY_DFS, Execution time ----2.648540 seconds
-Fuzzer strategy ---- STRATEGY_DFS, Execution time ----2.383594 seconds
-Fuzzer strategy ---- STRATEGY_DFS, Execution time ----2.399648 seconds
+Fuzzer strategy ---- STRATEGY_CONCOLIC, Execution time ----2.508408 seconds
+Fuzzer strategy ---- STRATEGY_CONCOLIC, Execution time ----1.863281 seconds
+Fuzzer strategy ---- STRATEGY_CONCOLIC, Execution time ----1.840794 seconds
+Fuzzer strategy ---- STRATEGY_DFS, Execution time ----2.067785 seconds

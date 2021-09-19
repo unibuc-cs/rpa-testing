@@ -4,7 +4,7 @@
     <x:Property Name="term" Type="InArgument(x:Int32)" />
   </x:Members>
   <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
-  <sap:VirtualizedContainerService.HintSize>2434.8,1682</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1478.4,970.4</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -74,7 +74,7 @@
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Flowchart sap2010:Annotation.AnnotationText="@Variables&#xA;{&quot;obtained_result&quot;:{&quot;pattern&quot;:&quot;[A-Z][a-Z]*&quot;}, &quot;loan&quot;:{&quot;userInput&quot;:&quot;True&quot;,&quot;min&quot;:0,&quot;max&quot;:1000000000}, &quot;term&quot;:{&quot;userInput&quot;: &quot;True&quot;,&quot;min&quot;:1,&quot;max&quot;:35}}" DisplayName="Main" sap:VirtualizedContainerService.HintSize="2444.8,1516.8" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+  <Flowchart sap2010:Annotation.AnnotationText="@Variables&#xA;{&quot;obtained_result&quot;:{&quot;pattern&quot;:&quot;[A-Z][a-Z]*&quot;}, &quot;loan&quot;:{&quot;userInput&quot;:&quot;True&quot;,&quot;min&quot;:0,&quot;max&quot;:1000000000}, &quot;term&quot;:{&quot;userInput&quot;: &quot;True&quot;,&quot;min&quot;:1,&quot;max&quot;:35}}" DisplayName="Main" sap:VirtualizedContainerService.HintSize="1003.2,805.6" sap2010:WorkflowViewState.IdRef="Flowchart_1">
     <Flowchart.Variables>
       <Variable x:TypeArguments="x:String" Name="loan_type" />
       <Variable x:TypeArguments="x:String" Name="term_type" />
@@ -87,15 +87,15 @@
         <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
         <av:Size x:Key="ShapeSize">60,75.2</av:Size>
         <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,107.5 276.1,107.5 276.1,126.4</av:PointCollection>
-        <x:Double x:Key="Width">2410.682172121039</x:Double>
-        <x:Double x:Key="Height">1435.8722474448859</x:Double>
+        <x:Double x:Key="Width">970</x:Double>
+        <x:Double x:Key="Height">724.8</x:Double>
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <Flowchart.StartNode>
       <x:Reference>__ReferenceID11</x:Reference>
     </Flowchart.StartNode>
-    <FlowDecision x:Name="__ReferenceID11" DisplayName="Node_loanTest0" sap:VirtualizedContainerService.HintSize="90.4,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_4">
+    <FlowDecision x:Name="__ReferenceID11" DisplayName="Node_loanTest0" sap:VirtualizedContainerService.HintSize="89.6,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_4">
       <FlowDecision.Condition>
         <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_1">loan &lt; 1000</mca:CSharpValue>
       </FlowDecision.Condition>
@@ -103,7 +103,7 @@
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           <av:Point x:Key="ShapeLocation">231.6,126.4</av:Point>
-          <av:Size x:Key="ShapeSize">90.4,87.2</av:Size>
+          <av:Size x:Key="ShapeSize">89.6,87.2</av:Size>
           <av:PointCollection x:Key="TrueConnector">231.6,170 190,170 190,256</av:PointCollection>
           <av:PointCollection x:Key="FalseConnector">322,170 352,170 352,137.333333333333 504.2,137.333333333333 504.2,167.333333333333</av:PointCollection>
         </scg:Dictionary>
@@ -136,7 +136,7 @@
             </Assign>
           </Sequence>
           <FlowStep.Next>
-            <FlowDecision x:Name="__ReferenceID1" DisplayName=" Term_test0 " sap:VirtualizedContainerService.HintSize="70,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
+            <FlowDecision x:Name="__ReferenceID1" DisplayName=" Term_test0 " sap:VirtualizedContainerService.HintSize="70.4,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
               <FlowDecision.Condition>
                 <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_4">term &lt; 5</mca:CSharpValue>
               </FlowDecision.Condition>
@@ -144,7 +144,7 @@
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   <av:Point x:Key="ShapeLocation">351.6,476.4</av:Point>
-                  <av:Size x:Key="ShapeSize">70,87.2</av:Size>
+                  <av:Size x:Key="ShapeSize">70.4,87.2</av:Size>
                   <av:PointCollection x:Key="TrueConnector">351.6,520 260,520 260,566</av:PointCollection>
                   <av:PointCollection x:Key="FalseConnector">421.6,519.733333333333 560,519.733333333333 560,566</av:PointCollection>
                 </scg:Dictionary>
@@ -249,7 +249,7 @@
         </FlowStep>
       </FlowDecision.True>
       <FlowDecision.False>
-        <FlowDecision x:Name="__ReferenceID3" sap2010:Annotation.AnnotationText="@Expression&#xA;{&quot;expression&quot;:&quot;loan &gt;= 1000 and loan &lt; 100000&quot;}" DisplayName="Node_loanTest1" sap:VirtualizedContainerService.HintSize="148.4,164.8" sap2010:WorkflowViewState.IdRef="FlowDecision_3">
+        <FlowDecision x:Name="__ReferenceID3" sap2010:Annotation.AnnotationText="@Expression&#xA;{&quot;expression&quot;:&quot;loan &gt;= 1000 and loan &lt; 100000&quot;}" DisplayName="Node_loanTest1" sap:VirtualizedContainerService.HintSize="148,163.2" sap2010:WorkflowViewState.IdRef="FlowDecision_3">
           <FlowDecision.Condition>
             <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_2">loan &gt;= 1000 &amp;&amp; loan &lt; 100000</mca:CSharpValue>
           </FlowDecision.Condition>
@@ -257,9 +257,9 @@
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               <av:Point x:Key="ShapeLocation">430,167.333333333333</av:Point>
-              <av:Size x:Key="ShapeSize">148.4,164.8</av:Size>
+              <av:Size x:Key="ShapeSize">148,163.2</av:Size>
               <av:PointCollection x:Key="TrueConnector">430,249.733333333333 400,249.733333333333 400,346</av:PointCollection>
-              <av:PointCollection x:Key="FalseConnector">578.4,249.733333333333 620,249.733333333333 620,346</av:PointCollection>
+              <av:PointCollection x:Key="FalseConnector">577.2,248.933333333333 620,248.933333333333 620,346</av:PointCollection>
               <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
@@ -327,11 +327,11 @@
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <av:Point x:Key="ShapeLocation">770,403.6</av:Point>
-                      <av:Size x:Key="ShapeSize">200,52.4</av:Size>
+                      <av:Size x:Key="ShapeSize">200,52.8</av:Size>
                       <av:PointCollection x:Key="ConnectorLocation">770,429.933333333333 677.5,429.933333333333 677.5,456.5</av:PointCollection>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Pin Check" sap:VirtualizedContainerService.HintSize="200,52.4" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Pin.xaml">
+                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Pin Check" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Pin.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
                       <OutArgument x:TypeArguments="x:Boolean" x:Key="out_pin_check_successful">
                         <mca:CSharpReference x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpReference`1_4">pin_check_successful</mca:CSharpReference>
@@ -344,7 +344,7 @@
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:InvokeWorkflowFile>
                   <FlowStep.Next>
-                    <FlowDecision x:Name="__ReferenceID9" DisplayName="CheckedPin" sap:VirtualizedContainerService.HintSize="70,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
+                    <FlowDecision x:Name="__ReferenceID9" DisplayName="CheckedPin" sap:VirtualizedContainerService.HintSize="70.4,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
                       <FlowDecision.Condition>
                         <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_3">pin_check_successful == true</mca:CSharpValue>
                       </FlowDecision.Condition>
@@ -352,7 +352,7 @@
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           <av:Point x:Key="ShapeLocation">642.5,456.5</av:Point>
-                          <av:Size x:Key="ShapeSize">70,87.2</av:Size>
+                          <av:Size x:Key="ShapeSize">70.4,87.2</av:Size>
                           <av:PointCollection x:Key="TrueConnector">642.5,499.833333333333 612.5,499.833333333333 612.5,446.4 404.1,446.4 404.1,476.4</av:PointCollection>
                           <av:PointCollection x:Key="FalseConnector">712.5,499.833333333333 850,499.833333333333 850,566</av:PointCollection>
                         </scg:Dictionary>
