@@ -1,0 +1,11 @@
+{
+  "xamlPath": "../C#Models/SimpleBankLoanCSharp/Main.xaml",
+  "modelBasePath": "../../C#Models/SimpleBankLoanCSharp/",
+  "solverStrategy": "STRATEGY_DFS",
+  "outputTests_MaxTestPerFile": 5,
+  "debug_tests_fullPaths": 0,
+  "debug_ConsoleOutput": 0,
+  "debug_tests_fullVariablesContent": 0,
+  "seedsFile": "",
+  "numRandomGeneratedSeeds": 0
+}
