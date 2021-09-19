@@ -5,13 +5,13 @@
         "LoanApproved": {
           "Type": "Boolean",
           "Annotation": {
-            "userInput": "Falae"
+            "userInput": "True"
           }
         },
         "Message": {
           "Type": "String",
           "Annotation": {
-            "userInput": "False"
+            "userInput": "True"
           }
         },
         "Income": {

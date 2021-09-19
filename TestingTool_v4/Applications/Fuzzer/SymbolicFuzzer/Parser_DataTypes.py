@@ -77,7 +77,7 @@ def str2Class(str):
 def getDefaultValueFromExpression(varTypeName: str, defaultExpression: str) -> any:
     res = None
     if varTypeName == "Int32":
-        res = 0 if defaultExpression is None else int(defaultExpression)
+        res = 0 if (defaultExpression is None or defaultExpression == '') else int(defaultExpression)
     elif varTypeName == 'Boolean':
         res = False if (defaultExpression == None or defaultExpression == 'false' or defaultExpression == 'False'
               or int(defaultExpression) == 0) else True
