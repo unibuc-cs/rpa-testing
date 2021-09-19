@@ -1,0 +1,8 @@
+employee_name;master_degree;salary;register_date;project_name;contract_type;leave_request;notice_period
+John;TRUE;30000;30.05.2019;RPA;long-term;paid-leave;5
+Mariah;TRUE;30000;20.04.2019;RPA;long-term;paid-leave;5
+Daniel;TRUE;80000;25.12.2020;River;long-term;paid-leave;10
+Beyonce;TRUE;100000000;04.01.2021;River;long-term;paid-leave;10
+Brad;FALSE;2000000;07.01.2021;RPA;short-term;paid-leave;3
+Shakira;FALSE;150000000;07.01.2021;Apollo;short-term;unpaid-leave;5
+Doru;TRUE;200000;03.03.2020;River;short-term;unpaid-leave;5
