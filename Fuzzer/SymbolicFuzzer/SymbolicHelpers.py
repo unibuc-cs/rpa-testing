@@ -1,6 +1,7 @@
 # TODO Ciprian multiprocessing: https://stackoverflow.com/questions/8533318/multiprocessing-pool-when-to-use-apply-apply-async-or-map
 import copy
 
+import numpy as np
 import z3
 from z3 import *
 import heapq
@@ -336,7 +337,7 @@ class SMTPath:
         # concolicEval will be not None (or should be !)
         # In this case we store in the dictionary the value taken
         if concolicEval is not None:
-            assert isinstance(concolicEval, bool), "If given, we are expecting either a True or False take branch"
+            assert (isinstance(concolicEval, bool) or isinstance(concolicEval, np.bool_)), "If given, we are expecting either a True or False take branch"
             assert concolicAlternativeBranchZ3Condition is not None, "You must give the other condition too"
             indexOfCondition = len(self.conditions_smt) - 1
             self.concolicBranchTaken[indexOfCondition] = ConcolicDecisionInfo()

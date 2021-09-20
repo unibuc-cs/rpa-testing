@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
 from enum import Enum
+
+import numpy as np
+
 from SymbolicHelpers import *
 from WorkflowGraphBaseNode import *
 
@@ -344,7 +347,7 @@ class DFSSymbolicSolverStrategy(BaseSymbolicSolverStrategy):
                     if concolicStrategy is True:
                         # Take the concrete value of the branch using the current input
                         evalResult = self.workflowGraph._executeAsFlowNode(nodeInst=currNode, executionContext=currPath)
-                        assert evalResult is not None and isinstance(evalResult, bool)
+                        assert evalResult is not None and (isinstance(evalResult, bool) or isinstance(evalResult, np.bool_))
 
                         # Add the expression to the current path (true means that the branch will be taken if condition is valid)
                         takenZ3Condition = None
