@@ -1,3 +1,0 @@
-Main_1:Amount,Main_1:LoanApproved,Main_1:Message,Main_1:Income,Main_1:Term,Main_1:Email,Main_1:Age,GraphPath
-19999,,,,,,,Main_1:Enter_Sales_data_into_app_1 ; Main_1:Order_amount_14 ; Main_1:If_16 ; Main_1:Virtual_Flowchart_End_25 ; Main_1:Order_approved_22 ; 
-20000,,,,,,,Main_1:Enter_Sales_data_into_app_1 ; Main_1:Order_amount_14 ; Main_1:Virtual_Flowchart_End_25 ; Main_1:Order_approved_22 ; 
