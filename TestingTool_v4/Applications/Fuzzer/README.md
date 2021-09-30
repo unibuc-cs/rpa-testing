@@ -2,10 +2,9 @@ Notes:
 
 1. Install using Python 3.8.5 the requirements file
 
-2. About grpahviz:
+2. About graphviz:
 
-Problems with graphviz on Windows:
- - Best solution is to install the graphviz binaries and sources then build the pygraphfiz from source code for python: 
+If there are problems with graphviz on Windows, the best solution is to install the graphviz binaries and sources then build the pygraphfiz from source code for python: 
  
  https://github.com/pygraphviz/pygraphviz/blob/main/INSTALL.txt
  
