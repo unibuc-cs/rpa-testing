@@ -2,3 +2,7 @@ Fuzzer strategy ---- STRATEGY_CONCOLIC, Execution time ----2.508408 seconds
 Fuzzer strategy ---- STRATEGY_CONCOLIC, Execution time ----1.863281 seconds
 Fuzzer strategy ---- STRATEGY_CONCOLIC, Execution time ----1.840794 seconds
 Fuzzer strategy ---- STRATEGY_DFS, Execution time ----2.067785 seconds
+Fuzzer strategy ---- STRATEGY_SYMBOLIC, Execution time ----2.813729 seconds
+Fuzzer strategy ---- STRATEGY_OFFLINE_ALL, Execution time ----3.639401 seconds
+Fuzzer strategy ---- STRATEGY_DFS, Execution time ----3.515714 seconds
+Fuzzer strategy ---- STRATEGY_CONCOLIC, Execution time ----3.409005 seconds

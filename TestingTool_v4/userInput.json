@@ -1,6 +1,6 @@
 {
-  "xamlPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v4\\Applications\\C#Models\\SimpleBankLoanCSharp\\Main.xaml",
-  "modelBasePath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v4\\Applications\\C#Models\\SimpleBankLoanCSharp\\",
+  "xamlPath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v4\\Applications\\C#Models\\ContractModel\\Main.xaml",
+  "modelBasePath": "C:\\GithubPhD\\rpa-testing\\TestingTool_v4\\Applications\\C#Models\\ContractModel\\",
   "solverStrategy": "STRATEGY_CONCOLIC",
   "outputTests_MaxTestPerFile": 5,
   "debug_tests_fullPaths": 0,

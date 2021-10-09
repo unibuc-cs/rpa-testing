@@ -3,3 +3,4 @@ Fuzzer strategy ---- STRATEGY_OFFLINE_ALL, Execution time ----4.083483 seconds
 Fuzzer strategy ---- STRATEGY_OFFLINE_ALL, Execution time ----3.505171 seconds
 Fuzzer strategy ---- STRATEGY_DFS, Execution time ----2.557874 seconds
 Fuzzer strategy ---- STRATEGY_CONCOLIC, Execution time ----3.187291 seconds
+Fuzzer strategy ---- STRATEGY_CONCOLIC, Execution time ----3.799686 seconds
