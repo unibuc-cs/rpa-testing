@@ -42,11 +42,6 @@
         "editingStatus": "InProgress",
         "testCaseId": "07d810a4-ea06-4d6c-adb6-e999cf46843e",
         "fileName": "TestCase.xaml"
-      },
-      {
-        "editingStatus": "InProgress",
-        "testCaseId": "7c25c614-63ef-4645-aeef-f55972d053f8",
-        "fileName": "TestCase1.xaml"
       }
     ],
     "modernBehavior": false

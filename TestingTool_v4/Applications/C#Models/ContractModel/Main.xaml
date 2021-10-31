@@ -81,7 +81,6 @@
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.Python</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Flowchart sap2010:Annotation.AnnotationText="@Variables&#xA;{ &quot;Amount&quot;:{&quot;userInput&quot;:&quot;True&quot;}, &quot;Message&quot;:{&quot;userInput&quot;:&quot;True&quot;,&quot;min&quot;:0,&quot;max&quot;:1}, &quot;ContractModelDataDT&quot;:{&quot;path&quot;:&quot;ContractModelData.csv&quot;}}" DisplayName="My Process" sap:VirtualizedContainerService.HintSize="1378.4,775.2" sap2010:WorkflowViewState.IdRef="Flowchart_1">
@@ -427,7 +426,7 @@
                   <av:PointCollection x:Key="ConnectorLocation">750,120.44 773.6,120.44 773.6,156.4</av:PointCollection>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <Sequence DisplayName="Create loan order" sap:VirtualizedContainerService.HintSize="476.8,371.2" sap2010:WorkflowViewState.IdRef="Sequence_3">
+              <Sequence DisplayName="Create loan order" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_3">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>

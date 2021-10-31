@@ -10,8 +10,6 @@ import time
 sys.path.append('Applications/Fuzzer/SymbolicFuzzer/')
 import Main
 
-print("Current Working Directory " , os.getcwd())
-
 #get user input from json
 with open ('userInput.json','r') as f:
     userInput_dict = json.load(f)
@@ -27,7 +25,6 @@ debug_tests_fullVariablesContent = userInput_dict['debug_tests_fullVariablesCont
 seedsFile = userInput_dict['seedsFile']
 numRandomGeneratedSeeds = userInput_dict['numRandomGeneratedSeeds']
 
-print("Current Working Directory " , os.getcwd())
 #path to XMLParser exe
 exe_path = "XMLParsing.exe"
 os.chdir("Applications/XMLParser/")
@@ -37,8 +34,6 @@ subprocess.call([exe_path,"/z3ReducedGraph",xaml_path])
 os.chdir("../../")
 
 json_name = "outputXamlParser.json"
-print("Current Working Directory " , os.getcwd())
-
 fuzzer_path = "Main.py"
 
 graph_path = "debugGraph.png"
@@ -46,7 +41,7 @@ graph_path = "debugGraph.png"
 results_path = "generatedTests"
 
 os.chdir("Applications/Fuzzer/SymbolicFuzzer/")
-print("Current Working Directory " , os.getcwd())
+
 start_time = time.time()
 
 #call fuzzer
