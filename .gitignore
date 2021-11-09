@@ -4,7 +4,6 @@
 *.com
 *.class
 *.dll
-*.exe
 *.pdb
 *.dll.config
 *.cache
@@ -67,7 +66,6 @@ Thumbs.db
 packages
 NuGet.exe
 _[Ss]cripts
-*.exe
 *.dll
 *.ncrunchsolution
 *.dot[Cc]over
