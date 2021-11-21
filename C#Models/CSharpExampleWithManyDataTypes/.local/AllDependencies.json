@@ -1585,7 +1585,7 @@
         }
       }
     },
-    ".NETFramework,Version=v4.6.1/win7-x86": {
+    ".NETFramework,Version=v4.6.1/win10-x64": {
       "ClosedXML/0.87.1": {
         "type": "package",
         "dependencies": {
@@ -5278,15 +5278,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\adelinas\\.nuget\\packages\\": {}
+    "C:\\Users\\adelina.staicu@cegeka.com\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
       "projectUniqueName": "CSharpExampleWithManyDataTypes",
       "projectName": "CSharpExampleWithManyDataTypes",
-      "projectPath": "C:\\GithubPhD\\rpa-testing\\C#Models\\CSharpExampleWithManyDataTypes\\.local",
-      "packagesPath": "C:\\Users\\adelinas\\.nuget\\packages\\",
-      "outputPath": "C:\\GithubPhD\\rpa-testing\\C#Models\\CSharpExampleWithManyDataTypes\\.local"
+      "projectPath": "C:\\GitHubPhD\\rpa-testing\\C#Models\\CSharpExampleWithManyDataTypes\\.local",
+      "packagesPath": "C:\\Users\\adelina.staicu@cegeka.com\\.nuget\\packages\\",
+      "outputPath": "C:\\GitHubPhD\\rpa-testing\\C#Models\\CSharpExampleWithManyDataTypes\\.local"
     },
     "frameworks": {
       "net461": {
@@ -5312,7 +5312,12 @@
             "version": "[21.6.1-preview, 21.6.1-preview]"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\adelinas\\AppData\\Local\\UiPath\\app-21.4.4\\runtime.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\UiPath\\Studio\\runtime.json"
+      }
+    },
+    "runtimes": {
+      "win10-x64": {
+        "#import": []
       }
     }
   }
