@@ -4,9 +4,7 @@
 *.com
 *.class
 *.dll
-*.exe
 *.pdb
-*.dll.config
 *.cache
 *.suo
 # Include dlls if they’re in the NuGet packages directory
@@ -64,11 +62,7 @@ Thumbs.db
 *.user
 *.[Cc]ache
 *[Rr]esharper*
-packages
-NuGet.exe
 _[Ss]cripts
-*.exe
-*.dll
 *.ncrunchsolution
 *.dot[Cc]over
 *.pyc
