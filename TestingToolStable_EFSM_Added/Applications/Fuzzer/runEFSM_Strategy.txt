@@ -1,0 +1,17 @@
+
+
+ python Main.py -modelBasePath "/Users/anaturlea/Documents/RPA Testing/rpa-testing/TestingToolStable_EFSM_Added/Applications/C#Models/SimpleBankLoanCSharp/" -workflowsSpecInput "outputXamlParser.json" -solverStrategy "STRATEGY_EFSM" -debug_outputGraphFile "" -outputTests_PrefixFile "generatedPath_EFSM" -outputTests_MaxTestPerFile 5 -debug_tests_fullPaths 0 -debug_consoleOutput 0 -debug_tests_fullVariablesContent 0
+
+
+What changes were added for the EFSM testing method:
+
+- Files added:
+ -- EFSM_Testing - containing the following
+     --- EFSMTransition class
+     --- EFSM class - having a wfGraph as input we define the corresponding EFSM and the random path generation function
+
+- Files changed:
+ -- Executor_SymbolicWorkflowsTester
+  --- added new strategy  to use case
+ -- SymbolicSolverStrategy
+   --- added new strategy  to use case
