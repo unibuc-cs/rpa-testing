@@ -1,5 +1,5 @@
 {
-  "name": "ProducerConsumer",
+  "name": "Producer",
   "description": "Blank Process",
   "main": "Main.xaml",
   "dependencies": {
@@ -16,6 +16,7 @@
   "projectVersion": "1.0.0",
   "runtimeOptions": {
     "autoDispose": false,
+    "netFrameworkLazyLoading": false,
     "isPausable": true,
     "isAttended": false,
     "requiresUserInteraction": true,
