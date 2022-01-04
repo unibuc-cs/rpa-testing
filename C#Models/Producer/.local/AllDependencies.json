@@ -7885,8 +7885,8 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "ProducerConsumer",
-      "projectName": "ProducerConsumer",
+      "projectUniqueName": "Producer",
+      "projectName": "Producer",
       "projectPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\C#Models\\Producer\\.local",
       "packagesPath": "C:\\Users\\Marina Cernat\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\C#Models\\Producer\\.local"

@@ -7565,9 +7565,9 @@
     "restore": {
       "projectUniqueName": "Consumer",
       "projectName": "Consumer",
-      "projectPath": "C:\\Users\\Marina Cernat\\Documents\\UiPath\\Consumer\\.local",
+      "projectPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\C#Models\\Consumer\\.local",
       "packagesPath": "C:\\Users\\Marina Cernat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Marina Cernat\\Documents\\UiPath\\Consumer\\.local"
+      "outputPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\C#Models\\Consumer\\.local"
     },
     "frameworks": {
       "net461": {
