@@ -2610,9 +2610,9 @@
     "restore": {
       "projectUniqueName": "Emailing Discounts Process",
       "projectName": "Emailing Discounts Process",
-      "projectPath": "C:\\Users\\adelina.staicu@cegeka.com\\OneDrive - Cegeka\\Documents\\DoctoratReframework\\DiscountsRobot\\.local",
+      "projectPath": "C:\\GitHubPhD\\rpa-testing\\C#Models\\REFrameworkProcess_vbnet\\DiscountsRobot\\.local",
       "packagesPath": "C:\\Users\\adelina.staicu@cegeka.com\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\adelina.staicu@cegeka.com\\OneDrive - Cegeka\\Documents\\DoctoratReframework\\DiscountsRobot\\.local"
+      "outputPath": "C:\\GitHubPhD\\rpa-testing\\C#Models\\REFrameworkProcess_vbnet\\DiscountsRobot\\.local"
     },
     "frameworks": {
       "net461": {
