@@ -7881,15 +7881,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Marina Cernat\\.nuget\\packages\\": {}
+    "C:\\Users\\marin\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
       "projectUniqueName": "Producer",
       "projectName": "Producer",
-      "projectPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\C#Models\\Producer\\.local",
-      "packagesPath": "C:\\Users\\Marina Cernat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Marina Cernat\\Documents\\GitHub\\rpa-testing\\C#Models\\Producer\\.local"
+      "projectPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\C#Models\\Producer\\.local",
+      "packagesPath": "C:\\Users\\marin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\C#Models\\Producer\\.local"
     },
     "frameworks": {
       "net461": {
@@ -7920,7 +7920,7 @@
             "version": "[21.10.3, 21.10.3]"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\Marina Cernat\\AppData\\Local\\Programs\\UiPath\\Studio\\runtime.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\marin\\AppData\\Local\\Programs\\UiPath\\Studio\\runtime.json"
       }
     },
     "runtimes": {

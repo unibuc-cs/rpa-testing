@@ -1,0 +1,53 @@
+INVOICE
+
+MINDSHERPA SRL DATE 5/15/2022
+Bahnhofstrasse, 11
+Zurich, CH, 8001 INVOICE # 850888
+41786837333
+contact@mindsherpa-tech.com CUSTOMER ID A300
+
+BILL TO DUE DATE 05/30/2022
+
+RITTER AG
+Lyoner Street, 213
+Frankfurt, DE, 60441
+4927127833
+
+contact@ritter.com
+
+DESCRIPTION QTY UNIT PRICE TOTAL
+
+Software development 10,000.00 1.00 10000.00
+
+Support and maintenance 2,000.00 1.00 2000.00
+
+0.00
+
+0.00
+
+0.00
+
+0.00
+
+0.00
+
+0.00
+
+0.00
+
+0.00
+
+0.00
+
+Remarks / Payment Instructions: SUBTOTAL 12000.00
+Payment due in 15 days DISCOUNT 0.00
+Please include the invoice number on your check
+SUBTOTAL LESS DISCOUNT 12000.00
+
+TAX RATE 0.00%
+
+TOTAL TAX 0.00
+
+SHIPPING/HANDLING 0.00
+
+Balance Due $             12,000.00
