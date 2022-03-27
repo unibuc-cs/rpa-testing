@@ -7881,15 +7881,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\marin\\.nuget\\packages\\": {}
+    "C:\\Users\\Lenovo\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
       "projectUniqueName": "Producer",
       "projectName": "Producer",
-      "projectPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\C#Models\\Producer\\.local",
-      "packagesPath": "C:\\Users\\marin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\C#Models\\Producer\\.local"
+      "projectPath": "C:\\GitHubPhD\\rpa-testing\\C#Models\\Producer\\.local",
+      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+      "outputPath": "C:\\GitHubPhD\\rpa-testing\\C#Models\\Producer\\.local"
     },
     "frameworks": {
       "net461": {
@@ -7920,7 +7920,7 @@
             "version": "[21.10.3, 21.10.3]"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\marin\\AppData\\Local\\Programs\\UiPath\\Studio\\runtime.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\UiPath\\Studio\\runtime.json"
       }
     },
     "runtimes": {
