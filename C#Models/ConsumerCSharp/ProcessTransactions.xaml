@@ -4,7 +4,7 @@
     <x:Property Name="TransactionItemNothing" Type="OutArgument(x:Boolean)" />
   </x:Members>
   <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
-  <sap:VirtualizedContainerService.HintSize>930,798</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1455.2,1304.4</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -74,13 +74,12 @@
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
       <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="ProcessTransactions" sap:VirtualizedContainerService.HintSize="940,733.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="ProcessTransactions" sap:VirtualizedContainerService.HintSize="942,1239.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="ui:QueueItem" Name="TransactionItem" />
     </Sequence.Variables>
@@ -89,101 +88,94 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:GetQueueItem ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Get Transaction Item" sap:VirtualizedContainerService.HintSize="898,22" sap2010:WorkflowViewState.IdRef="GetQueueItem_1" QueueType="ProducerConsumer">
+    <ui:GetQueueItem ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Get Transaction Item -- get invoice info from queue" sap:VirtualizedContainerService.HintSize="900,22" sap2010:WorkflowViewState.IdRef="GetQueueItem_1" QueueType="ProducerConsumer">
       <ui:GetQueueItem.TransactionItem>
         <OutArgument x:TypeArguments="ui:QueueItem">
           <mca:CSharpReference x:TypeArguments="ui:QueueItem" sap2010:WorkflowViewState.IdRef="CSharpReference`1_1">TransactionItem</mca:CSharpReference>
         </OutArgument>
       </ui:GetQueueItem.TransactionItem>
     </ui:GetQueueItem>
-    <If sap:VirtualizedContainerService.HintSize="898,579.333333333333" sap2010:WorkflowViewState.IdRef="If_1">
+    <If DisplayName="If information retrieved from queue" sap:VirtualizedContainerService.HintSize="900,1085.2" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Condition>
         <InArgument x:TypeArguments="x:Boolean">
           <mca:CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_1">TransactionItem != null</mca:CSharpValue>
         </InArgument>
       </If.Condition>
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="476,415.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_4">
+        <Sequence DisplayName="Sequence  -- Get vendor and invoice number, add them in DT" sap:VirtualizedContainerService.HintSize="479.6,925.2" sap2010:WorkflowViewState.IdRef="Sequence_4">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="434,323.333333333333" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+          <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="437.6,833.2" sap2010:WorkflowViewState.IdRef="TryCatch_1">
             <TryCatch.Try>
-              <Sequence sap:VirtualizedContainerService.HintSize="418,698.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_3">
+              <Sequence DisplayName="Sequence - get info and it in DT, set Transaction Status = Succeeded" sap:VirtualizedContainerService.HintSize="376,600.8" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="x:String" Name="invoiceNumber" />
+                  <Variable x:TypeArguments="x:String" Name="vendor" />
+                </Sequence.Variables>
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <Sequence sap:VirtualizedContainerService.HintSize="376,606.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_2">
-                  <Sequence.Variables>
-                    <Variable x:TypeArguments="x:String" Name="invoiceNumber" />
-                    <Variable x:TypeArguments="x:String" Name="vendor" />
-                  </Sequence.Variables>
-                  <sap:WorkflowViewStateService.ViewState>
-                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                    </scg:Dictionary>
-                  </sap:WorkflowViewStateService.ViewState>
-                  <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_1">
-                    <Assign.To>
-                      <OutArgument x:TypeArguments="x:String">
-                        <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_2">vendor</mca:CSharpReference>
-                      </OutArgument>
-                    </Assign.To>
-                    <Assign.Value>
-                      <InArgument x:TypeArguments="x:String">
-                        <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_2">TransactionItem.SpecificContent["vendor"].ToString()</mca:CSharpValue>
-                      </InArgument>
-                    </Assign.Value>
-                  </Assign>
-                  <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_2">
-                    <Assign.To>
-                      <OutArgument x:TypeArguments="x:String">
-                        <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_3">invoiceNumber</mca:CSharpReference>
-                      </OutArgument>
-                    </Assign.To>
-                    <Assign.Value>
-                      <InArgument x:TypeArguments="x:String">
-                        <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_3">TransactionItem.SpecificContent["invoiceNumber"].ToString()</mca:CSharpValue>
-                      </InArgument>
-                    </Assign.Value>
-                  </Assign>
-                  <ui:AddDataRow DataRow="{x:Null}" DisplayName="Add Data Row" sap:VirtualizedContainerService.HintSize="334,190" sap2010:WorkflowViewState.IdRef="AddDataRow_1">
-                    <ui:AddDataRow.ArrayRow>
-                      <InArgument x:TypeArguments="s:Object[]">
-                        <mca:CSharpValue x:TypeArguments="s:Object[]" sap2010:WorkflowViewState.IdRef="CSharpValue`1_4">new String [] {vendor, invoiceNumber}</mca:CSharpValue>
-                      </InArgument>
-                    </ui:AddDataRow.ArrayRow>
-                    <ui:AddDataRow.DataTable>
-                      <InOutArgument x:TypeArguments="sd:DataTable">
-                        <mca:CSharpReference x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpReference`1_4">DataT</mca:CSharpReference>
-                      </InOutArgument>
-                    </ui:AddDataRow.DataTable>
-                  </ui:AddDataRow>
-                  <ui:SetTransactionStatus ContinueOnError="{x:Null}" Reason="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Set Transaction Status 'Succesful'" ErrorType="Application" sap:VirtualizedContainerService.HintSize="334,80.6666666666667" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_1" Status="Successful">
-                    <ui:SetTransactionStatus.Analytics>
-                      <scg:Dictionary x:TypeArguments="x:String, InArgument" />
-                    </ui:SetTransactionStatus.Analytics>
-                    <ui:SetTransactionStatus.Output>
-                      <scg:Dictionary x:TypeArguments="x:String, InArgument" />
-                    </ui:SetTransactionStatus.Output>
-                    <ui:SetTransactionStatus.TransactionItem>
-                      <InArgument x:TypeArguments="ui:QueueItem">
-                        <mca:CSharpValue x:TypeArguments="ui:QueueItem" sap2010:WorkflowViewState.IdRef="CSharpValue`1_6">TransactionItem</mca:CSharpValue>
-                      </InArgument>
-                    </ui:SetTransactionStatus.TransactionItem>
-                  </ui:SetTransactionStatus>
-                </Sequence>
+                <Assign DisplayName="Assign -- Get vendor" sap:VirtualizedContainerService.HintSize="334,59.6" sap2010:WorkflowViewState.IdRef="Assign_4">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">
+                      <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_6">vendor</mca:CSharpReference>
+                    </OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_9">TransactionItem.SpecificContent["vendor"].ToString()</mca:CSharpValue>
+                    </InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign DisplayName="Assign  -- Get invoice number" sap:VirtualizedContainerService.HintSize="334,59.6" sap2010:WorkflowViewState.IdRef="Assign_5">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">
+                      <mca:CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_7">invoiceNumber</mca:CSharpReference>
+                    </OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <mca:CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_10">TransactionItem.SpecificContent["invoiceNumber"].ToString()</mca:CSharpValue>
+                    </InArgument>
+                  </Assign.Value>
+                </Assign>
+                <ui:AddDataRow DataRow="{x:Null}" DisplayName="Add Data Row" sap:VirtualizedContainerService.HintSize="334,189.2" sap2010:WorkflowViewState.IdRef="AddDataRow_2">
+                  <ui:AddDataRow.ArrayRow>
+                    <InArgument x:TypeArguments="s:Object[]">
+                      <mca:CSharpValue x:TypeArguments="s:Object[]" sap2010:WorkflowViewState.IdRef="CSharpValue`1_11">new String [] {vendor, invoiceNumber}</mca:CSharpValue>
+                    </InArgument>
+                  </ui:AddDataRow.ArrayRow>
+                  <ui:AddDataRow.DataTable>
+                    <InOutArgument x:TypeArguments="sd:DataTable">
+                      <mca:CSharpReference x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpReference`1_8">DataT</mca:CSharpReference>
+                    </InOutArgument>
+                  </ui:AddDataRow.DataTable>
+                </ui:AddDataRow>
+                <ui:SetTransactionStatus ContinueOnError="{x:Null}" Reason="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Set Transaction Status 'Succesful'" ErrorType="Application" sap:VirtualizedContainerService.HintSize="334,80.4" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_3" Status="Successful">
+                  <ui:SetTransactionStatus.Analytics>
+                    <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+                  </ui:SetTransactionStatus.Analytics>
+                  <ui:SetTransactionStatus.Output>
+                    <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+                  </ui:SetTransactionStatus.Output>
+                  <ui:SetTransactionStatus.TransactionItem>
+                    <InArgument x:TypeArguments="ui:QueueItem">
+                      <mca:CSharpValue x:TypeArguments="ui:QueueItem" sap2010:WorkflowViewState.IdRef="CSharpValue`1_12">TransactionItem</mca:CSharpValue>
+                    </InArgument>
+                  </ui:SetTransactionStatus.TransactionItem>
+                </ui:SetTransactionStatus>
               </Sequence>
             </TryCatch.Try>
             <TryCatch.Catches>
-              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,151.333333333333" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="403.6,22.8" sap2010:WorkflowViewState.IdRef="Catch`1_1">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                     <x:Boolean x:Key="IsPinned">False</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
@@ -191,7 +183,7 @@
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                   </ActivityAction.Argument>
-                  <ui:SetTransactionStatus ContinueOnError="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Set Transaction Status Failed" ErrorType="Application" sap:VirtualizedContainerService.HintSize="284,80.6666666666667" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_2" Reason="Conversion from String to type 'Integer' is not valid." Status="Failed">
+                  <ui:SetTransactionStatus ContinueOnError="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Set Transaction Status Failed" ErrorType="Application" sap:VirtualizedContainerService.HintSize="284,80.4" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_2" Reason="Conversion from String to type 'Integer' is not valid." Status="Failed">
                     <ui:SetTransactionStatus.Analytics>
                       <scg:Dictionary x:TypeArguments="x:String, InArgument" />
                     </ui:SetTransactionStatus.Analytics>
@@ -211,20 +203,20 @@
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence sap:VirtualizedContainerService.HintSize="376,308.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_5">
+        <Sequence sap:VirtualizedContainerService.HintSize="376,306.8" sap2010:WorkflowViewState.IdRef="Sequence_5">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:WriteRange AddHeaders="True" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Sheet1" StartingCell="A1" WorkbookPath="Data.xlsx">
+          <ui:WriteRange AddHeaders="True" DisplayName="Write Range - output data" sap:VirtualizedContainerService.HintSize="334,115.2" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Sheet1" StartingCell="A1" WorkbookPath="Data.xlsx">
             <ui:WriteRange.DataTable>
               <InArgument x:TypeArguments="sd:DataTable">
                 <mca:CSharpValue x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpValue`1_8">DataT</mca:CSharpValue>
               </InArgument>
             </ui:WriteRange.DataTable>
           </ui:WriteRange>
-          <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_3">
+          <Assign DisplayName="Assign -- TransactionItemNothing to true" sap:VirtualizedContainerService.HintSize="334,59.6" sap2010:WorkflowViewState.IdRef="Assign_3">
             <Assign.To>
               <OutArgument x:TypeArguments="x:Boolean">
                 <mca:CSharpReference x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpReference`1_5">TransactionItemNothing</mca:CSharpReference>
