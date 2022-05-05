@@ -1,0 +1,3551 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "3.8.0.0",
+        "fileVersion": "3.8.0-5.20519.18 (4c195c3a)",
+        "semanticVersion": "3.8.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/Models/EditingModel.cs",
+                "region": {
+                  "startLine": 126,
+                  "startColumn": 17,
+                  "endLine": 126,
+                  "endColumn": 107
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 635,
+                  "startColumn": 17,
+                  "endLine": 635,
+                  "endColumn": 107
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 1033,
+                  "startColumn": 17,
+                  "endLine": 1033,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/UiService.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 18,
+                  "endLine": 27,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/UiService.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 18,
+                  "endLine": 27,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/UiService.cs",
+                "region": {
+                  "startLine": 83,
+                  "startColumn": 21,
+                  "endLine": 83,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'UiService' or mark the type as 'sealed'.",
+              "1": "'UiService.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/Models/SingleThreadActionQueue.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 18,
+                  "endLine": 8,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/Models/SingleThreadActionQueue.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 18,
+                  "endLine": 8,
+                  "endColumn": 41
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/Models/SingleThreadActionQueue.cs",
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 21,
+                  "endLine": 44,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'SingleThreadActionQueue' or mark the type as 'sealed'.",
+              "1": "'SingleThreadActionQueue.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S4136",
+          "level": "warning",
+          "message": "All 'BaseTreeItem' method overloads should be adjacent.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/Models/BaseTreeItem.cs",
+                "region": {
+                  "startLine": 142,
+                  "startColumn": 16,
+                  "endLine": 142,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/Models/BaseTreeItem.cs",
+                "region": {
+                  "startLine": 159,
+                  "startColumn": 16,
+                  "endLine": 159,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Non-adjacent overload"
+            }
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_syncLock' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 1185,
+                  "startColumn": 24,
+                  "endLine": 1185,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S4275",
+          "level": "warning",
+          "message": "Refactor this setter so that it actually refers to the field '_editingNode'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 244,
+                  "startColumn": 13,
+                  "endLine": 244,
+                  "endColumn": 16
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2953",
+          "level": "warning",
+          "message": "Either implement 'IDisposable.Dispose', or totally rename this method to prevent confusion.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 1246,
+                  "startColumn": 21,
+                  "endLine": 1246,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 18,
+                  "endLine": 15,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 18,
+                  "endLine": 15,
+                  "endColumn": 31
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 362,
+                  "startColumn": 21,
+                  "endLine": 362,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'NodeViewModel' or mark the type as 'sealed'.",
+              "1": "'NodeViewModel.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S1118",
+          "level": "warning",
+          "message": "Add a 'protected' constructor or the 'static' keyword to the class declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.UIAutomation.Activities.Design/Properties/Resources.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 18,
+                  "endLine": 8,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_attributesLock' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 24,
+                  "endLine": 31,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private method 'GetFloatingPoint'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/Views/MainView.cs",
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 9,
+                  "endLine": 55,
+                  "endColumn": 10
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2223",
+          "level": "warning",
+          "message": "Change the visibility of 'UiExplorerSettings' or make it 'const' or 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/App.xaml.cs",
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 44,
+                  "endLine": 50,
+                  "endColumn": 62
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_uiService' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/Models/SelectorTagModel.cs",
+                "region": {
+                  "startLine": 98,
+                  "startColumn": 28,
+                  "endLine": 98,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1125",
+          "level": "warning",
+          "message": "Remove the unnecessary Boolean literal(s).",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/Behaviors/TreeViewItemBehavior.cs",
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 39,
+                  "endLine": 35,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2696",
+          "level": "warning",
+          "message": "Make the enclosing instance method 'static' or remove this set on the 'static' field.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/App.xaml.cs",
+                "region": {
+                  "startLine": 70,
+                  "startColumn": 17,
+                  "endLine": 70,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/App.xaml.cs",
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 44,
+                  "endLine": 50,
+                  "endColumn": 62
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3011",
+          "level": "warning",
+          "message": "Make sure that this accessibility bypass is safe here.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/App.xaml.cs",
+                "region": {
+                  "startLine": 137,
+                  "startColumn": 84,
+                  "endLine": 137,
+                  "endColumn": 106
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1066",
+          "level": "warning",
+          "message": "Merge this if statement with the enclosing one.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/App.xaml.cs",
+                "region": {
+                  "startLine": 151,
+                  "startColumn": 21,
+                  "endLine": 151,
+                  "endColumn": 23
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/App.xaml.cs",
+                "region": {
+                  "startLine": 149,
+                  "startColumn": 17,
+                  "endLine": 149,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<string>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/App.xaml.cs",
+                "region": {
+                  "startLine": 210,
+                  "startColumn": 48,
+                  "endLine": 210,
+                  "endColumn": 53
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S108",
+          "level": "warning",
+          "message": "Either remove or fill this block of code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/Views/TreeView.xaml.cs",
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 19,
+                  "endLine": 32,
+                  "endColumn": 22
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2486",
+          "level": "warning",
+          "message": "Handle the exception or explain in a comment why it can be ignored.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/Views/TreeView.xaml.cs",
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 13,
+                  "endLine": 32,
+                  "endColumn": 22
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2219",
+          "level": "warning",
+          "message": "Use the 'is' operator instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 253,
+                  "startColumn": 52,
+                  "endLine": 253,
+                  "endColumn": 87
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S4220",
+          "level": "warning",
+          "message": "Use 'EventArgs.Empty' instead of null as the event args of this event invocation.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 292,
+                  "startColumn": 27,
+                  "endLine": 292,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S4220",
+          "level": "warning",
+          "message": "Make the sender on this event invocation not null.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 292,
+                  "startColumn": 27,
+                  "endLine": 292,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3776",
+          "level": "warning",
+          "message": "Refactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 409,
+                  "startColumn": 40,
+                  "endLine": 409,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 415,
+                  "startColumn": 13,
+                  "endLine": 415,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 422,
+                  "startColumn": 17,
+                  "endLine": 422,
+                  "endColumn": 22
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 424,
+                  "startColumn": 21,
+                  "endLine": 424,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 428,
+                  "startColumn": 21,
+                  "endLine": 428,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 428,
+                  "startColumn": 46,
+                  "endLine": 428,
+                  "endColumn": 48
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 436,
+                  "startColumn": 21,
+                  "endLine": 436,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 447,
+                  "startColumn": 13,
+                  "endLine": 447,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 451,
+                  "startColumn": 13,
+                  "endLine": 451,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 454,
+                  "startColumn": 17,
+                  "endLine": 454,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 456,
+                  "startColumn": 21,
+                  "endLine": 456,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 456,
+                  "startColumn": 81,
+                  "endLine": 456,
+                  "endColumn": 83
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "+1",
+              "1": "+2 (incl 1 for nesting)",
+              "10": "+1",
+              "2": "+3 (incl 2 for nesting)",
+              "3": "+3 (incl 2 for nesting)",
+              "4": "+1",
+              "5": "+3 (incl 2 for nesting)",
+              "6": "+1",
+              "7": "+1",
+              "8": "+2 (incl 1 for nesting)",
+              "9": "+3 (incl 2 for nesting)"
+            }
+          }
+        },
+        {
+          "ruleId": "S1066",
+          "level": "warning",
+          "message": "Merge this if statement with the enclosing one.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 456,
+                  "startColumn": 21,
+                  "endLine": 456,
+                  "endColumn": 23
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 454,
+                  "startColumn": 17,
+                  "endLine": 454,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S108",
+          "level": "warning",
+          "message": "Either remove or fill this block of code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 533,
+                  "startColumn": 35,
+                  "endLine": 533,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3776",
+          "level": "warning",
+          "message": "Refactor this method to reduce its Cognitive Complexity from 50 to the 15 allowed.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 467,
+                  "startColumn": 31,
+                  "endLine": 467,
+                  "endColumn": 50
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 469,
+                  "startColumn": 13,
+                  "endLine": 469,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 474,
+                  "startColumn": 13,
+                  "endLine": 474,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 487,
+                  "startColumn": 13,
+                  "endLine": 487,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 487,
+                  "startColumn": 27,
+                  "endLine": 487,
+                  "endColumn": 29
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 491,
+                  "startColumn": 13,
+                  "endLine": 491,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 503,
+                  "startColumn": 13,
+                  "endLine": 503,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 506,
+                  "startColumn": 17,
+                  "endLine": 506,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 510,
+                  "startColumn": 13,
+                  "endLine": 510,
+                  "endColumn": 16
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 514,
+                  "startColumn": 17,
+                  "endLine": 514,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 517,
+                  "startColumn": 17,
+                  "endLine": 517,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 523,
+                  "startColumn": 21,
+                  "endLine": 523,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 523,
+                  "startColumn": 44,
+                  "endLine": 523,
+                  "endColumn": 46
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 533,
+                  "startColumn": 29,
+                  "endLine": 533,
+                  "endColumn": 34
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 535,
+                  "startColumn": 29,
+                  "endLine": 535,
+                  "endColumn": 31
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 539,
+                  "startColumn": 33,
+                  "endLine": 539,
+                  "endColumn": 35
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 543,
+                  "startColumn": 37,
+                  "endLine": 543,
+                  "endColumn": 39
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 558,
+                  "startColumn": 55,
+                  "endLine": 558,
+                  "endColumn": 57
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 562,
+                  "startColumn": 21,
+                  "endLine": 562,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 567,
+                  "startColumn": 25,
+                  "endLine": 567,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 580,
+                  "startColumn": 13,
+                  "endLine": 580,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 593,
+                  "startColumn": 39,
+                  "endLine": 593,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "+1",
+              "1": "+1",
+              "10": "+3 (incl 2 for nesting)",
+              "11": "+1",
+              "12": "+5 (incl 4 for nesting)",
+              "13": "+5 (incl 4 for nesting)",
+              "14": "+6 (incl 5 for nesting)",
+              "15": "+7 (incl 6 for nesting)",
+              "16": "+1",
+              "17": "+3 (incl 2 for nesting)",
+              "18": "+4 (incl 3 for nesting)",
+              "19": "+1",
+              "2": "+1",
+              "20": "+1",
+              "3": "+1",
+              "4": "+1",
+              "5": "+1",
+              "6": "+2 (incl 1 for nesting)",
+              "7": "+1",
+              "8": "+2 (incl 1 for nesting)",
+              "9": "+2 (incl 1 for nesting)"
+            }
+          }
+        },
+        {
+          "ruleId": "S2486",
+          "level": "warning",
+          "message": "Handle the exception or explain in a comment why it can be ignored.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 533,
+                  "startColumn": 29,
+                  "endLine": 533,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3776",
+          "level": "warning",
+          "message": "Refactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 639,
+                  "startColumn": 22,
+                  "endLine": 639,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 645,
+                  "startColumn": 17,
+                  "endLine": 645,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 651,
+                  "startColumn": 17,
+                  "endLine": 651,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 655,
+                  "startColumn": 17,
+                  "endLine": 655,
+                  "endColumn": 21
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 665,
+                  "startColumn": 17,
+                  "endLine": 665,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 672,
+                  "startColumn": 17,
+                  "endLine": 672,
+                  "endColumn": 21
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 674,
+                  "startColumn": 48,
+                  "endLine": 674,
+                  "endColumn": 49
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 679,
+                  "startColumn": 17,
+                  "endLine": 679,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 682,
+                  "startColumn": 21,
+                  "endLine": 682,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 687,
+                  "startColumn": 17,
+                  "endLine": 687,
+                  "endColumn": 21
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 709,
+                  "startColumn": 21,
+                  "endLine": 709,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 709,
+                  "startColumn": 62,
+                  "endLine": 709,
+                  "endColumn": 64
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 717,
+                  "startColumn": 25,
+                  "endLine": 717,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 735,
+                  "startColumn": 17,
+                  "endLine": 735,
+                  "endColumn": 22
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 739,
+                  "startColumn": 91,
+                  "endLine": 739,
+                  "endColumn": 92
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 739,
+                  "startColumn": 73,
+                  "endLine": 739,
+                  "endColumn": 75
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 771,
+                  "startColumn": 17,
+                  "endLine": 771,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "+1",
+              "1": "+1",
+              "10": "+1",
+              "11": "+2 (incl 1 for nesting)",
+              "12": "+1",
+              "13": "+2 (incl 1 for nesting)",
+              "14": "+1",
+              "15": "+1",
+              "2": "+1",
+              "3": "+1",
+              "4": "+1",
+              "5": "+2 (incl 1 for nesting)",
+              "6": "+1",
+              "7": "+2 (incl 1 for nesting)",
+              "8": "+1",
+              "9": "+1"
+            }
+          }
+        },
+        {
+          "ruleId": "S1854",
+          "level": "warning",
+          "message": "Remove this useless assignment to local variable 'scope'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/TreeViewModel.cs",
+                "region": {
+                  "startLine": 663,
+                  "startColumn": 33,
+                  "endLine": 663,
+                  "endColumn": 60
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1125",
+          "level": "warning",
+          "message": "Remove the unnecessary Boolean literal(s).",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/Models/BaseTreeItem.cs",
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 31,
+                  "endLine": 56,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3776",
+          "level": "warning",
+          "message": "Refactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 246,
+                  "startColumn": 71,
+                  "endLine": 246,
+                  "endColumn": 92
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 248,
+                  "startColumn": 13,
+                  "endLine": 248,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 251,
+                  "startColumn": 17,
+                  "endLine": 251,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 257,
+                  "startColumn": 17,
+                  "endLine": 257,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 258,
+                  "startColumn": 21,
+                  "endLine": 258,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 268,
+                  "startColumn": 17,
+                  "endLine": 268,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 269,
+                  "startColumn": 17,
+                  "endLine": 269,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 272,
+                  "startColumn": 21,
+                  "endLine": 272,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 273,
+                  "startColumn": 21,
+                  "endLine": 273,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 277,
+                  "startColumn": 25,
+                  "endLine": 277,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 287,
+                  "startColumn": 25,
+                  "endLine": 287,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 290,
+                  "startColumn": 29,
+                  "endLine": 290,
+                  "endColumn": 31
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 290,
+                  "startColumn": 56,
+                  "endLine": 290,
+                  "endColumn": 58
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 301,
+                  "startColumn": 17,
+                  "endLine": 301,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 306,
+                  "startColumn": 17,
+                  "endLine": 306,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 309,
+                  "startColumn": 17,
+                  "endLine": 309,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 312,
+                  "startColumn": 21,
+                  "endLine": 312,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 315,
+                  "startColumn": 56,
+                  "endLine": 315,
+                  "endColumn": 57
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 321,
+                  "startColumn": 17,
+                  "endLine": 321,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 321,
+                  "startColumn": 41,
+                  "endLine": 321,
+                  "endColumn": 43
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 329,
+                  "startColumn": 17,
+                  "endLine": 329,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 332,
+                  "startColumn": 17,
+                  "endLine": 332,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 342,
+                  "startColumn": 13,
+                  "endLine": 342,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "+1",
+              "1": "+1",
+              "10": "+4 (incl 3 for nesting)",
+              "11": "+1",
+              "12": "+1",
+              "13": "+1",
+              "14": "+1",
+              "15": "+2 (incl 1 for nesting)",
+              "16": "+3 (incl 2 for nesting)",
+              "17": "+1",
+              "18": "+1",
+              "19": "+1",
+              "2": "+1",
+              "20": "+1",
+              "21": "+1",
+              "3": "+1",
+              "4": "+1",
+              "5": "+1",
+              "6": "+2 (incl 1 for nesting)",
+              "7": "+2 (incl 1 for nesting)",
+              "8": "+3 (incl 2 for nesting)",
+              "9": "+3 (incl 2 for nesting)"
+            }
+          }
+        },
+        {
+          "ruleId": "S1168",
+          "level": "warning",
+          "message": "Return an empty collection instead of null.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 375,
+                  "startColumn": 48,
+                  "endLine": 375,
+                  "endColumn": 60
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 386,
+                  "startColumn": 56,
+                  "endLine": 386,
+                  "endColumn": 68
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1125",
+          "level": "warning",
+          "message": "Remove the unnecessary Boolean literal(s).",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/Models/SingleThreadActionQueue.cs",
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 29,
+                  "endLine": 46,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S108",
+          "level": "warning",
+          "message": "Either remove or fill this block of code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/Models/SingleThreadActionQueue.cs",
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 13,
+                  "endLine": 75,
+                  "endColumn": 16
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3626",
+          "level": "warning",
+          "message": "Remove this redundant jump.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 469,
+                  "startColumn": 17,
+                  "endLine": 469,
+                  "endColumn": 24
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3776",
+          "level": "warning",
+          "message": "Refactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 556,
+                  "startColumn": 22,
+                  "endLine": 556,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 558,
+                  "startColumn": 13,
+                  "endLine": 558,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 564,
+                  "startColumn": 13,
+                  "endLine": 564,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 577,
+                  "startColumn": 17,
+                  "endLine": 577,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 577,
+                  "startColumn": 49,
+                  "endLine": 577,
+                  "endColumn": 51
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 581,
+                  "startColumn": 21,
+                  "endLine": 581,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 587,
+                  "startColumn": 21,
+                  "endLine": 587,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 592,
+                  "startColumn": 21,
+                  "endLine": 592,
+                  "endColumn": 25
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 597,
+                  "startColumn": 17,
+                  "endLine": 597,
+                  "endColumn": 21
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 601,
+                  "startColumn": 21,
+                  "endLine": 601,
+                  "endColumn": 24
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 605,
+                  "startColumn": 25,
+                  "endLine": 605,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 611,
+                  "startColumn": 25,
+                  "endLine": 611,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 616,
+                  "startColumn": 25,
+                  "endLine": 616,
+                  "endColumn": 29
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 623,
+                  "startColumn": 13,
+                  "endLine": 623,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 628,
+                  "startColumn": 13,
+                  "endLine": 628,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 630,
+                  "startColumn": 17,
+                  "endLine": 630,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 632,
+                  "startColumn": 21,
+                  "endLine": 632,
+                  "endColumn": 28
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 637,
+                  "startColumn": 17,
+                  "endLine": 637,
+                  "endColumn": 21
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 556,
+                  "startColumn": 22,
+                  "endLine": 556,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "+1",
+              "1": "+1",
+              "10": "+3 (incl 2 for nesting)",
+              "11": "+1",
+              "12": "+1",
+              "13": "+1",
+              "14": "+2 (incl 1 for nesting)",
+              "15": "+3 (incl 2 for nesting)",
+              "16": "+1",
+              "17": "+1 (recursion)",
+              "2": "+1",
+              "3": "+1",
+              "4": "+2 (incl 1 for nesting)",
+              "5": "+2 (incl 1 for nesting)",
+              "6": "+1",
+              "7": "+1",
+              "8": "+2 (incl 1 for nesting)",
+              "9": "+3 (incl 2 for nesting)"
+            }
+          }
+        },
+        {
+          "ruleId": "S3776",
+          "level": "warning",
+          "message": "Refactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 646,
+                  "startColumn": 22,
+                  "endLine": 646,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 648,
+                  "startColumn": 13,
+                  "endLine": 648,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 651,
+                  "startColumn": 85,
+                  "endLine": 651,
+                  "endColumn": 86
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 655,
+                  "startColumn": 39,
+                  "endLine": 655,
+                  "endColumn": 40
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 658,
+                  "startColumn": 13,
+                  "endLine": 658,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 659,
+                  "startColumn": 13,
+                  "endLine": 659,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 659,
+                  "startColumn": 36,
+                  "endLine": 659,
+                  "endColumn": 38
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 666,
+                  "startColumn": 13,
+                  "endLine": 666,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 666,
+                  "startColumn": 36,
+                  "endLine": 666,
+                  "endColumn": 38
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 673,
+                  "startColumn": 13,
+                  "endLine": 673,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 678,
+                  "startColumn": 13,
+                  "endLine": 678,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 685,
+                  "startColumn": 13,
+                  "endLine": 685,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 685,
+                  "startColumn": 46,
+                  "endLine": 685,
+                  "endColumn": 48
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 688,
+                  "startColumn": 17,
+                  "endLine": 688,
+                  "endColumn": 20
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 694,
+                  "startColumn": 21,
+                  "endLine": 694,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 694,
+                  "startColumn": 44,
+                  "endLine": 694,
+                  "endColumn": 46
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 712,
+                  "startColumn": 17,
+                  "endLine": 712,
+                  "endColumn": 20
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 714,
+                  "startColumn": 21,
+                  "endLine": 714,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 717,
+                  "startColumn": 21,
+                  "endLine": 717,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 717,
+                  "startColumn": 48,
+                  "endLine": 717,
+                  "endColumn": 50
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 722,
+                  "startColumn": 21,
+                  "endLine": 722,
+                  "endColumn": 25
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 726,
+                  "startColumn": 25,
+                  "endLine": 726,
+                  "endColumn": 32
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 728,
+                  "startColumn": 29,
+                  "endLine": 728,
+                  "endColumn": 31
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 739,
+                  "startColumn": 55,
+                  "endLine": 739,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "+1",
+              "1": "+1",
+              "10": "+1",
+              "11": "+1",
+              "12": "+2 (incl 1 for nesting)",
+              "13": "+3 (incl 2 for nesting)",
+              "14": "+1",
+              "15": "+1",
+              "16": "+2 (incl 1 for nesting)",
+              "17": "+2 (incl 1 for nesting)",
+              "18": "+1",
+              "19": "+1",
+              "2": "+1",
+              "20": "+3 (incl 2 for nesting)",
+              "21": "+4 (incl 3 for nesting)",
+              "22": "+1",
+              "3": "+1",
+              "4": "+1",
+              "5": "+1",
+              "6": "+1",
+              "7": "+1",
+              "8": "+1",
+              "9": "+1"
+            }
+          }
+        },
+        {
+          "ruleId": "S112",
+          "level": "warning",
+          "message": "'System.Exception' should not be thrown by user code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 755,
+                  "startColumn": 19,
+                  "endLine": 755,
+                  "endColumn": 74
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S112",
+          "level": "warning",
+          "message": "'System.Exception' should not be thrown by user code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 782,
+                  "startColumn": 19,
+                  "endLine": 782,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S112",
+          "level": "warning",
+          "message": "'System.Exception' should not be thrown by user code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 802,
+                  "startColumn": 19,
+                  "endLine": 802,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3885",
+          "level": "warning",
+          "message": "Replace this call to 'Assembly.LoadFrom' with 'Assembly.Load'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 33,
+                  "endLine": 67,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3776",
+          "level": "warning",
+          "message": "Refactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 853,
+                  "startColumn": 46,
+                  "endLine": 853,
+                  "endColumn": 68
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 855,
+                  "startColumn": 13,
+                  "endLine": 855,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 856,
+                  "startColumn": 13,
+                  "endLine": 856,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 856,
+                  "startColumn": 30,
+                  "endLine": 856,
+                  "endColumn": 32
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 860,
+                  "startColumn": 13,
+                  "endLine": 860,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 863,
+                  "startColumn": 17,
+                  "endLine": 863,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 872,
+                  "startColumn": 13,
+                  "endLine": 872,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 874,
+                  "startColumn": 13,
+                  "endLine": 874,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 880,
+                  "startColumn": 13,
+                  "endLine": 880,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 882,
+                  "startColumn": 17,
+                  "endLine": 882,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 883,
+                  "startColumn": 17,
+                  "endLine": 883,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 883,
+                  "startColumn": 48,
+                  "endLine": 883,
+                  "endColumn": 50
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 890,
+                  "startColumn": 17,
+                  "endLine": 890,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 902,
+                  "startColumn": 60,
+                  "endLine": 902,
+                  "endColumn": 61
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 902,
+                  "startColumn": 45,
+                  "endLine": 902,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "+1",
+              "1": "+1",
+              "10": "+1",
+              "11": "+2 (incl 1 for nesting)",
+              "12": "+1",
+              "13": "+1",
+              "2": "+1",
+              "3": "+1",
+              "4": "+2 (incl 1 for nesting)",
+              "5": "+1",
+              "6": "+1",
+              "7": "+1",
+              "8": "+2 (incl 1 for nesting)",
+              "9": "+2 (incl 1 for nesting)"
+            }
+          }
+        },
+        {
+          "ruleId": "S1168",
+          "level": "warning",
+          "message": "Return an empty collection instead of null.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/SelectorEditorViewModel.cs",
+                "region": {
+                  "startLine": 912,
+                  "startColumn": 52,
+                  "endLine": 912,
+                  "endColumn": 64
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3776",
+          "level": "warning",
+          "message": "Refactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 108,
+                  "startColumn": 30,
+                  "endLine": 108,
+                  "endColumn": 53
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 110,
+                  "startColumn": 13,
+                  "endLine": 110,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 117,
+                  "startColumn": 13,
+                  "endLine": 117,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 124,
+                  "startColumn": 13,
+                  "endLine": 124,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 126,
+                  "startColumn": 62,
+                  "endLine": 126,
+                  "endColumn": 64
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 127,
+                  "startColumn": 17,
+                  "endLine": 127,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 127,
+                  "startColumn": 35,
+                  "endLine": 127,
+                  "endColumn": 37
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 136,
+                  "startColumn": 13,
+                  "endLine": 136,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 138,
+                  "startColumn": 17,
+                  "endLine": 138,
+                  "endColumn": 20
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 141,
+                  "startColumn": 21,
+                  "endLine": 141,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 153,
+                  "startColumn": 13,
+                  "endLine": 153,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 158,
+                  "startColumn": 13,
+                  "endLine": 158,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 170,
+                  "startColumn": 13,
+                  "endLine": 170,
+                  "endColumn": 17
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "+1",
+              "1": "+1",
+              "10": "+1",
+              "11": "+1",
+              "2": "+1",
+              "3": "+1",
+              "4": "+2 (incl 1 for nesting)",
+              "5": "+1",
+              "6": "+1",
+              "7": "+2 (incl 1 for nesting)",
+              "8": "+3 (incl 2 for nesting)",
+              "9": "+1"
+            }
+          }
+        },
+        {
+          "ruleId": "S1066",
+          "level": "warning",
+          "message": "Merge this if statement with the enclosing one.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 383,
+                  "startColumn": 17,
+                  "endLine": 383,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/NodeViewModel.cs",
+                "region": {
+                  "startLine": 381,
+                  "startColumn": 13,
+                  "endLine": 381,
+                  "endColumn": 15
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3010",
+          "level": "warning",
+          "message": "Remove this assignment of '_startUpInfo' or initialize it statically.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 400,
+                  "startColumn": 13,
+                  "endLine": 400,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 380,
+                  "startColumn": 46,
+                  "endLine": 380,
+                  "endColumn": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3776",
+          "level": "warning",
+          "message": "Refactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 756,
+                  "startColumn": 27,
+                  "endLine": 756,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 758,
+                  "startColumn": 13,
+                  "endLine": 758,
+                  "endColumn": 15
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 762,
+                  "startColumn": 17,
+                  "endLine": 762,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 762,
+                  "startColumn": 61,
+                  "endLine": 762,
+                  "endColumn": 63
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 769,
+                  "startColumn": 17,
+                  "endLine": 769,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 770,
+                  "startColumn": 17,
+                  "endLine": 770,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 777,
+                  "startColumn": 17,
+                  "endLine": 777,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 780,
+                  "startColumn": 21,
+                  "endLine": 780,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 784,
+                  "startColumn": 21,
+                  "endLine": 784,
+                  "endColumn": 25
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 789,
+                  "startColumn": 17,
+                  "endLine": 789,
+                  "endColumn": 21
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 791,
+                  "startColumn": 21,
+                  "endLine": 791,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 795,
+                  "startColumn": 17,
+                  "endLine": 795,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 798,
+                  "startColumn": 17,
+                  "endLine": 798,
+                  "endColumn": 19
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 803,
+                  "startColumn": 17,
+                  "endLine": 803,
+                  "endColumn": 21
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 809,
+                  "startColumn": 13,
+                  "endLine": 809,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "+1",
+              "1": "+1",
+              "10": "+1",
+              "11": "+1",
+              "12": "+1",
+              "13": "+1",
+              "2": "+1",
+              "3": "+1",
+              "4": "+1",
+              "5": "+1",
+              "6": "+2 (incl 1 for nesting)",
+              "7": "+1",
+              "8": "+1",
+              "9": "+2 (incl 1 for nesting)"
+            }
+          }
+        },
+        {
+          "ruleId": "S1481",
+          "level": "warning",
+          "message": "Remove the unused local variable 'selector'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/ac-ag-5640888c-we/_work/7/s/UIAutomation/UiPath.Explorer/ViewModels/MainViewModel.cs",
+                "region": {
+                  "startLine": 886,
+                  "startColumn": 29,
+                  "endLine": 886,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "S1066": {
+          "id": "S1066",
+          "shortDescription": "Collapsible \"if\" statements should be merged",
+          "fullDescription": "Merging collapsible if statements increases the code's readability.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1066",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S108": {
+          "id": "S108",
+          "shortDescription": "Nested blocks of code should not be left empty",
+          "fullDescription": "Most of the time a block of code is empty when a piece of code is really missing. So such empty block must be either filled or removed.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-108",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1118": {
+          "id": "S1118",
+          "shortDescription": "Utility classes should not have public constructors",
+          "fullDescription": "Utility classes, which are collections of static members, are not meant to be instantiated.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1118",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S112": {
+          "id": "S112",
+          "shortDescription": "General exceptions should never be thrown",
+          "fullDescription": "Throwing such general exceptions as Exception, SystemException, ApplicationException, IndexOutOfRangeException, NullReferenceException, OutOfMemoryException and ExecutionEngineException prevents calling methods from handling true, system-generated exceptions differently than application-generated errors. ",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-112",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope"
+            ]
+          }
+        },
+        "S1125": {
+          "id": "S1125",
+          "shortDescription": "Boolean literals should not be redundant",
+          "fullDescription": "Redundant Boolean literals should be removed from expressions to improve readability.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1125",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1144": {
+          "id": "S1144",
+          "shortDescription": "Unused private types or members should be removed",
+          "fullDescription": "private or internal types or private members that are never executed or referenced are dead code: unnecessary, inoperative code that should be removed. Cleaning out dead code decreases the size of the maintained codebase, making it easier to understand the program and preventing bugs from being introduced.",
+          "defaultLevel": "note",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1144",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope",
+              "Unnecessary"
+            ]
+          }
+        },
+        "S1155": {
+          "id": "S1155",
+          "shortDescription": "\"Any()\" should be used to test for emptiness",
+          "fullDescription": "Using .Count() to test for emptiness works, but using .Any() makes the intent clearer, and the code more readable. However, there are some cases where special attention should be paid:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1155",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1168": {
+          "id": "S1168",
+          "shortDescription": "Empty arrays and collections should be returned instead of null",
+          "fullDescription": "Returning null instead of an actual array or collection forces callers of the method to explicitly test for nullity, making them more complex and less readable.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1168",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope"
+            ]
+          }
+        },
+        "S125": {
+          "id": "S125",
+          "shortDescription": "Sections of code should not be commented out",
+          "fullDescription": "Programmers should not comment out code as it bloats programs and reduces readability.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-125",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1481": {
+          "id": "S1481",
+          "shortDescription": "Unused local variables should be removed",
+          "fullDescription": "If a local variable is declared but not used, it is dead code and should be removed. Doing so will improve maintainability because developers will not wonder what the variable is used for.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1481",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S1854": {
+          "id": "S1854",
+          "shortDescription": "Unused assignments should be removed",
+          "fullDescription": "A dead store happens when a local variable is assigned a value that is not read by any subsequent instruction. Calculating or retrieving a value only to then overwrite it or throw it away, could indicate a serious error in the code. Even if it's not an error, it is at best a waste of resources. Therefore all calculated values should be used.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1854",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S2219": {
+          "id": "S2219",
+          "shortDescription": "Runtime type checking should be simplified",
+          "fullDescription": "To check the type of an object there are several options:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2219",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S2223": {
+          "id": "S2223",
+          "shortDescription": "Non-constant static fields should not be visible",
+          "fullDescription": "A static field that is neither constant nor read-only is not thread-safe. Correctly accessing these fields from different threads needs synchronization with locks. Improper synchronization may lead to unexpected results, thus publicly visible static fields are best suited for storing non-changing data shared by many consumers. To enforce this intent, these fields should be marked readonly or converted to constants.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2223",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope"
+            ]
+          }
+        },
+        "S2486": {
+          "id": "S2486",
+          "shortDescription": "Generic exceptions should not be ignored",
+          "fullDescription": "When exceptions occur, it is usually a bad idea to simply ignore them. Instead, it is better to handle them properly, or at least to log them.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2486",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope"
+            ]
+          }
+        },
+        "S2696": {
+          "id": "S2696",
+          "shortDescription": "Instance members should not write to \"static\" fields",
+          "fullDescription": "Correctly updating a static field from a non-static method is tricky to get right and could easily lead to bugs if there are multiple class instances and/or multiple threads in play. ",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2696",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope"
+            ]
+          }
+        },
+        "S2933": {
+          "id": "S2933",
+          "shortDescription": "Fields that are only assigned in the constructor should be \"readonly\"",
+          "fullDescription": "readonly fields can only be assigned in a class constructor. If a class has a field that's not marked readonly but is only set in the constructor, it could cause confusion about the field's intended use. To avoid confusion, such fields should be marked readonly to make their intended use explicit, and to prevent future maintainers from inadvertently changing their use.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2933",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S2953": {
+          "id": "S2953",
+          "shortDescription": "Methods named \"Dispose\" should implement \"IDisposable.Dispose\"",
+          "fullDescription": "Dispose as a method name should be used exclusively to implement IDisposable.Dispose to prevent any confusion.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2953",
+          "properties": {
+            "category": "Blocker Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope"
+            ]
+          }
+        },
+        "S3010": {
+          "id": "S3010",
+          "shortDescription": "Static fields should not be updated in constructors",
+          "fullDescription": "Assigning a value to a static field in a constructor could cause unreliable behavior at runtime since it will change the value for all instances of the class.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3010",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope"
+            ]
+          }
+        },
+        "S3011": {
+          "id": "S3011",
+          "shortDescription": "Reflection should not be used to increase accessibility of classes, methods, or fields",
+          "fullDescription": "This rule raises an issue when reflection is used to change the visibility of a class, method or field, and when it is used to directly update a field value. Altering or bypassing the accessibility of classes, methods, or fields violates the encapsulation principle and could lead to run-time errors.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3011",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope"
+            ]
+          }
+        },
+        "S3626": {
+          "id": "S3626",
+          "shortDescription": "Jump statements should not be redundant",
+          "fullDescription": "Jump statements, such as return, yield break, goto, and continue let you change the default flow of program execution, but jump statements that direct the control flow to the original direction are just a waste of keystrokes.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3626",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3776": {
+          "id": "S3776",
+          "shortDescription": "Cognitive Complexity of methods should not be too high",
+          "fullDescription": "Cognitive Complexity is a measure of how hard the control flow of a method is to understand. Methods with high Cognitive Complexity will be difficult to maintain.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3776",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3881": {
+          "id": "S3881",
+          "shortDescription": "\"IDisposable\" should be implemented correctly",
+          "fullDescription": "The IDisposable interface is a mechanism to release unmanaged resources, if not implemented correctly this could result in resource leaks or more severe bugs.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3881",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S3885": {
+          "id": "S3885",
+          "shortDescription": "\"Assembly.Load\" should be used",
+          "fullDescription": "The parameter to Assembly.Load includes the full specification of the dll to be loaded. Use another method, and you might end up with a dll other than the one you expected. ",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3885",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S4136": {
+          "id": "S4136",
+          "shortDescription": "Method overloads should be grouped together",
+          "fullDescription": "For clarity, all overloads of the same method should be grouped together. That lets both users and maintainers quickly understand all the current available options.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-4136",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S4220": {
+          "id": "S4220",
+          "shortDescription": "Events should have proper arguments",
+          "fullDescription": "When raising an event, two arguments are expected by the EventHandler delegate: Sender and event-data. There are three guidelines regarding these parameters:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-4220",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        },
+        "S4275": {
+          "id": "S4275",
+          "shortDescription": "Getters and setters should access the expected fields",
+          "fullDescription": "Properties provide a way to enforce encapsulation by providing public, protected or internal methods that give controlled access to private fields. However in classes with multiple fields it is not unusual that cut and paste is used to quickly create the needed properties, which can result in the wrong field being accessed by a getter or setter.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-4275",
+          "properties": {
+            "category": "Critical Bug",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "SonarWay",
+              "MainSourceScope",
+              "TestSourceScope"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

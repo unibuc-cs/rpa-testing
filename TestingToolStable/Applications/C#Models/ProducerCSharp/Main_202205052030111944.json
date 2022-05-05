@@ -1,0 +1,59 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "emails": {
+          "Type": "List`1"
+        },
+        "SendersEmail": {
+          "Type": "String"
+        },
+        "path": {
+          "Type": "String",
+          "Default": "SavedAttachment\\"
+        },
+        "filesPath": {
+          "Type": "String[]"
+        },
+        "filesPathLength": {
+          "Type": "Int32",
+          "Annotation": {
+            "min": 0,
+            "max": 10
+          }
+        },
+        "mailMessage": {
+          "Type": "MailMessage"
+        }
+      },
+      "inputArguments": [],
+      "displayName": "Main_1",
+      "fullPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\ProducerCSharp\\Main.xaml",
+      "invokedBy": "",
+      "startNode": "Main_1:Get_IMAP_Mail_Messages_--_retrieve_emails_from_inbox_1"
+    }
+  ],
+  "graph": {
+    "Main_1:Get_IMAP_Mail_Messages_--_retrieve_emails_from_inbox_1": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_2"
+        }
+      ]
+    },
+    "Main_1:Assign_2": {
+      "expression": "mailMessage = emails[0]",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Virtual_Flowchart_End_3"
+        }
+      ]
+    },
+    "Main_1:Virtual_Flowchart_End_3": {
+      "transitions": []
+    }
+  },
+  "startNode": "Main_1:Get_IMAP_Mail_Messages_--_retrieve_emails_from_inbox_1"
+}

@@ -34,6 +34,20 @@ namespace XMLParsing.Services
 
             OpenBrowser openBrowser = new OpenBrowser();
             Assembly.LoadFrom(openBrowser.GetType().Assembly.Location);
+
+            UiPath.Mail.IMAP.Activities.GetIMAPMailMessages mail = new UiPath.Mail.IMAP.Activities.GetIMAPMailMessages();
+            Assembly.LoadFrom(mail.GetType().Assembly.Location);
+
+            System.Net.Mail.MailMessage mailMessage = new System.Net.Mail.MailMessage();
+            Assembly.LoadFrom(mailMessage.GetType().Assembly.Location);
+
+            ForEach<System.Net.Mail.MailMessage> x1 = new ForEach<System.Net.Mail.MailMessage>();
+            Assembly.LoadFrom(x1.GetType().Assembly.Location);
+
+            UiPath.PDF.Activities.ReadPDFText z = new UiPath.PDF.Activities.ReadPDFText();
+            Assembly.LoadFrom(z.GetType().Assembly.Location);
+
+            Console.WriteLine(x1.GetType().FullName);
         }
 
         public static WorkflowParser Instance
