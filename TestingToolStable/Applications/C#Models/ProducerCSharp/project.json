@@ -45,6 +45,7 @@
       {
         "editingStatus": "InProgress",
         "testCaseId": "5b1802f0-5f29-4c9b-b8bd-526125003a3b",
+        "testCaseType": "TestCase",
         "fileName": "TestCase.xaml"
       }
     ],
