@@ -1847,7 +1847,7 @@
           }
         }
       },
-      "UiPath.System.Activities/21.10.2": {
+      "UiPath.System.Activities/21.10.4": {
         "type": "package",
         "dependencies": {
           "CsvHelper": "16.0.0",
@@ -4101,7 +4101,7 @@
           }
         }
       },
-      "UiPath.System.Activities/21.10.2": {
+      "UiPath.System.Activities/21.10.4": {
         "type": "package",
         "dependencies": {
           "CsvHelper": "16.0.0",
@@ -7764,10 +7764,10 @@
         "uipath.python.activities.nuspec"
       ]
     },
-    "UiPath.System.Activities/21.10.2": {
-      "sha512": "hWeXvkTGIUiItukWpANW0TS4y+UMPAaDYCGdTXhZIfUeocmOi/XTKj938V/RhvCPzQIU/j6ROS+GUrsMTPrxYQ==",
+    "UiPath.System.Activities/21.10.4": {
+      "sha512": "MtvNs1MDwR5B9ASTJo5uGebTtXNCiDZQdQwRn0FtuY1U6222mOoA1CIB06XKG8cfRFDwQrX7W74m+C6cLWix5Q==",
       "type": "package",
-      "path": "uipath.system.activities/21.10.2",
+      "path": "uipath.system.activities/21.10.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7847,7 +7847,7 @@
         "lib/net5.0/ru/UiPath.System.Activities.resources.dll",
         "lib/net5.0/tr/UiPath.System.Activities.resources.dll",
         "lib/net5.0/zh-CN/UiPath.System.Activities.resources.dll",
-        "uipath.system.activities.21.10.2.nupkg.sha512",
+        "uipath.system.activities.21.10.4.nupkg.sha512",
         "uipath.system.activities.nuspec"
       ]
     },
@@ -8337,7 +8337,7 @@
       "UiPath.Mail.Activities >= 1.12.3 <= 1.12.3",
       "UiPath.PDF.Activities >= 3.4.1 <= 3.4.1",
       "UiPath.Python.Activities >= 1.6.0 <= 1.6.0",
-      "UiPath.System.Activities >= 21.10.2 <= 21.10.2",
+      "UiPath.System.Activities >= 21.10.4 <= 21.10.4",
       "UiPath.UIAutomation.Activities >= 21.10.3 <= 21.10.3"
     ]
   },
@@ -8378,7 +8378,7 @@
           "UiPath.System.Activities": {
             "include": "Runtime",
             "target": "Package",
-            "version": "[21.10.2, 21.10.2]"
+            "version": "[21.10.4, 21.10.4]"
           },
           "UiPath.UIAutomation.Activities": {
             "include": "Runtime",

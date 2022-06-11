@@ -1,12 +1,6 @@
 ###################
 # compiled source #
 ###################
-*.com
-*.class
-*.dll
-*.pdb
-*.cache
-*.suo
 # Include dlls if they’re in the NuGet packages directory
 !/packages/*/lib/*.dll
 !/packages/*/lib/*/*.dll
@@ -20,9 +14,6 @@ _UpgradeReport_Files/
 ###############
 # Directories #
 ###############
-XMLParsing/XMLParsing/XMLParsing/bin/
-XMLParsing/XMLParsing/XMLParsing/obj/
-XMLParsing/XMLParsing/XMLParsing/TestResults/
 ###################
 # Web publish log #
 ###################

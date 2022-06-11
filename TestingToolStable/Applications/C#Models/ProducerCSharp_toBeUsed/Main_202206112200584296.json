@@ -1,0 +1,68 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "SendersEmail": {
+          "Type": "String"
+        },
+        "filesPath": {
+          "Type": "String[]",
+          "Default": "new string[] { @\"C:\\GitHubPhD\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\ProducerCSharp_toBeUsed\\SavedAttachments\\1.txt\", @\"C:\\GitHubPhD\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\ProducerCSharp_toBeUsed\\SavedAttachments\\2.txt\" }",
+          "Annotation": {
+            "Type": "String[]"
+          }
+        },
+        "path": {
+          "Type": "String",
+          "Default": "C:\\GitHubPhD\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\ProducerCSharp_toBeUsed\\SavedAttachments\\"
+        },
+        "filesPathLength": {
+          "Type": "Int32",
+          "Default": "",
+          "Annotation": {
+            "min": 0,
+            "max": 10
+          }
+        }
+      },
+      "inputArguments": [
+        "filesPathLength"
+      ],
+      "displayName": "Main_1",
+      "fullPath": "C:\\GitHubPhD\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\ProducerCSharp_toBeUsed\\Main.xaml",
+      "invokedBy": "",
+      "startNode": "Main_1:Get_number_of_files_4"
+    }
+  ],
+  "graph": {
+    "Main_1:Files_to_process?_2": {
+      "expression": "filesPathLength>0",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Virtual_Flowchart_End_5"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Virtual_Flowchart_End_5"
+        }
+      ]
+    },
+    "Main_1:Get_number_of_files_4": {
+      "Annotation": {
+        "expression": "filesPathLength ==len(filesPath)"
+      },
+      "expression": "filesPathLength = filesPath.Length",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Files_to_process?_2"
+        }
+      ]
+    },
+    "Main_1:Virtual_Flowchart_End_5": {
+      "transitions": []
+    }
+  },
+  "startNode": "Main_1:Get_number_of_files_4"
+}

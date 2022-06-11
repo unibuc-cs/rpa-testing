@@ -1,7 +1,7 @@
 {
-  "xamlPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\ProducerCSharp\\Main.xaml",
-  "modelBasePath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\ProducerCSharp\\",
-  "solverStrategy": "STRATEGY_DFS",
+  "xamlPath": "C:\\GitHubPhD\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\ProducerCSharp\\Main.xaml",
+  "modelBasePath": "C:\\GitHubPhD\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\ProducerCSharp\\",
+  "solverStrategy": "STRATEGY_OFFLINE_ALL",
   "outputTests_MaxTestPerFile": 5,
   "debug_tests_fullPaths": 0,
   "debug_ConsoleOutput": 0,

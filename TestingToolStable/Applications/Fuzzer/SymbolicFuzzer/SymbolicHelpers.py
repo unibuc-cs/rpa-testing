@@ -165,7 +165,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
                 if self.annotation.bounds is None:
                     self.symbolicGenericIndexVar = z3.Int(varName)
 
-        elif typeName == "List":
+        elif typeName.__contains__("List") :
             assert self.annotation is None or self.annotation.isFromUserInput is False, \
                 "List type is not supported for symbolic execution since its element could be anything !!. So no annotation please that involves symbolic"
 
