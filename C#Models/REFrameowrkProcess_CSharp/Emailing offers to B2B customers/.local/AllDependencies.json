@@ -1697,7 +1697,7 @@
           "lib/net461/UiPath.Platform.dll": {}
         }
       },
-      "UiPath.System.Activities/21.10.3": {
+      "UiPath.System.Activities/21.10.2": {
         "type": "package",
         "dependencies": {
           "CsvHelper": "16.0.0",
@@ -3958,7 +3958,7 @@
           "lib/net461/UiPath.Platform.dll": {}
         }
       },
-      "UiPath.System.Activities/21.10.3": {
+      "UiPath.System.Activities/21.10.2": {
         "type": "package",
         "dependencies": {
           "CsvHelper": "16.0.0",
@@ -7557,10 +7557,10 @@
         "uipath.platform.nuspec"
       ]
     },
-    "UiPath.System.Activities/21.10.3": {
-      "sha512": "FQm/Ik5f1vGdD4ZhEMKRkxJlpK3MBs+wwoVNYSzdoIL+dgTnTDv4CSt/2069LwaPUxYcNPhf5aR3PUM8QYA3WQ==",
+    "UiPath.System.Activities/21.10.2": {
+      "sha512": "hWeXvkTGIUiItukWpANW0TS4y+UMPAaDYCGdTXhZIfUeocmOi/XTKj938V/RhvCPzQIU/j6ROS+GUrsMTPrxYQ==",
       "type": "package",
-      "path": "uipath.system.activities/21.10.3",
+      "path": "uipath.system.activities/21.10.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7640,7 +7640,7 @@
         "lib/net5.0/ru/UiPath.System.Activities.resources.dll",
         "lib/net5.0/tr/UiPath.System.Activities.resources.dll",
         "lib/net5.0/zh-CN/UiPath.System.Activities.resources.dll",
-        "uipath.system.activities.21.10.3.nupkg.sha512",
+        "uipath.system.activities.21.10.2.nupkg.sha512",
         "uipath.system.activities.nuspec"
       ]
     },
@@ -8279,21 +8279,21 @@
       "UiPath.Credentials.Activities >= 2.0.0 <= 2.0.0",
       "UiPath.Excel.Activities >= 2.11.4 <= 2.11.4",
       "UiPath.Mail.Activities >= 1.12.3 <= 1.12.3",
-      "UiPath.System.Activities >= 21.10.3 <= 21.10.3",
+      "UiPath.System.Activities >= 21.10.2 <= 21.10.2",
       "UiPath.Testing.Activities >= 1.4.4 <= 1.4.4",
       "UiPath.UIAutomation.Activities >= 21.10.4 <= 21.10.4"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\adelina.staicu@cegeka.com\\.nuget\\packages\\": {}
+    "C:\\Users\\marin\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
       "projectUniqueName": "Emailing offers to B2B customers",
       "projectName": "Emailing offers to B2B customers",
-      "projectPath": "C:\\Users\\adelina.staicu@cegeka.com\\OneDrive - Cegeka\\Documents\\UiPath\\Emailing offers to B2B customers\\.local",
-      "packagesPath": "C:\\Users\\adelina.staicu@cegeka.com\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\adelina.staicu@cegeka.com\\OneDrive - Cegeka\\Documents\\UiPath\\Emailing offers to B2B customers\\.local"
+      "projectPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\C#Models\\REFrameowrkProcess_CSharp\\Emailing offers to B2B customers\\.local",
+      "packagesPath": "C:\\Users\\marin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\C#Models\\REFrameowrkProcess_CSharp\\Emailing offers to B2B customers\\.local"
     },
     "frameworks": {
       "net461": {
@@ -8316,7 +8316,7 @@
           "UiPath.System.Activities": {
             "include": "Runtime",
             "target": "Package",
-            "version": "[21.10.3, 21.10.3]"
+            "version": "[21.10.2, 21.10.2]"
           },
           "UiPath.Testing.Activities": {
             "include": "Runtime",
@@ -8329,7 +8329,7 @@
             "version": "[21.10.4, 21.10.4]"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\UiPath\\Studio\\runtime.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\marin\\AppData\\Local\\Programs\\UiPath\\Studio\\runtime.json"
       }
     },
     "runtimes": {

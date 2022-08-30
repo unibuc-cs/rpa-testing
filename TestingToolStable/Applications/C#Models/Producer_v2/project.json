@@ -6,7 +6,7 @@
     "UiPath.Excel.Activities": "[2.11.4]",
     "UiPath.Mail.Activities": "[1.12.3]",
     "UiPath.Python.Activities": "[1.6.0]",
-    "UiPath.System.Activities": "[21.10.4]",
+    "UiPath.System.Activities": "[21.10.2]",
     "UiPath.UIAutomation.Activities": "[21.10.5]"
   },
   "webServices": [],
@@ -44,6 +44,7 @@
       {
         "editingStatus": "InProgress",
         "testCaseId": "6bfd2544-578c-4451-8409-fe626a2cdb47",
+        "testCaseType": "TestCase",
         "fileName": "TestCase.xaml"
       }
     ],

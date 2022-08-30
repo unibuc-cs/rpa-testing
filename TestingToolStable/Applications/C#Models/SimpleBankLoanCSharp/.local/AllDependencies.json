@@ -1687,7 +1687,7 @@
         }
       }
     },
-    ".NETFramework,Version=v4.6.1/win7-x86": {
+    ".NETFramework,Version=v4.6.1/win10-x64": {
       "ClosedXML/0.87.1": {
         "type": "package",
         "dependencies": {
@@ -5433,15 +5433,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\adelinas\\.nuget\\packages\\": {}
+    "C:\\Users\\marin\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
       "projectUniqueName": "Main",
       "projectName": "Main",
-      "projectPath": "C:\\GithubPhD\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\SimpleBankLoanCSharp\\.local",
-      "packagesPath": "C:\\Users\\adelinas\\.nuget\\packages\\",
-      "outputPath": "C:\\GithubPhD\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\SimpleBankLoanCSharp\\.local"
+      "projectPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\SimpleBankLoanCSharp\\.local",
+      "packagesPath": "C:\\Users\\marin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\SimpleBankLoanCSharp\\.local"
     },
     "frameworks": {
       "net461": {
@@ -5472,7 +5472,12 @@
             "version": "[21.4.4, 21.4.4]"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\adelinas\\AppData\\Local\\UiPath\\app-21.4.4\\runtime.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\marin\\AppData\\Local\\Programs\\UiPath\\Studio\\runtime.json"
+      }
+    },
+    "runtimes": {
+      "win10-x64": {
+        "#import": []
       }
     }
   }

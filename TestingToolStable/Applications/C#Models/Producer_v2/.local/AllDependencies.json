@@ -1720,7 +1720,7 @@
           }
         }
       },
-      "UiPath.System.Activities/21.10.4": {
+      "UiPath.System.Activities/21.10.2": {
         "type": "package",
         "dependencies": {
           "CsvHelper": "16.0.0",
@@ -3847,7 +3847,7 @@
           }
         }
       },
-      "UiPath.System.Activities/21.10.4": {
+      "UiPath.System.Activities/21.10.2": {
         "type": "package",
         "dependencies": {
           "CsvHelper": "16.0.0",
@@ -7448,10 +7448,10 @@
         "uipath.python.activities.nuspec"
       ]
     },
-    "UiPath.System.Activities/21.10.4": {
-      "sha512": "MtvNs1MDwR5B9ASTJo5uGebTtXNCiDZQdQwRn0FtuY1U6222mOoA1CIB06XKG8cfRFDwQrX7W74m+C6cLWix5Q==",
+    "UiPath.System.Activities/21.10.2": {
+      "sha512": "hWeXvkTGIUiItukWpANW0TS4y+UMPAaDYCGdTXhZIfUeocmOi/XTKj938V/RhvCPzQIU/j6ROS+GUrsMTPrxYQ==",
       "type": "package",
-      "path": "uipath.system.activities/21.10.4",
+      "path": "uipath.system.activities/21.10.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7531,7 +7531,7 @@
         "lib/net5.0/ru/UiPath.System.Activities.resources.dll",
         "lib/net5.0/tr/UiPath.System.Activities.resources.dll",
         "lib/net5.0/zh-CN/UiPath.System.Activities.resources.dll",
-        "uipath.system.activities.21.10.4.nupkg.sha512",
+        "uipath.system.activities.21.10.2.nupkg.sha512",
         "uipath.system.activities.nuspec"
       ]
     },
@@ -8020,20 +8020,20 @@
       "UiPath.Excel.Activities >= 2.11.4 <= 2.11.4",
       "UiPath.Mail.Activities >= 1.12.3 <= 1.12.3",
       "UiPath.Python.Activities >= 1.6.0 <= 1.6.0",
-      "UiPath.System.Activities >= 21.10.4 <= 21.10.4",
+      "UiPath.System.Activities >= 21.10.2 <= 21.10.2",
       "UiPath.UIAutomation.Activities >= 21.10.5 <= 21.10.5"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Lenovo\\.nuget\\packages\\": {}
+    "C:\\Users\\marin\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
       "projectUniqueName": "Producer_v2",
       "projectName": "Producer_v2",
-      "projectPath": "C:\\GitHubPhD\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\Producer_v2\\.local",
-      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\GitHubPhD\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\Producer_v2\\.local"
+      "projectPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\Producer_v2\\.local",
+      "packagesPath": "C:\\Users\\marin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\Producer_v2\\.local"
     },
     "frameworks": {
       "net461": {
@@ -8056,7 +8056,7 @@
           "UiPath.System.Activities": {
             "include": "Runtime",
             "target": "Package",
-            "version": "[21.10.4, 21.10.4]"
+            "version": "[21.10.2, 21.10.2]"
           },
           "UiPath.UIAutomation.Activities": {
             "include": "Runtime",
@@ -8064,7 +8064,7 @@
             "version": "[21.10.5, 21.10.5]"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\UiPath\\Studio\\runtime.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\marin\\AppData\\Local\\Programs\\UiPath\\Studio\\runtime.json"
       }
     },
     "runtimes": {

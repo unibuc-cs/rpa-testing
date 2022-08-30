@@ -1,0 +1,283 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "TransactionItem": {
+          "Type": "QueueItem"
+        },
+        "DataT": {
+          "Type": "DataTable"
+        },
+        "TransactionItemNothing": {
+          "Type": "Boolean"
+        }
+      },
+      "inputArguments": [
+        "DataT"
+      ],
+      "displayName": "ProcessTransactions_1",
+      "fullPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\ConsumerCSharp\\ProcessTransactions.xaml",
+      "invokedBy": "Main_1",
+      "startNode": "ProcessTransactions_1:ProcessTransactions_1"
+    },
+    {
+      "variables": {
+        "counter": {
+          "Type": "Int32",
+          "Default": "0",
+          "Annotation": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        "shouldStop": {
+          "Type": "Boolean"
+        },
+        "transactionItemNothing": {
+          "Type": "Boolean"
+        },
+        "invoiceInformationDT": {
+          "Type": "DataTable"
+        },
+        "shouldStopMessage": {
+          "Type": "Int32",
+          "Default": "",
+          "Annotation": {
+            "userInput": "True",
+            "min": 0,
+            "max": 1
+          }
+        },
+        "transactionItemNothingMessage": {
+          "Type": "Int32",
+          "Default": "",
+          "Annotation": {
+            "userInput": "True",
+            "min": 0,
+            "max": 1
+          }
+        },
+        "shouldStopDataDT": {
+          "Type": "DataTable",
+          "Default": "",
+          "Annotation": {
+            "path": "shouldStop_MockedData.csv",
+            "userInput": "True"
+          }
+        },
+        "transactionItemDataDT": {
+          "Type": "DataTable",
+          "Default": "",
+          "Annotation": {
+            "path": "transactionItem_MockedData.csv",
+            "userInput": "True"
+          }
+        }
+      },
+      "inputArguments": [
+        "shouldStopMessage",
+        "transactionItemNothingMessage",
+        "shouldStopDataDT",
+        "transactionItemDataDT"
+      ],
+      "displayName": "Main_1",
+      "fullPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\ConsumerCSharp\\Main.xaml",
+      "invokedBy": "",
+      "startNode": "Main_1:Build_Data_Table_--_create_vendor_and_invooice_number_table_1"
+    }
+  ],
+  "graph": {
+    "Main_1:Build_Data_Table_--_create_vendor_and_invooice_number_table_1": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Invoke_ProcessTransactions_workflow_3"
+        }
+      ]
+    },
+    "Main_1:Invoke_ProcessTransactions_workflow_3": {
+      "invokedWorkflow": "ProcessTransactions.xaml",
+      "invokedWorkflowDisplayName": "ProcessTransactions_1",
+      "variableMappings": [
+        {
+          "destinationWfArg": "DataT",
+          "argumentType": "InOut",
+          "sourceWfValue": "invoiceInformationDT"
+        },
+        {
+          "destinationWfArg": "TransactionItemNothing",
+          "argumentType": "Out",
+          "sourceWfValue": "transactionItemNothing"
+        }
+      ],
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ProcessTransactions_1:ProcessTransactions_1"
+        }
+      ]
+    },
+    "ProcessTransactions_1:ProcessTransactions_1": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ProcessTransactions_1:If_information_retrieved_from_queue_3"
+        }
+      ]
+    },
+    "ProcessTransactions_1:If_information_retrieved_from_queue_3": {
+      "expression": "TransactionItem != null",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ProcessTransactions_1:Virtual_If_End_4"
+        },
+        {
+          "value": "False",
+          "destination": "ProcessTransactions_1:Assign_--_TransactionItemNothing_to_true_9"
+        }
+      ]
+    },
+    "ProcessTransactions_1:Virtual_If_End_4": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_--_increase_counter__4"
+        }
+      ]
+    },
+    "ProcessTransactions_1:Assign_--_TransactionItemNothing_to_true_9": {
+      "expression": "TransactionItemNothing = True",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ProcessTransactions_1:Virtual_If_End_4"
+        }
+      ]
+    },
+    "Main_1:Assign_--_increase_counter__4": {
+      "expression": "counter = counter + 1",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Read_CSV-_shouldStop_MockedData_6"
+        }
+      ]
+    },
+    "Main_1:Read_CSV-_shouldStop_MockedData_6": {
+      "expression": "shouldStopDataDT = LoadCSV(\"shouldStop_MockedData.csv\")",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_16"
+        }
+      ]
+    },
+    "Main_1:Assign_--_transactionItemNothingMessage_(0/1)_7": {
+      "expression": "transactionItemNothingMessage = Convert.ToInt32(transactionItemDataDT.Rows[0][\"Main_1:transactionItemNothingMessage\"].ToString())",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:shouldStopMessage_=_0_8"
+        }
+      ]
+    },
+    "Main_1:shouldStopMessage_=_0_8": {
+      "expression": "shouldStopMessage == 0",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_--_should_stop_false_9"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Assign_--_should_stop_true_10"
+        }
+      ]
+    },
+    "Main_1:Assign_--_should_stop_false_9": {
+      "expression": "shouldStop = False",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:transactionItemNothingMessage_=_0_11"
+        }
+      ]
+    },
+    "Main_1:Assign_--_should_stop_true_10": {
+      "expression": "shouldStop = True",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:transactionItemNothingMessage_=_0_11"
+        }
+      ]
+    },
+    "Main_1:transactionItemNothingMessage_=_0_11": {
+      "expression": "transactionItemNothingMessage == 0",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_--_transactionItemNothing_false_12"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Assign_--_transactionItemNothing_true_13"
+        }
+      ]
+    },
+    "Main_1:Assign_--_transactionItemNothing_false_12": {
+      "expression": "transactionItemNothing = False",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Should_the_process_stop?_14"
+        }
+      ]
+    },
+    "Main_1:Assign_--_transactionItemNothing_true_13": {
+      "expression": "transactionItemNothing = True",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Should_the_process_stop?_14"
+        }
+      ]
+    },
+    "Main_1:Should_the_process_stop?_14": {
+      "expression": "shouldStop || transactionItemNothing",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Virtual_Flowchart_End_18"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Invoke_ProcessTransactions_workflow_3"
+        }
+      ]
+    },
+    "Main_1:Assign_16": {
+      "expression": "shouldStopMessage = Convert.ToInt32(shouldStopDataDT.Rows[0][\"Main_1:shouldStopMessage\"].ToString())",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Read_CSV_--_transactionItem_MockedData_17"
+        }
+      ]
+    },
+    "Main_1:Read_CSV_--_transactionItem_MockedData_17": {
+      "expression": "transactionItemDataDT = LoadCSV(\"transactionItem_MockedData.csv\")",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_--_transactionItemNothingMessage_(0/1)_7"
+        }
+      ]
+    },
+    "Main_1:Virtual_Flowchart_End_18": {
+      "transitions": []
+    }
+  },
+  "startNode": "Main_1:Build_Data_Table_--_create_vendor_and_invooice_number_table_1"
+}

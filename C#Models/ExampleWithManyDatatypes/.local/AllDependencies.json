@@ -1606,7 +1606,7 @@
         }
       }
     },
-    ".NETFramework,Version=v4.6.1/win7-x86": {
+    ".NETFramework,Version=v4.6.1/win10-x64": {
       "AForge/2.2.5": {
         "type": "package",
         "compile": {
@@ -5099,15 +5099,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\adelinas\\.nuget\\packages\\": {}
+    "C:\\Users\\marin\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
       "projectUniqueName": "RobotModelRPATesting",
       "projectName": "RobotModelRPATesting",
-      "projectPath": "C:\\GithubPhD\\rpa-testing\\C#Models\\ExampleWithManyDatatypes\\.local",
-      "packagesPath": "C:\\Users\\adelinas\\.nuget\\packages\\",
-      "outputPath": "C:\\GithubPhD\\rpa-testing\\C#Models\\ExampleWithManyDatatypes\\.local"
+      "projectPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\C#Models\\ExampleWithManyDatatypes\\.local",
+      "packagesPath": "C:\\Users\\marin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\C#Models\\ExampleWithManyDatatypes\\.local"
     },
     "frameworks": {
       "net461": {
@@ -5133,7 +5133,12 @@
             "version": "[20.10.6, 20.10.6]"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\adelinas\\AppData\\Local\\UiPath\\app-21.4.4\\runtime.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\marin\\AppData\\Local\\Programs\\UiPath\\Studio\\runtime.json"
+      }
+    },
+    "runtimes": {
+      "win10-x64": {
+        "#import": []
       }
     }
   }
