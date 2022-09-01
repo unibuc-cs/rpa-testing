@@ -1,0 +1,189 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "age": {
+          "Type": "Int32"
+        },
+        "rmn": {
+          "Type": "String",
+          "Default": "RMN"
+        },
+        "neurosurgeryConsult": {
+          "Type": "String",
+          "Default": "Neurosurgery consult"
+        },
+        "kinetotherapy": {
+          "Type": "String",
+          "Default": "Kinetotherapy"
+        },
+        "response": {
+          "Type": "String"
+        },
+        "options": {
+          "Type": "String[]",
+          "Default": "new []{rmn, neurosurgeryConsult, kinetotherapy}"
+        },
+        "yesOtherSelection": {
+          "Type": "String",
+          "Default": "true.ToString()"
+        },
+        "noOtherSelection": {
+          "Type": "String",
+          "Default": "false.ToString()"
+        },
+        "yesNo": {
+          "Type": "String[]",
+          "Default": "new []{yesOtherSelection, noOtherSelection}"
+        },
+        "prices": {
+          "Type": "Dictionary`2",
+          "Default": "new Dictionary<String, Int32>{{rmn,1000},{neurosurgeryConsult,500},{kinetotherapy,200}}"
+        },
+        "discounts": {
+          "Type": "Dictionary`2",
+          "Default": "new Dictionary<String, Boolean>{{rmn,true},{neurosurgeryConsult,true},{kinetotherapy,false}}"
+        },
+        "totalCost": {
+          "Type": "Int32",
+          "Default": "0"
+        },
+        "addAnotherService": {
+          "Type": "Boolean"
+        },
+        "variable1": {
+          "Type": "String"
+        }
+      },
+      "inputArguments": [],
+      "displayName": "Main_1",
+      "fullPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\PrivateHospital\\Main.xaml",
+      "invokedBy": "",
+      "startNode": "Main_1:Message_Box_1"
+    }
+  ],
+  "graph": {
+    "Main_1:Message_Box_1": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Flow_Decision_3"
+        }
+      ]
+    },
+    "Main_1:Flow_Decision_3": {
+      "expression": "age > 18",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Flow_Decision_4"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Flow_Decision_13"
+        }
+      ]
+    },
+    "Main_1:Flow_Decision_4": {
+      "expression": "age > 65",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Flow_Decision_19"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Assign_12"
+        }
+      ]
+    },
+    "Main_1:Flow_Decision_9": {
+      "expression": "addAnotherService",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Flow_Decision_3"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Virtual_Flowchart_End_20"
+        }
+      ]
+    },
+    "Main_1:Assign_12": {
+      "expression": "totalCost = totalCost + prices[response]",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Flow_Decision_9"
+        }
+      ]
+    },
+    "Main_1:Flow_Decision_13": {
+      "expression": "discounts[response]",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_14"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Assign_15"
+        }
+      ]
+    },
+    "Main_1:Assign_14": {
+      "expression": "totalCost = totalCost + (prices[response] - prices[response]*50/100)",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Flow_Decision_9"
+        }
+      ]
+    },
+    "Main_1:Assign_15": {
+      "expression": "totalCost = totalCost + prices[response]",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Flow_Decision_9"
+        }
+      ]
+    },
+    "Main_1:Assign_16": {
+      "expression": "totalCost = totalCost + prices[response]",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Flow_Decision_9"
+        }
+      ]
+    },
+    "Main_1:Assign_17": {
+      "expression": "totalCost = totalCost + (prices[response] - prices[response]*60/100)",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Flow_Decision_9"
+        }
+      ]
+    },
+    "Main_1:Flow_Decision_19": {
+      "expression": "discounts[response]",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_17"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Assign_16"
+        }
+      ]
+    },
+    "Main_1:Virtual_Flowchart_End_20": {
+      "transitions": []
+    }
+  },
+  "startNode": "Main_1:Message_Box_1"
+}

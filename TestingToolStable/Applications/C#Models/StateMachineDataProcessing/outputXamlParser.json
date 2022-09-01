@@ -1,0 +1,63 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "OutputData": {
+          "Type": "DataTable"
+        },
+        "FilteredData": {
+          "Type": "DataTable"
+        }
+      },
+      "inputArguments": [],
+      "displayName": "Main_1",
+      "fullPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\StateMachineDataProcessing\\Main.xaml",
+      "invokedBy": "",
+      "startNode": "Main_1:Sequence_1"
+    }
+  ],
+  "graph": {
+    "Main_1:Sequence_1": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:T1_13"
+        }
+      ]
+    },
+    "Main_1:T1_13": {
+      "expression": "OutputData.Rows.Count == 0",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:State_Virtual_End_16"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:T2_14"
+        }
+      ]
+    },
+    "Main_1:T2_14": {
+      "expression": "OutputData.Rows.Count > 0",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:T3_15"
+        }
+      ]
+    },
+    "Main_1:T3_15": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:State_Virtual_End_16"
+        }
+      ]
+    },
+    "Main_1:State_Virtual_End_16": {
+      "transitions": []
+    }
+  },
+  "startNode": "Main_1:Sequence_1"
+}

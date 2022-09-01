@@ -7,7 +7,7 @@
         },
         "limit": {
           "Type": "Int32",
-          "Default": "",
+          "Default": "5",
           "Annotation": {
             "userInput": "True",
             "min": 4,
@@ -16,7 +16,7 @@
         },
         "amount": {
           "Type": "Int32",
-          "Default": "",
+          "Default": "15",
           "Annotation": {
             "userInput": "True",
             "min": 10,

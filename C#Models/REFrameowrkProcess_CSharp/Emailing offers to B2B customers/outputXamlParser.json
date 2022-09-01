@@ -1,0 +1,185 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "SystemException": {
+          "Type": "Exception"
+        },
+        "TransactionItem": {
+          "Type": "DataRow"
+        },
+        "BusinessException": {
+          "Type": "BusinessRuleException"
+        },
+        "TransactionNumber": {
+          "Type": "Int32",
+          "Default": "0"
+        },
+        "Config": {
+          "Type": "Dictionary`2"
+        },
+        "RetryNumber": {
+          "Type": "Int32",
+          "Default": "0"
+        },
+        "TransactionField2": {
+          "Type": "String"
+        },
+        "TransactionField1": {
+          "Type": "String"
+        },
+        "TransactionID": {
+          "Type": "String"
+        },
+        "dt_TransactionData": {
+          "Type": "DataTable"
+        },
+        "ConsecutiveSystemExceptions": {
+          "Type": "Int32",
+          "Default": "0"
+        },
+        "outputStatusReportPath": {
+          "Type": "String"
+        },
+        "dt_CustomerData": {
+          "Type": "DataTable"
+        },
+        "outputExcelFileDTStructure": {
+          "Type": "DataTable"
+        },
+        "ShouldStop": {
+          "Type": "Boolean"
+        },
+        "in_OrchestratorQueueName": {
+          "Type": "String"
+        },
+        "in_OrchestratorQueueFolder": {
+          "Type": "String"
+        }
+      },
+      "inputArguments": [
+        "in_OrchestratorQueueName",
+        "in_OrchestratorQueueFolder"
+      ],
+      "displayName": "Main_1",
+      "fullPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\C#Models\\REFrameowrkProcess_CSharp\\Emailing offers to B2B customers\\Main.xaml",
+      "invokedBy": "",
+      "startNode": "Main_1:Initialization_1"
+    }
+  ],
+  "graph": {
+    "Main_1:Initialization_1": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Successful_21"
+        }
+      ]
+    },
+    "Main_1:Should_Stop_or_Get_Next_8": {
+      "expression": "ShouldStop",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:End_Process_(Stop_process_requested)_12"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:No_Data_25"
+        }
+      ]
+    },
+    "Main_1:End_Process_(Stop_process_requested)_12": {
+      "expression": "TransactionItem = null",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:No_Data_25"
+        }
+      ]
+    },
+    "Main_1:Successful_21": {
+      "expression": "SystemException == null",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Should_Stop_or_Get_Next_8"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:System_Exception_(failed_initialization)_23"
+        }
+      ]
+    },
+    "Main_1:System_Exception_(failed_initialization)_23": {
+      "expression": "SystemException != null",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Initialization_Virtual_End_31"
+        }
+      ]
+    },
+    "Main_1:No_Data_25": {
+      "expression": "TransactionItem == null",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Initialization_Virtual_End_31"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:New_Transaction_27"
+        }
+      ]
+    },
+    "Main_1:New_Transaction_27": {
+      "expression": "TransactionItem!=null",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:System_Exception_28"
+        }
+      ]
+    },
+    "Main_1:System_Exception_28": {
+      "expression": "SystemException != null",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Initialization_1"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Success_29"
+        }
+      ]
+    },
+    "Main_1:Success_29": {
+      "expression": "SystemException == null && BusinessException == null",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Should_Stop_or_Get_Next_8"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Business_Exception_30"
+        }
+      ]
+    },
+    "Main_1:Business_Exception_30": {
+      "expression": "BusinessException != null",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Should_Stop_or_Get_Next_8"
+        }
+      ]
+    },
+    "Main_1:Initialization_Virtual_End_31": {
+      "transitions": []
+    }
+  },
+  "startNode": "Main_1:Initialization_1"
+}
