@@ -6,199 +6,31 @@
         "Version": "2.12.3"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\closedxml\\0.87.1\\lib/net40/ClosedXML.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\csvhelper\\16.0.0\\lib/net45/CsvHelper.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\documentformat.openxml\\2.5.0\\lib/DocumentFormat.OpenXml.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.visualstudio.ole.interop\\16.7.30328.74\\lib/net45/Microsoft.VisualStudio.OLE.Interop.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\newtonsoft.json\\13.0.1\\lib/net45/Newtonsoft.Json.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\npoi\\2.5.5\\lib/net45/NPOI.OOXML.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\npoi\\2.5.5\\lib/net45/NPOI.OpenXml4Net.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\npoi\\2.5.5\\lib/net45/NPOI.OpenXmlFormats.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\npoi\\2.5.5\\lib/net45/NPOI.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\lib/net40/BouncyCastle.Crypto.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\sharpziplib\\1.3.3\\lib/net45/ICSharpCode.SharpZipLib.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.io.abstractions\\3.0.10\\lib/net40/System.IO.Abstractions.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.threading.tasks.dataflow\\5.0.0\\lib/net461/System.Threading.Tasks.Dataflow.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.valuetuple\\4.5.0\\lib/net461/System.ValueTuple.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib/net461/Microsoft.Office.Interop.Excel.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib/net461/Microsoft.Vbe.Interop.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib/net461/Office.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib/net461/UiPath.Excel.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib/net461/UiPath.Excel.Activities.Package.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib/net461/UiPath.Excel.Activities.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib/net461/UiPath.Excel.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.platform\\22.4.1\\lib/net461/UiPath.Platform.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.telemetry.client\\1.5.3\\lib/net461/TelemetryClient.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\closedxml/0.87.1\\lib/net40/ClosedXML.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\csvhelper/16.0.0\\lib/net45/CsvHelper.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\documentformat.openxml/2.5.0\\lib/DocumentFormat.OpenXml.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.visualstudio.ole.interop/16.7.30328.74\\lib/net45/Microsoft.VisualStudio.OLE.Interop.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\newtonsoft.json/11.0.2\\lib/net45/Newtonsoft.Json.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\npoi/2.5.5\\lib/net45/NPOI.OOXML.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\npoi/2.5.5\\lib/net45/NPOI.OpenXml4Net.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\npoi/2.5.5\\lib/net45/NPOI.OpenXmlFormats.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\npoi/2.5.5\\lib/net45/NPOI.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\portable.bouncycastle/1.8.9\\lib/net40/BouncyCastle.Crypto.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\sharpziplib/1.3.3\\lib/net45/ICSharpCode.SharpZipLib.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.io.abstractions/3.0.10\\lib/net40/System.IO.Abstractions.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.threading.tasks.dataflow/5.0.0\\lib/net461/System.Threading.Tasks.Dataflow.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities/2.12.3\\lib/net461/Microsoft.Office.Interop.Excel.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities/2.12.3\\lib/net461/Microsoft.Vbe.Interop.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities/2.12.3\\lib/net461/Office.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities/2.12.3\\lib/net461/UiPath.Excel.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities/2.12.3\\lib/net461/UiPath.Excel.Activities.Package.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities/2.12.3\\lib/net461/UiPath.Excel.Activities.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities/2.12.3\\lib/net461/UiPath.Excel.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.platform/22.4.1\\lib/net461/UiPath.Platform.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.telemetry.client/1.5.3\\lib/net461/TelemetryClient.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3"
-    },
-    {
-      "Package": {
-        "Id": "UiPath.Mail.Activities",
-        "Version": "1.15.2"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis\\1.55.0\\lib/net45/Google.Apis.PlatformServices.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis\\1.55.0\\lib/net45/Google.Apis.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis.auth\\1.55.0\\lib/net461/Google.Apis.Auth.PlatformServices.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis.auth\\1.55.0\\lib/net461/Google.Apis.Auth.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis.calendar.v3\\1.55.0.2554\\lib/net45/Google.Apis.Calendar.v3.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis.core\\1.55.0\\lib/net45/Google.Apis.Core.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis.gmail.v1\\1.55.0.2510\\lib/net45/Google.Apis.Gmail.v1.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis.peopleservice.v1\\1.55.0.2567\\lib/net45/Google.Apis.PeopleService.v1.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\htmlagilitypack\\1.11.38\\lib/Net45/HtmlAgilityPack.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\mailkit\\3.1.1\\lib/net46/MailKit.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.exchange.webservices\\2.2.0\\lib/40/Microsoft.Exchange.WebServices.Auth.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.exchange.webservices\\2.2.0\\lib/40/Microsoft.Exchange.WebServices.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\5.0.0\\lib/net461/Microsoft.Extensions.FileSystemGlobbing.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.identity.client\\4.35.1\\lib/net461/Microsoft.Identity.Client.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.identity.client.desktop\\4.35.1\\lib/net461/Microsoft.Identity.Client.Desktop.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.12.2\\lib/net461/Microsoft.IdentityModel.JsonWebTokens.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.identitymodel.logging\\6.12.2\\lib/net461/Microsoft.IdentityModel.Logging.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.12.2\\lib/net461/Microsoft.IdentityModel.Tokens.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.web.webview2\\1.0.1072.54\\lib/net45/Microsoft.Web.WebView2.Core.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.web.webview2\\1.0.1072.54\\lib/net45/Microsoft.Web.WebView2.WinForms.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.web.webview2\\1.0.1072.54\\lib/net45/Microsoft.Web.WebView2.Wpf.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\mimekit\\3.1.1\\lib/net46/MimeKit.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\newtonsoft.json\\13.0.1\\lib/net45/Newtonsoft.Json.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.context\\5.1.0\\lib/netstandard2.0/Nito.AsyncEx.Context.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.coordination\\5.1.0\\lib/netstandard2.0/Nito.AsyncEx.Coordination.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.interop.waithandles\\5.1.0\\lib/netstandard2.0/Nito.AsyncEx.Interop.WaitHandles.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.oop\\5.1.0\\lib/netstandard2.0/Nito.AsyncEx.Oop.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.tasks\\5.1.0\\lib/netstandard2.0/Nito.AsyncEx.Tasks.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\nito.cancellation\\1.1.0\\lib/netstandard2.0/Nito.Cancellation.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\nito.collections.deque\\1.1.0\\lib/netstandard2.0/Nito.Collections.Deque.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\nito.disposables\\2.2.0\\lib/net461/Nito.Disposables.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\lib/net40/BouncyCastle.Crypto.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.buffers\\4.5.1\\lib/net461/System.Buffers.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.collections.immutable\\5.0.0\\lib/net461/System.Collections.Immutable.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.12.2\\lib/net461/System.IdentityModel.Tokens.Jwt.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.io.abstractions\\3.0.10\\lib/net40/System.IO.Abstractions.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.memory\\4.5.4\\lib/net461/System.Memory.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\lib/net46/System.Numerics.Vectors.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1\\lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.threading.tasks.dataflow\\5.0.0\\lib/net461/System.Threading.Tasks.Dataflow.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.valuetuple\\4.5.0\\lib/net461/System.ValueTuple.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.activities.runtimegovernance\\1.1.3\\lib/net461/UiPath.Activities.RuntimeGovernance.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.connectionclient\\1.3.0\\lib/net461/ConnectionClient.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib/net461/Interop.Domino.UiPath.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib/net461/Microsoft.Office.Interop.Outlook.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib/net461/Microsoft.Office.Interop.Word.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib/net461/Office.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib/net461/UiPath.Mail.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib/net461/UiPath.Mail.Activities.Package.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib/net461/UiPath.Mail.Activities.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib/net461/UiPath.Mail.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib/net461/UiPath.MainSessionServer.Shared.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.platform\\22.4.1\\lib/net461/UiPath.Platform.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.telemetry.client\\1.5.3\\lib/net461/TelemetryClient.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2"
-    },
-    {
-      "Package": {
-        "Id": "UiPath.System.Activities",
-        "Version": "22.4.1"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\csvhelper\\16.0.0\\lib/net45/CsvHelper.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnet.signalr.client\\2.4.0\\lib/net45/Microsoft.AspNet.SignalR.Client.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Connections.Abstractions.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client\\3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.Client.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common\\3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.Common.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.signalr.client\\3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Client.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core\\3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Client.Core.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.signalr.common\\3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Common.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json\\3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\lib/net461/Microsoft.Bcl.AsyncInterfaces.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.codeanalysis.common\\3.8.0\\lib/netstandard2.0/Microsoft.CodeAnalysis.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.codeanalysis.csharp\\3.8.0\\lib/netstandard2.0/Microsoft.CodeAnalysis.CSharp.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.codeanalysis.visualbasic\\3.8.0\\lib/netstandard2.0/Microsoft.CodeAnalysis.VisualBasic.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.6\\lib/net461/Microsoft.Extensions.DependencyInjection.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.6\\lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.logging\\3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Logging.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.options\\3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Options.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Primitives.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.rest.clientruntime\\2.3.21\\lib/net461/Microsoft.Rest.ClientRuntime.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\newtonsoft.json\\13.0.1\\lib/net45/Newtonsoft.Json.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\sharpziplib\\1.3.3\\lib/net45/ICSharpCode.SharpZipLib.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.buffers\\4.5.1\\lib/net461/System.Buffers.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.collections.immutable\\5.0.0\\lib/net461/System.Collections.Immutable.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\lib/net461/System.ComponentModel.Annotations.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.io.abstractions\\3.0.10\\lib/net40/System.IO.Abstractions.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.io.pipelines\\4.7.1\\lib/netstandard2.0/System.IO.Pipelines.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.management.automation\\6.1.7601.17515\\lib/net45/System.Management.Automation.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.memory\\4.5.4\\lib/net461/System.Memory.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\lib/net46/System.Numerics.Vectors.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.reflection.metadata\\5.0.0\\lib/net461/System.Reflection.Metadata.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1\\lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.text.encoding.codepages\\4.5.1\\runtimes/win/lib/net461/System.Text.Encoding.CodePages.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.text.encodings.web\\4.7.1\\lib/net461/System.Text.Encodings.Web.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.text.json\\4.7.2\\lib/net461/System.Text.Json.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.threading.channels\\4.7.1\\lib/net461/System.Threading.Channels.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.threading.tasks.dataflow\\5.0.0\\lib/net461/System.Threading.Tasks.Dataflow.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\lib/net461/System.Threading.Tasks.Extensions.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.valuetuple\\4.5.0\\lib/net461/System.ValueTuple.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.platform\\22.4.1\\lib/net461/UiPath.Platform.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.system.activities\\22.4.1\\lib/net461/UiPath.OrchestratorClient.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.system.activities\\22.4.1\\lib/net461/UiPath.System.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.system.activities\\22.4.1\\lib/net461/UiPath.System.Activities.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.telemetry.client\\1.5.3\\lib/net461/TelemetryClient.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.system.activities\\22.4.1"
-    },
-    {
-      "Package": {
-        "Id": "UiPath.UIAutomation.Activities",
-        "Version": "22.4.5"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.azure.cognitiveservices.vision.computervision\\7.0.1\\lib/net461/Microsoft.Azure.CognitiveServices.Vision.ComputerVision.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.rest.clientruntime\\2.3.21\\lib/net461/Microsoft.Rest.ClientRuntime.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.rest.clientruntime.azure\\3.3.18\\lib/net452/Microsoft.Rest.ClientRuntime.Azure.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\newtonsoft.json\\13.0.1\\lib/net45/Newtonsoft.Json.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\nlog\\4.5.11\\lib/net45/NLog.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\polly\\7.1.0\\lib/netstandard2.0/Polly.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.buffers\\4.5.1\\lib/net461/System.Buffers.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.collections.immutable\\5.0.0\\lib/net461/System.Collections.Immutable.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.io.abstractions\\3.0.10\\lib/net40/System.IO.Abstractions.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.memory\\4.5.4\\lib/net461/System.Memory.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\lib/net46/System.Numerics.Vectors.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1\\lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.threading.tasks.dataflow\\5.0.0\\lib/net461/System.Threading.Tasks.Dataflow.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.valuetuple\\4.5.0\\lib/net461/System.ValueTuple.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath\\22.4.38.42025\\lib/net45/UiPath.Interop.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.activities.runtimegovernance\\1.1.3\\lib/net461/UiPath.Activities.RuntimeGovernance.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.imageprocessing\\22.4.1\\lib/net461/UiPath.ImageProcessingInterop.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.ocr.activities\\3.6.2\\lib/net461/UiPath.OCR.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.ocr.activities\\3.6.2\\lib/net461/UiPath.OCR.Activities.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.ocr.activities\\3.6.2\\lib/net461/UiPath.OCR.Core.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.ocr.contracts\\2.11.0\\lib/net461/UiPath.OCR.Contracts.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.platform\\22.4.1\\lib/net461/UiPath.Platform.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.telemetry.client\\1.5.3\\lib/net461/TelemetryClient.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib/net461/UiPath.CV.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib/net461/UiPath.CV.Activities.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib/net461/UiPath.CV.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib/net461/UiPath.UIAutomation.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib/net461/UiPath.UIAutomationCore.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib/net461/UiPath.UIAutomationNext.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib/net461/UiPath.UIAutomationNext.Activities.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib/net461/UiPath.UIAutomationNext.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib/net461/UiPath.UiAutomation.Activities.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib/net461/UiPath.Wizards.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.vision\\3.3.0\\lib/net461/UiPath.Vision.AzureComputerVision.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.vision\\3.3.0\\lib/net461/UiPath.Vision.Core.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.vision\\3.3.0\\lib/net461/UiPath.Vision.GoogleCloud.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.vision\\3.3.0\\lib/net461/UiPath.Vision.Microsoft.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.vision\\3.3.0\\lib/net461/UiPath.Vision.Tesseract.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.vision\\3.3.0\\lib/net461/UiPath.Vision.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities\\2.12.3"
     },
     {
       "Package": {
@@ -206,36 +38,153 @@
         "Version": "2.0.2-preview"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\castle.core\\4.4.0\\lib/net45/Castle.Core.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\h.formatters\\2.0.35\\lib/net451/H.Formatters.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\h.formatters.binaryformatter\\2.0.35\\lib/net451/H.Formatters.BinaryFormatter.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\h.pipes\\2.0.35\\lib/net461/H.Pipes.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\lib/net461/Microsoft.Bcl.AsyncInterfaces.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.web.webview2\\1.0.1072.54\\lib/net45/Microsoft.Web.WebView2.Core.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.web.webview2\\1.0.1072.54\\lib/net45/Microsoft.Web.WebView2.WinForms.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.web.webview2\\1.0.1072.54\\lib/net45/Microsoft.Web.WebView2.Wpf.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\newtonsoft.json\\13.0.1\\lib/net45/Newtonsoft.Json.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.buffers\\4.5.1\\lib/net461/System.Buffers.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.drawing.common\\5.0.2\\lib/net461/System.Drawing.Common.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.io.abstractions\\3.0.10\\lib/net40/System.IO.Abstractions.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.memory\\4.5.4\\lib/net461/System.Memory.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\lib/net46/System.Numerics.Vectors.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.resources.extensions\\5.0.0\\lib/net461/System.Resources.Extensions.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1\\lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.threading.tasks.dataflow\\5.0.0\\lib/net461/System.Threading.Tasks.Dataflow.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\lib/net461/System.Threading.Tasks.Extensions.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\system.valuetuple\\4.5.0\\lib/net461/System.ValueTuple.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.form.activities\\2.0.2-preview\\lib/net461/System.Resources.Extensions.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.form.activities\\2.0.2-preview\\lib/net461/UiPath.Form.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.form.activities\\2.0.2-preview\\lib/net461/UiPath.Form.Activities.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.formactivitylibrary\\2.0.2-preview\\lib/net461/UiPath.Form.ActivityLibrary.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.formactivitylibrary\\2.0.2-preview\\lib/net461/UiPath.Form.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.formactivitylibrary\\2.0.2-preview\\lib/net461/UiPath.Form.Host.Local.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.formactivitylibrary\\2.0.2-preview\\lib/net461/UiPath.OutOfProcessUi.Common.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.formactivitylibrary.contracts\\2.0.2-preview\\lib/net461/UiPath.Form.ActivityLibrary.Contracts.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.telemetry.client\\1.5.3\\lib/net461/TelemetryClient.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\castle.core/4.4.0\\lib/net45/Castle.Core.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\h.formatters/2.0.35\\lib/net451/H.Formatters.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\h.formatters.binaryformatter/2.0.35\\lib/net451/H.Formatters.BinaryFormatter.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\h.pipes/2.0.35\\lib/net461/H.Pipes.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.bcl.asyncinterfaces/6.0.0\\lib/net461/Microsoft.Bcl.AsyncInterfaces.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.web.webview2/1.0.1072.54\\lib/net45/Microsoft.Web.WebView2.Core.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.web.webview2/1.0.1072.54\\lib/net45/Microsoft.Web.WebView2.WinForms.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.web.webview2/1.0.1072.54\\lib/net45/Microsoft.Web.WebView2.Wpf.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\newtonsoft.json/11.0.2\\lib/net45/Newtonsoft.Json.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.buffers/4.5.1\\lib/net461/System.Buffers.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.drawing.common/5.0.2\\lib/net461/System.Drawing.Common.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.io.abstractions/3.0.10\\lib/net40/System.IO.Abstractions.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.memory/4.5.4\\lib/net461/System.Memory.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.numerics.vectors/4.5.0\\lib/net46/System.Numerics.Vectors.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.resources.extensions/5.0.0\\lib/net461/System.Resources.Extensions.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.runtime.compilerservices.unsafe/4.7.1\\lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.threading.tasks.dataflow/5.0.0\\lib/net461/System.Threading.Tasks.Dataflow.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.threading.tasks.extensions/4.5.4\\lib/net461/System.Threading.Tasks.Extensions.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.form.activities/2.0.2-preview\\lib/net461/System.Resources.Extensions.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.form.activities/2.0.2-preview\\lib/net461/UiPath.Form.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.form.activities/2.0.2-preview\\lib/net461/UiPath.Form.Activities.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.formactivitylibrary/2.0.2-preview\\lib/net461/UiPath.Form.ActivityLibrary.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.formactivitylibrary/2.0.2-preview\\lib/net461/UiPath.Form.Host.Local.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.formactivitylibrary/2.0.2-preview\\lib/net461/UiPath.Form.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.formactivitylibrary/2.0.2-preview\\lib/net461/UiPath.OutOfProcessUi.Common.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.formactivitylibrary.contracts/2.0.2-preview\\lib/net461/UiPath.Form.ActivityLibrary.Contracts.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.telemetry.client/1.5.3\\lib/net461/TelemetryClient.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.form.activities\\2.0.2-preview"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.form.activities\\2.0.2-preview"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.System.Activities",
+        "Version": "22.4.1"
+      },
+      "Assemblies": [
+        "C:\\Users\\Lenovo\\.nuget\\packages\\csvhelper/16.0.0\\lib/net45/CsvHelper.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnet.signalr.client/2.4.0\\lib/net45/Microsoft.AspNet.SignalR.Client.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Connections.Abstractions.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.Client.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.Common.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.http.features/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.signalr.client/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Client.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Client.Core.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.signalr.common/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Common.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.bcl.asyncinterfaces/6.0.0\\lib/net461/Microsoft.Bcl.AsyncInterfaces.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.codeanalysis.common/3.8.0\\lib/netstandard2.0/Microsoft.CodeAnalysis.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.codeanalysis.csharp/3.8.0\\lib/netstandard2.0/Microsoft.CodeAnalysis.CSharp.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.codeanalysis.visualbasic/3.8.0\\lib/netstandard2.0/Microsoft.CodeAnalysis.VisualBasic.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.configuration/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.configuration.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.configuration.binder/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.dependencyinjection/3.1.6\\lib/net461/Microsoft.Extensions.DependencyInjection.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.logging/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Logging.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.logging.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.options/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Options.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.primitives/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Primitives.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.rest.clientruntime/2.3.21\\lib/net461/Microsoft.Rest.ClientRuntime.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\newtonsoft.json/11.0.2\\lib/net45/Newtonsoft.Json.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\sharpziplib/1.3.3\\lib/net45/ICSharpCode.SharpZipLib.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.buffers/4.5.1\\lib/net461/System.Buffers.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.collections.immutable/5.0.0\\lib/net461/System.Collections.Immutable.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.componentmodel.annotations/4.7.0\\lib/net461/System.ComponentModel.Annotations.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.io.abstractions/3.0.10\\lib/net40/System.IO.Abstractions.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.io.pipelines/4.7.1\\lib/netstandard2.0/System.IO.Pipelines.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.management.automation/6.1.7601.17515\\lib/net45/System.Management.Automation.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.memory/4.5.4\\lib/net461/System.Memory.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.numerics.vectors/4.5.0\\lib/net46/System.Numerics.Vectors.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.reflection.metadata/5.0.0\\lib/net461/System.Reflection.Metadata.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.runtime.compilerservices.unsafe/4.7.1\\lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.text.encoding.codepages/4.5.1\\runtimes/win/lib/net461/System.Text.Encoding.CodePages.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.text.encodings.web/4.7.1\\lib/net461/System.Text.Encodings.Web.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.text.json/4.7.2\\lib/net461/System.Text.Json.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.threading.channels/4.7.1\\lib/net461/System.Threading.Channels.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.threading.tasks.dataflow/5.0.0\\lib/net461/System.Threading.Tasks.Dataflow.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.threading.tasks.extensions/4.5.4\\lib/net461/System.Threading.Tasks.Extensions.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.platform/22.4.1\\lib/net461/UiPath.Platform.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.system.activities/22.4.1\\lib/net461/UiPath.OrchestratorClient.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.system.activities/22.4.1\\lib/net461/UiPath.System.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.system.activities/22.4.1\\lib/net461/UiPath.System.Activities.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.telemetry.client/1.5.3\\lib/net461/TelemetryClient.dll"
+      ],
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.system.activities\\22.4.1"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.UIAutomation.Activities",
+        "Version": "22.4.5"
+      },
+      "Assemblies": [
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.azure.cognitiveservices.vision.computervision/7.0.1\\lib/net461/Microsoft.Azure.CognitiveServices.Vision.ComputerVision.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.rest.clientruntime/2.3.21\\lib/net461/Microsoft.Rest.ClientRuntime.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.rest.clientruntime.azure/3.3.18\\lib/net452/Microsoft.Rest.ClientRuntime.Azure.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\newtonsoft.json/11.0.2\\lib/net45/Newtonsoft.Json.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\nlog/4.5.11\\lib/net45/NLog.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\polly/7.1.0\\lib/netstandard2.0/Polly.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.buffers/4.5.1\\lib/net461/System.Buffers.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.collections.immutable/5.0.0\\lib/net461/System.Collections.Immutable.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.io.abstractions/3.0.10\\lib/net40/System.IO.Abstractions.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.memory/4.5.4\\lib/net461/System.Memory.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.numerics.vectors/4.5.0\\lib/net46/System.Numerics.Vectors.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.runtime.compilerservices.unsafe/4.7.1\\lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.threading.tasks.dataflow/5.0.0\\lib/net461/System.Threading.Tasks.Dataflow.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath/22.4.38.42025\\lib/net45/UiPath.Interop.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.activities.runtimegovernance/1.1.3\\lib/net461/UiPath.Activities.RuntimeGovernance.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.imageprocessing/22.4.1\\lib/net461/UiPath.ImageProcessingInterop.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.ocr.activities/3.6.2\\lib/net461/UiPath.OCR.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.ocr.activities/3.6.2\\lib/net461/UiPath.OCR.Activities.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.ocr.activities/3.6.2\\lib/net461/UiPath.OCR.Core.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.ocr.contracts/2.11.0\\lib/net461/UiPath.OCR.Contracts.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.platform/22.4.1\\lib/net461/UiPath.Platform.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.telemetry.client/1.5.3\\lib/net461/TelemetryClient.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities/22.4.5\\lib/net461/UiPath.CV.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities/22.4.5\\lib/net461/UiPath.CV.Activities.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities/22.4.5\\lib/net461/UiPath.CV.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities/22.4.5\\lib/net461/UiPath.UIAutomation.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities/22.4.5\\lib/net461/UiPath.UIAutomationCore.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities/22.4.5\\lib/net461/UiPath.UIAutomationNext.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities/22.4.5\\lib/net461/UiPath.UIAutomationNext.Activities.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities/22.4.5\\lib/net461/UiPath.UIAutomationNext.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities/22.4.5\\lib/net461/UiPath.UiAutomation.Activities.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities/22.4.5\\lib/net461/UiPath.Wizards.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.vision/3.3.0\\lib/net461/UiPath.Vision.AzureComputerVision.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.vision/3.3.0\\lib/net461/UiPath.Vision.Core.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.vision/3.3.0\\lib/net461/UiPath.Vision.GoogleCloud.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.vision/3.3.0\\lib/net461/UiPath.Vision.Microsoft.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.vision/3.3.0\\lib/net461/UiPath.Vision.Tesseract.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.vision/3.3.0\\lib/net461/UiPath.Vision.dll"
+      ],
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.Python.Activities",
+        "Version": "1.6.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.python.activities/1.6.0\\lib/net461/UiPath.Python.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.python.activities/1.6.0\\lib/net461/UiPath.Python.Activities.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.python.activities/1.6.0\\lib/net461/UiPath.Python.dll"
+      ],
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.python.activities\\1.6.0"
     }
   ],
   "Conflicts": [],
@@ -274,82 +223,6 @@
       "Version": "2.5.0",
       "Dependencies": []
     },
-    "Google.Apis": {
-      "Id": "Google.Apis",
-      "Version": "1.55.0",
-      "Dependencies": [
-        {
-          "Item1": "Google.Apis.Core",
-          "Item2": "[1.55.0, )"
-        }
-      ]
-    },
-    "Google.Apis.Auth": {
-      "Id": "Google.Apis.Auth",
-      "Version": "1.55.0",
-      "Dependencies": [
-        {
-          "Item1": "Google.Apis.Core",
-          "Item2": "[1.55.0, )"
-        },
-        {
-          "Item1": "Google.Apis",
-          "Item2": "[1.55.0, )"
-        }
-      ]
-    },
-    "Google.Apis.Calendar.v3": {
-      "Id": "Google.Apis.Calendar.v3",
-      "Version": "1.55.0.2554",
-      "Dependencies": [
-        {
-          "Item1": "Google.Apis",
-          "Item2": "[1.55.0, )"
-        },
-        {
-          "Item1": "Google.Apis.Auth",
-          "Item2": "[1.55.0, )"
-        }
-      ]
-    },
-    "Google.Apis.Core": {
-      "Id": "Google.Apis.Core",
-      "Version": "1.55.0",
-      "Dependencies": [
-        {
-          "Item1": "Newtonsoft.Json",
-          "Item2": "[13.0.1, )"
-        }
-      ]
-    },
-    "Google.Apis.Gmail.v1": {
-      "Id": "Google.Apis.Gmail.v1",
-      "Version": "1.55.0.2510",
-      "Dependencies": [
-        {
-          "Item1": "Google.Apis",
-          "Item2": "[1.55.0, )"
-        },
-        {
-          "Item1": "Google.Apis.Auth",
-          "Item2": "[1.55.0, )"
-        }
-      ]
-    },
-    "Google.Apis.PeopleService.v1": {
-      "Id": "Google.Apis.PeopleService.v1",
-      "Version": "1.55.0.2567",
-      "Dependencies": [
-        {
-          "Item1": "Google.Apis",
-          "Item2": "[1.55.0, )"
-        },
-        {
-          "Item1": "Google.Apis.Auth",
-          "Item2": "[1.55.0, )"
-        }
-      ]
-    },
     "H.Formatters": {
       "Id": "H.Formatters",
       "Version": "2.0.35",
@@ -376,21 +249,6 @@
         {
           "Item1": "Microsoft.Bcl.AsyncInterfaces",
           "Item2": "[6.0.0, )"
-        }
-      ]
-    },
-    "HtmlAgilityPack": {
-      "Id": "HtmlAgilityPack",
-      "Version": "1.11.38",
-      "Dependencies": []
-    },
-    "MailKit": {
-      "Id": "MailKit",
-      "Version": "3.1.1",
-      "Dependencies": [
-        {
-          "Item1": "MimeKit",
-          "Item2": "[3.1.1, )"
         }
       ]
     },
@@ -632,11 +490,6 @@
       "Version": "4.7.0",
       "Dependencies": []
     },
-    "Microsoft.Exchange.WebServices": {
-      "Id": "Microsoft.Exchange.WebServices",
-      "Version": "2.2.0",
-      "Dependencies": []
-    },
     "Microsoft.Extensions.Configuration": {
       "Id": "Microsoft.Extensions.Configuration",
       "Version": "3.1.6",
@@ -684,11 +537,6 @@
     "Microsoft.Extensions.DependencyInjection.Abstractions": {
       "Id": "Microsoft.Extensions.DependencyInjection.Abstractions",
       "Version": "3.1.6",
-      "Dependencies": []
-    },
-    "Microsoft.Extensions.FileSystemGlobbing": {
-      "Id": "Microsoft.Extensions.FileSystemGlobbing",
-      "Version": "5.0.0",
       "Dependencies": []
     },
     "Microsoft.Extensions.Logging": {
@@ -750,54 +598,6 @@
         }
       ]
     },
-    "Microsoft.Identity.Client": {
-      "Id": "Microsoft.Identity.Client",
-      "Version": "4.35.1",
-      "Dependencies": []
-    },
-    "Microsoft.Identity.Client.Desktop": {
-      "Id": "Microsoft.Identity.Client.Desktop",
-      "Version": "4.35.1",
-      "Dependencies": [
-        {
-          "Item1": "Microsoft.Identity.Client",
-          "Item2": "[4.35.1, )"
-        },
-        {
-          "Item1": "Microsoft.Web.WebView2",
-          "Item2": "[1.0.864.35, )"
-        },
-        {
-          "Item1": "Microsoft.Windows.SDK.Contracts",
-          "Item2": "[10.0.17763.1000, )"
-        }
-      ]
-    },
-    "Microsoft.IdentityModel.JsonWebTokens": {
-      "Id": "Microsoft.IdentityModel.JsonWebTokens",
-      "Version": "6.12.2",
-      "Dependencies": [
-        {
-          "Item1": "Microsoft.IdentityModel.Tokens",
-          "Item2": "[6.12.2, )"
-        }
-      ]
-    },
-    "Microsoft.IdentityModel.Logging": {
-      "Id": "Microsoft.IdentityModel.Logging",
-      "Version": "6.12.2",
-      "Dependencies": []
-    },
-    "Microsoft.IdentityModel.Tokens": {
-      "Id": "Microsoft.IdentityModel.Tokens",
-      "Version": "6.12.2",
-      "Dependencies": [
-        {
-          "Item1": "Microsoft.IdentityModel.Logging",
-          "Item2": "[6.12.2, )"
-        }
-      ]
-    },
     "Microsoft.Rest.ClientRuntime": {
       "Id": "Microsoft.Rest.ClientRuntime",
       "Version": "2.3.21",
@@ -837,147 +637,10 @@
       "Version": "1.0.1072.54",
       "Dependencies": []
     },
-    "Microsoft.Windows.SDK.Contracts": {
-      "Id": "Microsoft.Windows.SDK.Contracts",
-      "Version": "10.0.17763.1000",
-      "Dependencies": [
-        {
-          "Item1": "System.Runtime.WindowsRuntime",
-          "Item2": "[4.6.0, )"
-        },
-        {
-          "Item1": "System.Runtime.WindowsRuntime.UI.Xaml",
-          "Item2": "[4.6.0, )"
-        }
-      ]
-    },
-    "MimeKit": {
-      "Id": "MimeKit",
-      "Version": "3.1.1",
-      "Dependencies": [
-        {
-          "Item1": "System.Buffers",
-          "Item2": "[4.5.1, )"
-        },
-        {
-          "Item1": "Portable.BouncyCastle",
-          "Item2": "[1.9.0, )"
-        }
-      ]
-    },
     "Newtonsoft.Json": {
       "Id": "Newtonsoft.Json",
-      "Version": "13.0.1",
+      "Version": "11.0.2",
       "Dependencies": []
-    },
-    "Nito.AsyncEx": {
-      "Id": "Nito.AsyncEx",
-      "Version": "5.1.0",
-      "Dependencies": [
-        {
-          "Item1": "Nito.AsyncEx.Context",
-          "Item2": "[5.1.0, )"
-        },
-        {
-          "Item1": "Nito.AsyncEx.Coordination",
-          "Item2": "[5.1.0, )"
-        },
-        {
-          "Item1": "Nito.AsyncEx.Interop.WaitHandles",
-          "Item2": "[5.1.0, )"
-        },
-        {
-          "Item1": "Nito.AsyncEx.Oop",
-          "Item2": "[5.1.0, )"
-        },
-        {
-          "Item1": "Nito.AsyncEx.Tasks",
-          "Item2": "[5.1.0, )"
-        },
-        {
-          "Item1": "Nito.Cancellation",
-          "Item2": "[1.1.0, )"
-        }
-      ]
-    },
-    "Nito.AsyncEx.Context": {
-      "Id": "Nito.AsyncEx.Context",
-      "Version": "5.1.0",
-      "Dependencies": [
-        {
-          "Item1": "Nito.AsyncEx.Tasks",
-          "Item2": "[5.1.0, )"
-        }
-      ]
-    },
-    "Nito.AsyncEx.Coordination": {
-      "Id": "Nito.AsyncEx.Coordination",
-      "Version": "5.1.0",
-      "Dependencies": [
-        {
-          "Item1": "Nito.AsyncEx.Tasks",
-          "Item2": "[5.1.0, )"
-        },
-        {
-          "Item1": "Nito.Collections.Deque",
-          "Item2": "[1.1.0, )"
-        }
-      ]
-    },
-    "Nito.AsyncEx.Interop.WaitHandles": {
-      "Id": "Nito.AsyncEx.Interop.WaitHandles",
-      "Version": "5.1.0",
-      "Dependencies": [
-        {
-          "Item1": "Nito.AsyncEx.Tasks",
-          "Item2": "[5.1.0, )"
-        }
-      ]
-    },
-    "Nito.AsyncEx.Oop": {
-      "Id": "Nito.AsyncEx.Oop",
-      "Version": "5.1.0",
-      "Dependencies": [
-        {
-          "Item1": "Nito.AsyncEx.Coordination",
-          "Item2": "[5.1.0, )"
-        }
-      ]
-    },
-    "Nito.AsyncEx.Tasks": {
-      "Id": "Nito.AsyncEx.Tasks",
-      "Version": "5.1.0",
-      "Dependencies": [
-        {
-          "Item1": "Nito.Disposables",
-          "Item2": "[2.2.0, )"
-        }
-      ]
-    },
-    "Nito.Cancellation": {
-      "Id": "Nito.Cancellation",
-      "Version": "1.1.0",
-      "Dependencies": [
-        {
-          "Item1": "Nito.Disposables",
-          "Item2": "[2.2.0, )"
-        }
-      ]
-    },
-    "Nito.Collections.Deque": {
-      "Id": "Nito.Collections.Deque",
-      "Version": "1.1.0",
-      "Dependencies": []
-    },
-    "Nito.Disposables": {
-      "Id": "Nito.Disposables",
-      "Version": "2.2.0",
-      "Dependencies": [
-        {
-          "Item1": "System.Collections.Immutable",
-          "Item2": "[1.4.0, )"
-        }
-      ]
     },
     "NLog": {
       "Id": "NLog",
@@ -1005,7 +668,7 @@
     },
     "Portable.BouncyCastle": {
       "Id": "Portable.BouncyCastle",
-      "Version": "1.9.0",
+      "Version": "1.8.9",
       "Dependencies": []
     },
     "SharpZipLib": {
@@ -1037,20 +700,6 @@
       "Id": "System.Drawing.Common",
       "Version": "5.0.2",
       "Dependencies": []
-    },
-    "System.IdentityModel.Tokens.Jwt": {
-      "Id": "System.IdentityModel.Tokens.Jwt",
-      "Version": "6.12.2",
-      "Dependencies": [
-        {
-          "Item1": "Microsoft.IdentityModel.JsonWebTokens",
-          "Item2": "[6.12.2, )"
-        },
-        {
-          "Item1": "Microsoft.IdentityModel.Tokens",
-          "Item2": "[6.12.2, )"
-        }
-      ]
     },
     "System.IO.Abstractions": {
       "Id": "System.IO.Abstractions",
@@ -1123,30 +772,10 @@
         }
       ]
     },
-    "System.Runtime.Caching": {
-      "Id": "System.Runtime.Caching",
-      "Version": "5.0.0",
-      "Dependencies": []
-    },
     "System.Runtime.CompilerServices.Unsafe": {
       "Id": "System.Runtime.CompilerServices.Unsafe",
       "Version": "4.7.1",
       "Dependencies": []
-    },
-    "System.Runtime.WindowsRuntime": {
-      "Id": "System.Runtime.WindowsRuntime",
-      "Version": "4.6.0",
-      "Dependencies": []
-    },
-    "System.Runtime.WindowsRuntime.UI.Xaml": {
-      "Id": "System.Runtime.WindowsRuntime.UI.Xaml",
-      "Version": "4.6.0",
-      "Dependencies": [
-        {
-          "Item1": "System.Runtime.WindowsRuntime",
-          "Item2": "[4.6.0, )"
-        }
-      ]
     },
     "System.Text.Encoding.CodePages": {
       "Id": "System.Text.Encoding.CodePages",
@@ -1248,28 +877,6 @@
         {
           "Item1": "Newtonsoft.Json",
           "Item2": "[11.0.2, )"
-        }
-      ]
-    },
-    "UiPath.ConnectionClient": {
-      "Id": "UiPath.ConnectionClient",
-      "Version": "1.3.0",
-      "Dependencies": [
-        {
-          "Item1": "Newtonsoft.Json",
-          "Item2": "[11.0.2, )"
-        },
-        {
-          "Item1": "Nito.AsyncEx",
-          "Item2": "[5.1.0, )"
-        },
-        {
-          "Item1": "System.Runtime.Caching",
-          "Item2": "[5.0.0, )"
-        },
-        {
-          "Item1": "UiPath.Telemetry.Client",
-          "Item2": "[1.5.3, )"
         }
       ]
     },
@@ -1402,72 +1009,6 @@
       "Version": "22.4.1",
       "Dependencies": []
     },
-    "UiPath.Mail.Activities": {
-      "Id": "UiPath.Mail.Activities",
-      "Version": "1.15.2",
-      "Dependencies": [
-        {
-          "Item1": "Google.Apis.Calendar.v3",
-          "Item2": "[1.55.0.2554, )"
-        },
-        {
-          "Item1": "Google.Apis.Gmail.v1",
-          "Item2": "[1.55.0.2510, )"
-        },
-        {
-          "Item1": "Google.Apis.PeopleService.v1",
-          "Item2": "[1.55.0.2567, )"
-        },
-        {
-          "Item1": "HtmlAgilityPack",
-          "Item2": "[1.11.38, )"
-        },
-        {
-          "Item1": "MailKit",
-          "Item2": "[3.1.1, )"
-        },
-        {
-          "Item1": "Microsoft.Exchange.WebServices",
-          "Item2": "[2.2.0, )"
-        },
-        {
-          "Item1": "Microsoft.Extensions.FileSystemGlobbing",
-          "Item2": "[5.0.0, )"
-        },
-        {
-          "Item1": "Microsoft.Identity.Client.Desktop",
-          "Item2": "[4.35.1, )"
-        },
-        {
-          "Item1": "Newtonsoft.Json",
-          "Item2": "[13.0.1, )"
-        },
-        {
-          "Item1": "System.IdentityModel.Tokens.Jwt",
-          "Item2": "[6.12.2, )"
-        },
-        {
-          "Item1": "System.ValueTuple",
-          "Item2": "[4.5.0, )"
-        },
-        {
-          "Item1": "UiPath.Activities.RuntimeGovernance",
-          "Item2": "[1.1.3, )"
-        },
-        {
-          "Item1": "UiPath.ConnectionClient",
-          "Item2": "[1.3.0, )"
-        },
-        {
-          "Item1": "UiPath.Platform",
-          "Item2": "[22.4.0, )"
-        },
-        {
-          "Item1": "UiPath.Telemetry.Client",
-          "Item2": "[1.5.3, )"
-        }
-      ]
-    },
     "UiPath.OCR.Activities": {
       "Id": "UiPath.OCR.Activities",
       "Version": "3.6.2",
@@ -1528,6 +1069,11 @@
           "Item2": "[4.5.0, )"
         }
       ]
+    },
+    "UiPath.Python.Activities": {
+      "Id": "UiPath.Python.Activities",
+      "Version": "1.6.0",
+      "Dependencies": []
     },
     "UiPath.System.Activities": {
       "Id": "UiPath.System.Activities",
@@ -1678,9 +1224,9 @@
         "Version": "4.4.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\castle.core\\4.4.0\\lib\\net45\\Castle.Core.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\castle.core\\4.4.0\\lib\\net45\\Castle.Core.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\castle.core\\4.4.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\castle.core\\4.4.0"
     },
     {
       "Package": {
@@ -1688,9 +1234,9 @@
         "Version": "0.87.1"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\closedxml\\0.87.1\\lib\\net40\\ClosedXML.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\closedxml\\0.87.1\\lib\\net40\\ClosedXML.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\closedxml\\0.87.1"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\closedxml\\0.87.1"
     },
     {
       "Package": {
@@ -1698,9 +1244,9 @@
         "Version": "16.0.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\csvhelper\\16.0.0\\lib\\net45\\CsvHelper.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\csvhelper\\16.0.0\\lib\\net45\\CsvHelper.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\csvhelper\\16.0.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\csvhelper\\16.0.0"
     },
     {
       "Package": {
@@ -1708,71 +1254,9 @@
         "Version": "2.5.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\documentformat.openxml\\2.5.0\\lib\\DocumentFormat.OpenXml.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\documentformat.openxml\\2.5.0\\lib\\DocumentFormat.OpenXml.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\documentformat.openxml\\2.5.0"
-    },
-    {
-      "Package": {
-        "Id": "Google.Apis",
-        "Version": "1.55.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis\\1.55.0\\lib\\net45\\Google.Apis.PlatformServices.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis\\1.55.0\\lib\\net45\\Google.Apis.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\google.apis\\1.55.0"
-    },
-    {
-      "Package": {
-        "Id": "Google.Apis.Auth",
-        "Version": "1.55.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis.auth\\1.55.0\\lib\\net461\\Google.Apis.Auth.PlatformServices.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis.auth\\1.55.0\\lib\\net461\\Google.Apis.Auth.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\google.apis.auth\\1.55.0"
-    },
-    {
-      "Package": {
-        "Id": "Google.Apis.Calendar.v3",
-        "Version": "1.55.0.2554"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis.calendar.v3\\1.55.0.2554\\lib\\net45\\Google.Apis.Calendar.v3.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\google.apis.calendar.v3\\1.55.0.2554"
-    },
-    {
-      "Package": {
-        "Id": "Google.Apis.Core",
-        "Version": "1.55.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis.core\\1.55.0\\lib\\net45\\Google.Apis.Core.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\google.apis.core\\1.55.0"
-    },
-    {
-      "Package": {
-        "Id": "Google.Apis.Gmail.v1",
-        "Version": "1.55.0.2510"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis.gmail.v1\\1.55.0.2510\\lib\\net45\\Google.Apis.Gmail.v1.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\google.apis.gmail.v1\\1.55.0.2510"
-    },
-    {
-      "Package": {
-        "Id": "Google.Apis.PeopleService.v1",
-        "Version": "1.55.0.2567"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\google.apis.peopleservice.v1\\1.55.0.2567\\lib\\net45\\Google.Apis.PeopleService.v1.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\google.apis.peopleservice.v1\\1.55.0.2567"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\documentformat.openxml\\2.5.0"
     },
     {
       "Package": {
@@ -1780,9 +1264,9 @@
         "Version": "2.0.35"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\h.formatters\\2.0.35\\lib\\net451\\H.Formatters.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\h.formatters\\2.0.35\\lib\\net451\\H.Formatters.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\h.formatters\\2.0.35"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\h.formatters\\2.0.35"
     },
     {
       "Package": {
@@ -1790,9 +1274,9 @@
         "Version": "2.0.35"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\h.formatters.binaryformatter\\2.0.35\\lib\\net451\\H.Formatters.BinaryFormatter.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\h.formatters.binaryformatter\\2.0.35\\lib\\net451\\H.Formatters.BinaryFormatter.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\h.formatters.binaryformatter\\2.0.35"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\h.formatters.binaryformatter\\2.0.35"
     },
     {
       "Package": {
@@ -1800,29 +1284,9 @@
         "Version": "2.0.35"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\h.pipes\\2.0.35\\lib\\net461\\H.Pipes.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\h.pipes\\2.0.35\\lib\\net461\\H.Pipes.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\h.pipes\\2.0.35"
-    },
-    {
-      "Package": {
-        "Id": "HtmlAgilityPack",
-        "Version": "1.11.38"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\htmlagilitypack\\1.11.38\\lib\\Net45\\HtmlAgilityPack.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\htmlagilitypack\\1.11.38"
-    },
-    {
-      "Package": {
-        "Id": "MailKit",
-        "Version": "3.1.1"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\mailkit\\3.1.1\\lib\\net46\\MailKit.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\mailkit\\3.1.1"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\h.pipes\\2.0.35"
     },
     {
       "Package": {
@@ -1830,9 +1294,9 @@
         "Version": "2.4.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnet.signalr.client\\2.4.0\\lib\\net45\\Microsoft.AspNet.SignalR.Client.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnet.signalr.client\\2.4.0\\lib\\net45\\Microsoft.AspNet.SignalR.Client.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnet.signalr.client\\2.4.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnet.signalr.client\\2.4.0"
     },
     {
       "Package": {
@@ -1840,9 +1304,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Connections.Abstractions.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Connections.Abstractions.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\3.1.6"
     },
     {
       "Package": {
@@ -1850,9 +1314,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Connections.Client.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Connections.Client.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client\\3.1.6"
     },
     {
       "Package": {
@@ -1860,9 +1324,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Connections.Common.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Connections.Common.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common\\3.1.6"
     },
     {
       "Package": {
@@ -1870,9 +1334,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Features.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Features.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.6"
     },
     {
       "Package": {
@@ -1880,9 +1344,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.signalr.client\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Client.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.signalr.client\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Client.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.signalr.client\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.signalr.client\\3.1.6"
     },
     {
       "Package": {
@@ -1890,9 +1354,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Client.Core.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Client.Core.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core\\3.1.6"
     },
     {
       "Package": {
@@ -1900,9 +1364,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.signalr.common\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Common.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.signalr.common\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Common.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.signalr.common\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.signalr.common\\3.1.6"
     },
     {
       "Package": {
@@ -1910,9 +1374,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Protocols.Json.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Protocols.Json.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json\\3.1.6"
     },
     {
       "Package": {
@@ -1920,9 +1384,9 @@
         "Version": "7.0.1"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.azure.cognitiveservices.vision.computervision\\7.0.1\\lib\\net461\\Microsoft.Azure.CognitiveServices.Vision.ComputerVision.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.azure.cognitiveservices.vision.computervision\\7.0.1\\lib\\net461\\Microsoft.Azure.CognitiveServices.Vision.ComputerVision.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.azure.cognitiveservices.vision.computervision\\7.0.1"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.azure.cognitiveservices.vision.computervision\\7.0.1"
     },
     {
       "Package": {
@@ -1930,9 +1394,9 @@
         "Version": "6.0.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\lib\\net461\\Microsoft.Bcl.AsyncInterfaces.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\lib\\net461\\Microsoft.Bcl.AsyncInterfaces.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0"
     },
     {
       "Package": {
@@ -1940,7 +1404,7 @@
         "Version": "3.0.0"
       },
       "Assemblies": [],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.0.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.0.0"
     },
     {
       "Package": {
@@ -1948,9 +1412,9 @@
         "Version": "3.8.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.codeanalysis.common\\3.8.0\\lib\\netstandard2.0\\Microsoft.CodeAnalysis.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.codeanalysis.common\\3.8.0\\lib\\netstandard2.0\\Microsoft.CodeAnalysis.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.codeanalysis.common\\3.8.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.codeanalysis.common\\3.8.0"
     },
     {
       "Package": {
@@ -1958,9 +1422,9 @@
         "Version": "3.8.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.codeanalysis.csharp\\3.8.0\\lib\\netstandard2.0\\Microsoft.CodeAnalysis.CSharp.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.codeanalysis.csharp\\3.8.0\\lib\\netstandard2.0\\Microsoft.CodeAnalysis.CSharp.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.codeanalysis.csharp\\3.8.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.codeanalysis.csharp\\3.8.0"
     },
     {
       "Package": {
@@ -1968,9 +1432,9 @@
         "Version": "3.8.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.codeanalysis.visualbasic\\3.8.0\\lib\\netstandard2.0\\Microsoft.CodeAnalysis.VisualBasic.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.codeanalysis.visualbasic\\3.8.0\\lib\\netstandard2.0\\Microsoft.CodeAnalysis.VisualBasic.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.codeanalysis.visualbasic\\3.8.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.codeanalysis.visualbasic\\3.8.0"
     },
     {
       "Package": {
@@ -1978,20 +1442,9 @@
         "Version": "4.7.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.csharp\\4.7.0\\lib\\net45\\_._"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.csharp\\4.7.0\\lib\\net45\\_._"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.csharp\\4.7.0"
-    },
-    {
-      "Package": {
-        "Id": "Microsoft.Exchange.WebServices",
-        "Version": "2.2.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.exchange.webservices\\2.2.0\\lib\\40\\Microsoft.Exchange.WebServices.Auth.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.exchange.webservices\\2.2.0\\lib\\40\\Microsoft.Exchange.WebServices.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.exchange.webservices\\2.2.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.csharp\\4.7.0"
     },
     {
       "Package": {
@@ -1999,9 +1452,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.6"
     },
     {
       "Package": {
@@ -2009,9 +1462,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.Abstractions.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.Abstractions.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.6"
     },
     {
       "Package": {
@@ -2019,9 +1472,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.Binder.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.Binder.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.6"
     },
     {
       "Package": {
@@ -2029,9 +1482,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.6\\lib\\net461\\Microsoft.Extensions.DependencyInjection.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.6\\lib\\net461\\Microsoft.Extensions.DependencyInjection.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.6"
     },
     {
       "Package": {
@@ -2039,19 +1492,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.DependencyInjection.Abstractions.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.DependencyInjection.Abstractions.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.6"
-    },
-    {
-      "Package": {
-        "Id": "Microsoft.Extensions.FileSystemGlobbing",
-        "Version": "5.0.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\5.0.0\\lib\\net461\\Microsoft.Extensions.FileSystemGlobbing.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\5.0.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.6"
     },
     {
       "Package": {
@@ -2059,9 +1502,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.logging\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Logging.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.logging\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Logging.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.logging\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.logging\\3.1.6"
     },
     {
       "Package": {
@@ -2069,9 +1512,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Logging.Abstractions.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Logging.Abstractions.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.6"
     },
     {
       "Package": {
@@ -2079,9 +1522,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.options\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Options.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.options\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Options.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.options\\3.1.6"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.options\\3.1.6"
     },
     {
       "Package": {
@@ -2089,59 +1532,9 @@
         "Version": "3.1.6"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Primitives.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Primitives.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.6"
-    },
-    {
-      "Package": {
-        "Id": "Microsoft.Identity.Client",
-        "Version": "4.35.1"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.identity.client\\4.35.1\\lib\\net461\\Microsoft.Identity.Client.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.identity.client\\4.35.1"
-    },
-    {
-      "Package": {
-        "Id": "Microsoft.Identity.Client.Desktop",
-        "Version": "4.35.1"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.identity.client.desktop\\4.35.1\\lib\\net461\\Microsoft.Identity.Client.Desktop.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.identity.client.desktop\\4.35.1"
-    },
-    {
-      "Package": {
-        "Id": "Microsoft.IdentityModel.JsonWebTokens",
-        "Version": "6.12.2"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.12.2\\lib\\net461\\Microsoft.IdentityModel.JsonWebTokens.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.12.2"
-    },
-    {
-      "Package": {
-        "Id": "Microsoft.IdentityModel.Logging",
-        "Version": "6.12.2"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.identitymodel.logging\\6.12.2\\lib\\net461\\Microsoft.IdentityModel.Logging.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.identitymodel.logging\\6.12.2"
-    },
-    {
-      "Package": {
-        "Id": "Microsoft.IdentityModel.Tokens",
-        "Version": "6.12.2"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.12.2\\lib\\net461\\Microsoft.IdentityModel.Tokens.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.12.2"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.6"
     },
     {
       "Package": {
@@ -2149,9 +1542,9 @@
         "Version": "2.3.21"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.rest.clientruntime\\2.3.21\\lib\\net461\\Microsoft.Rest.ClientRuntime.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.rest.clientruntime\\2.3.21\\lib\\net461\\Microsoft.Rest.ClientRuntime.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.rest.clientruntime\\2.3.21"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.rest.clientruntime\\2.3.21"
     },
     {
       "Package": {
@@ -2159,9 +1552,9 @@
         "Version": "3.3.18"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.rest.clientruntime.azure\\3.3.18\\lib\\net452\\Microsoft.Rest.ClientRuntime.Azure.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.rest.clientruntime.azure\\3.3.18\\lib\\net452\\Microsoft.Rest.ClientRuntime.Azure.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.rest.clientruntime.azure\\3.3.18"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.rest.clientruntime.azure\\3.3.18"
     },
     {
       "Package": {
@@ -2169,9 +1562,9 @@
         "Version": "10.3.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.visualbasic\\10.3.0\\lib\\net45\\_._"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.visualbasic\\10.3.0\\lib\\net45\\_._"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.visualbasic\\10.3.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.visualbasic\\10.3.0"
     },
     {
       "Package": {
@@ -2179,9 +1572,9 @@
         "Version": "16.7.30328.74"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.visualstudio.ole.interop\\16.7.30328.74\\lib\\net45\\Microsoft.VisualStudio.OLE.Interop.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.visualstudio.ole.interop\\16.7.30328.74\\lib\\net45\\Microsoft.VisualStudio.OLE.Interop.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.visualstudio.ole.interop\\16.7.30328.74"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.visualstudio.ole.interop\\16.7.30328.74"
     },
     {
       "Package": {
@@ -2189,127 +1582,21 @@
         "Version": "1.0.1072.54"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.web.webview2\\1.0.1072.54\\lib\\net45\\Microsoft.Web.WebView2.Core.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.web.webview2\\1.0.1072.54\\lib\\net45\\Microsoft.Web.WebView2.WinForms.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\microsoft.web.webview2\\1.0.1072.54\\lib\\net45\\Microsoft.Web.WebView2.Wpf.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.web.webview2\\1.0.1072.54\\lib\\net45\\Microsoft.Web.WebView2.Core.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.web.webview2\\1.0.1072.54\\lib\\net45\\Microsoft.Web.WebView2.WinForms.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.web.webview2\\1.0.1072.54\\lib\\net45\\Microsoft.Web.WebView2.Wpf.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.web.webview2\\1.0.1072.54"
-    },
-    {
-      "Package": {
-        "Id": "Microsoft.Windows.SDK.Contracts",
-        "Version": "10.0.17763.1000"
-      },
-      "Assemblies": [],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\microsoft.windows.sdk.contracts\\10.0.17763.1000"
-    },
-    {
-      "Package": {
-        "Id": "MimeKit",
-        "Version": "3.1.1"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\mimekit\\3.1.1\\lib\\net46\\MimeKit.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\mimekit\\3.1.1"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.web.webview2\\1.0.1072.54"
     },
     {
       "Package": {
         "Id": "Newtonsoft.Json",
-        "Version": "13.0.1"
+        "Version": "11.0.2"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\newtonsoft.json\\13.0.1\\lib\\net45\\Newtonsoft.Json.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\newtonsoft.json\\11.0.2\\lib\\net45\\Newtonsoft.Json.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\newtonsoft.json\\13.0.1"
-    },
-    {
-      "Package": {
-        "Id": "Nito.AsyncEx",
-        "Version": "5.1.0"
-      },
-      "Assemblies": [],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex\\5.1.0"
-    },
-    {
-      "Package": {
-        "Id": "Nito.AsyncEx.Context",
-        "Version": "5.1.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.context\\5.1.0\\lib\\netstandard2.0\\Nito.AsyncEx.Context.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.context\\5.1.0"
-    },
-    {
-      "Package": {
-        "Id": "Nito.AsyncEx.Coordination",
-        "Version": "5.1.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.coordination\\5.1.0\\lib\\netstandard2.0\\Nito.AsyncEx.Coordination.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.coordination\\5.1.0"
-    },
-    {
-      "Package": {
-        "Id": "Nito.AsyncEx.Interop.WaitHandles",
-        "Version": "5.1.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.interop.waithandles\\5.1.0\\lib\\netstandard2.0\\Nito.AsyncEx.Interop.WaitHandles.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.interop.waithandles\\5.1.0"
-    },
-    {
-      "Package": {
-        "Id": "Nito.AsyncEx.Oop",
-        "Version": "5.1.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.oop\\5.1.0\\lib\\netstandard2.0\\Nito.AsyncEx.Oop.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.oop\\5.1.0"
-    },
-    {
-      "Package": {
-        "Id": "Nito.AsyncEx.Tasks",
-        "Version": "5.1.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.tasks\\5.1.0\\lib\\netstandard2.0\\Nito.AsyncEx.Tasks.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\nito.asyncex.tasks\\5.1.0"
-    },
-    {
-      "Package": {
-        "Id": "Nito.Cancellation",
-        "Version": "1.1.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\nito.cancellation\\1.1.0\\lib\\netstandard2.0\\Nito.Cancellation.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\nito.cancellation\\1.1.0"
-    },
-    {
-      "Package": {
-        "Id": "Nito.Collections.Deque",
-        "Version": "1.1.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\nito.collections.deque\\1.1.0\\lib\\netstandard2.0\\Nito.Collections.Deque.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\nito.collections.deque\\1.1.0"
-    },
-    {
-      "Package": {
-        "Id": "Nito.Disposables",
-        "Version": "2.2.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\nito.disposables\\2.2.0\\lib\\net461\\Nito.Disposables.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\nito.disposables\\2.2.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\newtonsoft.json\\11.0.2"
     },
     {
       "Package": {
@@ -2317,9 +1604,9 @@
         "Version": "4.5.11"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\nlog\\4.5.11\\lib\\net45\\NLog.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\nlog\\4.5.11\\lib\\net45\\NLog.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\nlog\\4.5.11"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\nlog\\4.5.11"
     },
     {
       "Package": {
@@ -2327,12 +1614,12 @@
         "Version": "2.5.5"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\npoi\\2.5.5\\lib\\net45\\NPOI.OOXML.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\npoi\\2.5.5\\lib\\net45\\NPOI.OpenXml4Net.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\npoi\\2.5.5\\lib\\net45\\NPOI.OpenXmlFormats.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\npoi\\2.5.5\\lib\\net45\\NPOI.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\npoi\\2.5.5\\lib\\net45\\NPOI.OOXML.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\npoi\\2.5.5\\lib\\net45\\NPOI.OpenXml4Net.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\npoi\\2.5.5\\lib\\net45\\NPOI.OpenXmlFormats.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\npoi\\2.5.5\\lib\\net45\\NPOI.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\npoi\\2.5.5"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\npoi\\2.5.5"
     },
     {
       "Package": {
@@ -2340,19 +1627,19 @@
         "Version": "7.1.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\polly\\7.1.0\\lib\\netstandard2.0\\Polly.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\polly\\7.1.0\\lib\\netstandard2.0\\Polly.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\polly\\7.1.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\polly\\7.1.0"
     },
     {
       "Package": {
         "Id": "Portable.BouncyCastle",
-        "Version": "1.9.0"
+        "Version": "1.8.9"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\lib\\net40\\BouncyCastle.Crypto.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\portable.bouncycastle\\1.8.9\\lib\\net40\\BouncyCastle.Crypto.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\portable.bouncycastle\\1.9.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\portable.bouncycastle\\1.8.9"
     },
     {
       "Package": {
@@ -2360,9 +1647,9 @@
         "Version": "1.3.3"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\sharpziplib\\1.3.3\\lib\\net45\\ICSharpCode.SharpZipLib.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\sharpziplib\\1.3.3\\lib\\net45\\ICSharpCode.SharpZipLib.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\sharpziplib\\1.3.3"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\sharpziplib\\1.3.3"
     },
     {
       "Package": {
@@ -2370,9 +1657,9 @@
         "Version": "4.5.1"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.buffers\\4.5.1\\lib\\net461\\System.Buffers.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.buffers\\4.5.1\\lib\\net461\\System.Buffers.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.buffers\\4.5.1"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.buffers\\4.5.1"
     },
     {
       "Package": {
@@ -2380,9 +1667,9 @@
         "Version": "5.0.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.collections.immutable\\5.0.0\\lib\\net461\\System.Collections.Immutable.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.collections.immutable\\5.0.0\\lib\\net461\\System.Collections.Immutable.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.collections.immutable\\5.0.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.collections.immutable\\5.0.0"
     },
     {
       "Package": {
@@ -2390,9 +1677,9 @@
         "Version": "4.7.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\lib\\net461\\System.ComponentModel.Annotations.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\lib\\net461\\System.ComponentModel.Annotations.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0"
     },
     {
       "Package": {
@@ -2400,19 +1687,9 @@
         "Version": "5.0.2"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.drawing.common\\5.0.2\\lib\\net461\\System.Drawing.Common.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.drawing.common\\5.0.2\\lib\\net461\\System.Drawing.Common.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.drawing.common\\5.0.2"
-    },
-    {
-      "Package": {
-        "Id": "System.IdentityModel.Tokens.Jwt",
-        "Version": "6.12.2"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.12.2\\lib\\net461\\System.IdentityModel.Tokens.Jwt.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.12.2"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.drawing.common\\5.0.2"
     },
     {
       "Package": {
@@ -2420,9 +1697,9 @@
         "Version": "3.0.10"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.io.abstractions\\3.0.10\\lib\\net40\\System.IO.Abstractions.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.io.abstractions\\3.0.10\\lib\\net40\\System.IO.Abstractions.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.io.abstractions\\3.0.10"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.io.abstractions\\3.0.10"
     },
     {
       "Package": {
@@ -2430,9 +1707,9 @@
         "Version": "4.7.1"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.io.pipelines\\4.7.1\\lib\\netstandard2.0\\System.IO.Pipelines.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.io.pipelines\\4.7.1\\lib\\netstandard2.0\\System.IO.Pipelines.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.io.pipelines\\4.7.1"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.io.pipelines\\4.7.1"
     },
     {
       "Package": {
@@ -2440,9 +1717,9 @@
         "Version": "6.1.7601.17515"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.management.automation\\6.1.7601.17515\\lib\\net45\\System.Management.Automation.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.management.automation\\6.1.7601.17515\\lib\\net45\\System.Management.Automation.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.management.automation\\6.1.7601.17515"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.management.automation\\6.1.7601.17515"
     },
     {
       "Package": {
@@ -2450,9 +1727,9 @@
         "Version": "4.5.4"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.memory\\4.5.4\\lib\\net461\\System.Memory.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.memory\\4.5.4\\lib\\net461\\System.Memory.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.memory\\4.5.4"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.memory\\4.5.4"
     },
     {
       "Package": {
@@ -2460,9 +1737,9 @@
         "Version": "4.5.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\lib\\net46\\System.Numerics.Vectors.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\lib\\net46\\System.Numerics.Vectors.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.numerics.vectors\\4.5.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.numerics.vectors\\4.5.0"
     },
     {
       "Package": {
@@ -2470,9 +1747,9 @@
         "Version": "5.0.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.reflection.metadata\\5.0.0\\lib\\net461\\System.Reflection.Metadata.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.reflection.metadata\\5.0.0\\lib\\net461\\System.Reflection.Metadata.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.reflection.metadata\\5.0.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.reflection.metadata\\5.0.0"
     },
     {
       "Package": {
@@ -2480,19 +1757,9 @@
         "Version": "5.0.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.resources.extensions\\5.0.0\\lib\\net461\\System.Resources.Extensions.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.resources.extensions\\5.0.0\\lib\\net461\\System.Resources.Extensions.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.resources.extensions\\5.0.0"
-    },
-    {
-      "Package": {
-        "Id": "System.Runtime.Caching",
-        "Version": "5.0.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.runtime.caching\\5.0.0\\lib\\net45\\_._"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.runtime.caching\\5.0.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.resources.extensions\\5.0.0"
     },
     {
       "Package": {
@@ -2500,29 +1767,9 @@
         "Version": "4.7.1"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1\\lib\\net461\\System.Runtime.CompilerServices.Unsafe.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1\\lib\\net461\\System.Runtime.CompilerServices.Unsafe.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1"
-    },
-    {
-      "Package": {
-        "Id": "System.Runtime.WindowsRuntime",
-        "Version": "4.6.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.runtime.windowsruntime\\4.6.0\\lib\\net45\\_._"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.runtime.windowsruntime\\4.6.0"
-    },
-    {
-      "Package": {
-        "Id": "System.Runtime.WindowsRuntime.UI.Xaml",
-        "Version": "4.6.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.runtime.windowsruntime.ui.xaml\\4.6.0\\lib\\net45\\_._"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.runtime.windowsruntime.ui.xaml\\4.6.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1"
     },
     {
       "Package": {
@@ -2530,9 +1777,9 @@
         "Version": "4.5.1"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.text.encoding.codepages\\4.5.1\\lib\\net461\\System.Text.Encoding.CodePages.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.text.encoding.codepages\\4.5.1\\lib\\net461\\System.Text.Encoding.CodePages.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.text.encoding.codepages\\4.5.1"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.text.encoding.codepages\\4.5.1"
     },
     {
       "Package": {
@@ -2540,9 +1787,9 @@
         "Version": "4.7.1"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.text.encodings.web\\4.7.1\\lib\\net461\\System.Text.Encodings.Web.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.text.encodings.web\\4.7.1\\lib\\net461\\System.Text.Encodings.Web.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.text.encodings.web\\4.7.1"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.text.encodings.web\\4.7.1"
     },
     {
       "Package": {
@@ -2550,9 +1797,9 @@
         "Version": "4.7.2"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.text.json\\4.7.2\\lib\\net461\\System.Text.Json.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.text.json\\4.7.2\\lib\\net461\\System.Text.Json.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.text.json\\4.7.2"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.text.json\\4.7.2"
     },
     {
       "Package": {
@@ -2560,9 +1807,9 @@
         "Version": "4.7.1"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.threading.channels\\4.7.1\\lib\\net461\\System.Threading.Channels.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.threading.channels\\4.7.1\\lib\\net461\\System.Threading.Channels.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.threading.channels\\4.7.1"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.threading.channels\\4.7.1"
     },
     {
       "Package": {
@@ -2570,9 +1817,9 @@
         "Version": "5.0.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.threading.tasks.dataflow\\5.0.0\\lib\\net461\\System.Threading.Tasks.Dataflow.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.threading.tasks.dataflow\\5.0.0\\lib\\net461\\System.Threading.Tasks.Dataflow.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.threading.tasks.dataflow\\5.0.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.threading.tasks.dataflow\\5.0.0"
     },
     {
       "Package": {
@@ -2580,9 +1827,9 @@
         "Version": "4.5.4"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\lib\\net461\\System.Threading.Tasks.Extensions.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\lib\\net461\\System.Threading.Tasks.Extensions.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4"
     },
     {
       "Package": {
@@ -2590,9 +1837,9 @@
         "Version": "4.5.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\system.valuetuple\\4.5.0\\lib\\net461\\System.ValueTuple.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\system.valuetuple\\4.5.0\\lib\\net461\\System.ValueTuple.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\system.valuetuple\\4.5.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\system.valuetuple\\4.5.0"
     },
     {
       "Package": {
@@ -2600,9 +1847,9 @@
         "Version": "22.4.38.42025"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath\\22.4.38.42025\\lib\\net45\\UiPath.Interop.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath\\22.4.38.42025\\lib\\net45\\UiPath.Interop.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath\\22.4.38.42025"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath\\22.4.38.42025"
     },
     {
       "Package": {
@@ -2610,19 +1857,9 @@
         "Version": "1.1.3"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.activities.runtimegovernance\\1.1.3\\lib\\net461\\UiPath.Activities.RuntimeGovernance.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.activities.runtimegovernance\\1.1.3\\lib\\net461\\UiPath.Activities.RuntimeGovernance.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.activities.runtimegovernance\\1.1.3"
-    },
-    {
-      "Package": {
-        "Id": "UiPath.ConnectionClient",
-        "Version": "1.3.0"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.connectionclient\\1.3.0\\lib\\net461\\ConnectionClient.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.connectionclient\\1.3.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.activities.runtimegovernance\\1.1.3"
     },
     {
       "Package": {
@@ -2630,15 +1867,15 @@
         "Version": "2.12.3"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib\\net461\\Microsoft.Office.Interop.Excel.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib\\net461\\Microsoft.Vbe.Interop.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib\\net461\\Office.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib\\net461\\UiPath.Excel.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib\\net461\\UiPath.Excel.Activities.Package.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib\\net461\\UiPath.Excel.Activities.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib\\net461\\UiPath.Excel.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib\\net461\\Microsoft.Office.Interop.Excel.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib\\net461\\Microsoft.Vbe.Interop.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib\\net461\\Office.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib\\net461\\UiPath.Excel.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib\\net461\\UiPath.Excel.Activities.Package.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib\\net461\\UiPath.Excel.Activities.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities\\2.12.3\\lib\\net461\\UiPath.Excel.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.excel.activities\\2.12.3"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.excel.activities\\2.12.3"
     },
     {
       "Package": {
@@ -2646,11 +1883,11 @@
         "Version": "2.0.2-preview"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.form.activities\\2.0.2-preview\\lib\\net461\\System.Resources.Extensions.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.form.activities\\2.0.2-preview\\lib\\net461\\UiPath.Form.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.form.activities\\2.0.2-preview\\lib\\net461\\UiPath.Form.Activities.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.form.activities\\2.0.2-preview\\lib\\net461\\System.Resources.Extensions.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.form.activities\\2.0.2-preview\\lib\\net461\\UiPath.Form.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.form.activities\\2.0.2-preview\\lib\\net461\\UiPath.Form.Activities.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.form.activities\\2.0.2-preview"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.form.activities\\2.0.2-preview"
     },
     {
       "Package": {
@@ -2658,12 +1895,12 @@
         "Version": "2.0.2-preview"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.formactivitylibrary\\2.0.2-preview\\lib\\net461\\UiPath.Form.ActivityLibrary.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.formactivitylibrary\\2.0.2-preview\\lib\\net461\\UiPath.Form.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.formactivitylibrary\\2.0.2-preview\\lib\\net461\\UiPath.Form.Host.Local.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.formactivitylibrary\\2.0.2-preview\\lib\\net461\\UiPath.OutOfProcessUi.Common.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.formactivitylibrary\\2.0.2-preview\\lib\\net461\\UiPath.Form.ActivityLibrary.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.formactivitylibrary\\2.0.2-preview\\lib\\net461\\UiPath.Form.Host.Local.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.formactivitylibrary\\2.0.2-preview\\lib\\net461\\UiPath.Form.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.formactivitylibrary\\2.0.2-preview\\lib\\net461\\UiPath.OutOfProcessUi.Common.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.formactivitylibrary\\2.0.2-preview"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.formactivitylibrary\\2.0.2-preview"
     },
     {
       "Package": {
@@ -2671,9 +1908,9 @@
         "Version": "2.0.2-preview"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.formactivitylibrary.contracts\\2.0.2-preview\\lib\\net461\\UiPath.Form.ActivityLibrary.Contracts.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.formactivitylibrary.contracts\\2.0.2-preview\\lib\\net461\\UiPath.Form.ActivityLibrary.Contracts.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.formactivitylibrary.contracts\\2.0.2-preview"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.formactivitylibrary.contracts\\2.0.2-preview"
     },
     {
       "Package": {
@@ -2681,27 +1918,9 @@
         "Version": "22.4.1"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.imageprocessing\\22.4.1\\lib\\net461\\UiPath.ImageProcessingInterop.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.imageprocessing\\22.4.1\\lib\\net461\\UiPath.ImageProcessingInterop.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.imageprocessing\\22.4.1"
-    },
-    {
-      "Package": {
-        "Id": "UiPath.Mail.Activities",
-        "Version": "1.15.2"
-      },
-      "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib\\net461\\Interop.Domino.UiPath.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib\\net461\\Microsoft.Office.Interop.Outlook.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib\\net461\\Microsoft.Office.Interop.Word.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib\\net461\\Office.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib\\net461\\UiPath.Mail.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib\\net461\\UiPath.Mail.Activities.Package.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib\\net461\\UiPath.Mail.Activities.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib\\net461\\UiPath.Mail.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2\\lib\\net461\\UiPath.MainSessionServer.Shared.dll"
-      ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.mail.activities\\1.15.2"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.imageprocessing\\22.4.1"
     },
     {
       "Package": {
@@ -2709,11 +1928,11 @@
         "Version": "3.6.2"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.ocr.activities\\3.6.2\\lib\\net461\\UiPath.OCR.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.ocr.activities\\3.6.2\\lib\\net461\\UiPath.OCR.Activities.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.ocr.activities\\3.6.2\\lib\\net461\\UiPath.OCR.Core.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.ocr.activities\\3.6.2\\lib\\net461\\UiPath.OCR.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.ocr.activities\\3.6.2\\lib\\net461\\UiPath.OCR.Activities.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.ocr.activities\\3.6.2\\lib\\net461\\UiPath.OCR.Core.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.ocr.activities\\3.6.2"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.ocr.activities\\3.6.2"
     },
     {
       "Package": {
@@ -2721,9 +1940,9 @@
         "Version": "2.11.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.ocr.contracts\\2.11.0\\lib\\net461\\UiPath.OCR.Contracts.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.ocr.contracts\\2.11.0\\lib\\net461\\UiPath.OCR.Contracts.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.ocr.contracts\\2.11.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.ocr.contracts\\2.11.0"
     },
     {
       "Package": {
@@ -2731,9 +1950,21 @@
         "Version": "22.4.1"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.platform\\22.4.1\\lib\\net461\\UiPath.Platform.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.platform\\22.4.1\\lib\\net461\\UiPath.Platform.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.platform\\22.4.1"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.platform\\22.4.1"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.Python.Activities",
+        "Version": "1.6.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.python.activities\\1.6.0\\lib\\net461\\UiPath.Python.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.python.activities\\1.6.0\\lib\\net461\\UiPath.Python.Activities.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.python.activities\\1.6.0\\lib\\net461\\UiPath.Python.dll"
+      ],
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.python.activities\\1.6.0"
     },
     {
       "Package": {
@@ -2741,11 +1972,11 @@
         "Version": "22.4.1"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.system.activities\\22.4.1\\lib\\net461\\UiPath.OrchestratorClient.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.system.activities\\22.4.1\\lib\\net461\\UiPath.System.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.system.activities\\22.4.1\\lib\\net461\\UiPath.System.Activities.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.system.activities\\22.4.1\\lib\\net461\\UiPath.OrchestratorClient.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.system.activities\\22.4.1\\lib\\net461\\UiPath.System.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.system.activities\\22.4.1\\lib\\net461\\UiPath.System.Activities.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.system.activities\\22.4.1"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.system.activities\\22.4.1"
     },
     {
       "Package": {
@@ -2753,9 +1984,9 @@
         "Version": "1.5.3"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.telemetry.client\\1.5.3\\lib\\net461\\TelemetryClient.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.telemetry.client\\1.5.3\\lib\\net461\\TelemetryClient.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.telemetry.client\\1.5.3"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.telemetry.client\\1.5.3"
     },
     {
       "Package": {
@@ -2763,18 +1994,18 @@
         "Version": "22.4.5"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.CV.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.CV.Activities.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.CV.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.UIAutomation.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.UIAutomationCore.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.UIAutomationNext.Activities.Design.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.UIAutomationNext.Activities.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.UIAutomationNext.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.UiAutomation.Activities.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.Wizards.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.CV.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.CV.Activities.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.CV.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.UIAutomation.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.UIAutomationCore.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.UIAutomationNext.Activities.Design.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.UIAutomationNext.Activities.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.UIAutomationNext.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.UiAutomation.Activities.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5\\lib\\net461\\UiPath.Wizards.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.uiautomation.activities\\22.4.5"
     },
     {
       "Package": {
@@ -2782,14 +2013,14 @@
         "Version": "3.3.0"
       },
       "Assemblies": [
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.vision\\3.3.0\\lib\\net461\\UiPath.Vision.AzureComputerVision.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.vision\\3.3.0\\lib\\net461\\UiPath.Vision.Core.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.vision\\3.3.0\\lib\\net461\\UiPath.Vision.GoogleCloud.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.vision\\3.3.0\\lib\\net461\\UiPath.Vision.Microsoft.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.vision\\3.3.0\\lib\\net461\\UiPath.Vision.Tesseract.dll",
-        "C:\\Users\\marin\\.nuget\\packages\\uipath.vision\\3.3.0\\lib\\net461\\UiPath.Vision.dll"
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.vision\\3.3.0\\lib\\net461\\UiPath.Vision.AzureComputerVision.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.vision\\3.3.0\\lib\\net461\\UiPath.Vision.Core.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.vision\\3.3.0\\lib\\net461\\UiPath.Vision.GoogleCloud.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.vision\\3.3.0\\lib\\net461\\UiPath.Vision.Microsoft.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.vision\\3.3.0\\lib\\net461\\UiPath.Vision.Tesseract.dll",
+        "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.vision\\3.3.0\\lib\\net461\\UiPath.Vision.dll"
       ],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.vision\\3.3.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.vision\\3.3.0"
     },
     {
       "Package": {
@@ -2797,7 +2028,7 @@
         "Version": "0.1.0"
       },
       "Assemblies": [],
-      "Path": "C:\\Users\\marin\\.nuget\\packages\\uipath.webview2.runtime.x86\\0.1.0"
+      "Path": "C:\\Users\\Lenovo\\.nuget\\packages\\uipath.webview2.runtime.x86\\0.1.0"
     }
   ]
 }

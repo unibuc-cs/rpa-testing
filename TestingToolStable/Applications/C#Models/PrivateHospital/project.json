@@ -5,7 +5,7 @@
   "dependencies": {
     "UiPath.Excel.Activities": "[2.12.3]",
     "UiPath.Form.Activities": "[2.0.2-preview]",
-    "UiPath.Mail.Activities": "[1.15.2]",
+    "UiPath.Python.Activities": "[1.6.0]",
     "UiPath.System.Activities": "[22.4.1]",
     "UiPath.UIAutomation.Activities": "[22.4.5]"
   },
@@ -40,7 +40,13 @@
     "processOptions": {
       "ignoredFiles": []
     },
-    "fileInfoCollection": [],
+    "fileInfoCollection": [
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "1ba00c7c-651a-4ae3-9283-22aabdaf102b",
+        "fileName": "TestCase.xaml"
+      }
+    ],
     "modernBehavior": true
   },
   "expressionLanguage": "CSharp",
