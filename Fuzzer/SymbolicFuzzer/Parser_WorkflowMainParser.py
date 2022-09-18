@@ -8,6 +8,7 @@ from Parser_WorkflowExpressions import *
 from Executor_NodesExec import *
 from WorkflowGraph import *
 import re
+import  os
 
 class WorkflowParser:
     def __init__(self, astFuzzerNodeExecutor : ASTFuzzerNodeExecutor,
@@ -26,8 +27,9 @@ class WorkflowParser:
 
         # Declare a variable and execute it in the executor
         # This will also put it in the datastore inside executor and make all connection links
-        varDecl = ASTFuzzerNode_VariableDecl(varName=workflowName+ ":"+varName, typeName=varType, defaultValue=defaultValue, annotation=annotation)
-        self.astFuzzerNodeExecutor.executeNode(varDecl, dataStoreTemplate)
+        varDecl = ASTFuzzerNode_VariableDecl(varName=workflowName+ ":"+varName, typeName=varType,
+                                             defaultValue=defaultValue, annotation=annotation,
+                                             currentContextDataStore = dataStoreTemplate)    # ADds a variabile
 
     def parseWorkflows(self, dataStoreTemplate,
                        inputPath : str,
@@ -36,6 +38,7 @@ class WorkflowParser:
         workflowGraph : WorkflowGraph = WorkflowGraph(dataStoreTemplate=dataStoreTemplate,
                                                       astFuzzerNodeExecutor=self.astFuzzerNodeExecutor)
 
+        print(f"Current dir is {os.getcwd()}")
         with open(inputPath) as json_file:
             dataAll = json.load(json_file)
 

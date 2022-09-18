@@ -70,6 +70,7 @@ class ASTFuzzerNode:
     def isAnySymbolicVar(self, contextDataStore) -> bool:
         raise NotImplementedError() # Base class not
 
+    currentWorkflowNameParsed = "Default"
 
 class ASTFuzzerNode_Assignment(ASTFuzzerNode):
     def __init__(self):

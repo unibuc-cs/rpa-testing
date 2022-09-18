@@ -52,7 +52,7 @@ class SymbolicExecutionHelpers:
             res = z3.Real(varName)
         elif typeName == 'Bool':
             res = z3.Bool(varName)
-        elif typeName in ('Int32[]', 'Float[]', 'Bool[]'):
+        elif typeName in ('Int32[]', 'Float[]', 'Bool[]', 'String[]'):
             res = None
             if annotation.bounds is not None: # The BEST way to deal with arrays ! know your bounds
                 if typeName == "Int32[]":
@@ -61,14 +61,17 @@ class SymbolicExecutionHelpers:
                     res = z3.BoolVector(varName, annotation.bounds)
                 elif typeName == "Float[]":
                     res = z3.RealVector(varName, annotation.bounds)
+                elif typeName == "String[]":
+                    stringVarsNames = [f"{varName}_{i}" for i in range(annotation.bounds)]
+                    res = z3.Strings(stringVarsNames)
                 else:
                     raise NotImplementedError()
             else: # If REALLY NOT..then Array theory works too...
                 indexSort = "Int"
                 valuesSort = None
 
-                possibleValuesSorts_keys = ["Int", "Bool", "Float"]
-                possibleValuesSorts_values = ["Int", "Bool", "Real"]
+                possibleValuesSorts_keys = ["Int", "Bool", "Float", "String"]
+                possibleValuesSorts_values = ["Int", "Bool", "Real", "String"]
 
                 for vs_key_index, vs_key_str in enumerate(possibleValuesSorts_keys):
                     if vs_key_str in typeName:
@@ -79,6 +82,8 @@ class SymbolicExecutionHelpers:
                 indexSort = SymbolicExecutionHelpers.__fromStrSortToZ3Sort(indexSort)
                 valuesSort = SymbolicExecutionHelpers.__fromStrSortToZ3Sort(valuesSort)
                 res = z3.Array(varName, indexSort, valuesSort)
+        elif typeName.find("dictionary") != -1:
+            assert None, "symbolic variables will be created at runtime for this data type"
         elif typeName == "DataTable":
             raise NotImplementedError("Not supported yet but soon..")
         elif typeName == 'Function':
@@ -101,6 +106,12 @@ class SymbolicExecutionHelpers:
         cond = eval(condToSolve)
         return cond
 
+    @staticmethod
+    def createVariableAsDictionary(typeName):
+        assert typeName in ["dictionary_string_int32", "dictionary_string_boolean", "dictionary_string_float"], "unsupported dictionary type, to implement one !"
+
+
+
 
 class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
     """ E.g.
@@ -111,7 +122,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
     """
 
     # Will put the variabile in the datastore
-    def __init__(self, varName : str, typeName : str, **kwargs):
+    def __init__(self, varName : str, typeName : str,  **kwargs):
         super().__init__(ASTFuzzerNodeType.VARIABLE_DECL)
         self.typeName = typeName
         self.defaultValue = kwargs['defaultValue'] if 'defaultValue' in kwargs else None
@@ -122,6 +133,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
         self.symbolicValue = None
         self.symbolicGenericIndexVar = None # If generic array theory used this will be not none and can be used to put generic conditions on array indices
         self.value = None
+        self.currentContextDataStore = kwargs.get("currentContextDataStore")
 
         # Fill the annotations
         self.annotation = VarAnnotation()
@@ -163,7 +175,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
             if self.annotation.isFromUserInput:
                 self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
                 if self.annotation.bounds is None:
-                    self.symbolicGenericIndexVar = z3.Int(varName)
+                    self.symbolicGenericIndexVar = z3.String(varName)
 
         elif typeName == "List":
             assert self.annotation is None or self.annotation.isFromUserInput is False, \
@@ -196,6 +208,16 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
                 self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
         elif typeName == "Float":
             raise NotImplementedError("Not yet")
+        elif typeName in ["dictionary_string_Int32", "dictionary_string_Boolean", "dictionary_string_Float", "dictionary_string_String"]:
+            internalDictDataType = None
+            indexOfLastUnderscore = typeName.rfind("_")
+            assert indexOfLastUnderscore > 0
+            valueTypeName = typeName[indexOfLastUnderscore + 1:]
+            self.value = DictionaryWithStringKey.Create(thisDictionaryName=varName, valueDataType=valueTypeName,
+                                                        valuesAnnotation=self.annotation,
+                                                        parentDataStore=self.currentContextDataStore)
+
+            # Note that in this case the symbolic variables will be created at each set operation inside the dictionary class !
         else:
             raise  NotImplementedError(f"Unknown decl type {typeName}")
 

@@ -1,5 +1,6 @@
 from Executor_NodesExec import *
-
+import os
+unittestingdataFolder = os.getcwd()
 
 def unitTest1():
     # Init the base objects
@@ -9,8 +10,8 @@ def unitTest1():
     ourMainWorkflowParser = WorkflowExpressionsParser()
 
     # Declare a variable
-    varDecl1 = ASTFuzzerNode_VariableDecl("myStr",
-                                          'Int32',
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"myStr",
+                                          typeName='Int32',
                                           defaultVal=123)
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
@@ -31,7 +32,7 @@ def unitTest2():
     ourMainWorkflowParser.reset()
 
     # Declare a variable
-    varDecl1 = ASTFuzzerNode_VariableDecl("myStr", 'Int32', defaultVal=123)
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"myStr", typeName='Int32', defaultVal=123)
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Test code: Convert it to string, then to integer, then to float
@@ -54,7 +55,9 @@ def unitTest3():
     ourMainWorkflowParser = WorkflowExpressionsParser()
 
     # Declare a variable
-    varDecl1 = ASTFuzzerNode_VariableDecl(varName="local_test_data", typeName='DataTable', lazyLoad=False, defaultPath="pin_mocked_data.csv")
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"local_test_data",
+                                          typeName='DataTable', lazyLoad=False,
+                                          defaultPath="unitttestingdata\\pin_mocked_data.csv")
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Call a simple print function registered externally
@@ -72,7 +75,7 @@ def unitTest4():
     ourMainWorkflowParser = WorkflowExpressionsParser()
 
     # Declare a variable
-    varDecl1 = ASTFuzzerNode_VariableDecl(varName="local_test_data", typeName='DataTable', lazyLoad=True)
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"local_test_data", typeName='DataTable', lazyLoad=True)
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Call a simple print function registered externally
@@ -86,27 +89,32 @@ def unitTest5():
     # Init the base objects
     dataStore = DataStore()
     externalFunctionsDict = DictionaryOfExternalCalls()
-    astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(dataStore, externalFunctionsDict)
+    astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(externalFunctionsDict)
     ourMainWorkflowParser = WorkflowExpressionsParser()
 
     # Declare a variable
-    varDecl1 = ASTFuzzerNode_VariableDecl(varName="local_test_data", typeName='DataTable', lazyLoad=True)
-    astFuzzerNodeExecutor.executeNode(varDecl1)
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"local_test_data", typeName='DataTable', lazyLoad=True)
+    astFuzzerNodeExecutor.executeNode(varDecl1, dataStore)
 
     code_block = r'''
-local_test_data = LoadCSV("pin_mocked_data.csv")
-PrettyPrint(Int32.Parse(local_test_data.Rows.Item(0).Item("Pin:expected_pin").ToString()))
+local_test_data = LoadCSV("unitttestingdata\\pin_mocked_data.csv")
+PrettyPrint(local_test_data.DataRow.Item(0).Item("Pin:expected_pin"))
+PrettyPrint(local_test_data.DataColumn.Item("Pin:expected_pin").Item(1))
+PrettyPrint(local_test_data.Rows.Count)
 PrettyPrint("Max col: ", local_test_data.Max(column="Pin:expected_pin"))
 PrettyPrint("Min col: ", local_test_data.Min(column="Pin:expected_pin"))
 PrettyPrint("Sum col: ", local_test_data.Sum(column="Pin:expected_pin"))
 local_test_data.UpdateValue(row=1, column="Pin:expected_pin", value=9999)
 PrettyPrint("Max col after new add: ", local_test_data.Max("Pin:expected_pin"))
 local_test_data.AppendRow(data={"Pin:expected_pin":1010})
-local_test_data.SaveToCSV("pin_mocked_data_new.csv")
+local_test_data.SaveToCSV("unitttestingdata\\pin_mocked_data_new.csv")
     '''
 
     result: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block)
-    astFuzzerNodeExecutor.executeNode(result)
+
+    #if isinstance(result, list) and len(result) > 1:
+    #    for codeBlock in result:
+    astFuzzerNodeExecutor.executeNode(result, dataStore)
 
 
 
@@ -138,7 +146,7 @@ def unitTest6():
     # Init the base objects
     dataStore = DataStore()
     externalFunctionsDict = DictionaryOfExternalCalls()
-    astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(dataStore, externalFunctionsDict)
+    astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(externalFunctionsDict)
     ourMainWorkflowParser = WorkflowExpressionsParser()
 
     # Declare a variable
@@ -147,31 +155,31 @@ def unitTest6():
             "min": 0,
             "max": 9999
           }
-    varDecl1 = ASTFuzzerNode_VariableDecl(varName="actual_pin_values",
-                                          typeName='Int32[]', Annotation=annotation)
-    astFuzzerNodeExecutor.executeNode(varDecl1)
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"actual_pin_values",
+                                          typeName='Int32[]', annotation=annotation)
+    astFuzzerNodeExecutor.executeNode(varDecl1, dataStore)
 
     annotation = {
             "min": 0,
             "max": 9999
     }
-    varDecl2 = ASTFuzzerNode_VariableDecl(varName="local_number_retries",
-                                          typeName='Int32', Annotation=annotation, Default=0)
-    astFuzzerNodeExecutor.executeNode(varDecl2)
+    varDecl2 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"local_number_retries",
+                                          typeName='Int32', annotation=annotation, defaultValue=0)
+    astFuzzerNodeExecutor.executeNode(varDecl2, dataStore)
 
-    varDecl3 = ASTFuzzerNode_VariableDecl(varName="expected_pin",
-                                          typeName='Int32', Annotation=annotation, Default=9123)
-    astFuzzerNodeExecutor.executeNode(varDecl3)
+    varDecl3 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"expected_pin",
+                                          typeName='Int32', annotation=annotation, defaultValue=9123)
+    astFuzzerNodeExecutor.executeNode(varDecl3, dataStore)
 
     # Call a put value function using reference API and call to get ref to a particular index
     code_block1 = "actual_pin_values.SetElementAt(local_number_retries, expected_pin * 10)"
     code_block2 = "PrettyPrint(actual_pin_values.GetElementAt(local_number_retries))"
 
-    result1: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block1)
-    astFuzzerNodeExecutor.executeNode(result1)
+    result1: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block1)[0]
+    astFuzzerNodeExecutor.executeNode(result1, dataStore)
 
-    result2: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block2)
-    astFuzzerNodeExecutor.executeNode(result2)
+    result2: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block2)[0]
+    astFuzzerNodeExecutor.executeNode(result2, dataStore)
 
     return
 
@@ -180,8 +188,8 @@ if __name__ == '__main__':
     #unitTest2()
     #unitTest3()
     #unitTest4()
-    #unitTest5()
-    unitTest6()
+    unitTest5()
+    #unitTest6()
 
     sys.exit(0)
 
@@ -199,7 +207,7 @@ if __name__ == '__main__':
 
     code_4 = "actual_pin_values.ElementAt(local_number_retries) = expected_pin"
     code_5 = "Int32.Parse(local_test_data.Rows.Item(0).Item(\"Pin:expected_pin\").ToString())"
-    code_5 = "local_test_data.Rows.Item(0).Item2(1)"
+    code_5 = "local_test_data.Rows.Item(0)"
     codeTree2 = ast.parse(code_5)
 
 

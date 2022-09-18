@@ -27,6 +27,7 @@ myVar.func2()
 Check the more complex examples below and in your manual
 """
 import copy
+import os
 import sys
 import pandas as pd
 from typing import Dict
@@ -174,8 +175,11 @@ class DataTable_RowsView:
     def Item(self, index) -> DataTable_Row:
         return DataTable_Row(self.data.iloc[index])
 
-    def NumIems(self) -> int:
+    def NumItems(self) -> int:
         return self.data.shape[0]
+
+    def Count(self) -> int:
+        return self.NumItems()
 
     def __call__(self):
         return self
@@ -257,9 +261,17 @@ class DataTable:
         return DataTable_RowsView(self.data)
 
     @property
+    def DataRow(self):
+        return self.Rows()
+
+    @property
     def Columns(self):
         self._checkInit()
         return DataTable_ColumnsView(self.data)
+
+    @property
+    def DataColumn(self):
+        return self.Columns()
 
     # Some aggregate functions for columns
     def Max(self, column):
@@ -489,6 +501,94 @@ class FuzzerList:
         if self.internalValue is None:
             return ""
         return str(self.internalValue)
+
+
+
+
+class DictionaryWithStringKey:
+    def __init__(self, thisDictionaryName: str, valueDataType: str, valuesAnnotation: VarAnnotation, parentDataStore):
+        assert valuesAnnotation.bounds is None, "Dictionaries shouldn't have bounds set. Leave it as many as possible items"
+        self.valueDataType = valueDataType
+        self.valuesAnnotation = valuesAnnotation
+        self.internalValue = None
+        self.existingIter = None
+        self.parentDataStore = parentDataStore
+        self.thisDictionaryName = thisDictionaryName
+
+        if self.valuesAnnotation.isFromUserInput:
+            self.internalValue = {}  # SymbolicHelpers.createVariable()
+        else:
+            self.internalValue = {}
+
+    # Retrieve the element for a particular key as a reference so further code can modify it directly
+    # This actually mimics the C# code somehow
+    def get(self, key : str):
+        assert key in self.internalValue, f"the value for a key named {key} was not set yet in the dictonary!"
+        res = DictionaryKeyValueRef(key)
+        return res
+
+    # A static helper to create an array given a type, annotation and a default value
+    @staticmethod
+    def Create(thisDictionaryName : str, valueDataType: str, valuesAnnotation: VarAnnotation = None, parentDataStore= None):
+        res = DictionaryWithStringKey(thisDictionaryName, valueDataType, valuesAnnotation, parentDataStore = parentDataStore)
+        return res
+
+    def __getfullVariableNameByKey(self, key:str):
+        fullVariableKeyName = self.thisDictionaryName+"_"+key
+        return fullVariableKeyName
+
+    def setVal(self, key: str, val):
+        fullVariableKeyName = self.__getfullVariableNameByKey()
+
+        # Remove the variable if already in there
+        if self.parentDataStore.hasVariable(fullVariableKeyName):
+            self.parentDataStore.removeVariable(fullVariableKeyName)
+
+        # Declare the new variable and add it to the data store by executing the context
+        varDecl = ASTFuzzerNode_VariableDecl(varName=fullVariableKeyName, typeName=self.valueDataType,
+                                             defaultValue=None, annotation=self.valuesAnnotation,
+                                             currentContextDataStore = self.parentDataStore)    # ADds a variabile
+
+        currentASTFuzzerNodeExecutor = globals()['currentASTFuzzerNodeExecutor']
+        assert currentASTFuzzerNodeExecutor, "at this point i was expecing this to be set !!!. No constructor was called for it"
+        currentASTFuzzerNodeExecutor.executeNode(varDecl, self.parentDataStore)
+
+        # TODO: need to assign node with key
+
+        self.internalValue[key] = val
+
+    def getVal(self, key: str):
+        assert key not in self.internalValue
+
+
+        # TODO: think in the context of symbolic variables !!!
+        return self.internalValue[key]
+
+    # Returns a list with all content stored
+    def getAllContent(self):
+        return self.internalValue
+
+    # Creates a persistent iterator on
+    """
+    def getIterator(self) -> DictionaryWithStringKey_iterator:
+        assert self.existingIter is None
+        newIter = DictionaryWithStringKey_iterator(self)
+        self.existingIter = newIter
+        return newIter
+
+    # Returns true if there is an iteration in progress
+    def isIterationInProgress(self) -> bool:
+        return self.existingIter is not None
+
+    def clearIterator(self):
+        assert self.existingIter is not None
+        self.existingIter = None
+
+    def __str__(self):
+        if self.internalValue is None:
+            return ""
+        return str(self.internalValue)
+    """
 
 """"
 if __name__ == "__main__":
