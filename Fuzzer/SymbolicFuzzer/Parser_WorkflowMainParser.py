@@ -30,6 +30,7 @@ class WorkflowParser:
         varDecl = ASTFuzzerNode_VariableDecl(varName=workflowName+ ":"+varName, typeName=varType,
                                              defaultValue=defaultValue, annotation=annotation,
                                              currentContextDataStore = dataStoreTemplate)    # ADds a variabile
+        self.astFuzzerNodeExecutor.executeNode(varDecl, dataStoreTemplate)
 
     def parseWorkflows(self, dataStoreTemplate,
                        inputPath : str,

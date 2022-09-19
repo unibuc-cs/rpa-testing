@@ -85,6 +85,8 @@ def getDefaultValueFromExpression(varTypeName: str, defaultExpression: str) -> a
     elif varTypeName == "Int32[]":
         res = [] if defaultExpression is None else ast.literal_eval(defaultExpression)
         assert isinstance(res, list), " The element given as default in this case must be a list !!!"
+    elif varTypeName == "String":
+        res = "" if defaultExpression is None else ast.literal_eval(defaultExpression)
     else:
         raise NotImplementedError("Do it yourself !!")
 
@@ -504,21 +506,27 @@ class FuzzerList:
 
 
 
-
+# Main idea is to offer a high level management of dictionaries.
+# In the background, if the name of dictionary is DNAME, then each key will be named DNAME_KEY and stored in the DataStore.
+# The backend , i.e., this class, will hide this.
 class DictionaryWithStringKey:
     def __init__(self, thisDictionaryName: str, valueDataType: str, valuesAnnotation: VarAnnotation, parentDataStore):
         assert valuesAnnotation.bounds is None, "Dictionaries shouldn't have bounds set. Leave it as many as possible items"
         self.valueDataType = valueDataType
         self.valuesAnnotation = valuesAnnotation
-        self.internalValue = None
+        #self.internalValue = None
         self.existingIter = None
         self.parentDataStore = parentDataStore
         self.thisDictionaryName = thisDictionaryName
 
+        self.allKeysStored = set()
+
+        """
         if self.valuesAnnotation.isFromUserInput:
             self.internalValue = {}  # SymbolicHelpers.createVariable()
         else:
             self.internalValue = {}
+        """
 
     # Retrieve the element for a particular key as a reference so further code can modify it directly
     # This actually mimics the C# code somehow
@@ -537,36 +545,72 @@ class DictionaryWithStringKey:
         fullVariableKeyName = self.thisDictionaryName+"_"+key
         return fullVariableKeyName
 
+    # Sets a value, both symbolically and concrete
     def setVal(self, key: str, val):
         fullVariableKeyName = self.__getfullVariableNameByKey()
 
         # Remove the variable if already in there
         if self.parentDataStore.hasVariable(fullVariableKeyName):
-            self.parentDataStore.removeVariable(fullVariableKeyName)
+            self.__removeVal_internal(fullVariableKeyName)
 
         # Declare the new variable and add it to the data store by executing the context
+        # Note that we pass in the value through the default Value, in current use cases we don't need more.
+        # If needed, we can an assignment node and execute it
         varDecl = ASTFuzzerNode_VariableDecl(varName=fullVariableKeyName, typeName=self.valueDataType,
-                                             defaultValue=None, annotation=self.valuesAnnotation,
+                                             defaultValue=val, annotation=self.valuesAnnotation,
                                              currentContextDataStore = self.parentDataStore)    # ADds a variabile
 
         currentASTFuzzerNodeExecutor = globals()['currentASTFuzzerNodeExecutor']
         assert currentASTFuzzerNodeExecutor, "at this point i was expecing this to be set !!!. No constructor was called for it"
         currentASTFuzzerNodeExecutor.executeNode(varDecl, self.parentDataStore)
 
-        # TODO: need to assign node with key
+        self.allKeysStored.add(fullVariableKeyName)
 
-        self.internalValue[key] = val
+    # Gets the concrete value of a variable by key
+    def getVal(self, key: str) -> any:
+        fullVariableKeyName = self.__getfullVariableNameByKey()
+        return self.parentDataStore.getVariableValue(fullVariableKeyName)
 
-    def getVal(self, key: str):
-        assert key not in self.internalValue
+    def removeVal(self, key: str):
+        fullVariableKeyName = self.__getfullVariableNameByKey()
+        self.__removeVal_internal(key)
+        self.allKeysStored.remove(key)
 
+    def __removeVal_internal(self, fullVarName: str):
+        self.parentDataStore.removeVariable(fullVarName)
+        self.allKeysStored.remove(fullVarName)
 
-        # TODO: think in the context of symbolic variables !!!
-        return self.internalValue[key]
+    # Gets the symbolic value of a variable by key
+    def getSymbolicVariableValue(self, key: str) -> any:
+        fullVariableKeyName = self.__getfullVariableNameByKey()
+        return self.parentDataStore.getSymbolicVariableValue(fullVariableKeyName)
+
+    def hasKey(self, key: str) -> bool:
+        fullVariableKeyName = self.__getfullVariableNameByKey()
+        returnFromDataStore = self.parentDataStore.hasVariable(fullVariableKeyName)
+        returnFromInternal = key in self.allKeysStored
+
+        assert returnFromInternal == returnFromInternal,"Desync !!!"
+        return returnFromDataStore
+
+    def isSymbolicDict(self) -> bool:
+        return self.valuesAnnotation.isFromUserInput
+
+    # Returns true/false depending whether a particular value of a key is symbolic
+    def isVariableSymbolic(self, key: str) -> bool:
+        # Is full dictionary symbolic ?
+        res = self.isSymbolicDict()
+        if res is True:
+            return True
+
+        # If not ,maybe this variable value only is
+        fullVariableKeyName = self.__getfullVariableNameByKey()
+        res = self.getSymbolicVariableValue(fullVariableKeyName)
+        return res is not None
 
     # Returns a list with all content stored
     def getAllContent(self):
-        return self.internalValue
+        return str(self.allKeysStored)
 
     # Creates a persistent iterator on
     """

@@ -83,7 +83,8 @@ class SymbolicExecutionHelpers:
                 valuesSort = SymbolicExecutionHelpers.__fromStrSortToZ3Sort(valuesSort)
                 res = z3.Array(varName, indexSort, valuesSort)
         elif typeName.find("dictionary") != -1:
-            assert None, "symbolic variables will be created at runtime for this data type"
+            # This is just a dummy, internal symbolic values of dictionary will be created at runtime for this data type"
+            res = z3.String(varName)
         elif typeName == "DataTable":
             raise NotImplementedError("Not supported yet but soon..")
         elif typeName == 'Function':
@@ -216,6 +217,9 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
             self.value = DictionaryWithStringKey.Create(thisDictionaryName=varName, valueDataType=valueTypeName,
                                                         valuesAnnotation=self.annotation,
                                                         parentDataStore=self.currentContextDataStore)
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
 
             # Note that in this case the symbolic variables will be created at each set operation inside the dictionary class !
         else:

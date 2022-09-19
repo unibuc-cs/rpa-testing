@@ -51,12 +51,12 @@ class ASTFuzzerNodeExecutor:
     def __init__(self, ExternalCallsDict : DictionaryOfExternalCalls):
         self.ExternalCallsDict = ExternalCallsDict
 
-        assert ['currentASTFuzzerNodeExecutor'] not in globals(), "there is already an execytor in place !! what the hell !!!"
+        #assert ['currentASTFuzzerNodeExecutor'] not in globals(), "there is already an execytor in place !! what the hell !!!"
         globals()['currentASTFuzzerNodeExecutor'] = self
 
     def __del__(self):
-        del globals()['currentASTFuzzerNodeExecutor']
-
+        #del globals()['currentASTFuzzerNodeExecutor']
+        pass
     # Execute a node inside a context
     def executeNode(self, node : ASTFuzzerNode, executionContext : [SMTPath, DataStore]):
         contextDataStore = executionContext.dataStore if isinstance(executionContext, SMTPath) else executionContext
