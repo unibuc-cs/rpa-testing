@@ -156,7 +156,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
                     self.annotation.pattern = str(annotationTag['pattern'])
                 if 'userInput' in annotationTag:
                     valSpec = annotationTag['userInput']
-                    self.annotation.isFromUserInput = 1 if (valSpec == 'True' or valSpec == '1' or valSpec == 'true') else 0
+                    self.annotation.isFromUserInput = 1 if (valSpec == 'True' or int(valSpec) == 1 or valSpec == 'true') else 0
                     if self.annotation.isFromUserInput == 1:
                         assert self.defaultValue == None, "In the case of variables coming as inputs you can't put a default value !"
 

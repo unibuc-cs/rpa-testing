@@ -192,6 +192,7 @@ def unitTest7():
 
     # Declare a variable
     annotation = {
+            "userInput" : 1,
             "min": 0,
             "max": 9999
           }
@@ -259,19 +260,9 @@ def unitTest7():
     astFuzzerNodeExecutor.executeNode(res_code_block2_float, dataStore)
 
     return
-"""
 
-    # Call a put value function using reference API and call to get ref to a particular index
-    code_block1 = "actual_pin_values.SetElementAt(local_number_retries, expected_pin * 10)"
-    code_block2 = "PrettyPrint(actual_pin_values.GetElementAt(local_number_retries))"
 
-    result1: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block1)[0]
-    astFuzzerNodeExecutor.executeNode(result1, dataStore)
-
-    result2: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block2)[0]
-    astFuzzerNodeExecutor.executeNode(result2, dataStore)
-"""
-
+def unitTest8():
 
 
 if __name__ == '__main__':
@@ -281,7 +272,8 @@ if __name__ == '__main__':
     #unitTest4()
     #unitTest5()
     #unitTest6()
-    unitTest7()
+    #unitTest7()
+    unitTest8()
 
     sys.exit(0)
 
