@@ -168,7 +168,7 @@ class WorkflowParser:
                         workflowGraph.graphInst.add_edge(parentNodeInst, trans_branchDest_nodeInst, label=edgeLabel, labelfontsize=20)
 
                 elif parentNodeInst.nodeType == NodeTypes.FLOW_NODE:
-                    if len(transitions) > 0:+
+                    if len(transitions) > 0:
                         assert len(transitions) == 1 and transitions[0]["value"] == "True", "This is the kind of input we expect for a flow transition node (not sink)"
                         trans = transitions[0]
                         trans_branchDest_nodeId = trans["destination"]

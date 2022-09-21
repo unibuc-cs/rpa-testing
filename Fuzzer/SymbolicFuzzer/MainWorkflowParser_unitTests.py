@@ -192,7 +192,7 @@ def unitTest7():
 
     # Declare a variable
     annotation = {
-            "userInput" : 1,
+            "userInput" : 0, # Put 1 if dictionary values need or influence branching and testing propocess paths !!
             "min": 0,
             "max": 9999
           }
@@ -261,7 +261,16 @@ def unitTest7():
 
     return
 
+def unitTest8():
+    # Init the base objects
+    dataStore = DataStore()
+    externalFunctionsDict = DictionaryOfExternalCalls()
+    astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(externalFunctionsDict)
+    ourMainWorkflowParser = WorkflowExpressionsParser()
 
+    code_except = "Exception(0, 'msg1')"
+    res_code_except: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_except)
+    astFuzzerNodeExecutor.executeNode(res_code_except, dataStore)
 
 if __name__ == '__main__':
     #unitTest1()
@@ -270,8 +279,8 @@ if __name__ == '__main__':
     #unitTest4()
     #unitTest5()
     #unitTest6()
-    unitTest7()
-    #unitTest8()
+    #unitTest7()
+    unitTest8()
 
     sys.exit(0)
 
