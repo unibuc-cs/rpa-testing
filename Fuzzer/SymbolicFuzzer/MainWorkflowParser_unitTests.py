@@ -270,8 +270,8 @@ if __name__ == '__main__':
     #unitTest4()
     #unitTest5()
     #unitTest6()
-    #unitTest7()
-    unitTest8()
+    unitTest7()
+    #unitTest8()
 
     sys.exit(0)
 
