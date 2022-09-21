@@ -262,8 +262,6 @@ def unitTest7():
     return
 
 
-def unitTest8():
-
 
 if __name__ == '__main__':
     #unitTest1()
