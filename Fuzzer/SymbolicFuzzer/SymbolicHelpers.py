@@ -214,7 +214,12 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
             if self.annotation.isFromUserInput:
                 self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
         elif typeName == "Float":
-            raise NotImplementedError("Not yet")
+            self.value = getDefaultValueFromExpression(varTypeName=typeName,
+                                                       defaultExpression=self.defaultValue)
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName,
+                                                                             annotation=self.annotation)
         elif typeName in ["dictionary_string_Int32", "dictionary_string_Boolean", "dictionary_string_Float", "dictionary_string_String"]:
             internalDictDataType = None
             indexOfLastUnderscore = typeName.rfind("_")

@@ -87,6 +87,8 @@ def getDefaultValueFromExpression(varTypeName: str, defaultExpression: str) -> a
         assert isinstance(res, list), " The element given as default in this case must be a list !!!"
     elif varTypeName == "String":
         res = "" if defaultExpression is None else ast.literal_eval(defaultExpression)
+    elif varTypeName == "Float":
+        res = 0.0 if defaultExpression is None else float(defaultExpression)
     else:
         raise NotImplementedError("Do it yourself !!")
 

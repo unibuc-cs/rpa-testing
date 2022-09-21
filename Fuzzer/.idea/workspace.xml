@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eedab630-723f-420f-9857-7b71f9a3d182" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../C#Models/SimpleBankLoanCSharp/debugGraph.png" beforeDir="false" afterPath="$PROJECT_DIR$/../C#Models/SimpleBankLoanCSharp/debugGraph.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C#Models/SimpleBankLoanCSharp/generatedTests.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../C#Models/SimpleBankLoanCSharp/generatedTests.csv" afterDir="false" />
-    </list>
+    <list default="true" id="eedab630-723f-420f-9857-7b71f9a3d182" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,18 +10,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="1wdGhhj3uGIumkScKPK0xYkC8ti" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/SymbolicFuzzer" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/repos/rpa-testing/Fuzzer/SymbolicFuzzer",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -35,6 +36,7 @@
       <updated>1628781173121</updated>
       <workItem from="1628781174446" duration="87000" />
       <workItem from="1628781271650" duration="402000" />
+      <workItem from="1663083323639" duration="109000" />
     </task>
     <servers />
   </component>

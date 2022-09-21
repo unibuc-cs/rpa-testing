@@ -243,16 +243,20 @@ def unitTest7():
     res_code_block2_string: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block2_string)[0]
     astFuzzerNodeExecutor.executeNode(res_code_block2_string, dataStore)
 
-    """
+
     # float values dict
     #-------------------------
     my_dict_string_Float = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"my_dict_string_Float",
                                           typeName='dictionary_string_Float', annotation=annotation, currentContextDataStore=dataStore)
     astFuzzerNodeExecutor.executeNode(my_dict_string_Float, dataStore)
-    code_block1_float = "my_dict_string_Float.setVal(\"key123\", 123.23)"
+
+    code_block1_float = "my_dict_string_Float.setVal(\"key123\", 123.123)"
+    code_block2_float = "PrettyPrint(my_dict_string_Float.getVal(\"key123\"))"
+
     res_code_block1_float: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block1_float)[0]
     astFuzzerNodeExecutor.executeNode(res_code_block1_float, dataStore)
-    """
+    res_code_block2_float: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block2_float)[0]
+    astFuzzerNodeExecutor.executeNode(res_code_block2_float, dataStore)
 
     return
 """
