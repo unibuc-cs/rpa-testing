@@ -12,7 +12,7 @@ def unitTest1():
     # Declare a variable
     varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"myStr",
                                           typeName='Int32',
-                                          defaultVal=123)
+                                          defaultVal=123, currentContextDataStore=dataStore)
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Call a simple print function registered externally
@@ -32,7 +32,7 @@ def unitTest2():
     ourMainWorkflowParser.reset()
 
     # Declare a variable
-    varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"myStr", typeName='Int32', defaultVal=123)
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"myStr", typeName='Int32', defaultVal=123, currentContextDataStore=dataStore)
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Test code: Convert it to string, then to integer, then to float
@@ -57,7 +57,7 @@ def unitTest3():
     # Declare a variable
     varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"local_test_data",
                                           typeName='DataTable', lazyLoad=False,
-                                          defaultPath="unitttestingdata\\pin_mocked_data.csv")
+                                          defaultPath="unitttestingdata\\pin_mocked_data.csv", currentContextDataStore=dataStore)
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Call a simple print function registered externally
@@ -75,7 +75,7 @@ def unitTest4():
     ourMainWorkflowParser = WorkflowExpressionsParser()
 
     # Declare a variable
-    varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"local_test_data", typeName='DataTable', lazyLoad=True)
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"local_test_data", typeName='DataTable', lazyLoad=True, currentContextDataStore=dataStore)
     astFuzzerNodeExecutor.executeNode(varDecl1)
 
     # Call a simple print function registered externally
@@ -93,7 +93,7 @@ def unitTest5():
     ourMainWorkflowParser = WorkflowExpressionsParser()
 
     # Declare a variable
-    varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"local_test_data", typeName='DataTable', lazyLoad=True)
+    varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"local_test_data", typeName='DataTable', lazyLoad=True, currentContextDataStore=dataStore)
     astFuzzerNodeExecutor.executeNode(varDecl1, dataStore)
 
     code_block = r'''
@@ -156,7 +156,7 @@ def unitTest6():
             "max": 9999
           }
     varDecl1 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"actual_pin_values",
-                                          typeName='Int32[]', annotation=annotation)
+                                          typeName='Int32[]', annotation=annotation, currentContextDataStore=dataStore)
     astFuzzerNodeExecutor.executeNode(varDecl1, dataStore)
 
     annotation = {
@@ -164,11 +164,11 @@ def unitTest6():
             "max": 9999
     }
     varDecl2 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"local_number_retries",
-                                          typeName='Int32', annotation=annotation, defaultValue=0)
+                                          typeName='Int32', annotation=annotation, defaultValue=0, currentContextDataStore=dataStore)
     astFuzzerNodeExecutor.executeNode(varDecl2, dataStore)
 
     varDecl3 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"expected_pin",
-                                          typeName='Int32', annotation=annotation, defaultValue=9123)
+                                          typeName='Int32', annotation=annotation, defaultValue=9123, currentContextDataStore=dataStore)
     astFuzzerNodeExecutor.executeNode(varDecl3, dataStore)
 
     # Call a put value function using reference API and call to get ref to a particular index
@@ -183,13 +183,101 @@ def unitTest6():
 
     return
 
+def unitTest7():
+    # Init the base objects
+    dataStore = DataStore()
+    externalFunctionsDict = DictionaryOfExternalCalls()
+    astFuzzerNodeExecutor = ASTFuzzerNodeExecutor(externalFunctionsDict)
+    ourMainWorkflowParser = WorkflowExpressionsParser()
+
+    # Declare a variable
+    annotation = {
+            "min": 0,
+            "max": 9999
+          }
+
+    # Create all dictionaries types and test them
+
+    # int values dict
+    #-------------------------
+    my_dict_string_Int32 = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"my_dict_string_Int32",
+                                          typeName='dictionary_string_Int32', annotation=annotation, currentContextDataStore=dataStore)
+    astFuzzerNodeExecutor.executeNode(my_dict_string_Int32, dataStore)
+
+    code_block1_int = "my_dict_string_Int32.setVal(\"key123\", 123)"
+    code_block2_int = "PrettyPrint(my_dict_string_Int32.getVal(\"key123\"))"
+
+    res_code_block1_int: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block1_int)[0]
+    astFuzzerNodeExecutor.executeNode(res_code_block1_int, dataStore)
+    res_code_block2_int: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block2_int)[0]
+    astFuzzerNodeExecutor.executeNode(res_code_block2_int, dataStore)
+    #-------------------------
+
+
+    # boolean values dict
+    #-------------------------
+    my_dict_string_Boolean = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"my_dict_string_Boolean",
+                                          typeName='dictionary_string_Boolean', annotation=annotation, currentContextDataStore=dataStore)
+    astFuzzerNodeExecutor.executeNode(my_dict_string_Boolean, dataStore)
+
+    code_block1_boolean = "my_dict_string_Boolean.setVal(\"key123\", True)"
+    code_block2_boolean = "PrettyPrint(my_dict_string_Boolean.getVal(\"key123\"))"
+
+    res_code_block1_boolean: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block1_boolean)[0]
+    astFuzzerNodeExecutor.executeNode(res_code_block1_boolean, dataStore)
+    res_code_block2_boolean: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block2_boolean)[0]
+    astFuzzerNodeExecutor.executeNode(res_code_block2_boolean, dataStore)
+
+    # string values dict
+    #-------------------------
+    my_dict_string_String = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"my_dict_string_String",
+                                          typeName='dictionary_string_String', annotation=annotation, currentContextDataStore=dataStore)
+    astFuzzerNodeExecutor.executeNode(my_dict_string_String, dataStore)
+
+    code_block1_string = "my_dict_string_String.setVal(\"key123\", \"my123string\")"
+    code_block2_string = "PrettyPrint(my_dict_string_String.getVal(\"key123\"))"
+
+
+    res_code_block1_string: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block1_string)[0]
+    astFuzzerNodeExecutor.executeNode(res_code_block1_string, dataStore)
+    res_code_block2_string: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block2_string)[0]
+    astFuzzerNodeExecutor.executeNode(res_code_block2_string, dataStore)
+
+    """
+    # float values dict
+    #-------------------------
+    my_dict_string_Float = ASTFuzzerNode_VariableDecl(varName=ASTFuzzerNode.currentWorkflowNameParsed + ":"+"my_dict_string_Float",
+                                          typeName='dictionary_string_Float', annotation=annotation, currentContextDataStore=dataStore)
+    astFuzzerNodeExecutor.executeNode(my_dict_string_Float, dataStore)
+    code_block1_float = "my_dict_string_Float.setVal(\"key123\", 123.23)"
+    res_code_block1_float: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block1_float)[0]
+    astFuzzerNodeExecutor.executeNode(res_code_block1_float, dataStore)
+    """
+
+    return
+"""
+
+    # Call a put value function using reference API and call to get ref to a particular index
+    code_block1 = "actual_pin_values.SetElementAt(local_number_retries, expected_pin * 10)"
+    code_block2 = "PrettyPrint(actual_pin_values.GetElementAt(local_number_retries))"
+
+    result1: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block1)[0]
+    astFuzzerNodeExecutor.executeNode(result1, dataStore)
+
+    result2: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_block2)[0]
+    astFuzzerNodeExecutor.executeNode(result2, dataStore)
+"""
+
+
+
 if __name__ == '__main__':
     #unitTest1()
     #unitTest2()
     #unitTest3()
     #unitTest4()
-    unitTest5()
+    #unitTest5()
     #unitTest6()
+    unitTest7()
 
     sys.exit(0)
 

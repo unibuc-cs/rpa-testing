@@ -42,7 +42,6 @@ class WorkflowParser:
         print(f"Current dir is {os.getcwd()}")
         with open(inputPath) as json_file:
             dataAll = json.load(json_file)
-
             workflowsDataSpec = dataAll['workflows']
             graph = dataAll['graph']
             startNode = dataAll['startNode']
@@ -169,7 +168,7 @@ class WorkflowParser:
                         workflowGraph.graphInst.add_edge(parentNodeInst, trans_branchDest_nodeInst, label=edgeLabel, labelfontsize=20)
 
                 elif parentNodeInst.nodeType == NodeTypes.FLOW_NODE:
-                    if len(transitions) > 0:
+                    if len(transitions) > 0:+
                         assert len(transitions) == 1 and transitions[0]["value"] == "True", "This is the kind of input we expect for a flow transition node (not sink)"
                         trans = transitions[0]
                         trans_branchDest_nodeId = trans["destination"]

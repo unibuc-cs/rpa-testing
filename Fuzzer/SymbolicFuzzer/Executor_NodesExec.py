@@ -4,7 +4,7 @@
 from Executor_DataStore import *
 from Parser_Functions import *
 from Parser_DataTypes import *
-
+import builtins
 
 # An abstract class for references to variables
 class VariableRef:
@@ -51,11 +51,11 @@ class ASTFuzzerNodeExecutor:
     def __init__(self, ExternalCallsDict : DictionaryOfExternalCalls):
         self.ExternalCallsDict = ExternalCallsDict
 
-        #assert ['currentASTFuzzerNodeExecutor'] not in globals(), "there is already an execytor in place !! what the hell !!!"
-        globals()['currentASTFuzzerNodeExecutor'] = self
+        assert ('currentASTFuzzerNodeExecutor' not in builtins.__dict__) or (builtins.currentASTFuzzerNodeExecutor is None), "there is already an execytor in place !! what the hell !!!"
+        builtins.currentASTFuzzerNodeExecutor = self
 
     def __del__(self):
-        #del globals()['currentASTFuzzerNodeExecutor']
+        builtins.currentASTFuzzerNodeExecutor = None
         pass
     # Execute a node inside a context
     def executeNode(self, node : ASTFuzzerNode, executionContext : [SMTPath, DataStore]):
