@@ -12,6 +12,24 @@ def outPrettyPrint(*args):
 		outStr += str(arg) + " "
 	print(outStr)
 
+def outException(*args):
+	outStr = "Exception: "
+
+	# validate first fatal parameter
+	assert isinstance(args[0], int), "First parameter must be 1 if fatal, or 0 if not"
+	isFatal = int(args[0])
+
+	# Show the message first
+	for arg in args[1:]:
+		outStr += str(arg) + " "
+	print(outStr)
+
+	# Judge if fatal
+	if isFatal:
+		print("Fatal exception")
+	else:
+		print("Not a fatal exception")
+
 def LoadCSVDefault(*args):
 	dataTable = DataTable(path=args[0], lazyLoad=False)
 	return dataTable
@@ -24,6 +42,7 @@ class DictionaryOfExternalCalls():
 	# Initialization of defaults , could be overriden by client with addFunctor function
 	def defaultSetup(self):
 		self.addFunctor("PrettyPrint", outPrettyPrint)
+		self.addFunctor("Exception", outException)
 		self.addFunctor("LoadCSV", LoadCSVDefault)
 
 	def addFunctor(self, funcStr : str, funcMethod : any):

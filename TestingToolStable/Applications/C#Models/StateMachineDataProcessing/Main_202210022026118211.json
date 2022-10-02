@@ -5,25 +5,23 @@
         "OutputData": {
           "Type": "DataTable",
           "Annotation": {
-            "path": "data.csv"
-          }
-        },
-        "in_NumberOfRows": {
-          "Type": "Int32",
-          "Annotation": {
-            "userInput": "True",
-            "min": 0,
-            "max": 100000
+            "path": "data.xlsx"
           }
         },
         "FilteredData": {
           "Type": "DataTable",
           "Annotation": {
-            "path": "FilteredData.csv"
+            "path": "FilteredData.xlsx"
           }
+        },
+        "in_NumberOfRows": {
+          "Type": "Int32",
+          "Default": ""
         }
       },
-      "inputArguments": [],
+      "inputArguments": [
+        "in_NumberOfRows"
+      ],
       "displayName": "Main_1",
       "fullPath": "C:\\GitHubPhD\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\StateMachineDataProcessing\\Main.xaml",
       "invokedBy": "",
@@ -40,7 +38,7 @@
       ]
     },
     "Main_1:Assign_6": {
-      "expression": "in_NumberOfRows = OutputData.Rows.Count",
+      "expression": "in_NumberOfRows = Int32.Parse(OutputData.Rows.Count.ToString())",
       "transitions": [
         {
           "value": "True",

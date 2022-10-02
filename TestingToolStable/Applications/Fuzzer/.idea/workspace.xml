@@ -1,68 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eedab630-723f-420f-9857-7b71f9a3d182" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../C#Models/ProducerCSharp/.local/AllDependencies.json" beforeDir="false" afterPath="$PROJECT_DIR$/../C#Models/ProducerCSharp/.local/AllDependencies.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C#Models/ProducerCSharp/.local/PackageBindingsMetadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/../C#Models/ProducerCSharp/.local/PackageBindingsMetadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C#Models/ProducerCSharp/.local/PackageCache.json" beforeDir="false" afterPath="$PROJECT_DIR$/../C#Models/ProducerCSharp/.local/PackageCache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C#Models/ProducerCSharp/.local/Producer.nuget.props" beforeDir="false" afterPath="$PROJECT_DIR$/../C#Models/ProducerCSharp/.local/Producer.nuget.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C#Models/ProducerCSharp/.local/ProjectSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../C#Models/ProducerCSharp/.local/ProjectSettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C#Models/ProducerCSharp/.local/db/references.db" beforeDir="false" afterPath="$PROJECT_DIR$/../C#Models/ProducerCSharp/.local/db/references.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C#Models/ProducerCSharp/Main.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/../C#Models/ProducerCSharp/Main.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C#Models/SimpleBankLoanCSharp/outputXamlParser.json" beforeDir="false" afterPath="$PROJECT_DIR$/../C#Models/SimpleBankLoanCSharp/outputXamlParser.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/AutoMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/ClosedXML.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/CsvHelper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/ICSharpCode.SharpZipLib.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.AspNet.SignalR.Client.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.AspNetCore.Connections.Abstractions.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.AspNetCore.Http.Connections.Client.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.AspNetCore.Http.Connections.Common.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.AspNetCore.Http.Features.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.AspNetCore.SignalR.Client.Core.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.AspNetCore.SignalR.Client.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.AspNetCore.SignalR.Common.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.AspNetCore.SignalR.Protocols.Json.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.Bcl.AsyncInterfaces.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.Extensions.Configuration.Abstractions.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.Extensions.Configuration.Binder.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.Extensions.Configuration.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.Extensions.DependencyInjection.Abstractions.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.Extensions.DependencyInjection.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.Extensions.Logging.Abstractions.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.Extensions.Logging.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.Extensions.Options.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.Extensions.Primitives.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.VisualStudio.OLE.Interop.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Microsoft.Xaml.Behaviors.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/Newtonsoft.Json.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/System.Buffers.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/System.IO.Abstractions.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/System.IO.Pipelines.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/System.Memory.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/System.Numerics.Vectors.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/System.Runtime.CompilerServices.Unsafe.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/System.Text.Encodings.Web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/System.Text.Json.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/System.Threading.Channels.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/System.Threading.Tasks.Dataflow.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/System.Threading.Tasks.Extensions.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/System.ValueTuple.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/UiPath.OCR.Contracts.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/XMLParsing.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../XMLParser/XMLParsing.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XMLParser/XMLParsing.exe.config" beforeDir="false" afterPath="$PROJECT_DIR$/../XMLParser/XMLParsing.exe.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../XMLParsing/XMLParsing/App.config" beforeDir="false" afterPath="$PROJECT_DIR$/../../../XMLParsing/XMLParsing/App.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../XMLParsing/XMLParsing/Services/Parsers/WorkflowParser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../XMLParsing/XMLParsing/Services/Parsers/WorkflowParser.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../XMLParsing/XMLParsing/XMLParsing.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../../XMLParsing/XMLParsing/XMLParsing.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../XMLParsing/XMLParsing/packages.config" beforeDir="false" />
-    </list>
+    <list default="true" id="eedab630-723f-420f-9857-7b71f9a3d182" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="1wdGhhj3uGIumkScKPK0xYkC8ti" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -70,12 +19,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/repos/rpa-testing/Fuzzer/SymbolicFuzzer",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -86,7 +36,7 @@
       <updated>1628781173121</updated>
       <workItem from="1628781174446" duration="87000" />
       <workItem from="1628781271650" duration="402000" />
-      <workItem from="1651777911964" duration="25000" />
+      <workItem from="1663083323639" duration="109000" />
     </task>
     <servers />
   </component>

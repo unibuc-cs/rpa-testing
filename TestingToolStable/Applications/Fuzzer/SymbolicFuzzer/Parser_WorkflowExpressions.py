@@ -392,7 +392,7 @@ class WorkflowExpressionsParser(ast.NodeVisitor):
             self.visit(code_block)
 
             result = self.getFinalOutput()
-            assert len(result) == 1, " Currently we expected 1 understandable code block in the input. Do you need more or less ?"
+            #assert len(result) == 1, " Currently we expected 1 understandable code block in the input. Do you need more or less ?"
             return result
         else:
             #print(match.group('iteratorName'))

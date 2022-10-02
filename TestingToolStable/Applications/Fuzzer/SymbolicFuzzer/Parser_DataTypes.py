@@ -27,6 +27,7 @@ myVar.func2()
 Check the more complex examples below and in your manual
 """
 import copy
+import os
 import sys
 import pandas as pd
 from typing import Dict
@@ -77,13 +78,17 @@ def str2Class(str):
 def getDefaultValueFromExpression(varTypeName: str, defaultExpression: str) -> any:
     res = None
     if varTypeName == "Int32":
-        res = 0 if (defaultExpression is None or defaultExpression == '') else int(defaultExpression)
+        res = 0 if defaultExpression is None else int(defaultExpression)
     elif varTypeName == 'Boolean':
         res = False if (defaultExpression == None or defaultExpression == 'false' or defaultExpression == 'False'
               or int(defaultExpression) == 0) else True
     elif varTypeName == "Int32[]":
         res = [] if defaultExpression is None else ast.literal_eval(defaultExpression)
         assert isinstance(res, list), " The element given as default in this case must be a list !!!"
+    elif varTypeName == "String":
+        res = "" if defaultExpression is None else ast.literal_eval(defaultExpression)
+    elif varTypeName == "Float":
+        res = 0.0 if defaultExpression is None else float(defaultExpression)
     else:
         raise NotImplementedError("Do it yourself !!")
 
@@ -174,8 +179,11 @@ class DataTable_RowsView:
     def Item(self, index) -> DataTable_Row:
         return DataTable_Row(self.data.iloc[index])
 
-    def NumIems(self) -> int:
+    def NumItems(self) -> int:
         return self.data.shape[0]
+
+    def Count(self) -> int:
+        return self.NumItems()
 
     def __call__(self):
         return self
@@ -257,9 +265,17 @@ class DataTable:
         return DataTable_RowsView(self.data)
 
     @property
+    def DataRow(self):
+        return self.Rows()
+
+    @property
     def Columns(self):
         self._checkInit()
         return DataTable_ColumnsView(self.data)
+
+    @property
+    def DataColumn(self):
+        return self.Columns()
 
     # Some aggregate functions for columns
     def Max(self, column):
@@ -489,6 +505,7 @@ class FuzzerList:
         if self.internalValue is None:
             return ""
         return str(self.internalValue)
+
 
 """"
 if __name__ == "__main__":

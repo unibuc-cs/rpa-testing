@@ -11,6 +11,8 @@ from WorkflowGraphBaseNode import BaseSymGraphNode, SymGraphNodeFlow, SymGraphNo
 from SymbolicHelpers import *
 from enum import Enum
 from Parser_DataTypes import *
+import builtins
+
 import csv
 
 # TODO: interface / Z3 only ?
@@ -47,12 +49,12 @@ class SymbolicExecutionHelpers:
             res =  z3.Int(varName)
         elif typeName == "String":
             res = z3.String(varName)
-           # raise NotImplementedError("Pattern support is not yet implemented. DO IT DO NOW FORGET !")
+            #raise NotImplementedError("Pattern support is not yet implemented. DO IT DO NOW FORGET !")
         elif typeName == "Float":
             res = z3.Real(varName)
         elif typeName == 'Bool' or typeName == 'Boolean':
             res = z3.Bool(varName)
-        elif typeName in ('Int32[]', 'Float[]', 'Bool[]'):
+        elif typeName in ('Int32[]', 'Float[]', 'Bool[]', 'String[]'):
             res = None
             if annotation.bounds is not None: # The BEST way to deal with arrays ! know your bounds
                 if typeName == "Int32[]":
@@ -61,14 +63,17 @@ class SymbolicExecutionHelpers:
                     res = z3.BoolVector(varName, annotation.bounds)
                 elif typeName == "Float[]":
                     res = z3.RealVector(varName, annotation.bounds)
+                elif typeName == "String[]":
+                    stringVarsNames = [f"{varName}_{i}" for i in range(annotation.bounds)]
+                    res = z3.Strings(stringVarsNames)
                 else:
                     raise NotImplementedError()
             else: # If REALLY NOT..then Array theory works too...
                 indexSort = "Int"
                 valuesSort = None
 
-                possibleValuesSorts_keys = ["Int", "Bool", "Float"]
-                possibleValuesSorts_values = ["Int", "Bool", "Real"]
+                possibleValuesSorts_keys = ["Int", "Bool", "Float", "String"]
+                possibleValuesSorts_values = ["Int", "Bool", "Real", "String"]
 
                 for vs_key_index, vs_key_str in enumerate(possibleValuesSorts_keys):
                     if vs_key_str in typeName:
@@ -79,6 +84,9 @@ class SymbolicExecutionHelpers:
                 indexSort = SymbolicExecutionHelpers.__fromStrSortToZ3Sort(indexSort)
                 valuesSort = SymbolicExecutionHelpers.__fromStrSortToZ3Sort(valuesSort)
                 res = z3.Array(varName, indexSort, valuesSort)
+        elif typeName.find("dictionary") != -1:
+            # This is just a dummy, internal symbolic values of dictionary will be created at runtime for this data type"
+            res = z3.String(varName)
         elif typeName == "DataTable":
             raise NotImplementedError("Not supported yet but soon..")
         elif typeName == 'Function':
@@ -101,6 +109,12 @@ class SymbolicExecutionHelpers:
         cond = eval(condToSolve)
         return cond
 
+    @staticmethod
+    def createVariableAsDictionary(typeName):
+        assert typeName in ["dictionary_string_int32", "dictionary_string_boolean", "dictionary_string_float"], "unsupported dictionary type, to implement one !"
+
+
+
 
 class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
     """ E.g.
@@ -111,7 +125,7 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
     """
 
     # Will put the variabile in the datastore
-    def __init__(self, varName : str, typeName : str, **kwargs):
+    def __init__(self, varName : str, typeName : str,  **kwargs):
         super().__init__(ASTFuzzerNodeType.VARIABLE_DECL)
         self.typeName = typeName
         self.defaultValue = kwargs['defaultValue'] if 'defaultValue' in kwargs else None
@@ -122,24 +136,29 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
         self.symbolicValue = None
         self.symbolicGenericIndexVar = None # If generic array theory used this will be not none and can be used to put generic conditions on array indices
         self.value = None
+        self.currentContextDataStore = kwargs.get("currentContextDataStore")
+        assert self.currentContextDataStore is not None, "please send a context data store as kwargs!"
 
         # Fill the annotations
-        self.annotation = VarAnnotation()
         annotationTag = kwargs.get('annotation')
-        if annotationTag is not None:
-            if 'bounds' in annotationTag:
-                self.annotation.bounds = int(annotationTag['bounds'])
-            if 'min' in annotationTag:
-                self.annotation.min = int(annotationTag['min'])
-            if 'max' in annotationTag:
-                self.annotation.max = int(annotationTag['max'])
-            if 'pattern' in annotationTag:
-                self.annotation.pattern = str(annotationTag['pattern'])
-            if 'userInput' in annotationTag:
-                valSpec = annotationTag['userInput']
-                self.annotation.isFromUserInput = 1 if (valSpec == 'True' or valSpec == '1' or valSpec == 'true') else 0
-                if self.annotation.isFromUserInput == 1:
-                    assert (self.defaultValue == None or self.defaultValue ==''), "In the case of variables coming as inputs you can't put a default value !"
+        if isinstance(annotationTag, VarAnnotation):
+            self.annotation = annotationTag
+        else:
+            self.annotation = VarAnnotation()
+            if annotationTag is not None:
+                if 'bounds' in annotationTag:
+                    self.annotation.bounds = int(annotationTag['bounds'])
+                if 'min' in annotationTag:
+                    self.annotation.min = int(annotationTag['min'])
+                if 'max' in annotationTag:
+                    self.annotation.max = int(annotationTag['max'])
+                if 'pattern' in annotationTag:
+                    self.annotation.pattern = str(annotationTag['pattern'])
+                if 'userInput' in annotationTag:
+                    valSpec = annotationTag['userInput']
+                    self.annotation.isFromUserInput = 1 if (valSpec == 'True' or int(valSpec) == 1 or valSpec == 'true') else 0
+                    if self.annotation.isFromUserInput == 1:
+                        assert self.defaultValue == None, "In the case of variables coming as inputs you can't put a default value !"
 
         # Build the variabile symbolic and default value depending on its type
         if typeName == "Int32":
@@ -163,9 +182,9 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
             if self.annotation.isFromUserInput:
                 self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
                 if self.annotation.bounds is None:
-                    self.symbolicGenericIndexVar = z3.Int(varName)
+                    self.symbolicGenericIndexVar = z3.String(varName)
 
-        elif typeName.__contains__("List") :
+        elif typeName == "List":
             assert self.annotation is None or self.annotation.isFromUserInput is False, \
                 "List type is not supported for symbolic execution since its element could be anything !!. So no annotation please that involves symbolic"
 
@@ -190,12 +209,30 @@ class ASTFuzzerNode_VariableDecl(ASTFuzzerNode):
 
             self.value = self.defaultValue
         elif typeName == "String":
-            self.value = str(self.defaultValue) if self.defaultValue == None else ""
+            self.value = str(self.defaultValue) if self.defaultValue is not None else ""
 
             if self.annotation.isFromUserInput:
                 self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
         elif typeName == "Float":
-            raise NotImplementedError("Not yet")
+            self.value = getDefaultValueFromExpression(varTypeName=typeName,
+                                                       defaultExpression=self.defaultValue)
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName,
+                                                                             annotation=self.annotation)
+        elif typeName in ["dictionary_string_Int32", "dictionary_string_Boolean", "dictionary_string_Float", "dictionary_string_String"]:
+            internalDictDataType = None
+            indexOfLastUnderscore = typeName.rfind("_")
+            assert indexOfLastUnderscore > 0
+            valueTypeName = typeName[indexOfLastUnderscore + 1:]
+            self.value = DictionaryWithStringKey.Create(thisDictionaryName=varName, valueDataType=valueTypeName,
+                                                        valuesAnnotation=self.annotation,
+                                                        parentDataStore=self.currentContextDataStore)
+
+            if self.annotation.isFromUserInput:
+                self.symbolicValue = SymbolicExecutionHelpers.createVariable(typeName=typeName, varName=varName, annotation=self.annotation)
+
+            # Note that in this case the symbolic variables will be created at each set operation inside the dictionary class !
         else:
             raise  NotImplementedError(f"Unknown decl type {typeName}")
 
@@ -447,3 +484,131 @@ class SMTWorklist:
 
     def __len__(self):
         return len(self.internalHeap)
+
+# Main idea is to offer a high level management of dictionaries.
+# In the background, if the name of dictionary is DNAME, then each key will be named DNAME_KEY and stored in the DataStore.
+# The backend , i.e., this class, will hide this.
+class DictionaryWithStringKey:
+    def __init__(self, thisDictionaryName: str, valueDataType: str, valuesAnnotation: VarAnnotation, parentDataStore):
+        assert valuesAnnotation.bounds is None, "Dictionaries shouldn't have bounds set. Leave it as many as possible items"
+        self.valueDataType = valueDataType
+        self.valuesAnnotation = valuesAnnotation
+        #self.internalValue = None
+        self.existingIter = None
+        self.parentDataStore = parentDataStore
+        self.thisDictionaryName = thisDictionaryName
+
+        self.allKeysStored = set()
+
+        """
+        if self.valuesAnnotation.isFromUserInput:
+            self.internalValue = {}  # SymbolicHelpers.createVariable()
+        else:
+            self.internalValue = {}
+        """
+
+    # Retrieve the element for a particular key as a reference so further code can modify it directly
+    # This actually mimics the C# code somehow
+    def get(self, key : str):
+        assert key in self.internalValue, f"the value for a key named {key} was not set yet in the dictonary!"
+        res = DictionaryKeyValueRef(key)
+        return res
+
+    # A static helper to create an array given a type, annotation and a default value
+    @staticmethod
+    def Create(thisDictionaryName : str, valueDataType: str, valuesAnnotation: VarAnnotation = None, parentDataStore= None):
+        res = DictionaryWithStringKey(thisDictionaryName, valueDataType, valuesAnnotation, parentDataStore = parentDataStore)
+        return res
+
+    def __getfullVariableNameByKey(self, key:str):
+        fullVariableKeyName = self.thisDictionaryName+"_"+key
+        return fullVariableKeyName
+
+    # Sets a value, both symbolically and concrete
+    def setVal(self, key: str, val):
+        fullVariableKeyName = self.__getfullVariableNameByKey(key)
+
+        # Remove the variable if already in there
+        if self.parentDataStore.hasVariable(fullVariableKeyName):
+            self.__removeVal_internal(fullVariableKeyName)
+
+        # Declare the new variable and add it to the data store by executing the context
+        # Note that we pass in the value through the default Value, in current use cases we don't need more.
+        # If needed, we can an assignment node and execute it
+        varDecl = ASTFuzzerNode_VariableDecl(varName=fullVariableKeyName, typeName=self.valueDataType,
+                                             defaultValue=val, annotation=self.valuesAnnotation,
+                                             currentContextDataStore = self.parentDataStore)    # ADds a variabile
+
+        currentASTFuzzerNodeExecutor = builtins.currentASTFuzzerNodeExecutor
+        assert currentASTFuzzerNodeExecutor, "at this point i was expecing this to be set !!!. No constructor was called for it"
+        currentASTFuzzerNodeExecutor.executeNode(varDecl, self.parentDataStore)
+
+        self.allKeysStored.add(fullVariableKeyName)
+
+    # Gets the concrete value of a variable by key
+    def getVal(self, key: str) -> any:
+        fullVariableKeyName = self.__getfullVariableNameByKey(key)
+        return self.parentDataStore.getVariableValue(fullVariableKeyName)
+
+    def removeVal(self, key: str):
+        fullVariableKeyName = self.__getfullVariableNameByKey()
+        self.__removeVal_internal(key)
+        self.allKeysStored.remove(key)
+
+    def __removeVal_internal(self, fullVarName: str):
+        self.parentDataStore.removeVariable(fullVarName)
+        self.allKeysStored.remove(fullVarName)
+
+    # Gets the symbolic value of a variable by key
+    def getSymbolicVariableValue(self, key: str) -> any:
+        fullVariableKeyName = self.__getfullVariableNameByKey()
+        return self.parentDataStore.getSymbolicVariableValue(fullVariableKeyName)
+
+    def hasKey(self, key: str) -> bool:
+        fullVariableKeyName = self.__getfullVariableNameByKey()
+        returnFromDataStore = self.parentDataStore.hasVariable(fullVariableKeyName)
+        returnFromInternal = key in self.allKeysStored
+
+        assert returnFromInternal == returnFromInternal,"Desync !!!"
+        return returnFromDataStore
+
+    def isSymbolicDict(self) -> bool:
+        return self.valuesAnnotation.isFromUserInput
+
+    # Returns true/false depending whether a particular value of a key is symbolic
+    def isVariableSymbolic(self, key: str) -> bool:
+        # Is full dictionary symbolic ?
+        res = self.isSymbolicDict()
+        if res is True:
+            return True
+
+        # If not ,maybe this variable value only is
+        fullVariableKeyName = self.__getfullVariableNameByKey()
+        res = self.getSymbolicVariableValue(fullVariableKeyName)
+        return res is not None
+
+    # Returns a list with all content stored
+    def getAllContent(self):
+        return str(self.allKeysStored)
+
+    # Creates a persistent iterator on
+    """
+    def getIterator(self) -> DictionaryWithStringKey_iterator:
+        assert self.existingIter is None
+        newIter = DictionaryWithStringKey_iterator(self)
+        self.existingIter = newIter
+        return newIter
+
+    # Returns true if there is an iteration in progress
+    def isIterationInProgress(self) -> bool:
+        return self.existingIter is not None
+
+    def clearIterator(self):
+        assert self.existingIter is not None
+        self.existingIter = None
+
+    def __str__(self):
+        if self.internalValue is None:
+            return ""
+        return str(self.internalValue)
+    """

@@ -11,7 +11,7 @@ For a description of parameters run: python Main.py - h, or check the arguments 
 # logging support rather than printf
 
 # First install the packages
-# pip install z3-solver
+# pip install pip install z3-solver
 # pip install py_expression_eval
 # pip install networkx
 # pip install pygraphviz

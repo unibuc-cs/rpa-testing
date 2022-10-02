@@ -96,12 +96,15 @@ class DataStore:
 
     # Retrieve the value of a variable
     def getVariableValue(self, varName) -> any:
+        #assert varName in self.Values, f"variable {varName} is not in the set"
         return self.Values[varName]
 
     def getSymbolicVariableValue(self, varName) -> any:
+        #assert varName in self.SymbolicValues, f"variable {varName} is not in the set"
         return self.SymbolicValues.get(varName)
 
     def getVariableType(self, varName)-> str:
+        #assert varName in self.Types, f"variable {varName} is not in the set"
         return self.Types[varName]
 
     # Tests if the given variable name is stored behind as a list

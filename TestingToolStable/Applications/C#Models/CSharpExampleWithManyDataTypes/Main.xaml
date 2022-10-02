@@ -80,7 +80,7 @@
       <AssemblyReference>ClosedXML</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Flowchart sap2010:Annotation.AnnotationText="@Variables&#xA;{&quot;employeesDT&quot;:{&quot;path&quot;:&quot;employees.csv&quot;}, &quot;userType&quot;: {&quot;possibleValues&quot;:[&quot;HR&quot;,  &quot;PM&quot;, &quot;Developer&quot;, &quot;Architect&quot;]} , &quot;number_of_graduates&quot;:{&quot;min&quot;:0, &quot;max&quot;:1000}, &quot;projects&quot;:{&quot;Type&quot;:&quot;Dictionary&lt;string,int32&gt;&quot;}}&#xA;" sap:VirtualizedContainerService.HintSize="1880,1295" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+  <Flowchart sap2010:Annotation.AnnotationText="@Variables&#xA;{&quot;employeesDT&quot;:{&quot;path&quot;:&quot;employees.csv&quot;}, &quot;userType&quot;: {&quot;possibleValues&quot;:[&quot;HR&quot;,  &quot;PM&quot;, &quot;Developer&quot;, &quot;Architect&quot;]} , &quot;number_of_graduates&quot;:{&quot;min&quot;:0, &quot;max&quot;:1000}, &quot;projects&quot;:{&quot;Type&quot;:&quot;dictionary_string_Int32&quot;}}&#xA;" sap:VirtualizedContainerService.HintSize="1880,1295" sap2010:WorkflowViewState.IdRef="Flowchart_1">
     <Flowchart.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="employeesDT" />
       <Variable x:TypeArguments="x:Int32" Default="0" Name="number_of_graduates" />

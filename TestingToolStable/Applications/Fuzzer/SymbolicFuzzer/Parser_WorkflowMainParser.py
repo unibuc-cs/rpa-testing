@@ -8,6 +8,7 @@ from Parser_WorkflowExpressions import *
 from Executor_NodesExec import *
 from WorkflowGraph import *
 import re
+import  os
 
 class WorkflowParser:
     def __init__(self, astFuzzerNodeExecutor : ASTFuzzerNodeExecutor,
@@ -26,7 +27,9 @@ class WorkflowParser:
 
         # Declare a variable and execute it in the executor
         # This will also put it in the datastore inside executor and make all connection links
-        varDecl = ASTFuzzerNode_VariableDecl(varName=workflowName+ ":"+varName, typeName=varType, defaultValue=defaultValue, annotation=annotation)
+        varDecl = ASTFuzzerNode_VariableDecl(varName=workflowName+ ":"+varName, typeName=varType,
+                                             defaultValue=defaultValue, annotation=annotation,
+                                             currentContextDataStore = dataStoreTemplate)    # ADds a variabile
         self.astFuzzerNodeExecutor.executeNode(varDecl, dataStoreTemplate)
 
     def parseWorkflows(self, dataStoreTemplate,
@@ -36,9 +39,9 @@ class WorkflowParser:
         workflowGraph : WorkflowGraph = WorkflowGraph(dataStoreTemplate=dataStoreTemplate,
                                                       astFuzzerNodeExecutor=self.astFuzzerNodeExecutor)
 
+        print(f"Current dir is {os.getcwd()}")
         with open(inputPath) as json_file:
             dataAll = json.load(json_file)
-
             workflowsDataSpec = dataAll['workflows']
             graph = dataAll['graph']
             startNode = dataAll['startNode']
@@ -151,7 +154,7 @@ class WorkflowParser:
                     # Currently we support two transition on branching nodes, T and F.
                     # Later add support for switch, etc
                     # Technically, this limitation is only on parsing side, as you can see the graph instance support generic transitions !
-                    assert len(transitions) == 2
+                    assert (len(transitions) == 2 or len(transitions)==0 or len(transitions) == 1)
                     for trans in transitions:
                         assert "value" in trans and trans["value"] in ["True", "False"], "Sanity input check failed !"
                         trans_branchValue = trans["value"]

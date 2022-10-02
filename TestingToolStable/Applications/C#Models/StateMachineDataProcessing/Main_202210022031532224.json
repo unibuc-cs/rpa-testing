@@ -5,21 +5,16 @@
         "OutputData": {
           "Type": "DataTable",
           "Annotation": {
-            "path": "data.csv"
+            "path": "data.xlsx"
           }
         },
         "in_NumberOfRows": {
-          "Type": "Int32",
-          "Annotation": {
-            "userInput": "True",
-            "min": 0,
-            "max": 100000
-          }
+          "Type": "Int32"
         },
         "FilteredData": {
           "Type": "DataTable",
           "Annotation": {
-            "path": "FilteredData.csv"
+            "path": "FilteredData.xlsx"
           }
         }
       },

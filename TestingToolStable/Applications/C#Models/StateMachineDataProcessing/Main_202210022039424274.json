@@ -5,7 +5,7 @@
         "OutputData": {
           "Type": "DataTable",
           "Annotation": {
-            "path": "data.csv"
+            "path": "data.xlsx"
           }
         },
         "in_NumberOfRows": {
@@ -19,7 +19,7 @@
         "FilteredData": {
           "Type": "DataTable",
           "Annotation": {
-            "path": "FilteredData.csv"
+            "path": "FilteredData.xlsx"
           }
         }
       },

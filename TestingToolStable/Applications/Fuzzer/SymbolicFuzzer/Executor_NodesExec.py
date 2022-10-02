@@ -4,7 +4,7 @@
 from Executor_DataStore import *
 from Parser_Functions import *
 from Parser_DataTypes import *
-
+import builtins
 
 # An abstract class for references to variables
 class VariableRef:
@@ -32,11 +32,31 @@ class FuzzerArrayRefIndex(VariableRef):
         return self.parentInstance.getVal(self.index.val)
 
 
+class DictionaryKeyValueRef(VariableRef):
+    def __init__(self, key: str, parentInstace: DictionaryWithStringKey, dataStore: DataStore):
+        super().__init__(parentInstace, dataStore)
+        self.key: str = key
+
+    def assignValue(self, val):
+        self.parentInstance.setVal(self.key, val)
+
+    def getValue(self):
+        return self.parentInstance.getVal(self.key)
+
+
+
+
 # This class will be responsible for the execution of ASTFuzzer nodes
 class ASTFuzzerNodeExecutor:
     def __init__(self, ExternalCallsDict : DictionaryOfExternalCalls):
         self.ExternalCallsDict = ExternalCallsDict
 
+        assert ('currentASTFuzzerNodeExecutor' not in builtins.__dict__) or (builtins.currentASTFuzzerNodeExecutor is None), "there is already an execytor in place !! what the hell !!!"
+        builtins.currentASTFuzzerNodeExecutor = self
+
+    def __del__(self):
+        builtins.currentASTFuzzerNodeExecutor = None
+        pass
     # Execute a node inside a context
     def executeNode(self, node : ASTFuzzerNode, executionContext : [SMTPath, DataStore]):
         contextDataStore = executionContext.dataStore if isinstance(executionContext, SMTPath) else executionContext
@@ -61,7 +81,7 @@ class ASTFuzzerNodeExecutor:
 
         elif isinstance(node, (list, set)):
             # TODO: should we add a specialized LIST set node for parsing now ?
-            fuzzerList = FuzzerList()
+            fuzzerList = FuzzerList(annotation=None)
             for exprNode in node:
                 resExprEval = self.executeNode(exprNode, executionContext)
                 fuzzerList.Add(resExprEval)
