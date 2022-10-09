@@ -32,6 +32,7 @@ import sys
 import pandas as pd
 from typing import Dict
 import ast
+from datetime import datetime
 
 # Configuration debugging
 class DebuggingOptions():
@@ -241,6 +242,19 @@ class DataTable_iterator:
         self.rowIterIndex = None
         self.parentTable.clearIterator()
     # --- END ITERATION LOGIC -------------------------------------
+
+class DateTime:
+    def __init__(self, dateAndTime_concrete : str, dateAndTime_format : str):
+        self.dateTimeRef = datetime.strptime(dateAndTime_concrete, dateAndTime_format)
+    def day(self):
+        return self.dateTimeRef.day
+    def year(self):
+        return self.dateTimeRef.year
+    def month(self):
+        return self.dateTimeRef.month
+
+    def __str__(self):
+        return str(self.dateTimeRef)
 
 class DataTable:
     def __init__(self, **kwargs):

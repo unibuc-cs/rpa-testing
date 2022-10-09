@@ -4,7 +4,7 @@
 # The client can then import its own function set here to extend the system
 
 import sys
-from Parser_DataTypes import DataTable, removeNamespacesFromName
+from Parser_DataTypes import DataTable, removeNamespacesFromName, DateTime
 
 def outPrettyPrint(*args):
 	outStr = "PrettyPrint: "
@@ -34,6 +34,11 @@ def LoadCSVDefault(*args):
 	dataTable = DataTable(path=args[0], lazyLoad=False)
 	return dataTable
 
+def CreateRuntimeDateTime(*args):
+	assert len(args) == 2, "You should provide first parameter as a string to the concrete data, the second is format "
+	dateTime = DateTime(args[0], args[1])
+	return dateTime
+
 class DictionaryOfExternalCalls():
 	def __init__(self):
 		self.funcToCallForSymbol = {}
@@ -44,6 +49,7 @@ class DictionaryOfExternalCalls():
 		self.addFunctor("PrettyPrint", outPrettyPrint)
 		self.addFunctor("Exception", outException)
 		self.addFunctor("LoadCSV", LoadCSVDefault)
+		self.addFunctor("DateTime", CreateRuntimeDateTime)
 
 	def addFunctor(self, funcStr : str, funcMethod : any):
 		self.funcToCallForSymbol[funcStr] = funcMethod

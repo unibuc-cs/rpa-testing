@@ -272,6 +272,14 @@ def unitTest8():
     res_code_except: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_except)
     astFuzzerNodeExecutor.executeNode(res_code_except, dataStore)
 
+    code_dateTime_1 = 'PrettyPrint(DateTime("10/9/2022 15:30", "%m/%d/%Y %H:%M").year())'
+    res_code_dateTime_1: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_dateTime_1)
+    astFuzzerNodeExecutor.executeNode(res_code_dateTime_1, dataStore)
+
+    code_dateTime_2 = 'PrettyPrint(DateTime("10/9/2022 15:30", "%m/%d/%Y %H:%M").month())'
+    res_code_dateTime_2: WorkflowCodeBlockParsed = ourMainWorkflowParser.parseModuleCodeBlock(code_dateTime_2)
+    astFuzzerNodeExecutor.executeNode(res_code_dateTime_2, dataStore)
+
 if __name__ == '__main__':
     #unitTest1()
     #unitTest2()
