@@ -1,0 +1,214 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "rmn": {
+          "Type": "String",
+          "Default": "RMN"
+        },
+        "neurosurgeryConsult": {
+          "Type": "String",
+          "Default": "Neurosurgery consult"
+        },
+        "kinetotherapy": {
+          "Type": "String",
+          "Default": "Kinetotherapy"
+        },
+        "options": {
+          "Type": "String[]",
+          "Default": "new []{rmn, neurosurgeryConsult, kinetotherapy}"
+        },
+        "yesOtherSelection": {
+          "Type": "String",
+          "Default": "1.ToString()"
+        },
+        "noOtherSelection": {
+          "Type": "String",
+          "Default": "0.ToString()"
+        },
+        "yesNo": {
+          "Type": "String[]",
+          "Default": "new []{yesOtherSelection, noOtherSelection}"
+        },
+        "prices": {
+          "Type": "Dictionary`2",
+          "Default": "new Dictionary<String, Int32>{{rmn,1000},{neurosurgeryConsult,500},{kinetotherapy,200}}"
+        },
+        "discounts": {
+          "Type": "Dictionary`2",
+          "Default": "new Dictionary<String, Boolean>{{rmn,true},{neurosurgeryConsult,true},{kinetotherapy,false}}"
+        },
+        "totalCost": {
+          "Type": "Int32",
+          "Default": "0"
+        },
+        "in_age": {
+          "Type": "Int32",
+          "Default": ""
+        },
+        "in_response": {
+          "Type": "String",
+          "Default": ""
+        },
+        "in_addAnotherService": {
+          "Type": "Int32",
+          "Default": ""
+        }
+      },
+      "inputArguments": [
+        "in_age",
+        "in_response",
+        "in_addAnotherService"
+      ],
+      "displayName": "Main_1",
+      "fullPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\PrivateHospital\\Main.xaml",
+      "invokedBy": "",
+      "startNode": "Main_1:Sequence_1"
+    }
+  ],
+  "graph": {
+    "Main_1:Sequence_1": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Age_>_18_4"
+        }
+      ]
+    },
+    "Main_1:Age_>_18_4": {
+      "expression": "in_age > 18",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Age_>_65_5"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Discount?_14"
+        }
+      ]
+    },
+    "Main_1:Age_>_65_5": {
+      "expression": "in_age > 65",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Discount?_20"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Assign_13"
+        }
+      ]
+    },
+    "Main_1:Add_another_service?_10": {
+      "expression": "in_addAnotherService == 1",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Age_>_18_4"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Virtual_Flowchart_End_21"
+        }
+      ]
+    },
+    "Main_1:Assign_13": {
+      "Annotation": {
+        "expression": "totalCost = totalCost + prices.getVal(\"in_response\")"
+      },
+      "expression": "totalCost = totalCost + prices[in_response]",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Add_another_service?_10"
+        }
+      ]
+    },
+    "Main_1:Discount?_14": {
+      "expression": "discounts[in_response]",
+      "Annotation": {
+        "expression": "discounts.getVal(in_response) = True"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_15"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Assign_16"
+        }
+      ]
+    },
+    "Main_1:Assign_15": {
+      "Annotation": {
+        "expression": "totalCost = totalCost + (prices.getVal(\"in_response\") - prices.getVal(\"in_response\")*50/100)"
+      },
+      "expression": "totalCost = totalCost + (prices[in_response] - prices[in_response]*50/100)",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Add_another_service?_10"
+        }
+      ]
+    },
+    "Main_1:Assign_16": {
+      "Annotation": {
+        "expression": "totalCost = totalCost + prices.getVal(\"in_response\")"
+      },
+      "expression": "totalCost = totalCost + prices[in_response]",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Add_another_service?_10"
+        }
+      ]
+    },
+    "Main_1:Assign_17": {
+      "Annotation": {
+        "expression": "totalCost = totalCost + prices.getVal(\"in_response\")"
+      },
+      "expression": "totalCost = totalCost + prices[in_response]",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Add_another_service?_10"
+        }
+      ]
+    },
+    "Main_1:Assign_18": {
+      "Annotation": {
+        "expression": "totalCost = totalCost + (prices.getVal(\"in_response\") - prices.getVal(\"in_response\")*60/100)"
+      },
+      "expression": "totalCost = totalCost + (prices[in_response] - prices[in_response]*60/100)",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Add_another_service?_10"
+        }
+      ]
+    },
+    "Main_1:Discount?_20": {
+      "expression": "discounts[in_response]",
+      "Annotation": {
+        "expression": "discounts.getVal(\"in_response\") = True"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_18"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Assign_17"
+        }
+      ]
+    },
+    "Main_1:Virtual_Flowchart_End_21": {
+      "transitions": []
+    }
+  },
+  "startNode": "Main_1:Sequence_1"
+}

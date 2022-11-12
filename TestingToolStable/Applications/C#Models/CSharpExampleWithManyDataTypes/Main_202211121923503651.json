@@ -1,0 +1,344 @@
+{
+  "workflows": [
+    {
+      "variables": {
+        "CSVPath": {
+          "Type": "String",
+          "Default": "employees.csv"
+        },
+        "out_employeesDT": {
+          "Type": "DataTable"
+        }
+      },
+      "inputArguments": [],
+      "displayName": "ReadEmployeesDT_1",
+      "fullPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\CSharpExampleWithManyDataTypes\\ReadEmployeesDT.xaml",
+      "invokedBy": "Main_1",
+      "startNode": "ReadEmployeesDT_1:ReadEmployeesDT_1"
+    },
+    {
+      "variables": {
+        "employeesDT": {
+          "Type": "DataTable",
+          "Annotation": {
+            "path": "employees.csv"
+          }
+        },
+        "number_of_graduates": {
+          "Type": "Int32",
+          "Default": "0",
+          "Annotation": {
+            "min": 0,
+            "max": 1000
+          }
+        },
+        "projects": {
+          "Type": "Dictionary`2",
+          "Default": "new Dictionary <string,int>()",
+          "Annotation": {
+            "Type": "dictionary_string_Int32"
+          }
+        },
+        "in_userType": {
+          "Type": "String",
+          "Default": "\"admin\""
+        }
+      },
+      "inputArguments": [
+        "in_userType"
+      ],
+      "displayName": "Main_1",
+      "fullPath": "C:\\Users\\marin\\Documents\\Doctorat\\rpa-testing\\TestingToolStable\\Applications\\C#Models\\CSharpExampleWithManyDataTypes\\Main.xaml",
+      "invokedBy": "",
+      "startNode": "Main_1:Invoke_ReadEmployeesDT_workflow_1"
+    }
+  ],
+  "graph": {
+    "Main_1:Invoke_ReadEmployeesDT_workflow_1": {
+      "invokedWorkflow": "ReadEmployeesDT.xaml",
+      "invokedWorkflowDisplayName": "ReadEmployeesDT_1",
+      "variableMappings": [
+        {
+          "destinationWfArg": "out_employeesDT",
+          "argumentType": "Out",
+          "sourceWfValue": "employeesDT"
+        }
+      ],
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ReadEmployeesDT_1:ReadEmployeesDT_1"
+        }
+      ]
+    },
+    "ReadEmployeesDT_1:ReadEmployeesDT_1": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "ReadEmployeesDT_1:Read_CSV_2"
+        }
+      ]
+    },
+    "ReadEmployeesDT_1:Read_CSV_2": {
+      "expression": "out_employeesDT = LoadCSV(CSVPath)",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:User_is_admin?_2"
+        }
+      ]
+    },
+    "Main_1:User_is_admin?_2": {
+      "expression": "in_userType.Equals(\"admin\")",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Update_salary_3"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Flow_Switch_19"
+        }
+      ]
+    },
+    "Main_1:Update_salary_3": {
+      "expression": "for CurrentRow in employeesDT",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Register_date_bigger_than_1_year_5"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Get_number_of_employees_per_project_12"
+        }
+      ]
+    },
+    "Main_1:Register_date_bigger_than_1_year_5": {
+      "expression": "DateTime.ParseExact( CurrentRow[\"register_date\"].ToString(), \"dd.MM.yyyy\", CultureInfo.InvariantCulture) >DateAndTime.Today.AddYears(-1)",
+      "Annotation": {
+        "expression": "DateTime.Parse(CurrentRow.get(\"register_date\"),  getFormat(), getCulture()) > getLastYear()"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:If_master_degree_true,_then_make_a_salary_raise_7"
+        }
+      ]
+    },
+    "Main_1:If_master_degree_true,_then_make_a_salary_raise_7": {
+      "expression": "CurrentRow[\"master_degree\"].ToString().ToLower().Equals(\"true\")",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_9"
+        }
+      ]
+    },
+    "Main_1:Assign_9": {
+      "Annotation": {
+        "expression": "CurrentRow.get(\"register_date\") = Convert.ToDouble(CurrentRow.get(\"register_date\"))*10/100+Convert.ToDouble(CurrentRow.get(\"register_date\"))"
+      },
+      "expression": "CurrentRow[\"salary\"] = Convert.ToDouble(((string)CurrentRow[\"salary\"]))*10/100+Convert.ToDouble((string)CurrentRow[\"salary\"])",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_10"
+        }
+      ]
+    },
+    "Main_1:Assign_10": {
+      "Annotation": {
+        "expression": "projects.getValue(CurrentRow.get(\"project_name\")) = 0"
+      },
+      "expression": "projects[(string)CurrentRow[\"project_name\"]] = 0",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Update_salary_3"
+        }
+      ]
+    },
+    "Main_1:Get_number_of_employees_per_project_12": {
+      "expression": "for CurrentRow in employeesDT",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_14"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:More_than_2_employees_per_project_16"
+        }
+      ]
+    },
+    "Main_1:Assign_14": {
+      "Annotation": {
+        "expression": "projects.getValue(CurrentRow.get(\"project_name\")) = projects.getValue(CurrentRow.get(\"project_name\")) + 1"
+      },
+      "expression": "projects[((string)CurrentRow[\"project_name\"])] = projects[((string)CurrentRow[\"project_name\"])] +1",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Get_number_of_employees_per_project_12"
+        }
+      ]
+    },
+    "Main_1:More_than_2_employees_per_project_16": {
+      "expression": "projects.Values.Max() < 2",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Virtual_Flowchart_End_42"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Virtual_Flowchart_End_42"
+        }
+      ]
+    },
+    "Main_1:Flow_Switch_19": {
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Flow_Switch_Case_PM_43"
+        }
+      ]
+    },
+    "Main_1:User_is_dev_or_architect?_20": {
+      "expression": "in_userType.ToLower().Contains(\"developer\") || in_userType.ToLower().Contains(\"achitect\")",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Virtual_Flowchart_End_42"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Virtual_Flowchart_End_42"
+        }
+      ]
+    },
+    "Main_1:Get_no._of_graduates_23": {
+      "expression": "for CurrentRow in employeesDT",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:If_25"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:No._of_graduates_<=_2?____29"
+        }
+      ]
+    },
+    "Main_1:If_25": {
+      "expression": "((string)CurrentRow[\"master_degree\"]).ToLower().Equals(\"true\")",
+      "Annotation": {
+        "expression": "CurrentRow.get(\"master_degree\").ToLower().Equals(\"true\")"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Assign_27"
+        }
+      ]
+    },
+    "Main_1:Assign_27": {
+      "expression": "number_of_graduates = number_of_graduates+1",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Get_no._of_graduates_23"
+        }
+      ]
+    },
+    "Main_1:No._of_graduates_<=_2?____29": {
+      "expression": "number_of_graduates <= 2",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Virtual_Flowchart_End_42"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Virtual_Flowchart_End_42"
+        }
+      ]
+    },
+    "Main_1:Get_leave_32": {
+      "expression": "for CurrentRow in employeesDT",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:If_34"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Virtual_Flowchart_End_42"
+        }
+      ]
+    },
+    "Main_1:If_34": {
+      "expression": "((string)CurrentRow[\"contract_type\"]).ToLower().Equals(\"short-term\") && ((string)CurrentRow[\"leave_request\"]).ToLower().Equals(\"unpaid-leave\")",
+      "Annotation": {
+        "expression": "CurrentRow.get(\"master_degree\").ToLower().Equals(\"short-term\") && CurrentRow.get(\"leave_request\").ToLower().Equals(\"unpaid-leave\")"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Get_leave_32"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:If_37"
+        }
+      ]
+    },
+    "Main_1:If_37": {
+      "expression": "Convert.ToInt32((string)CurrentRow[\"notice_period\"]) < 5",
+      "Annotation": {
+        "expression": "Convert.ToInt32(CurrentRow.get(\"notice_period\")) < 5"
+      },
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Get_leave_32"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Get_leave_32"
+        }
+      ]
+    },
+    "Main_1:Flow_Switch_Case_PM_43": {
+      "expression": "in_userType == PM",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Get_no._of_graduates_23"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:Flow_Switch_Case_HR_44"
+        }
+      ]
+    },
+    "Main_1:Flow_Switch_Case_HR_44": {
+      "expression": "in_userType == HR",
+      "transitions": [
+        {
+          "value": "True",
+          "destination": "Main_1:Get_leave_32"
+        },
+        {
+          "value": "False",
+          "destination": "Main_1:User_is_dev_or_architect?_20"
+        }
+      ]
+    },
+    "Main_1:Virtual_Flowchart_End_42": {
+      "transitions": []
+    }
+  },
+  "startNode": "Main_1:Invoke_ReadEmployeesDT_workflow_1"
+}

@@ -6,7 +6,7 @@
     "UiPath.Excel.Activities": "[2.12.3]",
     "UiPath.Form.Activities": "[2.0.2-preview]",
     "UiPath.Python.Activities": "[1.6.0]",
-    "UiPath.System.Activities": "[22.4.1]",
+    "UiPath.System.Activities": "[21.10.5]",
     "UiPath.UIAutomation.Activities": "[22.4.5]"
   },
   "webServices": [],
@@ -28,7 +28,8 @@
     "executionType": "Workflow",
     "readyForPiP": false,
     "startsInPiP": false,
-    "mustRestoreAllDependencies": true
+    "mustRestoreAllDependencies": true,
+    "pipType": "ChildSession"
   },
   "designOptions": {
     "projectProfile": "Developement",
@@ -44,6 +45,7 @@
       {
         "editingStatus": "InProgress",
         "testCaseId": "1ba00c7c-651a-4ae3-9283-22aabdaf102b",
+        "testCaseType": "TestCase",
         "fileName": "TestCase.xaml"
       }
     ],

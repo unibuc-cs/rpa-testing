@@ -121,6 +121,20 @@ namespace XMLParsing
             string destinationFileName = "outputXamlParser.json";
             CopyFileContent(jsonFilePath, destinationFileName);
             Console.WriteLine("Copied the content to " + destinationFileName);
+            string text = File.ReadAllText(@"C:\Users\marin\Documents\Doctorat\rpa-testing\TestingToolStable\Applications\C#Models\PrivateHospital\outputXamlParser.json");
+            
+            
+            string find1 = "\"" + "Dictionary`2" + "\"" + "," + "\r\n" + "          \"" +  "Default" + "\"" + ":" + " \"" + "new Dictionary<String, Int32>";
+            string replace1 = "\"" + "Dictionary<String, Int32>" + "\"" + "," + "\r\n" + "          \"" + "Default" + "\"" + ":" + " \"" + "new Dictionary<String, Int32>";
+            text = text.Replace(find1, replace1);
+
+            string find2 = "\"" + "Dictionary`2" + "\"" + "," + "\r\n" + "          \"" + "Default" + "\"" + ":" + " \"" + "new Dictionary<String, Boolean>";
+            string replace2 = "\"" + "Dictionary<String, Boolean>" + "\"" + "," + "\r\n" + "          \"" + "Default" + "\"" + ":" + " \"" + "new Dictionary<String, Boolean>";
+            text = text.Replace(find2, replace2);
+
+            File.WriteAllText(@"C:\Users\marin\Documents\Doctorat\rpa-testing\TestingToolStable\Applications\C#Models\PrivateHospital\outputXamlParser.json", text);
+            Console.WriteLine(text);
+
         }
 
         private static void CopyFileContent(string sourceFile, string destinationFile)
