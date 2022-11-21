@@ -1,6 +1,9 @@
-# rpa-testing
-Test generation for UiPath RPA robots
+# RPA and testing
 
-The stable version of the tool can be found in TestingToolStable
+RPA and testing:
+
+- current work on autonomous testing with RPA
+
+- previous work on test generation for UiPath RPA robots (see TestingToolStable)
 
 Developed by [@unibuc-cs/rpa-testing](https://github.com/orgs/unibuc-cs/teams/rpa-testing)
