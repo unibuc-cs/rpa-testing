@@ -1,0 +1,33 @@
+
+            1. Array boundaries for this
+            elif varType == "Int32[]" or varType == "Int[]" or varType == "Float[]":
+                pass
+
+
+            2.
+                        elif typeName in ('Int32[]', 'Float[]', 'Bool[]'):
+            res = None
+            if annotation.bounds is not None: # The BEST way to deal with arrays ! know your bounds
+                if typeName == "Int32[]":
+                    res = z3.IntVector(varName, annotation.bounds) # Bounds must exist in this case !
+                elif typeName == "Bool[]":
+                    res = z3.BoolVector(varName, annotation.bounds)
+                elif typeName == "Float[]":
+                    res = z3.RealVector(varName, annotation.bounds)
+                else:
+                    raise NotImplementedError()
+            else: # If REALLY NOT..then Array theory works too...
+                indexSort = "Int"
+                valuesSort = None
+
+                possibleValuesSorts_keys = ["Int", "Bool", "Float"]
+                possibleValuesSorts_values = ["Int", "Bool", "Real"]
+
+                for vs_key_index, vs_key_str in enumerate(possibleValuesSorts_keys):
+                    if vs_key_str in typeName:
+                        valuesSort = possibleValuesSorts_values[vs_key_index]
+                        break
+                assert valuesSort, f"Couldn't find a values sort for type name {typeName}"
+
+                indexSort = SymbolicExecutionHelpers.__fromStrSortToZ3Sort(indexSort)
+                valuesSort = SymbolicExecutionHelpers.__fromStrSortToZ3Sort(valuesSort)
